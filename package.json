@@ -1,7 +1,7 @@
 {
-  "name": "taobao-shop",
+  "name": "shop-admin",
   "version": "1.0.0",
-  "description": "my taobao-shop manager system",
+  "description": "my website admin",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
