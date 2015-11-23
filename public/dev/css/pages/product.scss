@@ -1,0 +1,54 @@
+.product-page {
+
+
+    fieldset {
+        padding: 0;
+    }
+    
+
+    textarea {
+        margin:10px 0;
+    }
+    
+    .code-banner {
+        margin-bottom: 10px;
+    }
+    
+    .product-title {
+        img {
+            width: 400px;
+        }
+    }
+    
+    label.error {
+        color: red;
+    }
+    
+    .am-alert {
+        margin:10px 0;
+    }
+    
+    .am-form-inline {
+        span {
+            padding: 0 10px;
+        }
+    }
+    
+}
+
+
+.product-view-page {
+    width: 750px;
+    margin:30px auto;
+
+    .preview-content {
+        img {
+            width: 100%;
+        }
+        p {
+            margin:0;
+            padding:0 15px 15px;
+        }
+    }
+    
+}

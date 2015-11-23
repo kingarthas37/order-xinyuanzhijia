@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title><%= title %></title>
+    <% include ../partials/css %>
+</head>
+<body>
+
+<% include ../partials/header %>
+
+
+
+
+<div class="am-container product-page">
+    
+    <% if (info != '') { %>
+    <div class="am-panel am-panel-success">
+        <div class="am-panel-hd"><h3 class="am-panel-title"><%= info %></h3></div>
+    </div>
+    <% } %>
+    
+    <form id="form-add-product" class="am-form" action="" method="post" target="">
+
+        <fieldset>
+
+            <legend>添加产品</legend>
+
+            <!-- info start -->
+            <div id="content-info" class="am-form-group">
+                <label> <input type="checkbox" checked="checked"/> 使用购买说明</label>
+                <div class="product-title"><img src="https://img.alicdn.com/imgextra/i1/42879206/TB229F_hXXXXXcqXXXXXXXXXXXX_!!42879206.png"/></div>
+                <input id="md-code-info" name="md-code-info" type="text" readonly="readonly" />
+            </div>
+            <!-- info end -->
+
+            <hr/>
+
+            <!-- name start -->
+            <div id="content-name" class="am-form-group">
+                <div class="product-title"><img src="https://img.alicdn.com/imgextra/i1/42879206/TB2wMedhXXXXXaWXXXXXXXXXXXX_!!42879206.png"
+                        /></div>
+                <input  id="md-code-name" required name="md-code-name" type="text" placeholder="输入产品名称[必填]" />
+            </div>
+            <!-- name end -->
+
+            <hr/>
+
+            <!-- select category start -->
+            <div id="content-category" class="am-form-group am-form-select">
+                <label>选择商品分类</label>
+                <select id="select-category" name="select-category" min="1">
+                    <option value="0">请选择商品分类[必填项]</option>
+                    <% for (var i=0;i < category.length; i++) { %>
+                    <option value="<%= category[i].get('categoryId'); %>"> <%= category[i].get('categoryName'); %> </option>
+                    <% } %>
+                </select>
+                <span class="am-form-caret"></span>
+            </div>
+            <!-- select category end -->
+
+            <hr/>
+
+            <!-- detail start -->
+            <div id="content-detail" class="am-form-group">
+                <div class="product-title"><img src="https://img.alicdn.com/imgextra/i1/42879206/TB2sTF6hXXXXXcCXXXXXXXXXXXX_!!42879206.png"
+                        /></div>
+                <textarea id="md-code-detail" name="md-code-detail" rows="5" placeholder="输入产品详情[必填]" required ></textarea>
+            </div>
+            <!-- detail end -->
+
+            <hr/>
+
+            <!-- banner start -->
+            <div id="content-banner" class="am-form-group am-form-select">
+                <label>选择商品匹配的banner</label>
+                <select id="select-banner">
+                    <option value="0" selected="selected">随机选择</option>
+                    <% for(var i=0;i< banner.length;i++) { %>
+                      <option value="<%= banner[i].get('bannerId') %>" data-src="<%= banner[i].get('bannerUrl') %>"><%= banner[i].get('bannerText') %></option>
+                    <% } %>
+                </select>
+                <span class="am-form-caret"></span>
+            </div>
+            <div class="code-banner product-title "></div>
+
+            <input id="md-code-banner" type="text" name="md-code-banner" readonly="readonly" />
+            <!-- banner end -->
+            
+            <hr/>
+  
+            
+            <!-- review start -->
+            <div id="content-review" class="am-form-group">
+                <div class="product-title"><img src="https://img.alicdn.com/imgextra/i4/42879206/TB2sd8VhXXXXXasXpXXXXXXXXXX_!!42879206.png"
+                        /></div>
+                <textarea id="md-code-review" name="md-code-review" rows="3" placeholder="输入店主评语"></textarea>
+            </div>
+            <!-- review end -->
+
+            <hr/>
+
+            <!-- property start -->
+            <div id="content-property" class="am-form-group">
+                <div class="product-title"><img src="https://img.alicdn.com/imgextra/i1/42879206/TB2Z2mghXXXXXaAXXXXXXXXXXXX_!!42879206.png"
+                        /></div>
+                <textarea id="md-code-property" name="md-code-property" rows="3" placeholder="输入产品属性"></textarea>
+            </div>
+            <!-- property end -->
+
+            <hr/>
+
+
+            <!-- instruction start -->
+            <div id="content-instruction" class="am-form-group">
+                <div class="product-title"><img src="https://img.alicdn.com/imgextra/i3/42879206/TB2zUlNhXXXXXcgXpXXXXXXXXXX_!!42879206.png"
+                        /></div>
+                <textarea id="md-code-instruction" name="md-code-instruction" rows="3" placeholder="输入产品说明"></textarea>
+            </div>
+            <!-- instruction end -->
+
+            <hr/>
+ 
+
+            <!-- images start -->
+            <div id="content-image" class="am-form-group">
+                <div class="product-title"><img src="https://img.alicdn.com/imgextra/i1/42879206/TB2Be8OhXXXXXcXXpXXXXXXXXXX_!!42879206.png"
+                        /></div>
+                <textarea id="md-code-image" name="md-code-image" rows="5" placeholder="输入产品图片"></textarea>
+            </div>
+            <!-- images end -->
+
+            <hr/>
+            
+            
+            
+            <!-- video start -->
+            <div id="content-video" class="am-form-group">
+                <div class="product-title"><img src="https://img.alicdn.com/imgextra/i1/42879206/TB2nUd2hXXXXXcLXXXXXXXXXXXX_!!42879206.png"
+                        /></div>
+                <input  id="md-code-video" name="md-code-video" type="text" placeholder="输入产品视频" />
+            </div>
+            <!-- video end -->
+
+            <hr/>
+           
+
+            <div class="am-form-group">
+                <button type="submit" class="am-btn am-btn-primary" data-action="/product/add" data-target="_self">保存</button>
+                <button type="submit" class="am-btn am-btn-success" data-action="/product/preview" data-target="_blank">预览</button>
+            </div>
+
+        </fieldset>
+
+    </form>
+    
+</div>
+
+
+<% include ../partials/footer %>
+<% include ../partials/js %>
+
+<script type="text/javascript">
+    $(function() {
+        var product = require('product');
+        product.addFun();
+    });
+</script>
+</body>
+</html>

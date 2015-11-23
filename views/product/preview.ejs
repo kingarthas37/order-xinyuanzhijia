@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title><%= title %></title>
+    <% include ../partials/css %>
+</head>
+<body>
+
+    <div class="product-view-page">
+
+        <p>
+            <button type="button" class="am-btn am-btn-primary btn-copy">复制代码</button>
+            <button type="button" class="am-btn am-btn-success btn-shot">生成图片</button>
+        </p>
+
+        <hr/>
+        
+        <div class="preview-content">
+           
+            <div>
+ 
+                
+                <div><%- mdCodeBanner.replace(/\<p\>(.+)\<\/p\>/,'$1') %></div>
+
+                <% if (mdCodeInfo) { %>
+                <div><%- mdCodeInfo.replace(/\<p\>(.+)\<\/p\>/,'$1') %></div>
+                <% } %>
+
+                <% if (mdCodeVideo) { %>
+                <div><img src="https://img.alicdn.com/imgextra/i1/42879206/TB2nUd2hXXXXXcLXXXXXXXXXXXX_!!42879206.png"/> </div>
+                <%- mdCodeVideo %>
+                <% } %>
+
+                <% if (mdCodeName) { %>
+                <div><img src="https://img.alicdn.com/imgextra/i3/42879206/TB2Tm9ZgVXXXXXBXpXXXXXXXXXX_!!42879206.png"></div>
+                <%- mdCodeName %>
+                <% } %>
+
+                <% if (mdCodeReview) { %>
+                <div><img src="https://img.alicdn.com/imgextra/i1/42879206/TB2eoSTgVXXXXXCXpXXXXXXXXXX_!!42879206.png"></div>
+                <%- mdCodeReview %>
+                <% } %>
+
+                <% if (mdCodeProperty) { %>
+                <div><img src="https://img.alicdn.com/imgextra/i4/42879206/TB2y.OMgVXXXXbtXpXXXXXXXXXX_!!42879206.png"></div>
+                <%- mdCodeProperty %>
+                <% } %>
+
+                <% if (mdCodeInstruction) { %>
+                <div><img src="https://img.alicdn.com/imgextra/i3/42879206/TB2zUlNhXXXXXcgXpXXXXXXXXXX_!!42879206.png"/> </div>
+                <%- mdCodeInstruction %>
+                <% } %>
+
+                <% if (mdCodeDetail) { %>
+                <div><img src="https://img.alicdn.com/imgextra/i1/42879206/TB2sTF6hXXXXXcCXXXXXXXXXXXX_!!42879206.png"/> </div>
+                <%- mdCodeDetail %>
+                <% } %>
+
+                <% if (mdCodeImage) { %>
+                <div><img src="https://img.alicdn.com/imgextra/i1/42879206/TB2Be8OhXXXXXcXXpXXXXXXXXXX_!!42879206.png"/> </div>
+                <%- mdCodeImage %>
+                <% } %>
+
+            </div>
+            
+        </div>
+
+    </div>
+
+    <% include ../partials/js %>
+
+    <script type="text/javascript">
+        $(function() {
+            var product = require('product');
+            product.previewFun();
+        });
+    </script>
+
+</body>
+</html>
