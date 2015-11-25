@@ -35,7 +35,7 @@ module.exports = {
     addFun:function() {
 
         $('#form-add-product').validate();
-        this.chooseInfo();
+       // this.chooseInfo();
         this.chooseBanner();
         this.formActionSelect();
 
@@ -43,7 +43,7 @@ module.exports = {
     editFun:function() {
 
         $('#form-add-product').validate();
-        this.chooseInfo();
+       // this.chooseInfo();
         this.chooseBanner();
         this.formActionSelect();
     },
@@ -54,7 +54,7 @@ module.exports = {
         var previewContent = $('.preview-content');
         
         var html = $.trim(previewContent.html());
-        html = html.replace(/\<img/g,'<img style="width:100%"');
+        //html = html.replace(/\<img/g,'<img style="width:100%"');
         
         var btnCopy = $('.btn-copy');
         btnCopy.zclip({
@@ -65,24 +65,40 @@ module.exports = {
               afterCopy: function () {
                   btnCopy.popover({
                       content: '复制成功!'
-                  })
+                  });
               }
           });
-        
+
         var btnShot = $('.btn-shot');
-        btnShot.click(function() {
-            $.ajax({
-                url:'/product/preview/shot',
-                type:'post',
-                data:{
-                    html:html,
-                    htmlHeight:previewContent.height()
-                },
-                success:function(data) {
-                    console.info(data);
-                }
+        btnShot.button('loading');
+        var progress = $.AMUI.progress;
+        
+        window.onload = function() {
+
+            btnShot.button('reset');
+            btnShot.click(function() {
+
+                progress.start();
+                btnShot.button('loading').text('图片生成中...');
+                $.ajax({
+                    url:'/product/preview/shot',
+                    type:'post',
+                    data:{
+                        html:html,
+                        htmlHeight:previewContent.height(),
+                        name:$('h4').text()
+                    },
+                    success:function(data) {
+                        progress.done();
+                        $('#modal-shot-success').modal();
+                        btnShot.button('reset').text('生成淘宝详情图片');
+                    }
+                });
             });
-        });
+            
+        };
+        
+        
         
     },
     

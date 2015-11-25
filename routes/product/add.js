@@ -11,15 +11,12 @@ var markdown = require("markdown").markdown;
 
 //class
 var Product = AV.Object.extend('Product');
-var Category = AV.Object.extend('Category');
-var Banner = AV.Object.extend('Banner');
+var Category = AV.Object.extend('ProductCategory');
+var Banner = AV.Object.extend('ProductBanner');
 
-//lib
-var pager = require('../../lib/pager');
 
 var title = '产品编辑-添加产品';
 var currentPage = 'product';
-
 
 
 //添加产品页

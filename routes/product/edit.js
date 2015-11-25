@@ -11,8 +11,8 @@ var markdown = require("markdown").markdown;
 
 //class
 var Product = AV.Object.extend('Product');
-var Category = AV.Object.extend('Category');
-var Banner = AV.Object.extend('Banner');
+var Category = AV.Object.extend('ProductCategory');
+var Banner = AV.Object.extend('ProductBanner');
 
 //lib
 var pager = require('../../lib/pager');
@@ -94,7 +94,7 @@ router.get('/:productId', function (req, res, next) {
 
 });
 
-router.post('/:productId', function (req, res, next) {
+router.post('/', function (req, res, next) {
 
     var mdCodeInfo = req.body['md-code-info'] || '';
     var mdCodeBanner = req.body['md-code-banner'] || '';
@@ -107,7 +107,7 @@ router.post('/:productId', function (req, res, next) {
     var mdCodeImage = req.body['md-code-image'] || '';
     var categoryId = parseInt(req.body['select-category']) || 1;
 
-    var productId = req.params.productId;
+    var productId = req.body['product-id'];
 
     var datas = {
         title: title,
@@ -133,7 +133,7 @@ router.post('/:productId', function (req, res, next) {
         },
 
         function (objectId, query, cb) {
-
+            
             query.get(objectId, {
                 success: function (post) {
                     post.set('info', mdCodeInfo);

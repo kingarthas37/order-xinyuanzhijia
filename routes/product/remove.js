@@ -10,8 +10,8 @@ var extend = require("xtend");
 
 //class
 var Product = AV.Object.extend('Product');
-var Category = AV.Object.extend('Category');
-var Banner = AV.Object.extend('Banner');
+var Category = AV.Object.extend('ProductCategory');
+var Banner = AV.Object.extend('ProductBanner');
 
 
 var title = '产品编辑-删除产品';
