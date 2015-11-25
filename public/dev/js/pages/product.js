@@ -89,9 +89,13 @@ module.exports = {
                         name:$('h4').text()
                     },
                     success:function(data) {
-                        progress.done();
-                        $('#modal-shot-success').modal();
-                        btnShot.button('reset').text('生成淘宝详情图片');
+                        if(data.success) {
+                            progress.done();
+                            $('#modal-shot-success').modal();
+                            btnShot.button('reset').text('生成淘宝详情图片');
+                        } else {
+                            alert('error');
+                        }
                     }
                 });
             });

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title><%= title %></title>
+    <% include ../partials/css %>
+</head>
+<body>
+
+    <div class="product-view-page">
+
+        <p>
+            <button type="button" class="am-btn am-btn-primary btn-copy">复制代码</button>
+            <button type="button" class="am-btn am-btn-success btn-shot" disabled="disabled">生成淘宝详情图片</button>
+        </p>
+
+        <hr/>
+        
+        <h4><%- mdCodeName %></h4>
+
+        <hr/>
+        
+        <div class="preview-content">
+           
+            <div>
+
+                <% if (mdCodeName) { %>
+                <div><img src="https://img.alicdn.com/imgextra/i1/42879206/TB2o9YfhFXXXXa.XXXXXXXXXXXX_!!42879206.png"></div>
+                <%- mdCodeName %>
+                <% } %>
+
+                <% if (mdCodeReview) { %>
+                <div><img src="https://img.alicdn.com/imgextra/i3/42879206/TB2XdJYhFXXXXbhXpXXXXXXXXXX_!!42879206.png"></div>
+                <%- mdCodeReview %>
+                <% } %>
+
+                <% if (mdCodeDetail) { %>
+                <div><img src="https://img.alicdn.com/imgextra/i1/42879206/TB2ePYbhFXXXXbLXXXXXXXXXXXX_!!42879206.png"/> </div>
+                <%- mdCodeDetail %>
+                <% } %>
+
+                <% if (mdCodeList) { %>
+                <div><img src="https://img.alicdn.com/imgextra/i4/42879206/TB2iBaWhFXXXXa.XpXXXXXXXXXX_!!42879206.png"/> </div>
+                <%- mdCodeList %>
+                <% } %>
+
+            </div>
+            
+        </div>
+
+    </div>
+
+
+    <div class="am-modal am-modal-alert" tabindex="-1" id="modal-shot-success">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">生成成功!</div>
+            <div class="am-modal-bd">
+                请在/shot目录中查看
+            </div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn">确定</span>
+            </div>
+        </div>
+    </div>
+
+    <% include ../partials/js %>
+
+    <script type="text/javascript">
+        $(function() {
+            var product = require('product');
+            product.previewFun();
+        });
+    </script>
+
+</body>
+</html>

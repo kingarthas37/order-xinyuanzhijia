@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title><%= title %></title>
+    <% include ../partials/css %>
+</head>
+<body>
+
+<% include ../partials/header %>
+
+
+<div class="am-container product-page">
+
+    <form id="form-edit-product" class="am-form" action="" method="post" target="">
+
+        <input type="hidden" name="music-id" value="<%= music.get('musicId') %>"/>
+            
+        <fieldset>
+
+            <legend>编辑音乐</legend>
+
+            <!-- name start -->
+            <div id="content-name" class="am-form-group">
+                <label >专辑名称 <i>*</i></label>
+                <input id="md-code-name" required name="md-code-name" type="text" placeholder="输入专辑名称[必填]" value="<%= music.get('name') %>" />
+            </div>
+            <!-- name end -->
+        
+            <hr/>
+
+            <!-- detail start -->
+            <div id="content-detail" class="am-form-group">
+                <label > 产品详情： <i>*</i> </label>
+                <textarea id="md-code-detail" name="md-code-detail" rows="5" placeholder="输入专辑详情[必填]" required ><%= music.get('detail') %></textarea>
+            </div>
+            <!-- detail end -->
+            
+            <hr/>
+ 
+
+            <!-- review start -->
+            <div id="content-review" class="am-form-group">
+                <label > 店主评语： </label>
+                <textarea id="md-code-review" name="md-code-review" rows="3" placeholder="输入店主评语"><%= music.get('review') %></textarea>
+            </div>
+            <!-- review end -->
+
+            <hr/>
+
+            <!-- property start -->
+            <div id="content-list" class="am-form-group">
+                <label >专辑列表：</label>
+                <textarea id="md-code-list" name="md-code-list" rows="3" placeholder="输入专辑列表"><%= music.get('list') %></textarea>
+            </div>
+            <!-- property end -->
+
+            <hr/>
+
+            
+            <div class="am-form-group">
+                <button type="submit" class="am-btn am-btn-primary" data-action="/music/edit" data-target="_self">保存</button>
+                <button type="submit" class="am-btn am-btn-success" data-action="/music/preview" data-target="_blank">预览</button>
+            </div>
+
+        </fieldset>
+
+    </form>
+
+</div>
+
+
+<% include ../partials/footer %>
+<% include ../partials/js %>
+
+<script type="text/javascript">
+    $(function() {
+        var product = require('product');
+        product.editFun();
+    });
+</script>
+</body>
+</html>

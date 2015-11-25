@@ -15,12 +15,6 @@
 
 <div class="am-container product-page">
 
-    <% if (info != '') { %>
-    <div class="am-panel am-panel-success">
-        <div class="am-panel-hd"><h3 class="am-panel-title"><%= info %></h3></div>
-    </div>
-    <% } %>
-
     <form id="form-edit-product" class="am-form" action="" method="post" target="">
 
         <input type="hidden" name="product-id" value="<%= product.get('productId') %>"/>

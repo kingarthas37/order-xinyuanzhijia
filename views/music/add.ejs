@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title><%= title %></title>
+    <% include ../partials/css %>
+</head>
+<body>
+
+<% include ../partials/header %>
+
+<div class="am-container product-page">
+    
+    <form id="form-add-product" class="am-form" action="" method="post" target="">
+
+        <fieldset>
+
+            <legend>添加音乐</legend>
+
+            <!-- name start -->
+            <div id="content-name" class="am-form-group">
+                <label>专辑名：<i>*</i> </label>
+                <input  id="md-code-name" required name="md-code-name" type="text" placeholder="输入音乐专辑名[必填]" />
+            </div>
+            <!-- name end -->
+
+            <hr/>
+
+            <!-- review start -->
+            <div id="content-review" class="am-form-group">
+                <label>店主评语： </label>
+                <textarea id="md-code-review" name="md-code-review" rows="3" placeholder="输入店主评语"></textarea>
+            </div>
+            <!-- review end -->
+
+            <hr/>
+
+            <!-- detail start -->
+            <div id="content-detail" class="am-form-group">
+                <label>专辑简介： <i>*</i> </label>
+                <textarea id="md-code-detail" name="md-code-detail" rows="5" placeholder="输入产品详情[必填]" required ></textarea>
+            </div>
+            <!-- detail end -->
+
+            <hr/>
+
+            <!-- list start -->
+            <div id="content-list" class="am-form-group">
+                <label>曲目列表： <i>*</i> </label>
+                <textarea id="md-code-list" name="md-code-list" rows="5" placeholder="输入曲目列表[必填]" required></textarea>
+            </div>
+            <!-- list end -->
+ 
+            <hr/>
+
+            <div class="am-form-group">
+                <button type="submit" class="am-btn am-btn-primary" data-action="/music/add" data-target="_self">保存</button>
+                <button type="submit" class="am-btn am-btn-success" data-action="/music/preview" data-target="_blank">预览</button>
+            </div>
+
+        </fieldset>
+
+    </form>
+    
+</div>
+
+<% include ../partials/footer %>
+<% include ../partials/js %>
+
+<script type="text/javascript">
+    $(function() {
+        var product = require('product');
+        product.addFun();
+    });
+</script>
+</body>
+</html>

@@ -179,18 +179,14 @@ router.post('/', function (req, res, next) {
 
         },
         function (cb) {
-
             var query = new AV.Query(Category);
             query.find({
                 success: function (results) {
-
                     datas = extend(datas, {
                         category: results
                     });
-
                     req.flash('info', '编辑商品成功!');
-                    res.render('product/edit', datas);
-
+                    res.redirect('/product');
                 }
             });
 
