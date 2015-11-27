@@ -10,6 +10,10 @@
         margin:0 0 10px 0;
     }
     
+    .hide {
+        display: none !important;
+    }
+    
     .code-banner {
         margin-bottom: 10px;
     }
@@ -58,6 +62,10 @@
         .info-tpl {
             display: none;
         }
+    }
+    
+    label.normal {
+        font-weight: normal;
     }
     
 }

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title><%= title %></title>
+    <% include ../partials/css %>
+</head>
+<body>
+
+<% include ../partials/header %>
+
+<div class="am-container product-page">
+    
+    <form id="form-add-product" class="am-form" action="" method="post" target="">
+
+        <fieldset>
+
+            <legend>添加电子书</legend>
+
+            <!-- name start -->
+            <div id="content-name" class="am-form-group">
+                <label>书名：<i>*</i> </label>
+                <input  id="md-code-name" required name="md-code-name" type="text" placeholder="输入书名[必填]" />
+            </div>
+            <!-- name end -->
+
+            <hr/>
+
+            <!-- review start -->
+            <div id="content-review" class="am-form-group">
+                <label>店主评语： </label>
+                <textarea id="md-code-review" name="md-code-review" rows="3" placeholder="输入店主评语"></textarea>
+            </div>
+            <!-- review end -->
+
+            <hr/>
+
+            <!-- author start -->
+            <div id="content-author" class="am-form-group">
+                <label>作者信息： </label>
+                <textarea id="md-code-author" name="md-code-author" rows="5" placeholder="输入作者信息"></textarea>
+            </div>
+            <!-- author end -->
+
+            <hr/>
+
+            <!-- description start -->
+            <div id="content-description" class="am-form-group">
+                <label>内容简介：</label>
+                <textarea id="md-code-description" name="md-code-description" rows="5" placeholder="输入内容简介"></textarea>
+            </div>
+            <!-- description end -->
+
+            <hr/>
+
+            <!-- catalog start -->
+            <div id="content-catalog" class="am-form-group">
+                <label>目录：</label>
+                <textarea id="md-code-catalog" name="md-code-catalog" rows="5" placeholder="目录"></textarea>
+            </div>
+            <!-- catalog end -->
+
+            <hr/>
+
+            <!-- image start -->
+            <div id="content-image" class="am-form-group">
+                <label>精彩截图：</label>
+                <textarea id="md-code-image" name="md-code-image" rows="5" placeholder="精彩截图"></textarea>
+            </div>
+            <!-- image end -->
+ 
+            <hr/>
+
+            <div class="am-form-group">
+                <button type="submit" class="am-btn am-btn-primary" data-action="/book/add" data-target="_self">保存</button>
+                <button type="submit" class="am-btn am-btn-success" data-action="/book/preview" data-target="_blank">预览</button>
+            </div>
+
+        </fieldset>
+
+    </form>
+    
+</div>
+
+<% include ../partials/footer %>
+<% include ../partials/js %>
+
+<script type="text/javascript">
+    $(function() {
+        var product = require('product');
+        product.addFun();
+    });
+</script>
+</body>
+</html>

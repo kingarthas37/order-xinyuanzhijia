@@ -10,13 +10,13 @@ var extend = require("xtend");
 
 
 //class
-var Music = AV.Object.extend('Music');
+var Book = AV.Object.extend('Book');
 
 //lib
 var pager = require('../../lib/pager');
 
-var title = '音乐编辑-首页';
-var currentPage = 'music';
+var title = '电子书编辑-首页';
+var currentPage = 'book';
 
 //首页
 router.get('/', function (req, res, next) {
@@ -25,7 +25,7 @@ router.get('/', function (req, res, next) {
     var limit = req.query.limit ? parseInt(req.query.limit) : 10;
     var order = req.query.order || 'desc';
     
-    var search = req.query['music-search'] ? req.query['music-search'].trim() : '';
+    var search = req.query['book-search'] ? req.query['book-search'].trim() : '';
 
     var datas = {
         title: title,
@@ -38,7 +38,7 @@ router.get('/', function (req, res, next) {
 
         function(cb) {
             
-            var query = new AV.Query(Music);
+            var query = new AV.Query(Book);
             
             if(search) {
                 query.contains('name',search);
@@ -47,7 +47,7 @@ router.get('/', function (req, res, next) {
             query.count({
                 success: function(count) {
                     datas = extend(datas,{
-                        musicPager:pager(page,limit,count)
+                        bookPager:pager(page,limit,count)
                     });
                     cb();
                 },
@@ -59,15 +59,15 @@ router.get('/', function (req, res, next) {
 
         function (cb) {
 
-            var query = new AV.Query(Music);
+            var query = new AV.Query(Book);
 
             query.skip((page - 1) * limit);
             query.limit(limit);
             
             if(order === 'asc') {
-                query.ascending("musicId");
+                query.ascending("bookId");
             } else {
-                query.descending('musicId');
+                query.descending('bookId');
             }
 
             if(search) {
@@ -77,7 +77,7 @@ router.get('/', function (req, res, next) {
             query.find({
                 success: function (results) {
                     datas = extend(datas, {
-                        music: results
+                        book: results
                     });
                     cb();
                 },
@@ -89,7 +89,7 @@ router.get('/', function (req, res, next) {
         },
 
         function () {
-            res.render('music', datas);
+            res.render('book', datas);
         }
 
     ]);

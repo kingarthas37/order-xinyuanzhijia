@@ -71,7 +71,12 @@ router.get('/', function (req, res, next) {
 
             query.skip((page - 1) * limit);
             query.limit(limit);
-            query.descending(order);
+
+            if(order === 'asc') {
+                query.ascending('productId');
+            } else {
+                query.descending('productId');
+            }
 
             if(categoryId) {
                 query.equalTo('categoryId',categoryId);

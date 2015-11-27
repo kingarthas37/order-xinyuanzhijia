@@ -9,6 +9,13 @@ module.exports = {
     '/product/edit':require('./product/edit'),
     '/product/remove':require('./product/remove'),
     '/product/preview':require('./product/preview'),
+
+    //book
+    '/book':require('./book/index'),
+    '/book/add':require('./book/add'),
+    '/book/edit':require('./book/edit'),
+    '/book/remove':require('./book/remove'),
+    '/book/preview':require('./book/preview'),
     
     //music
     '/music':require('./music/index'),

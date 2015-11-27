@@ -89,13 +89,9 @@ module.exports = {
                         name:$('h4').text()
                     },
                     success:function(data) {
-                        if(data.success) {
-                            progress.done();
-                            $('#modal-shot-success').modal();
-                            btnShot.button('reset').text('生成淘宝详情图片');
-                        } else {
-                            alert('error');
-                        }
+                        progress.done();
+                        $('#modal-shot-success').modal();
+                        btnShot.button('reset').text('生成淘宝详情图片');
                     }
                 });
             });
@@ -168,6 +164,22 @@ module.exports = {
             codeBanner.html('<img src="'+ currentBannerSrc +'"/>');
             mdCodeBanner.val('!['+ currentBannerTitle +']('+ currentBannerSrc +')');
 
+        });
+        
+        $('.banner-enable').click(function() {
+        
+            if(this.checked) {
+                mdCodeBanner.val('');
+                select.addClass('hide');
+                codeBanner.addClass('hide');
+                mdCodeBanner.addClass('hide');
+            } else {
+                select.trigger('change');
+                select.removeClass('hide');
+                codeBanner.removeClass('hide');
+                mdCodeBanner.removeClass('hide');
+            }
+            
         });
         
     },

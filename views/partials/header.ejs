@@ -6,9 +6,14 @@
         <div class="am-collapse am-topbar-collapse" id="collapse-head">
             <ul class="am-nav am-nav-pills am-topbar-nav">
                 <li <% if (currentPage === 'index') { %> class="am-active" <% } %> ><a href="/">首页</a></li>
-                <li <% if (currentPage === 'product') { %> class="am-active" <% } %>  ><a href="/product">产品</a></li>
-                <li <% if (currentPage === 'music') { %> class="am-active" <% } %>  ><a href="/music">音乐</a></li>
-        
+                <li class="am-dropdown" data-am-dropdown>
+                    <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">产品编辑 <span class="am-icon-caret-down"></span></a>
+                    <ul class="am-dropdown-content">
+                      <li <% if (currentPage === 'product') { %> class="am-active" <% } %>  ><a href="/product">产品</a></li>
+                      <li <% if (currentPage === 'book') { %> class="am-active" <% } %>  ><a href="/book">电子书</a></li>
+                      <li <% if (currentPage === 'music') { %> class="am-active" <% } %>  ><a href="/music">音乐</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>

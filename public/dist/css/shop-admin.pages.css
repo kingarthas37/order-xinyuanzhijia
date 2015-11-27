@@ -14,6 +14,9 @@ footer p {
 .product-page textarea {
   margin: 0 0 10px 0; }
 
+.product-page .hide {
+  display: none !important; }
+
 .product-page .code-banner {
   margin-bottom: 10px; }
 
@@ -43,6 +46,9 @@ footer p {
 
 .product-page #content-info .info-tpl {
   display: none; }
+
+.product-page label.normal {
+  font-weight: normal; }
 
 .product-view-page {
   width: 750px;

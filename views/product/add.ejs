@@ -15,6 +15,12 @@
 
 <div class="am-container product-page">
     
+    <% if (info != '') { %>
+    <div class="am-panel am-panel-success">
+        <div class="am-panel-hd"><h3 class="am-panel-title"><%= info %></h3></div>
+    </div>
+    <% } %>
+    
     <form id="form-add-product" class="am-form" action="" method="post" target="">
 
         <fieldset>
@@ -56,7 +62,8 @@
 
             <!-- banner start -->
             <div id="content-banner" class="am-form-group am-form-select">
-                <label>选择商品匹配的banner：<i>*</i></label>
+                <label>选择商品匹配的banner：</label>
+                <label class="normal"><input class="banner-enable" type="checkbox"/> 不选择</label>
                 <select id="select-banner">
                     <option value="0" selected="selected">随机选择</option>
                     <% for(var i=0;i< banner.length; i++) { %>
