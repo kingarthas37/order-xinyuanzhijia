@@ -22,5 +22,12 @@ module.exports = {
     '/music/add':require('./music/add'),
     '/music/edit':require('./music/edit'),
     '/music/remove':require('./music/remove'),
-    '/music/preview':require('./music/preview')
+    '/music/preview':require('./music/preview'),
+    
+    //purchase
+    '/purchase':require('./purchase/index'),
+    '/purchase/add':require('./purchase/add'),
+    '/purchase/edit':require('./purchase/edit'),
+    '/purchase/remove':require('./purchase/remove'),
+    '/purchase/preview':require('./purchase/preview')
 };

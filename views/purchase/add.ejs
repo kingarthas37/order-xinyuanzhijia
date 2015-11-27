@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title><%= title %></title>
+    <% include ../partials/css %>
+</head>
+<body>
+
+<% include ../partials/header %>
+
+<div class="am-container product-page">
+    
+    <form id="form-add-product" class="am-form" action="" method="post" target="">
+
+        <fieldset>
+
+            <legend>添加新订单</legend>
+
+            <!-- name start -->
+            <div id="content-name" class="am-form-group">
+                <label>订单名称简写：<i>*</i> </label>
+                <input  id="purchase-name" required name="purchase-name" type="text" placeholder="输入订单名称" />
+            </div>
+            <!-- name end -->
+
+            <hr/>
+
+            <!-- description start -->
+            <div id="content-description" class="am-form-group">
+                <label>订单名称描述：</label>
+                <textarea id="purchase-description" name="purchase-description" rows="5" placeholder="输入订单描述"></textarea>
+            </div>
+            <!-- description end -->
+
+            <hr/>
+
+            <!-- website start -->
+            <div id="content-website" class="am-form-group">
+                <label>网址：</label>
+                <textarea id="purchase-website" name="purchase-website" rows="5" placeholder="输入网址"></textarea>
+            </div>
+            <!-- website end -->
+
+            <hr/>
+
+            <!-- orderLink start -->
+            <div id="content-order-link" class="am-form-group">
+                <label>网站查看订单链接：</label>
+                <textarea id="purchase-order-link" name="purchase-order-link"  placeholder="输入网站查看订单链接" rows="5"></textarea>
+            </div>
+            <!-- orderLink end -->
+
+            <hr/>
+
+            <!-- mail start -->
+            <div id="content-mail" class="am-form-group">
+                <label>对方联系邮箱：</label>
+                <input  id="purchase-mail" name="purchase-mail" type="text" placeholder="输入对方联系邮箱" />
+            </div>
+            <!-- mail end -->
+
+            <hr/>
+
+            <!-- amount start -->
+            <div id="content-amount" class="am-form-group">
+                <label>订单金额：</label>
+                <input  id="purchase-amount" name="purchase-amount" type="text" placeholder="输入订单金额" />
+            </div>
+            <!-- amount end -->
+
+            <hr/>
+
+
+            <!-- trackingNumber start -->
+            <div id="content-tracking-number" class="am-form-group">
+                <label>订单tracking number：</label>
+                <input  id="purchase-tracking-number" name="purchase-tracking-number" type="text" placeholder="输入tracking number" />
+            </div>
+            <!-- trackingNumber end -->
+
+            <hr/>
+ 
+
+            <!-- paymentType start -->
+            <div id="content-payment-type" class="am-form-group">
+                <label>支付方式：</label>
+                <select name="purchase-payment-type" id="purchase-payment-type">
+                    <option value="paypal">paypal</option>
+                    <option value="creditcard">信用卡</option>
+                </select>
+            </div>
+            <!-- paymentType end -->
+
+            <hr/>
+ 
+            <!-- shippingType start -->
+            <div id="content-shipping-type" class="am-form-group">
+                <label>物流方式：</label>
+                <select name="purchase-shipping-type" id="purchase-shipping-type">
+                    <option value="8dexpress">转运-八达网</option>
+                    <option value="direct">直邮</option>
+                </select>
+            </div>
+            <!-- shippingType end -->
+
+            <hr/>
+
+            <!-- shippingState start -->
+            <div id="content-shipping-state" class="am-form-group">
+                <label>物流状态：</label>
+                <select name="purchase-shipping-state" id="purchase-shipping-state">
+                    <option value="noshipped">未发货</option>
+                    <option value="shipped">已发货</option>
+                    <option value="forward">已到达转运公司</option>
+                    <option value="arrived">已到货</option>
+                </select>
+            </div>
+            <!-- shippingState end -->
+
+            <hr/>
+
+            <!-- comment start -->
+            <div id="content-comment" class="am-form-group">
+                <label>备注信息：</label>
+                <textarea id="purchase-comment" name="purchase-comment" rows="5" placeholder="输入备注信息"></textarea>
+            </div>
+            <!-- comment end -->
+
+            <hr/>
+
+            <div class="am-form-group">
+                <button type="submit" class="am-btn am-btn-primary" data-action="/purchase/add" data-target="_self">保存</button>
+            </div>
+
+        </fieldset>
+
+    </form>
+    
+</div>
+
+<% include ../partials/footer %>
+<% include ../partials/js %>
+
+<script type="text/javascript">
+    $(function() {
+        var product = require('product');
+        product.addFun();
+    });
+</script>
+</body>
+</html>

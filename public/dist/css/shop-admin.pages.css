@@ -30,6 +30,8 @@ footer p {
   font-style: normal; }
 
 .product-page label.error {
+  margin-top: 5px;
+  font-weight: normal;
   color: red; }
 
 .product-page .am-alert {
