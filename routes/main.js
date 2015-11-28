@@ -28,6 +28,5 @@ module.exports = {
     '/purchase':require('./purchase/index'),
     '/purchase/add':require('./purchase/add'),
     '/purchase/edit':require('./purchase/edit'),
-    '/purchase/remove':require('./purchase/remove'),
-    '/purchase/preview':require('./purchase/preview')
+    '/purchase/remove':require('./purchase/remove')
 };

@@ -6,20 +6,19 @@ var AV = require('leanengine');
 var flash = require('connect-flash');
 
 var async = require('async');
-var extend = require("xtend");
 
 //class
-var Book = AV.Object.extend('Book');
+var PurchaseTrack = AV.Object.extend('PurchaseTrack');
 
 
-var title = '电子书编辑-删除电子书';
-var currentPage = 'book';
+var title = '订单编辑-删除订单';
+var currentPage = 'purchase';
 
 
-//删除音乐
-router.get('/:bookId', function (req, res, next) {
+//删除订单
+router.get('/:purchaseId', function (req, res, next) {
 
-    var bookId = req.params.bookId;
+    var purchaseId = req.params.purchaseId;
 
     var datas = {
         title: title,
@@ -30,8 +29,8 @@ router.get('/:bookId', function (req, res, next) {
     async.waterfall([
 
         function (cb) {
-            var query = new AV.Query(Book);
-            query.equalTo('bookId', parseInt(bookId));
+            var query = new AV.Query(PurchaseTrack);
+            query.equalTo('purchaseId', parseInt(purchaseId));
             query.first({
                 success: function (object) {
                     cb(null, object);
@@ -45,7 +44,7 @@ router.get('/:bookId', function (req, res, next) {
             object.destroy({
                 success: function () {
                     req.flash('info', '删除成功!');
-                    res.redirect('/book');
+                    res.redirect('/purchase');
                 }
             });
         }

@@ -63,7 +63,6 @@
                 <label class="normal"><input class="banner-enable" type="checkbox" <%if (!product.get('banner')) { %> checked="checked" <% } %>/> 不选择</label>
                 <select id="select-banner" <%if (!product.get('banner')) { %> class="hide" <% } %>>
                     <option value="0">随机选择</option>
-                    <option value="-1">不选择</option>
                     <% for(var i=0;i< banner.length;i++) { %>
                     <option <% if( product.get('banner').indexOf(banner[i].get('bannerUrl')) > -1 ) { %> selected="selected" <% } %> value="<%= banner[i].get('bannerId') %>" data-src="<%= banner[i].get('bannerUrl') %>"><%= banner[i].get('bannerText') %></option>
                     <% } %>

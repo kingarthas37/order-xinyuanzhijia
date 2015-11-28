@@ -7,37 +7,36 @@ var flash = require('connect-flash');
 
 var async = require('async');
 var extend = require("xtend");
-var markdown = require("markdown").markdown;
 
 //class
-var Book = AV.Object.extend('Book');
+var PurchaseTrack = AV.Object.extend('PurchaseTrack');
 
-var title = '电子书编辑-编辑音乐';
-var currentPage = 'book';
+var title = '订单编辑-编辑订单';
+var currentPage = 'purchase';
 
 
 //编辑产品页
-router.get('/:bookId', function (req, res, next) {
+router.get('/:purchaseId', function (req, res, next) {
 
-    var bookId = parseInt(req.params.bookId);
+    var purchaseId = parseInt(req.params.purchaseId);
 
     var datas = {
         title: title,
         currentPage: currentPage,
         info: req.flash('info'),
-        id: bookId
+        id: purchaseId
     };
 
     async.series([
 
         function (cb) {
 
-            var query = new AV.Query(Book);
-            query.equalTo('bookId', bookId);
+            var query = new AV.Query(PurchaseTrack);
+            query.equalTo('purchaseId', purchaseId);
             query.first({
                 success: function (results) {
                     datas = extend(datas, {
-                        book: results
+                        purchase: results
                     });
                     cb();
                 },
@@ -49,7 +48,7 @@ router.get('/:bookId', function (req, res, next) {
         },
 
         function () {
-            res.render('book/edit', datas);
+            res.render('purchase/edit', datas);
         }
 
     ]);
@@ -59,15 +58,21 @@ router.get('/:bookId', function (req, res, next) {
 
 router.post('/', function (req, res, next) {
 
-    var mdCodeName = req.body['md-code-name'] || '';
-    var mdCodeReview = req.body['md-code-review'] || '';
-    var mdCodeDescription = req.body['md-code-description'] || '';
-    var mdCodeCatalog = req.body['md-code-catalog'] || '';
-    var mdCodeAuthor = req.body['md-code-author'] || '';
-    var mdCodeImage = req.body['md-code-image'] || '';
+    var purchaseName = req.body['purchase-name'] || '';
+    var purchaseDescription = req.body['purchase-description'] ||'';
+    var purchaseWebsite = req.body['purchase-website'] || '';
+    var purchaseOrderLink = req.body['purchase-order-link'] || '';
+    var purchaseMail = req.body['purchase-mail'] || '';
+    var purchaseAmount = req.body['purchase-amount'] || '';
+    var purchaseTrackingNumber = req.body['purchase-tracking-number'] || '';
+    var purchasePaymentType = req.body['purchase-payment-type'] || '';
+    var purchasePaymentInfo = req.body['purchase-payment-info'] || '';
+    var purchaseShippingType = req.body['purchase-shipping-type'] || '';
+    var purchaseShippingState = req.body['purchase-shipping-state'] || '';
+    var purchaseComment = req.body['purchase-comment'] || '';
 
-    var bookId = req.body['book-id'];
-
+    var purchaseId = req.body['purchase-id'];
+    
     var datas = {
         title: title,
         currentPage: currentPage,
@@ -78,8 +83,8 @@ router.post('/', function (req, res, next) {
 
         function (cb) {
 
-            var query = new AV.Query(Book);
-            query.equalTo('bookId', parseInt(bookId));
+            var query = new AV.Query(PurchaseTrack);
+            query.equalTo('purchaseId', parseInt(purchaseId));
             query.first({
                 success: function (results) {
                     cb(null, results.id, query);
@@ -94,21 +99,27 @@ router.post('/', function (req, res, next) {
         function (objectId, query, cb) {
             
             query.get(objectId, {
-                success: function (post) {
-                    post.set('name', mdCodeName);
-                    post.set('review', mdCodeReview);
-                    post.set('detail', mdCodeDescription);
-                    post.set('author', mdCodeAuthor);
-                    post.set('catalog', mdCodeCatalog);
-                    post.set('image', mdCodeImage);
-                    post.save(null, {
+                success: function (purchase) {
+                    purchase.set('name',purchaseName);
+                    purchase.set('description',purchaseDescription);
+                    purchase.set('website',purchaseWebsite);
+                    purchase.set('orderLink',purchaseOrderLink);
+                    purchase.set('mail',purchaseMail);
+                    purchase.set('amount',purchaseAmount);
+                    purchase.set('trackingNumber',purchaseTrackingNumber);
+                    purchase.set('paymentType',purchasePaymentType);
+                    purchase.set('paymentInfo',purchasePaymentInfo);
+                    purchase.set('shippingType',purchaseShippingType);
+                    purchase.set('shippingState',purchaseShippingState);
+                    purchase.set('comment',purchaseComment);
+                    purchase.save(null, {
                         success: function (results) {
                             datas = extend(datas, {
-                                book: results
+                                purchase: results
                             });
                             
-                            req.flash('info', '编辑电子书成功!');
-                            res.redirect('/book');
+                            req.flash('info', '编辑订单成功!');
+                            res.redirect('/purchase');
                         },
                         error: function (err) {
                             next(err);

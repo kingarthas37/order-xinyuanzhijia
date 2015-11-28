@@ -37,6 +37,7 @@ router.post('/', function (req, res, next) {
     var purchaseAmount = req.body['purchase-amount'] || '';
     var purchaseTrackingNumber = req.body['purchase-tracking-number'] || '';
     var purchasePaymentType = req.body['purchase-payment-type'] || '';
+    var purchasePaymentInfo = req.body['purchase-payment-info'] || '';
     var purchaseShippingType = req.body['purchase-shipping-type'] || '';
     var purchaseShippingState = req.body['purchase-shipping-state'] || '';
     var purchaseComment = req.body['purchase-comment'] || '';
@@ -51,6 +52,7 @@ router.post('/', function (req, res, next) {
     purchaseTrack.set('amount',purchaseAmount);
     purchaseTrack.set('trackingNumber',purchaseTrackingNumber);
     purchaseTrack.set('paymentType',purchasePaymentType);
+    purchaseTrack.set('paymentInfo',purchasePaymentInfo);
     purchaseTrack.set('shippingType',purchaseShippingType);
     purchaseTrack.set('shippingState',purchaseShippingState);
     purchaseTrack.set('comment',purchaseComment);
