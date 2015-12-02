@@ -9,3 +9,102 @@ footer p {
   text-align: center;
   background: #2d3e50;
 }
+
+
+//公共基础样式
+.common-page {
+
+  fieldset {
+    padding: 0;
+  }
+
+
+  textarea {
+    margin:0 0 10px 0;
+  }
+
+  .hide {
+    display: none !important;
+  }
+
+  .code-banner {
+    margin-bottom: 10px;
+  }
+
+  .product-title {
+
+    img {
+      width: 400px;
+    }
+  }
+
+  label {
+    i {
+      font-weight: bold;
+      color: red;
+      font-size: 16px;
+      font-style: normal;
+    }
+  }
+
+  label.error {
+    margin-top: 5px;
+    font-weight: normal;
+    color: red;
+  }
+
+  .am-alert {
+    margin:10px 0;
+  }
+
+  .am-form-inline {
+    span {
+      padding: 0 10px;
+    }
+  }
+
+  #content-info {
+    p {
+      label {
+        font-weight: normal;
+        margin-right: 10px;
+        input {
+          margin-right: 5px;
+        }
+      }
+    }
+
+    .info-tpl {
+      display: none;
+    }
+  }
+
+  label.normal {
+    font-weight: normal;
+  }
+
+}
+
+
+//预览生成图片页面
+.product-view-page {
+
+  width: 750px;
+  margin:30px auto;
+
+  .preview-content {
+    font-size: 24px;
+    line-height: 30px;
+    div {
+      margin-bottom: 20px;
+    }
+    img {
+      width: 100%;
+    }
+    p {
+      margin:0;
+      padding:0 15px 20px 15px;
+    }
+  }
+
+}

@@ -8,48 +8,48 @@ footer p {
   text-align: center;
   background: #2d3e50; }
 
-.product-page fieldset {
+.common-page fieldset {
   padding: 0; }
 
-.product-page textarea {
+.common-page textarea {
   margin: 0 0 10px 0; }
 
-.product-page .hide {
+.common-page .hide {
   display: none !important; }
 
-.product-page .code-banner {
+.common-page .code-banner {
   margin-bottom: 10px; }
 
-.product-page .product-title img {
+.common-page .product-title img {
   width: 400px; }
 
-.product-page label i {
+.common-page label i {
   font-weight: bold;
   color: red;
   font-size: 16px;
   font-style: normal; }
 
-.product-page label.error {
+.common-page label.error {
   margin-top: 5px;
   font-weight: normal;
   color: red; }
 
-.product-page .am-alert {
+.common-page .am-alert {
   margin: 10px 0; }
 
-.product-page .am-form-inline span {
+.common-page .am-form-inline span {
   padding: 0 10px; }
 
-.product-page #content-info p label {
+.common-page #content-info p label {
   font-weight: normal;
   margin-right: 10px; }
-  .product-page #content-info p label input {
+  .common-page #content-info p label input {
     margin-right: 5px; }
 
-.product-page #content-info .info-tpl {
+.common-page #content-info .info-tpl {
   display: none; }
 
-.product-page label.normal {
+.common-page label.normal {
   font-weight: normal; }
 
 .product-view-page {
