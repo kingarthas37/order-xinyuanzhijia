@@ -52,17 +52,17 @@ footer p {
 .common-page label.normal {
   font-weight: normal; }
 
-.product-view-page {
+.common-product-view-page {
   width: 750px;
   margin: 30px auto; }
-  .product-view-page .preview-content {
+  .common-product-view-page .preview-content {
     font-size: 24px;
     line-height: 30px; }
-    .product-view-page .preview-content div {
+    .common-product-view-page .preview-content div {
       margin-bottom: 20px; }
-    .product-view-page .preview-content img {
+    .common-product-view-page .preview-content img {
       width: 100%; }
-    .product-view-page .preview-content p {
+    .common-product-view-page .preview-content p {
       margin: 0;
       padding: 0 15px 20px 15px; }
 

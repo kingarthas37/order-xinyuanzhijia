@@ -10,7 +10,7 @@
 
 <% include ../partials/header %>
 
-<div class="am-container product-page">
+<div class="am-container common-page">
 
     <% if (info != '') { %>
     <div class="am-alert am-alert-success">
@@ -50,7 +50,7 @@
                     <td><%= purchase[i].get('website') %></td>
                     <td><%= new Date(purchase[i].createdAt).toLocaleString() %></td>
                     <td><%= new Date(purchase[i].updatedAt).toLocaleString() %></td>
-                    <td><a href="/purchase/remove/<%= purchase[i].get('purchaseId') %>" class="remove-product">删除</a> </td>
+                    <td><a href="/purchase/remove/<%= purchase[i].get('purchaseId') %>" class="remove-purchase">删除</a> </td>
                 </tr>
                 <% } %>
                 </tbody>
@@ -75,7 +75,7 @@
 </div>
 
 
-<div class="am-modal am-modal-confirm" tabindex="-1" id="confirm-remove-product">
+<div class="am-modal am-modal-confirm" tabindex="-1" id="confirm-remove-purchase">
     <div class="am-modal-dialog">
         <div class="am-modal-bd">
             确定要删除这条记录吗？
@@ -93,8 +93,8 @@
 
 <script type="text/javascript">
     $(function() {
-        var product = require('product');
-        product.indexFun();
+        var purchase = require('purchase');
+        purchase.indexFun();
     });
 </script>
 </body>

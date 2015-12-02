@@ -1,6 +1,7 @@
 'use strict';
 
 require('jquery-validate');
+var productPreview = require('./lib/product-preview');
 
 module.exports = {
 
@@ -47,60 +48,8 @@ module.exports = {
         this.chooseBanner();
         this.formActionSelect();
     },
-     
-
-    previewFun:function() {
-
-        var previewContent = $('.preview-content');
-        
-        var html = $.trim(previewContent.html());
-        //html = html.replace(/\<img/g,'<img style="width:100%"');
-        
-        var btnCopy = $('.btn-copy');
-        btnCopy.zclip({
-              path: '/swf/ZeroClipboard.swf',
-              copy: function () {
-                  return html;
-              },
-              afterCopy: function () {
-                  btnCopy.popover({
-                      content: '复制成功!'
-                  });
-              }
-          });
-
-        var btnShot = $('.btn-shot');
-        btnShot.button('loading');
-        var progress = $.AMUI.progress;
-        
-        window.onload = function() {
-
-            btnShot.button('reset');
-            btnShot.click(function() {
-
-                progress.start();
-                btnShot.button('loading').text('图片生成中...');
-                $.ajax({
-                    url:'/product/preview/shot',
-                    type:'post',
-                    data:{
-                        html:html,
-                        htmlHeight:previewContent.height(),
-                        name:$('h4').text()
-                    },
-                    success:function(data) {
-                        progress.done();
-                        $('#modal-shot-success').modal();
-                        btnShot.button('reset').text('生成淘宝详情图片');
-                    }
-                });
-            });
-            
-        };
-        
-        
-        
-    },
+    
+    previewFun:productPreview,
     
     //使用购买说明信息
     chooseInfo:function() {

@@ -11,9 +11,9 @@
 <% include ../partials/header %>
 
 
-<div class="am-container product-page">
+<div class="am-container common-page">
 
-    <form id="form-edit-product" class="am-form" action="" method="post" target="">
+    <form id="form-edit-purchase" class="am-form" action="" method="post" target="">
 
         <input type="hidden" name="purchase-id" value="<%= purchase.get('purchaseId') %>"/>
             
@@ -161,8 +161,8 @@
 
 <script type="text/javascript">
     $(function() {
-        var product = require('product');
-        product.editFun();
+        var purchase = require('purchase');
+        purchase.editFun();
     });
 </script>
 </body>
