@@ -36,7 +36,6 @@ module.exports = {
     addFun:function() {
 
         $('#form-add-product').validate();
-       // this.chooseInfo();
         this.chooseBanner();
         this.formActionSelect();
 
@@ -44,7 +43,6 @@ module.exports = {
     editFun:function() {
 
         $('#form-add-product').validate();
-       // this.chooseInfo();
         this.chooseBanner();
         this.formActionSelect();
     },
@@ -107,8 +105,8 @@ module.exports = {
                 currentBannerSrc = select.find('option:eq(' + count + ')').attr('data-src');
                 currentBannerTitle = select.find('option:eq(' + count + ')').text();
             } else {
-                currentBannerSrc = select.find('option:eq(' + this.value + ')').attr('data-src');
-                currentBannerTitle = select.find('option:eq(' + this.value + ')').text();
+                currentBannerSrc = select.find('option[value='+ this.value +']').attr('data-src');
+                currentBannerTitle = select.find('option[value='+ this.value +']').text();
             }
             codeBanner.html('<img src="'+ currentBannerSrc +'"/>');
             mdCodeBanner.val('!['+ currentBannerTitle +']('+ currentBannerSrc +')');
