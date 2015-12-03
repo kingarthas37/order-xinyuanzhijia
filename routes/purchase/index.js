@@ -15,11 +15,19 @@ var PurchaseTrack = AV.Object.extend('PurchaseTrack');
 //lib
 var pager = require('../../lib/pager');
 
-var title = '订单跟踪编辑-首页';
-var currentPage = 'purchase';
+var data = {
+    title: '订单跟踪编辑-首页',
+    currentPage: 'purchase',
+    info:null,
+    user:null
+};
 
 //首页
 router.get('/', function (req, res, next) {
+
+    if (!req.AV.user) {
+        return res.redirect('/login');
+    }
     
     var page = req.query.page ? parseInt(req.query.page) : 1;
     var limit = req.query.limit ? parseInt(req.query.limit) : 10;
@@ -27,12 +35,10 @@ router.get('/', function (req, res, next) {
     
     var search = req.query['purchase-search'] ? req.query['purchase-search'].trim() : '';
 
-    var datas = {
-        title: title,
-        currentPage: currentPage,
-        search:search,
-        info: req.flash('info')
-    };
+    data = extend(data,{
+        info: req.flash('info'),
+        user:req.AV.user
+    });
 
     async.series([
 
@@ -46,7 +52,7 @@ router.get('/', function (req, res, next) {
             
             query.count({
                 success: function(count) {
-                    datas = extend(datas,{
+                    data = extend(data,{
                         purchasePager:pager(page,limit,count)
                     });
                     cb();
@@ -76,7 +82,7 @@ router.get('/', function (req, res, next) {
 
             query.find({
                 success: function (results) {
-                    datas = extend(datas, {
+                    data = extend(data, {
                         purchase: results
                     });
                     cb();
@@ -89,7 +95,7 @@ router.get('/', function (req, res, next) {
         },
 
         function () {
-            res.render('purchase', datas);
+            res.render('purchase', data);
         }
 
     ]);

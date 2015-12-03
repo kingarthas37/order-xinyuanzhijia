@@ -10,6 +10,9 @@ var currentPage = 'sign';
 
 router.get('/',function(req,res,next) {
 
+    //注册不开放，跳转到登录
+  //  return res.redirect('login');
+    
     var datas = {
         title: title,
         currentPage: currentPage,
@@ -37,8 +40,11 @@ router.post('/',function(req,res,next) {
     
     user.signUp(null, {
         success: function(user) {
+
+            console.info(user);
+            
             req.flash('info', '注册成功!');
-            res.redirect('/index');
+            res.redirect('/');
             
         },
         error: function(user, error) {

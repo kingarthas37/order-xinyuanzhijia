@@ -16,6 +16,25 @@
                 </li>
                 <li <% if (currentPage === 'purchase') { %> class="am-active" <% } %> ><a href="/purchase">订单跟踪</a></li>
             </ul>
+
+
+<% if (user) { %>
+
+<ul class="am-topbar-right am-nav am-nav-pills am-topbar-nav">
+<li class="am-dropdown" data-am-dropdown>
+    <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">我的账户 <span class="am-icon-caret-down"></span></a>
+    <ul class="am-dropdown-content">
+        <li><a href="#"><%= user.attributes.username %></a></li>
+        <li><a href="/logout">退出登录</a></li>
+    </ul>
+</li>
+</ul>
+<% } else { %>
+<div class="am-topbar-right">
+<a class="am-btn am-btn-primary am-topbar-btn am-btn-sm" href="/login"><span class="am-icon-user"></span>登录</a>
+</div>
+       <% } %>     
+
         </div>
     </div>
 </header>

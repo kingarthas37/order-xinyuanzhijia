@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+  <title><%= title %></title>
+  <% include ../partials/css %>
+</head>
+<body>
+
+<% include ../partials/header %>
+
+<% if (flash.error != '') { %>
+<div class="am-alert am-alert-danger">
+  <p><%= flash.error %></h3></p>
+</div>
+<% } %>
+
+<div class="am-g sign-page">
+  
+  <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+
+    <legend><a href="/sign/login">用户登录</a></legend>
+
+    <div class="am-btn-group">
+      <a href="#" class="am-btn am-btn-secondary am-btn-sm"><i class="am-icon-github am-icon-sm"></i> Github</a>
+      <a href="#" class="am-btn am-btn-success am-btn-sm"><i class="am-icon-google-plus-square am-icon-sm"></i> Google+</a>
+      <a href="#" class="am-btn am-btn-primary am-btn-sm"><i class="am-icon-stack-overflow am-icon-sm"></i> stackOverflow</a>
+    </div>
+
+    <hr/>
+
+    <form id="form-login" method="post" class="am-form">
+      <label for="email">请输入邮箱:</label>
+      <input type="email" name="username" placeholder="请输入邮箱">
+      <br>
+      <label for="password">请输入密码:</label>
+      <input type="password" name="password" placeholder="请输入密码">
+      <hr/>
+      <div class="am-cf">
+        <input type="submit" name="" value="登 录" class="am-btn am-btn-primary am-btn-sm am-fl">
+      </div>
+    </form>
+  </div>
+</div>
+
+<% include ../partials/footer %>
+<% include ../partials/js %>
+</body>
+</html>

@@ -2,16 +2,15 @@
 
 var router = require('express').Router();
 
-
-var signRegister = require('./sign/register');
-
-
 module.exports = {
     
-    //sign
-    '/sign':signRegister,
-    '/sign/register':signRegister,
+    //index
+    '/':require('./index/index'),
     
+    //sign
+    '/register':require('./sign/register'),
+    '/login':require('./sign/login'),
+    '/logout':require('./sign/logout'),
     
     //product
     '/product':require('./product/index'),

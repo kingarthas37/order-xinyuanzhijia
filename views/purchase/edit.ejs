@@ -13,7 +13,7 @@
 
 <div class="am-container common-page">
 
-    <form id="form-edit-purchase" class="am-form" action="" method="post" target="">
+    <form id="form-edit-purchase" class="am-form" action="/purchase/edit" method="post">
 
         <input type="hidden" name="purchase-id" value="<%= purchase.get('purchaseId') %>"/>
             
@@ -145,8 +145,7 @@
 
             
             <div class="am-form-group">
-                <button type="submit" class="am-btn am-btn-primary" data-action="/purchase/edit" data-target="_self">保存</button>
-                <button type="submit" class="am-btn am-btn-success" data-action="/purchase/preview" data-target="_blank">预览</button>
+                <button type="submit" class="am-btn am-btn-primary">保存</button>
             </div>
 
         </fieldset>

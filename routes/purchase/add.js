@@ -14,7 +14,8 @@ var currentPage = 'purchase';
 
 //添加产品页
 router.get('/', function (req, res, next) {
-
+ 
+    
     var datas = {
         title: title,
         currentPage: currentPage,
