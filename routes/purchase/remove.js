@@ -13,6 +13,10 @@ var PurchaseTrack = AV.Object.extend('PurchaseTrack');
 //删除订单
 router.get('/:purchaseId', function (req, res, next) {
 
+    if(!req.AV.user) {
+        return res.redirect('/login');
+    }
+    
     var purchaseId = req.params.purchaseId;
 
     async.waterfall([

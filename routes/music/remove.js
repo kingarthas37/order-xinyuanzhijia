@@ -12,20 +12,14 @@ var extend = require("xtend");
 var Music = AV.Object.extend('Music');
 
 
-var title = '音乐编辑-删除音乐';
-var currentPage = 'music';
-
-
 //删除音乐
 router.get('/:musicId', function (req, res, next) {
 
-    var musicId = req.params.musicId;
+    if(!req.AV.user) {
+        return res.redirect('/login');
+    }
 
-    var datas = {
-        title: title,
-        currentPage: currentPage,
-        info: req.flash('info')
-    };
+    var musicId = req.params.musicId;
 
     async.waterfall([
 

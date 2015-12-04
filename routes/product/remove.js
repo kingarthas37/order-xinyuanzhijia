@@ -6,29 +6,14 @@ var AV = require('leanengine');
 var flash = require('connect-flash');
 
 var async = require('async');
-var extend = require("xtend");
 
 //class
 var Product = AV.Object.extend('Product');
-var Category = AV.Object.extend('ProductCategory');
-var Banner = AV.Object.extend('ProductBanner');
-
-
-var title = '产品编辑-删除产品';
-var currentPage = 'product';
-
-
 
 //删除产品
 router.get('/:productId', function (req, res, next) {
 
     var productId = req.params.productId;
-
-    var datas = {
-        title: title,
-        currentPage: currentPage,
-        info: req.flash('info')
-    };
 
     async.waterfall([
 
@@ -50,7 +35,7 @@ router.get('/:productId', function (req, res, next) {
         function (object, cb) {
             object.destroy({
                 success: function () {
-                    req.flash('info', '删除成功!');
+                    req.flash('success', '删除成功!');
                     res.redirect('/product');
                 }
             });

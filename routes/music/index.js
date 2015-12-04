@@ -7,7 +7,7 @@ var flash = require('connect-flash');
 
 var async = require('async');
 var extend = require("xtend");
-
+var config = require('../../lib/config');
 
 //class
 var Music = AV.Object.extend('Music');
@@ -15,11 +15,17 @@ var Music = AV.Object.extend('Music');
 //lib
 var pager = require('../../lib/pager');
 
-var title = '音乐编辑-首页';
-var currentPage = 'music';
+var data = extend(config.data,{
+    title:'音乐编辑-首页',
+    currentPage:'music'
+});
 
 //首页
 router.get('/', function (req, res, next) {
+
+    if(!req.AV.user) {
+        return res.redirect('/login');
+    }
     
     var page = req.query.page ? parseInt(req.query.page) : 1;
     var limit = req.query.limit ? parseInt(req.query.limit) : 10;
@@ -27,12 +33,14 @@ router.get('/', function (req, res, next) {
     
     var search = req.query['music-search'] ? req.query['music-search'].trim() : '';
 
-    var datas = {
-        title: title,
-        currentPage: currentPage,
+    data = extend(data,{
         search:search,
-        info: req.flash('info')
-    };
+        user:req.AV.user,
+        flash:{
+            success:req.flash('success'),
+            error:req.flash('error')
+        }
+    });
 
     async.series([
 
@@ -46,7 +54,7 @@ router.get('/', function (req, res, next) {
             
             query.count({
                 success: function(count) {
-                    datas = extend(datas,{
+                    data = extend(data,{
                         musicPager:pager(page,limit,count)
                     });
                     cb();
@@ -76,7 +84,7 @@ router.get('/', function (req, res, next) {
 
             query.find({
                 success: function (results) {
-                    datas = extend(datas, {
+                    data = extend(data, {
                         music: results
                     });
                     cb();
@@ -89,7 +97,7 @@ router.get('/', function (req, res, next) {
         },
 
         function () {
-            res.render('music', datas);
+            res.render('music', data);
         }
 
     ]);

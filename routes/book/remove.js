@@ -12,20 +12,14 @@ var extend = require("xtend");
 var Book = AV.Object.extend('Book');
 
 
-var title = '电子书编辑-删除电子书';
-var currentPage = 'book';
-
-
-//删除音乐
+//删除电子书
 router.get('/:bookId', function (req, res, next) {
 
+    if(!req.AV.user) {
+        return res.redirect('/login');
+    }
+    
     var bookId = req.params.bookId;
-
-    var datas = {
-        title: title,
-        currentPage: currentPage,
-        info: req.flash('info')
-    };
 
     async.waterfall([
 
@@ -44,7 +38,7 @@ router.get('/:bookId', function (req, res, next) {
         function (object, cb) {
             object.destroy({
                 success: function () {
-                    req.flash('info', '删除成功!');
+                    req.flash('success', '删除成功!');
                     res.redirect('/book');
                 }
             });

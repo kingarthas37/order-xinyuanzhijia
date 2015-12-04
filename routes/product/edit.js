@@ -15,24 +15,29 @@ var Category = AV.Object.extend('ProductCategory');
 var Banner = AV.Object.extend('ProductBanner');
 
 //lib
-var pager = require('../../lib/pager');
+var config = require('../../lib/config');
 
-var title = '产品编辑-编辑产品';
-var currentPage = 'product';
-
+var data = extend(data,{
+    title:'产品编辑-编辑产品',
+    currentPage:'product'
+});
 
 
 //编辑产品页
 router.get('/:productId', function (req, res, next) {
 
+    if(!req.AV.user) {
+        return res.redirect('/login');
+    }
+    
     var productId = parseInt(req.params.productId);
 
-    var datas = {
-        title: title,
-        currentPage: currentPage,
-        info: req.flash('info'),
-        id: productId
-    };
+    data = extend(data,{
+        id: productId,
+        flash: { success:req.flash('success'), error:req.flash('error') },
+        user:req.AV.user
+    });
+   
 
     async.series([
 
@@ -42,7 +47,7 @@ router.get('/:productId', function (req, res, next) {
             query.equalTo('productId', productId);
             query.first({
                 success: function (results) {
-                    datas = extend(datas, {
+                    data = extend(data, {
                         product: results
                     });
                     cb();
@@ -59,7 +64,7 @@ router.get('/:productId', function (req, res, next) {
             var query = new AV.Query(Banner);
             query.find({
                 success: function (results) {
-                    datas = extend(datas, {
+                    data = extend(data, {
                         banner: results
                     });
                     cb();
@@ -73,7 +78,7 @@ router.get('/:productId', function (req, res, next) {
             var query = new AV.Query(Category);
             query.find({
                 success: function (results) {
-                    datas = extend(datas, {
+                    data = extend(data, {
                         category: results
                     });
                     cb();
@@ -86,7 +91,7 @@ router.get('/:productId', function (req, res, next) {
         },
 
         function () {
-            res.render('product/edit', datas);
+            res.render('product/edit', data);
         }
 
     ]);
@@ -96,6 +101,10 @@ router.get('/:productId', function (req, res, next) {
 
 router.post('/', function (req, res, next) {
 
+    if(!req.AV.user) {
+        return res.redirect('/login');
+    }
+    
     var mdCodeInfo = req.body['md-code-info'] || '';
     var mdCodeBanner = req.body['md-code-banner'] || '';
     var mdCodeVideo = req.body['md-code-video'] || '';
@@ -109,11 +118,10 @@ router.post('/', function (req, res, next) {
 
     var productId = req.body['product-id'];
 
-    var datas = {
-        title: title,
-        currentPage: currentPage,
-        info: req.flash('info')
-    };
+    data = extend(data,{
+        flash: { success:req.flash('success'), error:req.flash('error') },
+        user:req.AV.user
+    });
 
     async.waterfall([
 
@@ -148,7 +156,7 @@ router.post('/', function (req, res, next) {
                     post.set('categoryId', categoryId);
                     post.save(null, {
                         success: function (results) {
-                            datas = extend(datas, {
+                            data = extend(data, {
                                 product: results
                             });
                             cb(null);
@@ -170,7 +178,7 @@ router.post('/', function (req, res, next) {
             var query = new AV.Query(Banner);
             query.find({
                 success: function (results) {
-                    datas = extend(datas, {
+                    data = extend(data, {
                         banner: results
                     });
                     cb();
@@ -182,7 +190,7 @@ router.post('/', function (req, res, next) {
             var query = new AV.Query(Category);
             query.find({
                 success: function (results) {
-                    datas = extend(datas, {
+                    data = extend(data, {
                         category: results
                     });
                     req.flash('info', '编辑商品成功!');
@@ -193,7 +201,6 @@ router.post('/', function (req, res, next) {
         }
 
     ]);
-
 
 });
 

@@ -8,25 +8,34 @@ var flash = require('connect-flash');
 var async = require('async');
 var extend = require("xtend");
 var markdown = require("markdown").markdown;
+var config = require('../../lib/config');
 
 //class
 var Book = AV.Object.extend('Book');
 
-var title = '电子书编辑-编辑音乐';
-var currentPage = 'book';
+var data = extend(config.data,{
+    title:'电子书编辑-编辑音乐',
+    currentPage:'book'
+});
 
 
 //编辑产品页
 router.get('/:bookId', function (req, res, next) {
 
+    if(!req.AV.user) {
+        return res.redirect('/login');
+    }
+    
     var bookId = parseInt(req.params.bookId);
 
-    var datas = {
-        title: title,
-        currentPage: currentPage,
-        info: req.flash('info'),
-        id: bookId
-    };
+    data = extend(data,{
+        id: bookId,
+        user:req.AV.user,
+        flash:{
+            success:req.flash('success'),
+            error:req.flash('error')
+        }
+    });
 
     async.series([
 
@@ -36,7 +45,7 @@ router.get('/:bookId', function (req, res, next) {
             query.equalTo('bookId', bookId);
             query.first({
                 success: function (results) {
-                    datas = extend(datas, {
+                    data = extend(data, {
                         book: results
                     });
                     cb();
@@ -49,7 +58,7 @@ router.get('/:bookId', function (req, res, next) {
         },
 
         function () {
-            res.render('book/edit', datas);
+            res.render('book/edit', data);
         }
 
     ]);
@@ -58,6 +67,10 @@ router.get('/:bookId', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
+    
+    if(!req.AV.user) {
+        return res.redirect('/login');
+    }
 
     var mdCodeName = req.body['md-code-name'] || '';
     var mdCodeReview = req.body['md-code-review'] || '';
@@ -67,12 +80,14 @@ router.post('/', function (req, res, next) {
     var mdCodeImage = req.body['md-code-image'] || '';
 
     var bookId = req.body['book-id'];
-
-    var datas = {
-        title: title,
-        currentPage: currentPage,
-        info: req.flash('info')
-    };
+    
+    data = extend(data,{
+        user:req.AV.user,
+        flash:{
+            success:req.flash('success'),
+            error:req.flash('error')
+        }
+    });
 
     async.waterfall([
 
@@ -103,11 +118,11 @@ router.post('/', function (req, res, next) {
                     post.set('image', mdCodeImage);
                     post.save(null, {
                         success: function (results) {
-                            datas = extend(datas, {
+                            data = extend(data, {
                                 book: results
                             });
                             
-                            req.flash('info', '编辑电子书成功!');
+                            req.flash('success', '编辑电子书成功!');
                             res.redirect('/book');
                         },
                         error: function (err) {

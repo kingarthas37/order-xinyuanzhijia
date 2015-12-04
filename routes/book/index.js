@@ -7,7 +7,7 @@ var flash = require('connect-flash');
 
 var async = require('async');
 var extend = require("xtend");
-
+var config = require('../../lib/config');
 
 //class
 var Book = AV.Object.extend('Book');
@@ -15,11 +15,17 @@ var Book = AV.Object.extend('Book');
 //lib
 var pager = require('../../lib/pager');
 
-var title = '电子书编辑-首页';
-var currentPage = 'book';
+var data = extend(config.data,{
+    title:'电子书编辑-首页',
+    currentPage:'book'
+});
 
 //首页
 router.get('/', function (req, res, next) {
+    
+    if(!req.AV.user) {
+        return res.redirect('/login');
+    }
     
     var page = req.query.page ? parseInt(req.query.page) : 1;
     var limit = req.query.limit ? parseInt(req.query.limit) : 10;
@@ -27,12 +33,14 @@ router.get('/', function (req, res, next) {
     
     var search = req.query['book-search'] ? req.query['book-search'].trim() : '';
 
-    var datas = {
-        title: title,
-        currentPage: currentPage,
+    data = extend(data,{
         search:search,
-        info: req.flash('info')
-    };
+        user:req.AV.user,
+        flash:{
+            success:req.flash('success'),
+            error:req.flash('error')
+        }
+    });
 
     async.series([
 
@@ -46,7 +54,7 @@ router.get('/', function (req, res, next) {
             
             query.count({
                 success: function(count) {
-                    datas = extend(datas,{
+                    data = extend(data,{
                         bookPager:pager(page,limit,count)
                     });
                     cb();
@@ -76,7 +84,7 @@ router.get('/', function (req, res, next) {
 
             query.find({
                 success: function (results) {
-                    datas = extend(datas, {
+                    data = extend(data, {
                         book: results
                     });
                     cb();
@@ -89,7 +97,7 @@ router.get('/', function (req, res, next) {
         },
 
         function () {
-            res.render('book', datas);
+            res.render('book', data);
         }
 
     ]);

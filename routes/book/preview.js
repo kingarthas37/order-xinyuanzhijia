@@ -8,7 +8,7 @@ var flash = require('connect-flash');
 var async = require('async');
 var extend = require("xtend");
 var markdown = require("markdown").markdown;
-
+var config = require('../../lib/config');
 
 //libs
 var shot = require('../../lib/shot');
@@ -16,12 +16,18 @@ var shot = require('../../lib/shot');
 //class
 var Book = AV.Object.extend('Book');
 
-var title = '电子书编辑-预览电子书';
-var currentPage = 'book';
+var data = extend(config.data,{
+    title:'电子书编辑-预览电子书',
+    currentPage:'book'
+});
 
 
 //预览产品页
 router.post('/', function (req, res, next) {
+
+    if(!req.AV.user) {
+        return res.redirect('/login');
+    }
 
     var mdCodeName = req.body['md-code-name'] || '';
     var mdCodeReview = req.body['md-code-review'] || '';
@@ -30,18 +36,16 @@ router.post('/', function (req, res, next) {
     var mdCodeCatalog = req.body['md-code-catalog'] || '';
     var mdCodeImage = req.body['md-code-image'] || '';
     
-    var datas = {
-        title: title,
-        currentPage: currentPage,
+    data = extend(data,{
         mdCodeName: markdown.toHTML(mdCodeName),
         mdCodeReview: markdown.toHTML(mdCodeReview),
         mdCodeDescription: markdown.toHTML(mdCodeDescription),
         mdCodeAuthor: markdown.toHTML(mdCodeAuthor),
         mdCodeCatalog: markdown.toHTML(mdCodeCatalog),
         mdCodeImage: markdown.toHTML(mdCodeImage)
-    };
+    });
 
-    res.render('book/preview', datas);
+    res.render('book/preview', data);
 
 });
 
@@ -49,6 +53,10 @@ router.post('/', function (req, res, next) {
 //shot
 router.post('/shot', function (req, res, next) {
 
+    if(!req.AV.user) {
+        return res.redirect('/login');
+    }
+    
     var name = req.body.name.substr(0, 20);
     var html = req.body.html;
     var htmlHeight = parseInt(req.body.htmlHeight);

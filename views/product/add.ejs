@@ -10,14 +10,11 @@
 
 <% include ../partials/header %>
 
-
-
-
 <div class="am-container common-page">
     
-    <% if (info != '') { %>
+    <% if (flash.success != '') { %>
     <div class="am-panel am-panel-success">
-        <div class="am-panel-hd"><h3 class="am-panel-title"><%= info %></h3></div>
+        <div class="am-panel-hd"><h3 class="am-panel-title"><%= flash.success %></h3></div>
     </div>
     <% } %>
     

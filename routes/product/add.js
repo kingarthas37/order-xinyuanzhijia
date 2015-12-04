@@ -9,24 +9,32 @@ var async = require('async');
 var extend = require("xtend");
 var markdown = require("markdown").markdown;
 
+var config = require('../../lib/config');
+
 //class
 var Product = AV.Object.extend('Product');
 var Category = AV.Object.extend('ProductCategory');
 var Banner = AV.Object.extend('ProductBanner');
 
 
-var title = '产品编辑-添加产品';
-var currentPage = 'product';
+var data = extend(config.data,{
+    title:'产品编辑-添加产品',
+    currentPage:'product'
+});
+
 
 
 //添加产品页
 router.get('/', function (req, res, next) {
 
-    var datas = {
-        title: title,
-        currentPage: currentPage,
-        info: req.flash('info')
-    };
+    if(!req.AV.user) {
+        return res.redirect('/login');
+    }
+    
+    data = extend(data,{
+        flash:{success:req.flash('success'),error:req.flash('error')},
+        user:req.AV.user
+    });
 
     async.series([
 
@@ -35,7 +43,7 @@ router.get('/', function (req, res, next) {
             var query = new AV.Query(Category);
             query.find({
                 success: function (results) {
-                    datas = extend(datas, {
+                    data = extend(data, {
                         category: results
                     });
                     cb();
@@ -47,7 +55,7 @@ router.get('/', function (req, res, next) {
             var query = new AV.Query(Banner);
             query.find({
                 success: function (results) {
-                    datas = extend(datas, {
+                    data = extend(data, {
                         banner: results
                     });
                     cb();
@@ -55,7 +63,7 @@ router.get('/', function (req, res, next) {
             });
 
         }, function () {
-            res.render('product/add', datas);
+            res.render('product/add', data);
         }
 
     ]);
@@ -65,6 +73,10 @@ router.get('/', function (req, res, next) {
 
 //添加产品页
 router.post('/', function (req, res, next) {
+
+    if(!req.AV.user) {
+        return res.redirect('/login');
+    }
 
     var mdCodeInfo = req.body['md-code-info'] || '';
     var mdCodeBanner = req.body['md-code-banner'] || '';
@@ -91,19 +103,15 @@ router.post('/', function (req, res, next) {
     product.set('categoryId', categoryId);
 
     product.save(null, {
-        success: function (data) {
-
+        success: function () {
 
             var query = new AV.Query(Category);
             query.find({
                 success: function (results) {
-
-                    req.flash('info', '添加商品成功!');
+                    req.flash('success', '添加商品成功!');
                     res.redirect('/product');
-
                 }
             });
-
 
         },
         error: function (err) {

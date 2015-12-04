@@ -8,30 +8,40 @@ var flash = require('connect-flash');
 var async = require('async');
 var extend = require("xtend");
 var markdown = require("markdown").markdown;
+var config = require('../../lib/config');
 
 //class
 var Book = AV.Object.extend('Book');
 
-var title = '电子书编辑-添加音乐';
-var currentPage = 'book';
-
+var data = extend(config.data,{
+    title:'电子书编辑-添加音乐',
+    currentPage:'book'
+});
 
 //添加产品页
 router.get('/', function (req, res, next) {
-
-    var datas = {
-        title: title,
-        currentPage: currentPage,
-        info: req.flash('info')
-    };
-
-    res.render('book/add', datas);
-
+    
+    if(!req.AV.user) {
+        return res.redirect('/login');
+    }
+    
+    data = extend(data,{
+        user:req.AV.user,
+        flash:{
+            success:req.flash('success'),
+            error:req.flash('error')
+        }
+    });
+    res.render('book/add',data);
 });
 
 
 //添加产品页
 router.post('/', function (req, res, next) {
+
+    if(!req.AV.user) {
+        return res.redirect('/login');
+    }
 
     var mdCodeName = req.body['md-code-name'] || '';
     var mdCodeReview = req.body['md-code-review'] || '';
@@ -51,8 +61,7 @@ router.post('/', function (req, res, next) {
 
     book.save(null, {
         success: function () {
-
-            req.flash('info', '添加电子书成功!');
+            req.flash('success', '添加电子书成功!');
             res.redirect('/book');
             
         },

@@ -8,25 +8,34 @@ var flash = require('connect-flash');
 var async = require('async');
 var extend = require("xtend");
 var markdown = require("markdown").markdown;
+var config = require('../../lib/config');
 
 //class
 var Music = AV.Object.extend('Music');
 
-var title = '音乐编辑-编辑音乐';
-var currentPage = 'music';
-
+var data = extend(config.data,{
+    title:'音乐编辑-编辑音乐',
+    currentPage:'music'
+});
 
 //编辑产品页
 router.get('/:musicId', function (req, res, next) {
 
+    if(!req.AV.user) {
+        return res.redirect('/login');
+    }
+    
     var musicId = parseInt(req.params.musicId);
 
-    var datas = {
-        title: title,
-        currentPage: currentPage,
-        info: req.flash('info'),
-        id: musicId
-    };
+    data = extend(data,{
+        id: musicId,
+        user:req.AV.user,
+        flash:{
+            success:req.flash('success'),
+            error:req.flash('error')
+        }
+    });
+ 
 
     async.series([
 
@@ -36,7 +45,7 @@ router.get('/:musicId', function (req, res, next) {
             query.equalTo('musicId', musicId);
             query.first({
                 success: function (results) {
-                    datas = extend(datas, {
+                    data = extend(data, {
                         music: results
                     });
                     cb();
@@ -49,7 +58,7 @@ router.get('/:musicId', function (req, res, next) {
         },
 
         function () {
-            res.render('music/edit', datas);
+            res.render('music/edit', data);
         }
 
     ]);
@@ -59,6 +68,10 @@ router.get('/:musicId', function (req, res, next) {
 
 router.post('/', function (req, res, next) {
 
+    if(!req.AV.user) {
+        return res.redirect('/login');
+    }
+    
     var mdCodeName = req.body['md-code-name'] || '';
     var mdCodeReview = req.body['md-code-review'] || '';
     var mdCodeDetail = req.body['md-code-detail'] || '';
@@ -66,11 +79,13 @@ router.post('/', function (req, res, next) {
 
     var musicId = req.body['music-id'];
 
-    var datas = {
-        title: title,
-        currentPage: currentPage,
-        info: req.flash('info')
-    };
+    data = extend(data,{
+        user:req.AV.user,
+        flash:{
+            success:req.flash('success'),
+            error:req.flash('error')
+        }
+    });
 
     async.waterfall([
 
@@ -99,11 +114,11 @@ router.post('/', function (req, res, next) {
                     post.set('list', mdCodeList);
                     post.save(null, {
                         success: function (results) {
-                            datas = extend(datas, {
+                            data = extend(data, {
                                 music: results
                             });
                             
-                            req.flash('info', '编辑音乐成功!');
+                            req.flash('success', '编辑音乐成功!');
                             res.redirect('/music');
                         },
                         error: function (err) {

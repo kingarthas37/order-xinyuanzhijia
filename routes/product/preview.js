@@ -11,16 +11,23 @@ var markdown = require("markdown").markdown;
 
 //libs
 var shot = require('../../lib/shot');
+var config = require('../../lib/config');
 
 //class
 var Product = AV.Object.extend('Product');
 
-var title = '产品编辑-预览产品';
-var currentPage = 'product';
+var data = extend(config.data,{
+    title:'产品编辑-预览产品',
+    currentPage:'product'
+});
 
 //预览产品页
 router.post('/', function (req, res, next) {
 
+    if(!req.AV.user) {
+        return res.redirect('/login');
+    }
+    
     var mdCodeInfo = req.body['md-code-info'] || '';
     var mdCodeBanner = req.body['md-code-banner'] || '';
     var mdCodeVideo = req.body['md-code-video'] || '';
@@ -31,10 +38,7 @@ router.post('/', function (req, res, next) {
     var mdCodeDetail = req.body['md-code-detail'] || '';
     var mdCodeImage = req.body['md-code-image'] || '';
 
-
-    var datas = {
-        title: title,
-        currentPage: currentPage,
+    data = extend(data,{
         mdCodeInfo: markdown.toHTML(mdCodeInfo),
         mdCodeBanner: markdown.toHTML(mdCodeBanner),
         mdCodeVideo: markdown.toHTML(mdCodeVideo),
@@ -44,11 +48,9 @@ router.post('/', function (req, res, next) {
         mdCodeInstruction: markdown.toHTML(mdCodeInstruction),
         mdCodeDetail: markdown.toHTML(mdCodeDetail),
         mdCodeImage: markdown.toHTML(mdCodeImage)
-    };
-
-
-    res.render('product/preview', datas);
-
+    });
+    
+    res.render('product/preview', data);
 
 });
 
@@ -56,6 +58,10 @@ router.post('/', function (req, res, next) {
 //shot
 router.post('/shot', function (req, res, next) {
 
+    if(!req.AV.user) {
+        return res.redirect('/login');
+    }
+    
     var name = req.body.name.substr(0, 20);
     var html = req.body.html;
     var htmlHeight = parseInt(req.body.htmlHeight);

@@ -7,25 +7,26 @@ var flash = require('connect-flash');
 
 var async = require('async');
 var extend = require("xtend");
-
+var config = require('../../lib/config');
 
 //class
 var Product = AV.Object.extend('Product');
 var Category = AV.Object.extend('ProductCategory');
-var Banner = AV.Object.extend('ProductBanner');
 
 //lib
 var pager = require('../../lib/pager');
 
-var data = {
+var data = extend(config.data,{
     title: '产品编辑-首页',
-    currentPage: 'product',
-    info:{success:null,error:null},
-    user:null
-};
+    currentPage: 'product'
+});
 
 //首页
 router.get('/', function (req, res, next) {
+    
+    if(!req.AV.user) {
+        return res.redirect('/login');
+    }
     
     var page = req.query.page ? parseInt(req.query.page) : 1;
     var limit = req.query.limit ? parseInt(req.query.limit) : 10;
@@ -35,14 +36,13 @@ router.get('/', function (req, res, next) {
     
     var search = req.query['product-search'] ? req.query['product-search'].trim() : '';
 
-    var datas = {
-        title: title,
-        currentPage: currentPage,
+    data = extend(data,{
         categoryId:categoryId,
         search:search,
-        info: req.flash('info')
-    };
-
+        flash:{success:req.flash('success'),error:req.flash('error')},
+        user:req.AV.user
+    });
+    
     async.series([
 
         function(cb) {
@@ -58,7 +58,7 @@ router.get('/', function (req, res, next) {
             
             query.count({
                 success: function(count) {
-                    datas = extend(datas,{
+                    data = extend(data,{
                         productPager:pager(page,limit,count)
                     });
                     cb();
@@ -92,7 +92,7 @@ router.get('/', function (req, res, next) {
 
             query.find({
                 success: function (results) {
-                    datas = extend(datas, {
+                    data = extend(data, {
                         product: results
                     });
                     cb();
@@ -109,13 +109,13 @@ router.get('/', function (req, res, next) {
             var query = new AV.Query(Category);
             query.find({
                 success: function (results) {
-                    datas = extend(datas,{
+                    data = extend(data,{
                         category:results
                     });
-                    for (var i in datas.product) {
-                        datas.product[i].set('categoryName', (function () {
+                    for (var i in data.product) {
+                        data.product[i].set('categoryName', (function () {
                             for (var _i in results) {
-                                if (results[_i].get('categoryId') === datas.product[i].get('categoryId')) {
+                                if (results[_i].get('categoryId') === data.product[i].get('categoryId')) {
                                     return results[_i].get('categoryName');
                                 }
                             }
@@ -131,13 +131,11 @@ router.get('/', function (req, res, next) {
         },
 
         function () {
-            res.render('product', datas);
+            res.render('product', data);
         }
 
     ]);
 
 });
-
- 
 
 module.exports = router;
