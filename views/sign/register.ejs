@@ -10,9 +10,9 @@
 
 <% include ../partials/header %>
 
-<% if (error != '') { %>
+<% if (flash.error != '') { %>
 <div class="am-alert am-alert-danger">
-  <p><%= error %></h3></p>
+  <p><%= flash.error %></h3></p>
 </div>
 <% } %>
 

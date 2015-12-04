@@ -18,7 +18,7 @@ var pager = require('../../lib/pager');
 var data = {
     title: '订单跟踪编辑-首页',
     currentPage: 'purchase',
-    info:null,
+    info:{success:null,error:null},
     user:null
 };
 
@@ -36,8 +36,9 @@ router.get('/', function (req, res, next) {
     var search = req.query['purchase-search'] ? req.query['purchase-search'].trim() : '';
 
     data = extend(data,{
-        info: req.flash('info'),
-        user:req.AV.user
+        flash: {success:req.flash('success'),error:req.flash('error')},
+        user:req.AV.user,
+        search:search
     });
 
     async.series([

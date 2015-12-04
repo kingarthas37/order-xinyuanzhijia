@@ -10,21 +10,10 @@ var async = require('async');
 //class
 var PurchaseTrack = AV.Object.extend('PurchaseTrack');
 
-
-var title = '订单编辑-删除订单';
-var currentPage = 'purchase';
-
-
 //删除订单
 router.get('/:purchaseId', function (req, res, next) {
 
     var purchaseId = req.params.purchaseId;
-
-    var datas = {
-        title: title,
-        currentPage: currentPage,
-        info: req.flash('info')
-    };
 
     async.waterfall([
 
@@ -43,7 +32,7 @@ router.get('/:purchaseId', function (req, res, next) {
         function (object, cb) {
             object.destroy({
                 success: function () {
-                    req.flash('info', '删除成功!');
+                    req.flash('success', '删除成功!');
                     res.redirect('/purchase');
                 }
             });
@@ -51,6 +40,5 @@ router.get('/:purchaseId', function (req, res, next) {
 
     ]);
 });
-
 
 module.exports = router;

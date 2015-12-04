@@ -8,22 +8,16 @@ var flash = require('connect-flash');
 //class
 var PurchaseTrack = AV.Object.extend('PurchaseTrack');
 
-var title = '订单跟踪-添加新订单';
-var currentPage = 'purchase';
-
+var data = {
+    title: '订单跟踪编辑-添加新订单',
+    currentPage: 'purchase',
+    info:{success:null,error:null},
+    user:null
+};
 
 //添加产品页
 router.get('/', function (req, res, next) {
- 
-    
-    var datas = {
-        title: title,
-        currentPage: currentPage,
-        info: req.flash('info')
-    };
-
-    res.render('purchase/add', datas);
-
+    res.render('purchase/add', data);
 });
 
 
@@ -60,10 +54,8 @@ router.post('/', function (req, res, next) {
 
     purchaseTrack.save(null, {
         success: function () {
-
-            req.flash('info', '添加订单成功!');
+            req.flash('success', '添加订单成功!');
             res.redirect('/purchase');
-            
         },
         error: function (err) {
             next(err);
