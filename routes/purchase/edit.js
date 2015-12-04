@@ -3,6 +3,8 @@
 var router = require('express').Router();
 var AV = require('leanengine');
 
+var config = require('../../lib/config');
+
 var flash = require('connect-flash');
 
 var async = require('async');
@@ -11,21 +13,26 @@ var extend = require("xtend");
 //class
 var PurchaseTrack = AV.Object.extend('PurchaseTrack');
 
-var title = '订单编辑-编辑订单';
-var currentPage = 'purchase';
+var data =  extend(config.data,{
+    title:'订单编辑-编辑订单',
+    currentPage:'purchase'
+});
 
 
 //编辑产品页
 router.get('/:purchaseId', function (req, res, next) {
 
+    if(!req.AV.user) {
+        return res.redirect('/login');
+    }
+    
     var purchaseId = parseInt(req.params.purchaseId);
 
-    var datas = {
-        title: title,
-        currentPage: currentPage,
-        info: req.flash('info'),
+    data = extend(data,{
+        flash: { success:req.flash('success'), error:req.flash('error') },
+        user:req.AV.user,
         id: purchaseId
-    };
+    });
 
     async.series([
 
@@ -35,7 +42,7 @@ router.get('/:purchaseId', function (req, res, next) {
             query.equalTo('purchaseId', purchaseId);
             query.first({
                 success: function (results) {
-                    datas = extend(datas, {
+                    data = extend(data, {
                         purchase: results
                     });
                     cb();
@@ -48,7 +55,7 @@ router.get('/:purchaseId', function (req, res, next) {
         },
 
         function () {
-            res.render('purchase/edit', datas);
+            res.render('purchase/edit', data);
         }
 
     ]);
@@ -57,6 +64,10 @@ router.get('/:purchaseId', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
+
+    if(!req.AV.user) {
+        return res.redirect('/login');
+    }
 
     var purchaseName = req.body['purchase-name'] || '';
     var purchaseDescription = req.body['purchase-description'] ||'';
@@ -73,11 +84,12 @@ router.post('/', function (req, res, next) {
 
     var purchaseId = req.body['purchase-id'];
     
-    var datas = {
-        title: title,
-        currentPage: currentPage,
-        info: req.flash('info')
-    };
+    data = extend(data,{
+        flash: {
+            success:req.flash('success'),
+            error:req.flash('error')
+        }
+    });
 
     async.waterfall([
 
@@ -114,7 +126,7 @@ router.post('/', function (req, res, next) {
                     purchase.set('comment',purchaseComment);
                     purchase.save(null, {
                         success: function (results) {
-                            datas = extend(datas, {
+                            data = extend(data, {
                                 purchase: results
                             });
                             
@@ -135,7 +147,6 @@ router.post('/', function (req, res, next) {
         }
 
     ]);
-
 
 });
 

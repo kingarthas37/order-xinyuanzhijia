@@ -13,10 +13,9 @@
 
 <div class="am-container common-page">
 
-    <% if (info != '') { %>
+    <% if (flash.success != '') { %>
     <div class="am-alert am-alert-success">
-        <button type="button" class="am-close">×</button>
-        <p><%= info %></h3></p>
+        <p><%= flash.success %></h3></p>
     </div>
     <% } %>
     

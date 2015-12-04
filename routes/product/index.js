@@ -17,8 +17,12 @@ var Banner = AV.Object.extend('ProductBanner');
 //lib
 var pager = require('../../lib/pager');
 
-var title = '产品编辑-首页';
-var currentPage = 'product';
+var data = {
+    title: '产品编辑-首页',
+    currentPage: 'product',
+    info:{success:null,error:null},
+    user:null
+};
 
 //首页
 router.get('/', function (req, res, next) {

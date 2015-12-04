@@ -8,6 +8,7 @@ var flash = require('connect-flash');
 var async = require('async');
 var extend = require("xtend");
 
+var config = require('../../lib/config');
 
 //class
 var PurchaseTrack = AV.Object.extend('PurchaseTrack');
@@ -15,12 +16,11 @@ var PurchaseTrack = AV.Object.extend('PurchaseTrack');
 //lib
 var pager = require('../../lib/pager');
 
-var data = {
+var data =  extend(config.data,{
     title: '订单跟踪编辑-首页',
-    currentPage: 'purchase',
-    info:{success:null,error:null},
-    user:null
-};
+    currentPage: 'purchase'
+});
+
 
 //首页
 router.get('/', function (req, res, next) {

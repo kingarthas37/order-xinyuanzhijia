@@ -3,26 +3,40 @@
 var router = require('express').Router();
 var AV = require('leanengine');
 
+var extend = require('xtend');
+var config = require('../../lib/config');
+
 var flash = require('connect-flash');
 
 //class
 var PurchaseTrack = AV.Object.extend('PurchaseTrack');
 
-var data = {
-    title: '订单跟踪编辑-添加新订单',
-    currentPage: 'purchase',
-    info:{success:null,error:null},
-    user:null
-};
+var data =  extend(config.data,{
+    title:'订单编辑-编辑订单',
+    currentPage:'purchase'
+});
 
 //添加产品页
 router.get('/', function (req, res, next) {
+
+    if (!req.AV.user) {
+        return res.redirect('/login');
+    }
+    
+    data = extend(data,{
+        user:req.AV.user
+    });
+    
     res.render('purchase/add', data);
 });
 
 
 //添加产品页
 router.post('/', function (req, res, next) {
+
+    if (!req.AV.user) {
+        return res.redirect('/login');
+    }
     
     var purchaseName = req.body['purchase-name'] || '';
     var purchaseDescription = req.body['purchase-description'] ||'';
