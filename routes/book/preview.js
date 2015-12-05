@@ -60,12 +60,12 @@ router.post('/shot', function (req, res, next) {
     var name = req.body.name.substr(0, 20);
     var html = req.body.html;
     var htmlHeight = parseInt(req.body.htmlHeight);
-    
+
     shot({
         name:name,
         html:html,
         htmlHeight:htmlHeight
-    },function() {
+    }).then(function() {
         res.json({
             "success": 1
         });

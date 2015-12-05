@@ -62,7 +62,7 @@ router.post('/shot', function (req, res, next) {
         name:name,
         html:html,
         htmlHeight:htmlHeight
-    },function() {
+    }).then(function() {
         res.json({
             "success": 1
         });
