@@ -11,13 +11,13 @@ var extend = require("xtend");
 var config = require('../../lib/config');
 
 //class
-var PurchaseTrack = AV.Object.extend('PurchaseTrack');
+var Customer = AV.Object.extend('Customer');
 
 //lib
 var pager = require('../../lib/pager');
 
 var data =  extend(config.data,{
-    title: '收货人信息-首页',
+    title: '收货人管理-首页',
     currentPage: 'customer'
 });
 
@@ -45,7 +45,7 @@ router.get('/', function (req, res, next) {
 
         function(cb) {
             
-            var query = new AV.Query(PurchaseTrack);
+            var query = new AV.Query(Customer);
             
             if(search) {
                 query.contains('name',search);
@@ -54,7 +54,7 @@ router.get('/', function (req, res, next) {
             query.count({
                 success: function(count) {
                     data = extend(data,{
-                        purchasePager:pager(page,limit,count)
+                        customerPager:pager(page,limit,count)
                     });
                     cb();
                 },
@@ -66,15 +66,15 @@ router.get('/', function (req, res, next) {
 
         function (cb) {
 
-            var query = new AV.Query(PurchaseTrack);
+            var query = new AV.Query(Customer);
 
             query.skip((page - 1) * limit);
             query.limit(limit);
             
             if(order === 'asc') {
-                query.ascending("purchaseId");
+                query.ascending("customerId");
             } else {
-                query.descending('purchaseId');
+                query.descending('customerId');
             }
 
             if(search) {
@@ -84,7 +84,7 @@ router.get('/', function (req, res, next) {
             query.find({
                 success: function (results) {
                     data = extend(data, {
-                        purchase: results
+                        customer: results
                     });
                     cb();
                 },
@@ -96,7 +96,7 @@ router.get('/', function (req, res, next) {
         },
 
         function () {
-            res.render('purchase', data);
+            res.render('customer', data);
         }
 
     ]);

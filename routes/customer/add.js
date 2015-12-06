@@ -9,11 +9,11 @@ var config = require('../../lib/config');
 var flash = require('connect-flash');
 
 //class
-var PurchaseTrack = AV.Object.extend('PurchaseTrack');
+var Customer = AV.Object.extend('Customer');
 
 var data =  extend(config.data,{
-    title:'订单编辑-编辑订单',
-    currentPage:'purchase'
+    title:'收货人管理-添加收货人',
+    currentPage:'customer'
 });
 
 //添加产品页
@@ -27,7 +27,7 @@ router.get('/', function (req, res, next) {
         user:req.AV.user
     });
     
-    res.render('purchase/add', data);
+    res.render('customer/add', data);
 });
 
 
@@ -38,45 +38,30 @@ router.post('/', function (req, res, next) {
         return res.redirect('/login');
     }
     
-    var purchaseName = req.body['purchase-name'] || '';
-    var purchaseDescription = req.body['purchase-description'] ||'';
-    var purchaseWebsite = req.body['purchase-website'] || '';
-    var purchaseOrderLink = req.body['purchase-order-link'] || '';
-    var purchaseMail = req.body['purchase-mail'] || '';
-    var purchaseAmount = req.body['purchase-amount'] || '';
-    var purchaseTrackingNumber = req.body['purchase-tracking-number'] || '';
-    var purchasePaymentType = req.body['purchase-payment-type'] || '';
-    var purchasePaymentInfo = req.body['purchase-payment-info'] || '';
-    var purchaseShippingType = req.body['purchase-shipping-type'] || '';
-    var purchaseShippingState = req.body['purchase-shipping-state'] || '';
-    var purchaseComment = req.body['purchase-comment'] || '';
+    var name = req.body['name'] || '';
+    var nickName = req.body['nickname'] || '';
+    var taobao = req.body['taobao'] || '';
+    var weixin = req.body['weixin'] || '';
+    var address = req.body['address'] || '';
+    
+    var customer = new Customer();
 
-    var purchaseTrack = new PurchaseTrack();
+    customer.set('name',name);
+    customer.set('nickName',nickName);
+    customer.set('taobao',taobao);
+    customer.set('weixin',weixin);
+    customer.set('address',address);
 
-    purchaseTrack.set('name',purchaseName);
-    purchaseTrack.set('description',purchaseDescription);
-    purchaseTrack.set('website',purchaseWebsite);
-    purchaseTrack.set('orderLink',purchaseOrderLink);
-    purchaseTrack.set('mail',purchaseMail);
-    purchaseTrack.set('amount',purchaseAmount);
-    purchaseTrack.set('trackingNumber',purchaseTrackingNumber);
-    purchaseTrack.set('paymentType',purchasePaymentType);
-    purchaseTrack.set('paymentInfo',purchasePaymentInfo);
-    purchaseTrack.set('shippingType',purchaseShippingType);
-    purchaseTrack.set('shippingState',purchaseShippingState);
-    purchaseTrack.set('comment',purchaseComment);
-
-    purchaseTrack.save(null, {
+    customer.save(null, {
         success: function () {
-            req.flash('success', '添加订单成功!');
-            res.redirect('/purchase');
+            req.flash('success', '添加收货人成功!');
+            res.redirect('/customer');
         },
         error: function (err) {
             next(err);
         }
     });
-
-
+    
 });
 
 module.exports = router;

@@ -52,6 +52,17 @@ footer p {
 .common-page label.normal {
   font-weight: normal; }
 
+.common-page .address-content .am-u-sm-11 {
+  padding-left: 0; }
+
+.common-page .address-content .am-u-sm-1 {
+  text-align: left;
+  padding-left: 0;
+  padding-right: 0; }
+
+.common-page .address-content .address-field:first-child .remove {
+  display: none; }
+
 .common-product-view-page {
   width: 750px;
   margin: 30px auto; }

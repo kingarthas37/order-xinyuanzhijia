@@ -8,22 +8,22 @@ var flash = require('connect-flash');
 var async = require('async');
 
 //class
-var PurchaseTrack = AV.Object.extend('PurchaseTrack');
+var Customer = AV.Object.extend('Customer');
 
 //删除订单
-router.get('/:purchaseId', function (req, res, next) {
+router.get('/:customerId', function (req, res, next) {
 
     if(!req.AV.user) {
         return res.redirect('/login');
     }
     
-    var purchaseId = req.params.purchaseId;
+    var customerId = req.params.customerId;
 
     async.waterfall([
 
         function (cb) {
-            var query = new AV.Query(PurchaseTrack);
-            query.equalTo('purchaseId', parseInt(purchaseId));
+            var query = new AV.Query(Customer);
+            query.equalTo('customerId', parseInt(customerId));
             query.first({
                 success: function (object) {
                     cb(null, object);
@@ -37,7 +37,7 @@ router.get('/:purchaseId', function (req, res, next) {
             object.destroy({
                 success: function () {
                     req.flash('success', '删除成功!');
-                    res.redirect('/purchase');
+                    res.redirect('/customer');
                 }
             });
         }

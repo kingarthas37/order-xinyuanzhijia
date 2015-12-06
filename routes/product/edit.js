@@ -193,7 +193,7 @@ router.post('/', function (req, res, next) {
                     data = extend(data, {
                         category: results
                     });
-                    req.flash('info', '编辑商品成功!');
+                    req.flash('success', '编辑商品成功!');
                     res.redirect('/product');
                 }
             });

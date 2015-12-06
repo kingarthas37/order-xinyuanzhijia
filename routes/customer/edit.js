@@ -11,39 +11,37 @@ var async = require('async');
 var extend = require("xtend");
 
 //class
-var PurchaseTrack = AV.Object.extend('PurchaseTrack');
+var Customer = AV.Object.extend('Customer');
 
 var data =  extend(config.data,{
-    title:'订单编辑-编辑订单',
-    currentPage:'purchase'
+    title:'收货人管理-编辑收货人',
+    currentPage:'customer'
 });
 
-
-//编辑产品页
-router.get('/:purchaseId', function (req, res, next) {
+router.get('/:customerId', function (req, res, next) {
 
     if(!req.AV.user) {
         return res.redirect('/login');
     }
     
-    var purchaseId = parseInt(req.params.purchaseId);
+    var customerId = parseInt(req.params.customerId);
 
     data = extend(data,{
         flash: { success:req.flash('success'), error:req.flash('error') },
         user:req.AV.user,
-        id: purchaseId
+        id: customerId
     });
 
     async.series([
 
         function (cb) {
 
-            var query = new AV.Query(PurchaseTrack);
-            query.equalTo('purchaseId', purchaseId);
+            var query = new AV.Query(Customer);
+            query.equalTo('customerId', customerId);
             query.first({
                 success: function (results) {
                     data = extend(data, {
-                        purchase: results
+                        customer: results
                     });
                     cb();
                 },
@@ -55,12 +53,11 @@ router.get('/:purchaseId', function (req, res, next) {
         },
 
         function () {
-            res.render('purchase/edit', data);
+            res.render('customer/edit', data);
         }
 
     ]);
-
-
+    
 });
 
 router.post('/', function (req, res, next) {
@@ -69,20 +66,14 @@ router.post('/', function (req, res, next) {
         return res.redirect('/login');
     }
 
-    var purchaseName = req.body['purchase-name'] || '';
-    var purchaseDescription = req.body['purchase-description'] ||'';
-    var purchaseWebsite = req.body['purchase-website'] || '';
-    var purchaseOrderLink = req.body['purchase-order-link'] || '';
-    var purchaseMail = req.body['purchase-mail'] || '';
-    var purchaseAmount = req.body['purchase-amount'] || '';
-    var purchaseTrackingNumber = req.body['purchase-tracking-number'] || '';
-    var purchasePaymentType = req.body['purchase-payment-type'] || '';
-    var purchasePaymentInfo = req.body['purchase-payment-info'] || '';
-    var purchaseShippingType = req.body['purchase-shipping-type'] || '';
-    var purchaseShippingState = req.body['purchase-shipping-state'] || '';
-    var purchaseComment = req.body['purchase-comment'] || '';
+    var name = req.body['name'] || '';
+    var nickName = req.body['nickname'] || '';
+    var taobao = req.body['taobao'] || '';
+    var weixin = req.body['weixin'] || '';
+    var address = req.body['address'] || '';
+ 
 
-    var purchaseId = req.body['purchase-id'];
+    var customerId = req.body['customer-id'];
     
     data = extend(data,{
         flash: {
@@ -95,8 +86,8 @@ router.post('/', function (req, res, next) {
 
         function (cb) {
 
-            var query = new AV.Query(PurchaseTrack);
-            query.equalTo('purchaseId', parseInt(purchaseId));
+            var query = new AV.Query(Customer);
+            query.equalTo('customerId', parseInt(customerId));
             query.first({
                 success: function (results) {
                     cb(null, results.id, query);
@@ -111,27 +102,20 @@ router.post('/', function (req, res, next) {
         function (objectId, query, cb) {
             
             query.get(objectId, {
-                success: function (purchase) {
-                    purchase.set('name',purchaseName);
-                    purchase.set('description',purchaseDescription);
-                    purchase.set('website',purchaseWebsite);
-                    purchase.set('orderLink',purchaseOrderLink);
-                    purchase.set('mail',purchaseMail);
-                    purchase.set('amount',purchaseAmount);
-                    purchase.set('trackingNumber',purchaseTrackingNumber);
-                    purchase.set('paymentType',purchasePaymentType);
-                    purchase.set('paymentInfo',purchasePaymentInfo);
-                    purchase.set('shippingType',purchaseShippingType);
-                    purchase.set('shippingState',purchaseShippingState);
-                    purchase.set('comment',purchaseComment);
-                    purchase.save(null, {
+                success: function (customer) {
+                    customer.set('name',name);
+                    customer.set('nickName',nickName);
+                    customer.set('taobao',taobao);
+                    customer.set('weixin',weixin);
+                    customer.set('address',address);
+                    customer.save(null, {
                         success: function (results) {
                             data = extend(data, {
-                                purchase: results
+                                customer: results
                             });
                             
-                            req.flash('info', '编辑订单成功!');
-                            res.redirect('/purchase');
+                            req.flash('success', '编辑收货人信息成功!');
+                            res.redirect('/customer');
                         },
                         error: function (err) {
                             next(err);
