@@ -38,6 +38,7 @@
                 <tr>
                     <th width="250">订单名称</th>
                     <th width="250">网站名称</th>
+                    <th width="80">状态</th>
                     <th>创建时间</th>
                     <th>最后更新时间</th>
                     <th width="50">删除</th>
@@ -48,6 +49,7 @@
                 <tr>
                     <td><a href="/purchase/edit/<%= purchase[i].get('purchaseId') %>"><%= purchase[i].get('name') %></a> </td>
                     <td><%= purchase[i].get('website') %></td>
+                    <td><% if (purchase[i].get('shippingState') === 'arrived') { %> <strong>已到货</strong> <% } else { %> 未到货 <% } %></td>
                     <td><%= new Date(purchase[i].createdAt).toLocaleString() %></td>
                     <td><%= new Date(purchase[i].updatedAt).toLocaleString() %></td>
                     <td><a href="/purchase/remove/<%= purchase[i].get('purchaseId') %>" class="remove-purchase">删除</a> </td>
