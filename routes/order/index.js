@@ -11,14 +11,14 @@ var extend = require("xtend");
 var config = require('../../lib/config');
 
 //class
-var PurchaseTrack = AV.Object.extend('PurchaseTrack');
+var OrderTrack = AV.Object.extend('OrderTrack');
 
 //lib
 var pager = require('../../lib/pager');
 
 var data =  extend(config.data,{
-    title: '订单跟踪编辑-首页',
-    currentPage: 'purchase'
+    title: '发货订单编辑-首页',
+    currentPage: 'order'
 });
 
 
@@ -33,7 +33,7 @@ router.get('/', function (req, res, next) {
     var limit = req.query.limit ? parseInt(req.query.limit) : 10;
     var order = req.query.order || 'desc';
     
-    var search = req.query['purchase-search'] ? req.query['purchase-search'].trim() : '';
+    var search = req.query['order-search'] ? req.query['order-search'].trim() : '';
 
     data = extend(data,{
         flash: {success:req.flash('success'),error:req.flash('error')},
@@ -45,7 +45,7 @@ router.get('/', function (req, res, next) {
 
         function(cb) {
             
-            var query = new AV.Query(PurchaseTrack);
+            var query = new AV.Query(OrderTrack);
             
             if(search) {
                 query.contains('name',search);
@@ -54,7 +54,7 @@ router.get('/', function (req, res, next) {
             query.count({
                 success: function(count) {
                     data = extend(data,{
-                        purchasePager:pager(page,limit,count)
+                        orderPager:pager(page,limit,count)
                     });
                     cb();
                 },
@@ -66,15 +66,15 @@ router.get('/', function (req, res, next) {
 
         function (cb) {
 
-            var query = new AV.Query(PurchaseTrack);
+            var query = new AV.Query(OrderTrack);
 
             query.skip((page - 1) * limit);
             query.limit(limit);
             
             if(order === 'asc') {
-                query.ascending("purchaseId");
+                query.ascending("orderId");
             } else {
-                query.descending('purchaseId');
+                query.descending('orderId');
             }
 
             if(search) {
@@ -84,7 +84,7 @@ router.get('/', function (req, res, next) {
             query.find({
                 success: function (results) {
                     data = extend(data, {
-                        purchase: results
+                        order: results
                     });
                     cb();
                 },
@@ -96,7 +96,7 @@ router.get('/', function (req, res, next) {
         },
 
         function () {
-            res.render('purchase', data);
+            res.render('order', data);
         }
 
     ]);

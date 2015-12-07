@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title><%= title %></title>
+    <% include ../partials/css %>
+</head>
+<body>
+
+<% include ../partials/header %>
+
+<div class="am-container common-page">
+    
+    <form id="form-add-customer" class="am-form" action="/customer/add" method="post">
+
+        <fieldset>
+
+            <legend>添加新收货人</legend>
+
+            <!-- name start -->
+            <div id="content-name" class="am-form-group">
+                <label>收货人姓名：<i>*</i> </label>
+                <input id="name" required name="name" type="text" placeholder="输入收货人姓名" />
+            </div>
+            <!-- name end -->
+
+            <hr/>
+
+            <!-- nickname start -->
+            <div id="content-nickname" class="am-form-group">
+                <label>昵称：</label>
+                <input id="nickname" name="nickname" type="text" placeholder="输入昵称" />
+            </div>
+            <!-- nickname end -->
+
+            <hr/>
+
+            <!-- taobaoname start -->
+            <div id="content-taobao" class="am-form-group">
+                <label>淘宝用户名：</label>
+                <input id="taobao" name="taobao" type="text" placeholder="输入淘宝用户名" />
+            </div>
+            <!-- taobaoname end -->
+
+            <hr/>
+
+            <!-- weixinname start -->
+            <div id="content-weixin" class="am-form-group">
+                <label>微信号：</label>
+                <input id="weixin" name="weixin" type="text" placeholder="输入微信用户名" />
+            </div>
+            <!-- weixinname end -->
+
+            <hr/>
+
+            <!-- shipping address start -->
+            <div id="content-address" class="am-form-group">
+                <label>收货信息：</label>
+                <input type="hidden" name="address"/>
+                <div class="address-content am-form-horizontal">
+                    
+                    <div class="address-field am-form-group"><div class="am-u-sm-11"><input class="address" type="text" placeholder="输入收货地址" /></div><label class="am-u-sm-1 am-form-label">
+                        <a href="javascript:;" class="remove">- 删除</a> </label></div>
+
+                    
+                    <p><a class="address-add" href="javascript:;">+ 添加收货信息</a> </p>
+                </div>
+            </div>
+            <!-- shipping address end -->
+
+            <hr/>
+
+            <div class="am-form-group">
+                <button type="submit" class="am-btn am-btn-primary">保存</button>
+            </div>
+
+        </fieldset>
+
+    </form>
+    
+</div>
+
+<% include ../partials/footer %>
+<% include ../partials/js %>
+
+<script type="text/javascript">
+    $(function() {
+        var customer = require('customer');
+        customer.addFun();
+    });
+</script>
+</body>
+</html>

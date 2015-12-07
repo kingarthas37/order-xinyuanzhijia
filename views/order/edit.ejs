@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title><%= title %></title>
+    <% include ../partials/css %>
+</head>
+<body>
+
+<% include ../partials/header %>
+
+
+<div class="am-container common-page">
+
+    <form id="form-edit-customer" class="am-form" action="/customer/edit" method="post">
+
+        <input type="hidden" name="customer-id" value="<%= customer.get('customerId') %>"/>
+            
+        <fieldset>
+
+            <legend>编辑收货人地址：</legend>
+
+            <!-- name start -->
+            <div id="content-name" class="am-form-group">
+                <label>收货人姓名：<i>*</i> </label>
+                <input id="name" required name="name" type="text" placeholder="输入收货人姓名" value="<%= customer.get('name') %>" />
+            </div>
+            <!-- name end -->
+
+            <hr/>
+
+            <!-- nickname start -->
+            <div id="content-nickname" class="am-form-group">
+                <label>昵称：</label>
+                <input id="nickname" name="nickname" type="text" placeholder="输入昵称" value="<%= customer.get('nickName') %>" />
+            </div>
+            <!-- nickname end -->
+
+            <hr/>
+
+            <!-- taobaoname start -->
+            <div id="content-taobao" class="am-form-group">
+                <label>淘宝用户名：</label>
+                <input id="taobao" name="taobao" type="text" placeholder="输入淘宝用户名" value="<%= customer.get('taobao') %>" />
+            </div>
+            <!-- taobaoname end -->
+
+            <hr/>
+
+            <!-- weixinname start -->
+            <div id="content-weixin" class="am-form-group">
+                <label>微信号：</label>
+                <input id="weixin" name="weixin" type="text" placeholder="输入微信用户名" value="<%= customer.get('weixin') %>" />
+            </div>
+            <!-- weixinname end -->
+
+            <hr/>
+
+            <!-- shipping address start -->
+            <div id="content-address" class="am-form-group">
+                <label>收货信息：</label>
+                <input type="hidden" name="address" value=""/>
+                <div class="address-content am-form-horizontal">
+                    <% var addressArr = customer.get('address').split('|'); %>
+                    <% for (var i=0; i< addressArr.length;i++) { %>
+                    <div class="address-field am-form-group"><div class="am-u-sm-11"><input class="address" type="text" placeholder="输入收货地址" value="<%= addressArr[i] %>" /></div><label class="am-u-sm-1 am-form-label">
+                        <a href="javascript:;" class="remove">- 删除</a> </label></div>
+                    <% } %>
+                    <p><a class="address-add" href="javascript:;">+ 添加收货信息</a> </p>
+                </div>
+            </div>
+            <!-- shipping address end -->
+
+            <hr/>
+
+            
+            <div class="am-form-group">
+                <button type="submit" class="am-btn am-btn-primary">保存</button>
+            </div>
+
+        </fieldset>
+
+    </form>
+
+</div>
+
+
+<% include ../partials/footer %>
+<% include ../partials/js %>
+
+<script type="text/javascript">
+    $(function() {
+        var customer = require('customer');
+        customer.editFun();
+    });
+</script>
+</body>
+</html>
