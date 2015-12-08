@@ -77,6 +77,8 @@
     "jquery-zoom": "./public/js/jquery.zoom.js",
     "jquery-zclip": "./public/js/jquery.zclip.min.js",
     "flash-detect": "./public/js/flash.detect.min.js",
+    "bloodhound":"./public/js/bloodhound.min.js",
+    "typeahead":"./public/js/typeahead.jquery.min.js",
     "swfobject": "./public/js/swfobject.js"
   },
   "browserify": {

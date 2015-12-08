@@ -33,7 +33,7 @@
             <!-- description start -->
             <div id="content-description" class="am-form-group">
                 <label>订单名称描述：</label>
-                <textarea id="purchase-description" name="purchase-description" rows="5" placeholder="输入订单描述" value="<%= purchase.get('description') %>"></textarea>
+                <textarea id="purchase-description" name="purchase-description" rows="5" placeholder="输入订单描述"><%= purchase.get('description') %></textarea>
             </div>
             <!-- description end -->
 
@@ -74,7 +74,6 @@
             <!-- amount end -->
 
             <hr/>
-
 
             <!-- trackingNumber start -->
             <div id="content-tracking-number" class="am-form-group">
@@ -137,7 +136,7 @@
             <!-- comment start -->
             <div id="content-comment" class="am-form-group">
                 <label>备注信息：</label>
-                <textarea id="purchase-comment" name="purchase-comment" rows="5" placeholder="输入备注信息" value="<%= purchase.get('website') %>" ></textarea>
+                <textarea id="purchase-comment" name="purchase-comment" rows="5" placeholder="输入备注信息"><%= purchase.get('website') %></textarea>
             </div>
             <!-- comment end -->
 

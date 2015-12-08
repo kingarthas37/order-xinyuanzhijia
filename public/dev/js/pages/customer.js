@@ -1,6 +1,7 @@
 'use strict';
 
 require('jquery-validate');
+var Bloodhound = require('bloodhound');
 
 module.exports = {
 
@@ -34,6 +35,20 @@ module.exports = {
         });
         
         this.addAddress();
+
+        var customerParents = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            remote: {
+               // url: 'http://twitter.github.io/typeahead.js/data/films/post_1960.json'
+                url:'search/customer-parent'
+            }
+        });
+
+        $('#parent-customer').typeahead(null, {
+            display: 'value',
+            source: customerParents
+        });
         
     },
     editFun:function() {

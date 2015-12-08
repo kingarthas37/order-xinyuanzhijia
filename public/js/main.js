@@ -10,3 +10,4 @@ require('jquery-zclip');
 require('jquery-datetimepicker');
 require('flash-detect');
 require('swfobject');
+require('typeahead');

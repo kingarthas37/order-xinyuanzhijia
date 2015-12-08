@@ -12,27 +12,36 @@
 
 <div class="am-container common-page">
     
-    <form id="form-add-customer" class="am-form" action="/customer/add" method="post">
+    <form id="form-add-order" class="am-form" action="/order/add" method="post">
 
         <fieldset>
 
-            <legend>添加新收货人</legend>
+            <legend>添加新发货订单</legend>
 
+            <!-- customer name start -->
+            <div id="content-customer-name" class="am-form-group">
+                <label>订单内容：<i>*</i> </label>
+                <input id="customer-name" required name="customer-name" type="text" placeholder="输入收货人/客户姓名" />
+            </div>
+            <!-- customer name end -->
+
+            <hr/>
+            
             <!-- name start -->
             <div id="content-name" class="am-form-group">
-                <label>收货人姓名：<i>*</i> </label>
-                <input id="name" required name="name" type="text" placeholder="输入收货人姓名" />
+                <label>订单内容：<i>*</i> </label>
+                <input id="name" required name="name" type="text" placeholder="输入订单内容" />
             </div>
             <!-- name end -->
 
             <hr/>
 
-            <!-- nickname start -->
+            <!-- description start -->
             <div id="content-nickname" class="am-form-group">
-                <label>昵称：</label>
-                <input id="nickname" name="nickname" type="text" placeholder="输入昵称" />
+                <label>订单描述：</label>
+                <textarea name="description" rows="5"></textarea>
             </div>
-            <!-- nickname end -->
+            <!-- description end -->
 
             <hr/>
 
@@ -86,8 +95,8 @@
 
 <script type="text/javascript">
     $(function() {
-        var customer = require('customer');
-        customer.addFun();
+        var order = require('order');
+        order.addFun();
     });
 </script>
 </body>
