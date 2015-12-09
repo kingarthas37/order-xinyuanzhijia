@@ -25,6 +25,7 @@ module.exports = {
 
     },
     addFun:function() {
+        
         var _this = this;
         
         $('#form-add-customer').validate({
@@ -35,20 +36,7 @@ module.exports = {
         });
         
         this.addAddress();
-
-        var customerParents = new Bloodhound({
-            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-            queryTokenizer: Bloodhound.tokenizers.whitespace,
-            remote: {
-               // url: 'http://twitter.github.io/typeahead.js/data/films/post_1960.json'
-                url:'search/customer-parent'
-            }
-        });
-
-        $('#parent-customer').typeahead(null, {
-            display: 'value',
-            source: customerParents
-        });
+        this.customerTypeAhead();
         
     },
     editFun:function() {
@@ -63,6 +51,7 @@ module.exports = {
         });
 
         this.addAddress();
+        this.customerTypeAhead();
     },
     
     addAddress:function() {
@@ -96,5 +85,35 @@ module.exports = {
         });
         
         input.val(address.substr(0,address.length-1));
+    },
+
+    customerTypeAhead:function() {
+        
+        var parentCustomerInput = $('#parent-customer');
+        var parentCustomerIdInput = $('#parent-customer-id');
+
+        var parentCustomer = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            remote: {
+                url:'/customer/add/customer-parent',
+                prepare: function (query, settings) {
+                    settings.data = {
+                        name:parentCustomerInput.val()
+                    };
+                    return settings;
+                }
+            }
+        });
+
+        parentCustomerInput.typeahead(null, {
+            display: 'value',
+            highlight: true,
+            source: parentCustomer
+        });
+
+        parentCustomerInput.on('typeahead:select',function(event,item) {
+            parentCustomerIdInput.val(item.customerId);
+        });
     }
 };

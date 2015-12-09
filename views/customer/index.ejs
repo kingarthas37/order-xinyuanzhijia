@@ -25,7 +25,7 @@
             <form class="am-form-inline" role="form" action="/customer">
                 <h3>用户/收货人搜索：</h3>
                 <div class="am-form-group">
-                  搜索订单：<input type="text" name="customer-search" class="am-form-field" placeholder="搜索">
+                  搜索：<input type="text" name="customer-search" class="am-form-field" placeholder="搜索">
                 </div>
                 <button type="submit" class="am-btn am-btn-primary">搜索</button>
             </form>
@@ -51,7 +51,7 @@
                         <a target="_blank" href="http://amos.alicdn.com/msg.aw?v=2&uid=<%= customer[i].get('taobao') %>&site=cnalichn&s=10&charset=UTF-8" ><img border="0" src="http://amos.alicdn.com/online.aw?v=2&uid=<%= customer[i].get('taobao') %>&site=cnalichn&s=10&charset=UTF-8" alt="点击这里给我发消息" /></a>
                         <% } %>
                     </td>
-                    <td><%= new Date(customer[i].createdAt).toDateString() %> ,,, <%= new Date(customer[i].createdAt).toUTCString() %> ,,, </td>
+                    <td><%= new Date(customer[i].createdAt).toDateString() %> </td>
                     <td><%= new Date(customer[i].updatedAt).toLocaleDateString() %></td>
                     <td><a href="/customer/remove/<%= customer[i].get('customerId') %>" class="remove-customer">删除</a> </td>
                 </tr>

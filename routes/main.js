@@ -44,7 +44,6 @@ module.exports = {
     '/customer/add':require('./customer/add'),
     '/customer/edit':require('./customer/edit'),
     '/customer/remove':require('./customer/remove'),
-    '/customer/search':require('./customer/search'),
     
     //order
     '/order':require('./order'),
