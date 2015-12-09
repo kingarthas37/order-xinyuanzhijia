@@ -51,7 +51,7 @@
                         <a target="_blank" href="http://amos.alicdn.com/msg.aw?v=2&uid=<%= customer[i].get('taobao') %>&site=cnalichn&s=10&charset=UTF-8" ><img border="0" src="http://amos.alicdn.com/online.aw?v=2&uid=<%= customer[i].get('taobao') %>&site=cnalichn&s=10&charset=UTF-8" alt="点击这里给我发消息" /></a>
                         <% } %>
                     </td>
-                    <td><%= new Date(customer[i].createdAt).toISOString() %>,,, </td>
+                    <td><%= new Date(customer[i].createdAt).toLocaleDateString() %>,,, <%= new Date(customer[i].createdAt).toLocaleString() %></td>
                     <td><%= new Date(customer[i].updatedAt).toDateString() %></td>
                     <td><a href="/customer/remove/<%= customer[i].get('customerId') %>" class="remove-customer">删除</a> </td>
                 </tr>
