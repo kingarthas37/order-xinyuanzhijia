@@ -62,8 +62,8 @@
                 <tr>
                     <td><a href="/product/edit/<%= product[i].get('productId') %>"><%= product[i].get('name') %></a> </td>
                     <td><a href="/product?categoryId=<%= product[i].get('categoryId') %>"><%= product[i].get('categoryName') %></a></td>
-                    <td><%= new Date(product[i].createdAt).toLocaleString() %></td>
-                    <td><%= new Date(product[i].updatedAt).toLocaleString() %></td>
+                    <td><%= new Date(product[i].createdAt).toDateString() %></td>
+                    <td><%= new Date(product[i].updatedAt).toDateString() %></td>
                     <td><a href="/product/remove/<%= product[i].get('productId') %>" class="remove-product">删除</a> </td>
                 </tr>
                 <% } %>

@@ -49,8 +49,8 @@
                 <% for(var i=0; i < order.length; i++) {%>
                 <tr>
                     <td><a href="/order/edit/<%= order[i].get('orderId') %>"><%= order[i].get('name') %></a> </td>
-                    <td><%= new Date(order[i].createdAt).toLocaleString() %></td>
-                    <td><%= new Date(order[i].updatedAt).toLocaleString() %></td>
+                    <td><%= new Date(order[i].createdAt).toDateString() %></td>
+                    <td><%= new Date(order[i].updatedAt).toDateString() %></td>
                     <td><a href="/order/remove/<%= order[i].get('orderId') %>" class="remove-order">删除</a> </td>
                 </tr>
                 <% } %>

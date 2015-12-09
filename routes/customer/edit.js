@@ -25,38 +25,52 @@ router.get('/:customerId', function (req, res, next) {
     }
     
     var customerId = parseInt(req.params.customerId);
-
+    var parentCustomerId = parseInt(req.body['parent-customer-id']);
+ 
     data = extend(data,{
         flash: { success:req.flash('success'), error:req.flash('error') },
         user:req.AV.user,
         id: customerId
     });
-
-    async.series([
-
-        function (cb) {
+    
+    
+    async.waterfall([
+    
+        function(cb) {
 
             var query = new AV.Query(Customer);
             query.equalTo('customerId', customerId);
-            query.first({
-                success: function (results) {
-                    data = extend(data, {
-                        customer: results
-                    });
-                    cb();
-                },
-                error: function (err) {
-                    next(err);
+            query.first().then(function(results) {
+
+                data = extend(data, {
+                    customer: results,
+                    parentCustomerName:''
+                });
+
+
+                var parentCustomerId = results.get('parentCustomerId');
+                if(parentCustomerId) {
+                    return cb(null,query,parentCustomerId);
                 }
+
+                res.render('customer/edit', data);
+            
             });
-
         },
-
-        function () {
-            res.render('customer/edit', data);
+        
+        function(query,parentCustomerId) {
+        
+            query.equalTo('customerId',parentCustomerId);
+            query.first().then(function(result) {
+            
+                data.parentCustomerName = result.get('name');
+                res.render('customer/edit', data);
+            });
+            
         }
-
+    
     ]);
+  
     
 });
 
@@ -71,8 +85,8 @@ router.post('/', function (req, res, next) {
     var taobao = req.body['taobao'] || '';
     var weixin = req.body['weixin'] || '';
     var address = req.body['address'] || '';
- 
-
+    var parentCustomerId = req.body['parent-customer-id'] || '';
+    
     var customerId = req.body['customer-id'];
     
     data = extend(data,{
@@ -108,6 +122,7 @@ router.post('/', function (req, res, next) {
                     customer.set('taobao',taobao);
                     customer.set('weixin',weixin);
                     customer.set('address',address);
+                    customer.set('parentCustomerId',parseInt(parentCustomerId));
                     customer.save(null, {
                         success: function (results) {
                             data = extend(data, {

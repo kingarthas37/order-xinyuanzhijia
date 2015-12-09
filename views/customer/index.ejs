@@ -52,7 +52,7 @@
                         <% } %>
                     </td>
                     <td><%= new Date(customer[i].createdAt).toDateString() %> </td>
-                    <td><%= new Date(customer[i].updatedAt).toLocaleDateString() %></td>
+                    <td><%= new Date(customer[i].updatedAt).toDateString() %></td>
                     <td><a href="/customer/remove/<%= customer[i].get('customerId') %>" class="remove-customer">删除</a> </td>
                 </tr>
                 <% } %>

@@ -112,8 +112,15 @@ module.exports = {
             source: parentCustomer
         });
 
-        parentCustomerInput.on('typeahead:select',function(event,item) {
-            parentCustomerIdInput.val(item.customerId);
+        parentCustomerInput.on({
+            'typeahead:select':function(event,item) {
+                parentCustomerIdInput.val(item.customerId);
+            },
+            'blur':function() {
+                if($.trim(this.value) === '') {
+                    parentCustomerIdInput.val('');
+                }
+            }
         });
     }
 };

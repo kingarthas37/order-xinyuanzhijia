@@ -50,8 +50,8 @@
                     <td><a href="/purchase/edit/<%= purchase[i].get('purchaseId') %>"><%= purchase[i].get('name') %></a> </td>
                     <td><%= purchase[i].get('website') %></td>
                     <td><% if (purchase[i].get('shippingState') === 'arrived') { %> <strong>已到货</strong> <% } else { %> 未到货 <% } %></td>
-                    <td><%= new Date(purchase[i].createdAt).toLocaleString() %></td>
-                    <td><%= new Date(purchase[i].updatedAt).toLocaleString() %></td>
+                    <td><%= new Date(purchase[i].createdAt).toDateString() %></td>
+                    <td><%= new Date(purchase[i].updatedAt).toDateString() %></td>
                     <td><a href="/purchase/remove/<%= purchase[i].get('purchaseId') %>" class="remove-purchase">删除</a> </td>
                 </tr>
                 <% } %>

@@ -45,8 +45,8 @@
                 <% for(var i=0; i < music.length; i++) {%>
                 <tr>
                     <td><a href="/music/edit/<%= music[i].get('musicId') %>"><%= music[i].get('name') %></a> </td>
-                    <td><%= new Date(music[i].createdAt).toLocaleString() %></td>
-                    <td><%= new Date(music[i].updatedAt).toLocaleString() %></td>
+                    <td><%= new Date(music[i].createdAt).toDateString() %></td>
+                    <td><%= new Date(music[i].updatedAt).toDateString() %></td>
                     <td><a href="/music/remove/<%= music[i].get('musicId') %>" class="remove-music">删除</a> </td>
                 </tr>
                 <% } %>
