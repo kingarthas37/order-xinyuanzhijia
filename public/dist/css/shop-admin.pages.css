@@ -52,10 +52,11 @@ footer p {
 .common-page label.normal {
   font-weight: normal; }
 
-.common-page .address-content .am-u-sm-11 {
+.common-page .address-content .am-u-sm-11, .common-page .address-content .am-u-sm-10 {
   padding-left: 0; }
 
-.common-page .address-content .am-u-sm-1 {
+.common-page .address-content .am-u-sm-1, .common-page .address-content .am-u-sm-2 {
+  font-weight: normal;
   text-align: left;
   padding-left: 0;
   padding-right: 0; }
@@ -77,23 +78,8 @@ footer p {
       margin: 0;
       padding: 0 15px 20px 15px; }
 
-.twitter-typeahead .typeahead,
-.twitter-typeahead .tt-query,
-.twitter-typeahead .tt-hint {
-  width: 396px;
-  height: 30px;
-  padding: 8px 12px;
-  font-size: 24px;
-  line-height: 30px;
-  border: 2px solid #ccc;
-  border-radius: 8px;
-  outline: none; }
-
 .twitter-typeahead .typeahead {
   background-color: #fff; }
-
-.twitter-typeahead .typeahead:focus {
-  border: 2px solid #0097cf; }
 
 .twitter-typeahead .tt-query {
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); }
@@ -132,7 +118,7 @@ footer p {
   padding: 30px 0; }
 
 /* customer page */
-#content-parent-customer .twitter-typeahead {
+.typeahead-content .twitter-typeahead {
   display: block !important; }
 
 /*# sourceMappingURL=shop-admin.pages.css.map */

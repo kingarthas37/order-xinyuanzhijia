@@ -67,7 +67,7 @@ router.post('/', function (req, res, next) {
 });
 
 
-//删除订单
+//查找父客户名
 router.get('/customer-parent', function (req, res, next) {
 
     if(!req.AV.user) {

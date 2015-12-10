@@ -7,11 +7,11 @@ module.exports = {
 
     indexFun:function() {
 
-        $('.remove-customer').click(function() {
+        $('.remove-order').click(function() {
 
             var $this = $(this);
             
-            $('#confirm-remove-customer').modal({
+            $('#confirm-remove-order').modal({
                 relatedTarget: this,
                 onConfirm: function(options) {
                     location.href = $this.attr('href');
@@ -28,98 +28,57 @@ module.exports = {
         
         var _this = this;
         
-        $('#form-add-customer').validate({
+        $('#form-add-order').validate({
             submitHandler:function(form){
-                _this.updateAddress();
                 form.submit();
             }
         });
         
-        this.addAddress();
-        this.customerTypeAhead();
+        this.orderTypeAhead();
         
     },
     editFun:function() {
         
         var _this = this;
 
-        $('#form-edit-customer').validate({
+        $('#form-edit-order').validate({
             submitHandler:function(form){
-                _this.updateAddress();
                 form.submit();
             }
         });
 
-        this.addAddress();
-        this.customerTypeAhead();
+        this.orderTypeAhead();
     },
     
-    addAddress:function() {
-    
-        var addressContent = $('.address-content');
-        var add = $('.address-add');
-        var remove = addressContent.find('.remove');
-        
-        
-        add.click(function() {
-            var field = $('.address-field:last');
-            var newField = field.clone(true);
-            newField.insertAfter(field);       
-            newField.find('.address').val('').get(0).focus();
-        });
+   
 
-        remove.click(function() {
-            $(this).parents('.address-field').detach();
-        });
-    
-    },
-    updateAddress:function() {
-
-        var input = $('input[name=address]');
-        var address = '';
+    orderTypeAhead:function() {
         
-        $('.address').filter(function() {
-            return $.trim(this.value) !== '';
-        }).each(function(i,n) {
-            address += n.value + '|';
-        });
+        var customerNameInput = $('#customer-name');
         
-        input.val(address.substr(0,address.length-1));
-    },
-
-    customerTypeAhead:function() {
-        
-        var parentCustomerInput = $('#parent-customer');
-        var parentCustomerIdInput = $('#parent-customer-id');
-
-        var parentCustomer = new Bloodhound({
-            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-            queryTokenizer: Bloodhound.tokenizers.whitespace,
-            remote: {
-                url:'/customer/add/customer-parent',
-                prepare: function (query, settings) {
-                    settings.data = {
-                        name:parentCustomerInput.val()
-                    };
-                    return settings;
-                }
-            }
-        });
-
-        parentCustomerInput.typeahead(null, {
+        customerNameInput.typeahead(null, {
             display: 'value',
             highlight: true,
-            source: parentCustomer
+            source: new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url:'/order/add/search-customer',
+                    prepare: function (query, settings) {
+                        settings.data = {
+                            name:customerNameInput.val()
+                        };
+                        return settings;
+                    }
+                }
+            })
         });
 
-        parentCustomerInput.on({
+        customerNameInput.on({
             'typeahead:select':function(event,item) {
-                parentCustomerIdInput.val(item.customerId);
             },
             'blur':function() {
-                if($.trim(this.value) === '') {
-                    parentCustomerIdInput.val('');
-                }
+                
             }
         });
     }

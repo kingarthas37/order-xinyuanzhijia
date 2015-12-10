@@ -9,14 +9,15 @@ var config = require('../../lib/config');
 var flash = require('connect-flash');
 
 //class
-var orderTrack = AV.Object.extend('orderTrack');
+var OrderTrack = AV.Object.extend('OrderTrack');
+var Customer = AV.Object.extend('Customer');
 
 var data =  extend(config.data,{
     title:'订单编辑-编辑订单',
     currentPage:'order'
 });
 
-//添加产品页
+
 router.get('/', function (req, res, next) {
 
     if (!req.AV.user) {
@@ -31,7 +32,8 @@ router.get('/', function (req, res, next) {
 });
 
 
-//添加产品页
+
+
 router.post('/', function (req, res, next) {
 
     if (!req.AV.user) {
@@ -51,22 +53,22 @@ router.post('/', function (req, res, next) {
     var orderShippingState = req.body['order-shipping-state'] || '';
     var orderComment = req.body['order-comment'] || '';
 
-    var orderTrack = new orderTrack();
+    var OrderTrack = new OrderTrack();
 
-    orderTrack.set('name',orderName);
-    orderTrack.set('description',orderDescription);
-    orderTrack.set('website',orderWebsite);
-    orderTrack.set('orderLink',orderOrderLink);
-    orderTrack.set('mail',orderMail);
-    orderTrack.set('amount',orderAmount);
-    orderTrack.set('trackingNumber',orderTrackingNumber);
-    orderTrack.set('paymentType',orderPaymentType);
-    orderTrack.set('paymentInfo',orderPaymentInfo);
-    orderTrack.set('shippingType',orderShippingType);
-    orderTrack.set('shippingState',orderShippingState);
-    orderTrack.set('comment',orderComment);
+    OrderTrack.set('name',orderName);
+    OrderTrack.set('description',orderDescription);
+    OrderTrack.set('website',orderWebsite);
+    OrderTrack.set('orderLink',orderOrderLink);
+    OrderTrack.set('mail',orderMail);
+    OrderTrack.set('amount',orderAmount);
+    OrderTrack.set('trackingNumber',OrderTrackingNumber);
+    OrderTrack.set('paymentType',orderPaymentType);
+    OrderTrack.set('paymentInfo',orderPaymentInfo);
+    OrderTrack.set('shippingType',orderShippingType);
+    OrderTrack.set('shippingState',orderShippingState);
+    OrderTrack.set('comment',orderComment);
 
-    orderTrack.save(null, {
+    OrderTrack.save(null, {
         success: function () {
             req.flash('success', '添加订单成功!');
             res.redirect('/order');
@@ -78,5 +80,44 @@ router.post('/', function (req, res, next) {
 
 
 });
+
+
+
+//查找收件人/客户名称
+router.get('/search-customer', function (req, res, next) {
+
+    if(!req.AV.user) {
+        return res.json([{
+            "error":config.error.NOT_SUCCESS
+        }]);
+    }
+
+    var name = req.query.name || '';
+
+    var query = new AV.Query(Customer);
+    query.startsWith('name',name);
+
+    var jsonData = [];
+
+    query.find({
+        success:function(results) {
+            for(var i=0;i<results.length;i++) {
+                var obj = {
+                    "value":results[i].get('name'),
+                    "customerId":results[i].get('customerId'),
+                    "address":results[i].get('address'),
+                    "taobao":results[i].get('taobao')
+                };
+                jsonData.push(obj);
+            }
+            return res.json(jsonData);
+        },
+        error:function(err) {
+            next(err);
+        }
+    });
+
+});
+
 
 module.exports = router;
