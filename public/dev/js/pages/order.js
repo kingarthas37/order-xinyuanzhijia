@@ -55,6 +55,10 @@ module.exports = {
     orderTypeAhead:function() {
         
         var customerNameInput = $('#customer-name');
+        var shippingAddress = $('#shipping-address');
+        var addressList = $('.address-list');
+        var taobao = $('#taobao');
+        var newAddress = $('.new-address');
         
         customerNameInput.typeahead(null, {
             display: 'value',
@@ -76,10 +80,26 @@ module.exports = {
 
         customerNameInput.on({
             'typeahead:select':function(event,item) {
-            },
-            'blur':function() {
-                
+                taobao.val(item.taobao);
+                var address = item.address.split('|');
+                addressList.empty();
+                for(var i=0;i<address.length;i++) {
+                    addressList.append('<li><span>' + address[i] + '</span> <a href="javascript:;">使用此地址</a> </li>');
+                }
             }
         });
+
+        addressList.on('click','a',function() {
+            shippingAddress.val($(this).parents('li').find('span').text());
+            addressList.empty();
+            newAddress.prop('checked',false);
+        });
+
+        newAddress.click(function() {
+            if(this.checked) {
+                shippingAddress.val('').get(0).focus();
+            }
+        });
+        
     }
 };
