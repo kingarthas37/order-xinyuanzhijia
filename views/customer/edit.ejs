@@ -71,7 +71,7 @@
             <div id="content-address" class="am-form-group">
                 <label>收货信息：</label>
                 <input type="hidden" name="address" value=""/>
-                <div class="address-content am-form-horizontal">
+                <div class="am-form-horizontal">
                     <% var addressArr = customer.get('address').split('|'); %>
                     <% for (var i=0; i< addressArr.length;i++) { %>
                     <div class="address-field am-form-group"><div class="am-u-sm-11"><input class="address" type="text" placeholder="输入收货地址" value="<%= addressArr[i] %>" /></div><label class="am-u-sm-1 am-form-label">

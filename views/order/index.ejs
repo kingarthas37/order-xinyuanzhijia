@@ -40,6 +40,7 @@
                 <thead>
                 <tr>
                     <th width="250">订单名称</th>
+                    <th>收件人</th>
                     <th>创建时间</th>
                     <th>最后更新时间</th>
                     <th width="50">删除</th>
@@ -48,7 +49,8 @@
                 <tbody>
                 <% for(var i=0; i < order.length; i++) {%>
                 <tr>
-                    <td><a href="/order/edit/<%= order[i].get('orderId') %>"><%= order[i].get('name') %></a> </td>
+                    <td><a href="/order/edit/<%= order[i].get('orderId') %>"><%= order[i].get('orderName') %></a> </td>
+                    <td><a href="/customer/edit/<%= order[i].get('customerId') %>"><%= order[i].get('customerName') %></a> </td>
                     <td><%= new Date(order[i].createdAt).toDateString() %></td>
                     <td><%= new Date(order[i].updatedAt).toDateString() %></td>
                     <td><a href="/order/remove/<%= order[i].get('orderId') %>" class="remove-order">删除</a> </td>

@@ -52,6 +52,7 @@ footer p {
   }
 
   .am-alert {
+      border: none;
     margin:10px 0;
   }
 
@@ -81,7 +82,7 @@ footer p {
     font-weight: normal;
   }
   
-  .address-content {
+  .am-form-horizontal {
     .am-u-sm-11,.am-u-sm-10 {
       padding-left: 0;
     }

@@ -35,6 +35,7 @@ footer p {
   color: red; }
 
 .common-page .am-alert {
+  border: none;
   margin: 10px 0; }
 
 .common-page .am-form-inline span {
@@ -52,16 +53,16 @@ footer p {
 .common-page label.normal {
   font-weight: normal; }
 
-.common-page .address-content .am-u-sm-11, .common-page .address-content .am-u-sm-10 {
+.common-page .am-form-horizontal .am-u-sm-11, .common-page .am-form-horizontal .am-u-sm-10 {
   padding-left: 0; }
 
-.common-page .address-content .am-u-sm-1, .common-page .address-content .am-u-sm-2 {
+.common-page .am-form-horizontal .am-u-sm-1, .common-page .am-form-horizontal .am-u-sm-2 {
   font-weight: normal;
   text-align: left;
   padding-left: 0;
   padding-right: 0; }
 
-.common-page .address-content .address-field:first-child .remove {
+.common-page .am-form-horizontal .address-field:first-child .remove {
   display: none; }
 
 .common-product-view-page {

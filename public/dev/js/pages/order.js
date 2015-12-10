@@ -26,35 +26,21 @@ module.exports = {
     },
     addFun:function() {
         
-        var _this = this;
-        
-        $('#form-add-order').validate({
-            submitHandler:function(form){
-                form.submit();
-            }
-        });
-        
+        $('#form-add-order').validate();
         this.orderTypeAhead();
         
     },
     editFun:function() {
-        
-        var _this = this;
 
-        $('#form-edit-order').validate({
-            submitHandler:function(form){
-                form.submit();
-            }
-        });
-
+        $('#form-edit-order').validate();
         this.orderTypeAhead();
     },
-    
-   
 
     orderTypeAhead:function() {
         
         var customerNameInput = $('#customer-name');
+        var customerNameIdInput = $('#customer-name-id');
+        var newCustomer = $('.new-customer');
         var shippingAddress = $('#shipping-address');
         var addressList = $('.address-list');
         var taobao = $('#taobao');
@@ -79,13 +65,30 @@ module.exports = {
         });
 
         customerNameInput.on({
+            
+            
+            //change表示此用户为新用户，而不是autocomplete选择出来的老用户，所以数据需要重置
+            'change':function() {
+                newCustomer.prop('checked',true);
+                newAddress.prop('checked',true);
+                customerNameIdInput.val('');
+                taobao.val('');
+                shippingAddress.val('').get(0).focus();
+                addressList.empty();
+            },
+            
             'typeahead:select':function(event,item) {
+
+                customerNameIdInput.val(item.customerId);
                 taobao.val(item.taobao);
                 var address = item.address.split('|');
                 addressList.empty();
                 for(var i=0;i<address.length;i++) {
                     addressList.append('<li><span>' + address[i] + '</span> <a href="javascript:;">使用此地址</a> </li>');
                 }
+
+                newCustomer.prop('checked',false);
+                
             }
         });
 
