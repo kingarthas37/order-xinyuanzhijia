@@ -6,6 +6,7 @@ var AV = require('leanengine');
 var extend = require('xtend');
 var async = require('async');
 var config = require('../../lib/config');
+var format = require('date-format');
 
 var flash = require('connect-flash');
 
@@ -19,6 +20,7 @@ var data =  extend(config.data,{
 });
 
 
+
 router.get('/', function (req, res, next) {
 
     if (!req.AV.user) {
@@ -27,7 +29,7 @@ router.get('/', function (req, res, next) {
     
     data = extend(data,{
         user:req.AV.user,
-        currentDate:new Date().toLocaleDateString()
+        currentDate:format('yyyy/MM/dd',new Date())
     });
     
     res.render('order/add', data);
