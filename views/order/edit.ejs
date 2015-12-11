@@ -15,6 +15,8 @@
 
     <form id="form-edit-order" class="am-form" action="/order/edit" method="post">
 
+        <input type="hidden" name="order-id" value="<%= order.get('orderId') %>"/>
+        
         <fieldset>
 
             <legend>编辑新发货订单</legend>
@@ -22,7 +24,7 @@
             <!-- order name start -->
             <div id="content-name" class="am-form-group">
                 <label>订单内容：<i>*</i> </label>
-                <input id="order-name" required name="order-name" type="text" placeholder="输入订单内容" />
+                <input id="order-name" required name="order-name" type="text" placeholder="输入订单内容" value="<%= order.get('orderName') %>" />
             </div>
             <!-- order name end -->
 
@@ -31,7 +33,7 @@
             <!-- order description start -->
             <div id="content-description" class="am-form-group">
                 <label>订单描述：</label>
-                <textarea name="description" id="description" rows="3" placeholder="填写订单描述"></textarea>
+                <textarea name="description" id="description" rows="3" placeholder="填写订单描述"><%= order.get('description') %></textarea>
             </div>
             <!-- order description end -->
 
@@ -40,19 +42,17 @@
             <!-- customer name start -->
             <div id="content-customer-name" class="am-form-group typeahead-content">
                 <label>收货人/客户姓名(自动填充)：<i>*</i> </label>
-                <input type="hidden" id="customer-name-id" name="customer-name-id"/>
+                <input type="hidden" id="customer-name-id" name="customer-name-id" value="<%= order.get('customerId') %>"/>
                 <div class="am-form-horizontal">
                     <div class="am-form-group">
                         <div class="am-u-sm-10">
-                            <input id="customer-name" required name="customer-name" type="text" placeholder="输入收货人/客户姓名" autocomplete="off" />
+                            <input id="customer-name" required name="customer-name" type="text" placeholder="输入收货人/客户姓名" autocomplete="off" value="<%= order.get('customerName') %>" />
                         </div>
                         <label class="am-u-sm-2 am-form-label">
-                            <input type="checkbox" checked="checked" class="new-customer" name="new-customer" /> 新增收货人
+                            <input type="checkbox" class="new-customer" name="new-customer" /> 新增收货人
                         </label>
                     </div>
                 </div>
-
-
             </div>
             <!-- customer name end -->
 
@@ -64,10 +64,10 @@
                 <div class="am-form-horizontal">
                     <div class="am-form-group">
                         <div class="am-u-sm-10">
-                            <input id="shipping-address" required name="shipping-address" type="text" placeholder="输入收货人/客户地址" />
+                            <input id="shipping-address" required name="shipping-address" type="text" placeholder="输入收货人/客户地址" value="<%= order.get('shippingAddress')%>" />
                         </div>
                         <label class="am-u-sm-2 am-form-label">
-                            <input type="checkbox" checked="checked" class="new-address" name="new-address" /> 新增收货地址
+                            <input type="checkbox" class="new-address" name="new-address" /> 新增收货地址
                         </label>
                     </div>
                 </div>
@@ -80,7 +80,7 @@
             <!-- taobaoname start -->
             <div id="content-taobao" class="am-form-group">
                 <label>淘宝用户名：</label>
-                <input id="taobao" name="taobao" type="text" placeholder="输入淘宝用户名" />
+                <input id="taobao" name="taobao" type="text" placeholder="输入淘宝用户名" value="<%= order.get('taobaoName') %>" />
             </div>
             <!-- taobaoname end -->
 
@@ -90,7 +90,7 @@
             <!-- shipping date start -->
             <div id="content-shipping-date" class="am-form-group">
                 <label>发货日期：<i>*</i> </label>
-                <input type="text" name="shipping-date" id="shipping-date" placeholder="发货日期" value="<%= currentDate %>" data-am-datepicker="{format:'yyyy-mm-dd'}" readonly required />
+                <input type="text" name="shipping-date" id="shipping-date" placeholder="发货日期" value="<%= order.get('shippingDate') %>" data-am-datepicker="{format:'yyyy-mm-dd'}" readonly required />
             </div>
             <!-- shipping date end -->
 
@@ -100,10 +100,10 @@
             <div id="content-shipping-company" class="am-form-group">
                 <label>快递公司：</label>
                 <select name="shipping-company" id="shipping-company">
-                    <option value="tiantian">天天快递</option>
-                    <option value="shunfeng">顺丰快递</option>
-                    <option value="baishi">百世汇通</option>
-                    <option value="other">其他</option>
+                    <option value="tiantian" <% if(order.get('shippingCompany') === 'tiantian') { %>selected="selected"<% } %> >天天快递</option>
+                    <option value="shunfeng" <% if(order.get('shippingCompany') === 'shunfeng') { %>selected="selected"<% } %>>顺丰快递</option>
+                    <option value="baishihuitong" <% if(order.get('shippingCompany') === 'baishihuitong') { %>selected="selected"<% } %>>百世汇通</option>
+                    <option value="other" <% if(order.get('shippingCompany') === 'other') { %>selected="selected"<% } %>>其他</option>
                 </select>
             </div>
             <!-- shipping shipping company -->
@@ -113,7 +113,7 @@
             <!-- shipping tracking number -->
             <div id="content-tracking-number" class="am-form-group">
                 <label>快递单号：</label>
-                <input type="text" name="tracking-number" id="tracking-number" placeholder="快递单号"/>
+                <input type="text" name="tracking-number" id="tracking-number" placeholder="快递单号" value="<%= order.get('trackingNumber') %>"/>
             </div>
             <!-- shipping tracking number -->
 
@@ -123,8 +123,8 @@
             <div id="content-shipping-status" class="am-form-group">
                 <label>发货状态：</label>
                 <select name="shipping-status" id="shipping-status">
-                    <option value="shipped">已发货</option>
-                    <option value="notshipped">未发货</option>
+                    <option value="shipped" <% if(order.get('shippingStatus') === 'shipped') { %>selected="selected"<% } %>>已发货</option>
+                    <option value="notshipped" <% if(order.get('shippingStatus') === 'notshipped') { %>selected="selected"<% } %>>未发货</option>
                 </select>
             </div>
             <!-- shipping status end -->
@@ -133,7 +133,7 @@
             <!-- order comment start -->
             <div id="content-comment" class="am-form-group">
                 <label>备注信息：</label>
-                <textarea name="comment" id="comment" rows="3" placeholder="填写备注信息"></textarea>
+                <textarea name="comment" id="comment" rows="3" placeholder="填写备注信息"><%= order.get('comment')%></textarea>
             </div>
             <!-- order comment end -->
 

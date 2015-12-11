@@ -56,10 +56,9 @@ module.exports = {
     
     addAddress:function() {
     
-        var addressContent = $('.address-content');
+        var addressContent = $('#content-address');
         var add = $('.address-add');
         var remove = addressContent.find('.remove');
-        
         
         add.click(function() {
             var field = $('.address-field:last');

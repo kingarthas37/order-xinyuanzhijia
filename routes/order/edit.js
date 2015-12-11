@@ -11,39 +11,40 @@ var async = require('async');
 var extend = require("xtend");
 
 //class
-var PurchaseTrack = AV.Object.extend('PurchaseTrack');
+var Customer = AV.Object.extend('Customer');
+var OrderTrack = AV.Object.extend('OrderTrack');
 
 var data =  extend(config.data,{
     title:'订单编辑-编辑订单',
-    currentPage:'purchase'
+    currentPage:'order'
 });
 
 
 //编辑产品页
-router.get('/:purchaseId', function (req, res, next) {
+router.get('/:orderId', function (req, res, next) {
 
     if(!req.AV.user) {
         return res.redirect('/login');
     }
     
-    var purchaseId = parseInt(req.params.purchaseId);
+    var orderId = parseInt(req.params.orderId);
 
     data = extend(data,{
         flash: { success:req.flash('success'), error:req.flash('error') },
         user:req.AV.user,
-        id: purchaseId
+        id: orderId
     });
 
     async.series([
 
         function (cb) {
 
-            var query = new AV.Query(PurchaseTrack);
-            query.equalTo('purchaseId', purchaseId);
+            var query = new AV.Query(OrderTrack);
+            query.equalTo('orderId', orderId);
             query.first({
                 success: function (results) {
                     data = extend(data, {
-                        purchase: results
+                        order: results
                     });
                     cb();
                 },
@@ -55,7 +56,7 @@ router.get('/:purchaseId', function (req, res, next) {
         },
 
         function () {
-            res.render('purchase/edit', data);
+            res.render('order/edit', data);
         }
 
     ]);
@@ -68,85 +69,111 @@ router.post('/', function (req, res, next) {
     if(!req.AV.user) {
         return res.redirect('/login');
     }
-
-    var purchaseName = req.body['purchase-name'] || '';
-    var purchaseDescription = req.body['purchase-description'] ||'';
-    var purchaseWebsite = req.body['purchase-website'] || '';
-    var purchaseOrderLink = req.body['purchase-order-link'] || '';
-    var purchaseMail = req.body['purchase-mail'] || '';
-    var purchaseAmount = req.body['purchase-amount'] || '';
-    var purchaseTrackingNumber = req.body['purchase-tracking-number'] || '';
-    var purchasePaymentType = req.body['purchase-payment-type'] || '';
-    var purchasePaymentInfo = req.body['purchase-payment-info'] || '';
-    var purchaseShippingType = req.body['purchase-shipping-type'] || '';
-    var purchaseShippingState = req.body['purchase-shipping-state'] || '';
-    var purchaseComment = req.body['purchase-comment'] || '';
-
-    var purchaseId = req.body['purchase-id'];
     
-    data = extend(data,{
-        flash: {
-            success:req.flash('success'),
-            error:req.flash('error')
-        }
-    });
+    var orderId = parseInt(req.body['order-id']);
+    
+    var orderName = req.body['order-name'];
+    var customerId = parseInt(req.body['customer-name-id']);
+    var description = req.body['description'];
+    var shippingDate = req.body['shipping-date'];
+    var shippingCompany = req.body['shipping-company'];
+    var trackingNumber = req.body['tracking-number'];
+    var shippingStatus = req.body['shipping-status'];
+    var comment = req.body['comment'];
 
+    var customerName = req.body['customer-name'];
+    var newCustomer = req.body['new-customer'];
+    var shippingAddress = req.body['shipping-address'];
+    var newAddress = req.body['new-address'];
+    var taobao = req.body['taobao'];
+
+    var customer = new Customer();
+    var orderTrack = new OrderTrack();
+    
     async.waterfall([
 
-        function (cb) {
+        function(cb) {
 
-            var query = new AV.Query(PurchaseTrack);
-            query.equalTo('purchaseId', parseInt(purchaseId));
-            query.first({
-                success: function (results) {
-                    cb(null, results.id, query);
-                },
-                error: function (err) {
-                    next(err);
-                }
-            });
+            //如果是新用户，注册customer
+            if(newCustomer && !customerId) {
+                customer.set('name',customerName);
+                customer.set('taobao',taobao);
+                customer.set('address',shippingAddress);
 
-        },
+                customer.save().then(function(customer) {
 
-        function (objectId, query, cb) {
-            
-            query.get(objectId, {
-                success: function (purchase) {
-                    purchase.set('name',purchaseName);
-                    purchase.set('description',purchaseDescription);
-                    purchase.set('website',purchaseWebsite);
-                    purchase.set('orderLink',purchaseOrderLink);
-                    purchase.set('mail',purchaseMail);
-                    purchase.set('amount',purchaseAmount);
-                    purchase.set('trackingNumber',purchaseTrackingNumber);
-                    purchase.set('paymentType',purchasePaymentType);
-                    purchase.set('paymentInfo',purchasePaymentInfo);
-                    purchase.set('shippingType',purchaseShippingType);
-                    purchase.set('shippingState',purchaseShippingState);
-                    purchase.set('comment',purchaseComment);
-                    purchase.save(null, {
-                        success: function (results) {
-                            data = extend(data, {
-                                purchase: results
-                            });
-                            
-                            req.flash('info', '编辑订单成功!');
-                            res.redirect('/purchase');
+                    var query = new AV.Query(Customer);
+                    query.get(customer.id,{
+                        success:function(customer) {
+
+                            //获取新的customerId，重新赋值
+                            customerId = customer.get('customerId');
+                            cb(null);
                         },
-                        error: function (err) {
+                        error:function(err) {
                             next(err);
                         }
                     });
-                },
-                error: function (err) {
-                    next(err);
+
+                });
+
+            } else {
+
+                //如果是新地址,则保存地址
+                if(newAddress) {
+                    var query = new AV.Query(Customer);
+                    query.equalTo('customerId',customerId);
+                    query.first()
+                        .then(function(customer) {
+                            customer.set('address',customer.get('address') + '|' + shippingAddress);
+                            return customer.save();
+                        })
+                        .then(function() {
+                            cb(null);
+                        });
+                } else {
+                    cb(null);
                 }
+            }
 
+        },
+
+        //取到新的customerId,如果有customerId,则保存到order，否则保存已有的customerId
+        function() {
+
+            var query = new AV.Query(OrderTrack);
+            query.equalTo('orderId',orderId);
+            query.first().then(function(orderTrack){
+
+                orderTrack.set('orderName',orderName);
+                orderTrack.set('description',description);
+                orderTrack.set('customerId',customerId);
+                orderTrack.set('customerName',customerName);
+                orderTrack.set('taobaoName',taobao);
+                orderTrack.set('shippingDate',new Date(shippingDate));
+                orderTrack.set('shippingAddress',shippingAddress);
+                orderTrack.set('shippingCompany',shippingCompany);
+                orderTrack.set('trackingNumber',trackingNumber);
+                orderTrack.set('shippingStatus',shippingStatus);
+                orderTrack.set('comment',comment);
+
+                orderTrack.save(null, {
+                    success: function () {
+                        req.flash('success', '添加订单成功!');
+                        res.redirect('/order');
+                    },
+                    error: function (err) {
+                        next(err);
+                    }
+                });
+                
             });
-
+            
         }
-
+    
     ]);
+    
+ 
 
 });
 

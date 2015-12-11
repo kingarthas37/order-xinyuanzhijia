@@ -70,14 +70,24 @@ router.post('/', function (req, res, next) {
                 customer.set('name',customerName);
                 customer.set('taobao',taobao);
                 customer.set('address',shippingAddress);
-                customer.save(null,{
-                    success:function(customer) {
-                        cb(null,customer.id);
-                    },
-                    error:function(err) {
-                        next(err)
-                    }
+                
+                customer.save().then(function(customer) {
+                    
+                    var query = new AV.Query(Customer);
+                    query.get(customer.id,{
+                        success:function(customer) {
+                            
+                            //获取新的customerId，重新赋值
+                            customerId = customer.get('customerId');
+                            cb(null);
+                        },
+                        error:function(err) {
+                            next(err);
+                        }
+                    });
+                    
                 });
+                
             } else {
                 
                 //如果是新地址,则保存地址
@@ -90,39 +100,23 @@ router.post('/', function (req, res, next) {
                             return customer.save();
                         })
                         .then(function() {
-                            cb(null,false);
+                            cb(null);
                         });
                 } else {
-                    cb(null,false);
+                    cb(null);
                 }
             }
             
         },
-        
-        //获取customerId
-        function(id,cb) {
-            if(id) {
-                var query = new AV.Query(Customer);
-                query.get(id,{
-                    success:function(customer) {
-                        cb(null,customer.get('customerId'));
-                    },
-                    error:function(err) {
-                        next(err);
-                    }
-                });
-            } else {
-                cb(null,false);
-            }
-        },
     
         //取到新的customerId,如果有customerId,则保存到order，否则保存已有的customerId
-        function(_customerId) {
+        function() {
 
             orderTrack.set('orderName',orderName);
             orderTrack.set('description',description);
-            orderTrack.set('customerId',_customerId ? _customerId : customerId);
+            orderTrack.set('customerId',customerId);
             orderTrack.set('customerName',customerName);
+            orderTrack.set('taobaoName',taobao);
             orderTrack.set('shippingDate',new Date(shippingDate));
             orderTrack.set('shippingAddress',shippingAddress);
             orderTrack.set('shippingCompany',shippingCompany);

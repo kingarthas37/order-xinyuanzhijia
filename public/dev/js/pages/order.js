@@ -66,7 +66,6 @@ module.exports = {
 
         customerNameInput.on({
             
-            
             //change表示此用户为新用户，而不是autocomplete选择出来的老用户，所以数据需要重置
             'change':function() {
                 newCustomer.prop('checked',true);
@@ -101,7 +100,12 @@ module.exports = {
         newAddress.click(function() {
             if(this.checked) {
                 shippingAddress.val('').get(0).focus();
+                addressList.empty();
             }
+        });
+
+        shippingAddress.on('change',function() {
+            newAddress.prop('checked',true);
         });
         
     }
