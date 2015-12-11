@@ -46,8 +46,8 @@
                 <% for(var i=0; i < book.length; i++) {%>
                 <tr>
                     <td><a href="/book/edit/<%= book[i].get('bookId') %>"><%= book[i].get('name') %></a> </td>
-                    <td><%= new Date(book[i].createdAt).toDateString() %></td>
-                    <td><%= new Date(book[i].updatedAt).toDateString() %></td>
+                    <td><%=book[i].createdAt.getFullYear()%>-<%=(book[i].createdAt.getMonth()+1)%>-<%=book[i].createdAt.getDate()%></td>
+                    <td><%=book[i].updatedAt.getFullYear()%>-<%=(book[i].updatedAt.getMonth()+1)%>-<%=book[i].updatedAt.getDate()%></td>
                     <td><a href="/book/remove/<%= book[i].get('bookId') %>" class="remove-book">删除</a> </td>
                 </tr>
                 <% } %>

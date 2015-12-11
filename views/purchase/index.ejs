@@ -48,8 +48,8 @@
                 <tr>
                     <td><a href="/purchase/edit/<%= purchase[i].get('purchaseId') %>"><%= purchase[i].get('name') %></a> </td>
                     <td><%= purchase[i].get('website') %></td>
-                    <td><%= new Date(purchase[i].createdAt).toDateString() %></td>
-                    <td><%= new Date(purchase[i].updatedAt).toDateString() %></td>
+                    <td><%=purchase[i].createdAt.getFullYear()%>-<%=(purchase[i].createdAt.getMonth()+1)%>-<%=purchase[i].createdAt.getDate()%></td>
+                    <td><%=purchase[i].updatedAt.getFullYear()%>-<%=(purchase[i].updatedAt.getMonth()+1)%>-<%=purchase[i].updatedAt.getDate()%></td>
                     <td><a href="/purchase/remove/<%= purchase[i].get('purchaseId') %>" class="remove-purchase">删除</a> </td>
                 </tr>
                 <% } %>

@@ -62,8 +62,8 @@
                 <tr>
                     <td><a href="/product/edit/<%= product[i].get('productId') %>"><%= product[i].get('name') %></a> </td>
                     <td><a href="/product?categoryId=<%= product[i].get('categoryId') %>"><%= product[i].get('categoryName') %></a></td>
-                    <td><%= new Date(product[i].createdAt).toDateString() %></td>
-                    <td><%= new Date(product[i].updatedAt).toDateString() %></td>
+                    <td><%=product[i].createdAt.getFullYear()%>-<%=(product[i].createdAt.getMonth()+1)%>-<%=product[i].createdAt.getDate()%></td>
+                    <td><%=product[i].updatedAt.getFullYear()%>-<%=(product[i].updatedAt.getMonth()+1)%>-<%=product[i].updatedAt.getDate()%></td>
                     <td><a href="/product/remove/<%= product[i].get('productId') %>" class="remove-product">删除</a> </td>
                 </tr>
                 <% } %>
