@@ -29,7 +29,7 @@ router.get('/', function (req, res, next) {
     
     data = extend(data,{
         user:req.AV.user,
-        currentDate:format('yyyy/MM/dd',new Date())
+        currentDate:format('yyyy-MM-dd',new Date())
     });
     
     res.render('order/add', data);

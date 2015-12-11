@@ -36,7 +36,10 @@ router.get('/', function (req, res, next) {
     var search = req.query['customer-search'] ? req.query['customer-search'].trim() : '';
 
     data = extend(data,{
-        flash: {success:req.flash('success'),error:req.flash('error')},
+        flash: {
+            success:req.flash('success'),
+            error:req.flash('error')
+        },
         user:req.AV.user,
         search:search
     });
