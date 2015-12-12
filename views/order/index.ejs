@@ -39,10 +39,11 @@
             <table class="am-table">
                 <thead>
                 <tr>
-                    <th width="250">订单名称</th>
+                    <th width="400">订单名称</th>
                     <th>收件人</th>
-                    <th>创建时间</th>
-                    <th>最后更新时间</th>
+                    <th>状态</th>
+                    <th width="120">创建时间</th>
+                    <th width="120">最后更新时间</th>
                     <th width="50">删除</th>
                 </tr>
                 </thead>
@@ -51,6 +52,7 @@
                 <tr>
                     <td><a href="/order/edit/<%= order[i].get('orderId') %>"><%= order[i].get('orderName') %></a> </td>
                     <td><a href="/customer/edit/<%= order[i].get('customerId') %>"><%= order[i].get('customerName') %></a> </td>
+                    <td><% if (order[i].get('shippingStatus') === 'shipped' ) { %>已发货<% } else { %><strong>未发货</strong><% } %></td>
                     <td><%=order[i].createdAt.getFullYear()%>-<%=(order[i].createdAt.getMonth()+1)%>-<%=order[i].createdAt.getDate()%></td>
                     <td><%=order[i].updatedAt.getFullYear()%>-<%=(order[i].updatedAt.getMonth()+1)%>-<%=order[i].updatedAt.getDate()%></td>
                     <td><a href="/order/remove/<%= order[i].get('orderId') %>" class="remove-order">删除</a> </td>

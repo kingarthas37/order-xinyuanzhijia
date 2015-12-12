@@ -86,6 +86,19 @@
             <hr/>
 
 
+            <!-- shipping shipping company -->
+            <div id="content-payment-type" class="am-form-group">
+                <label>支付方式：</label>
+                <select name="payment-type" id="payment-type">
+                    <option value="taobao">淘宝支付</option>
+                    <option value="weixin">微信支付</option>
+                    <option value="other">其他</option>
+                </select>
+            </div>
+            <!-- shipping shipping company -->
+
+            <hr/>
+
             <!-- shipping date start -->
             <div id="content-shipping-date" class="am-form-group">
                 <label>发货日期：<i>*</i> </label>
@@ -112,7 +125,7 @@
             <!-- shipping tracking number -->
             <div id="content-tracking-number" class="am-form-group">
                 <label>快递单号：</label>
-                <input type="text" name="tracking-number" id="tracking-number" placeholder="快递单号"/>
+                <input type="text" name="tracking-number" id="tracking-number" placeholder="快递单号" value="560424496"/>
             </div>
             <!-- shipping tracking number -->
 
@@ -122,8 +135,8 @@
             <div id="content-shipping-status" class="am-form-group">
                 <label>发货状态：</label>
                 <select name="shipping-status" id="shipping-status">
-                    <option value="shipped">已发货</option>
                     <option value="notshipped">未发货</option>
+                    <option value="shipped">已发货</option>
                 </select>
             </div>
             <!-- shipping status end -->

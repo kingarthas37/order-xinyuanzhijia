@@ -53,7 +53,7 @@ router.post('/', function (req, res, next) {
     var trackingNumber = req.body['tracking-number'];
     var shippingStatus = req.body['shipping-status'];
     var comment = req.body['comment'];
-    
+    var paymentType = req.body['payment-type'];
     var customerName = req.body['customer-name'];
     var newCustomer = req.body['new-customer'];
     var shippingAddress = req.body['shipping-address'];
@@ -119,6 +119,7 @@ router.post('/', function (req, res, next) {
             orderTrack.set('customerId',customerId);
             orderTrack.set('customerName',customerName);
             orderTrack.set('taobaoName',taobao);
+            orderTrack.set('paymentType',paymentType);
             orderTrack.set('shippingDate',new Date(shippingDate));
             orderTrack.set('shippingAddress',shippingAddress);
             orderTrack.set('shippingCompany',shippingCompany);
