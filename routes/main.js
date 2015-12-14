@@ -49,5 +49,12 @@ module.exports = {
     '/order':require('./order'),
     '/order/add':require('./order/add'),
     '/order/edit':require('./order/edit'),
-    '/order/remove':require('./order/remove')
+    '/order/remove':require('./order/remove'),
+    
+    //purchase-contact
+    '/purchase-contact':require('./purchase-contact'),
+    '/purchase-contact/add':require('./purchase-contact/add'),
+    '/purchase-contact/edit':require('./purchase-contact/edit')
+    
+    
 };

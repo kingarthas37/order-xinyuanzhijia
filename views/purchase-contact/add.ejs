@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title><%= title %></title>
+    <% include ../partials/css %>
+</head>
+<body>
+
+<% include ../partials/header %>
+
+<div class="am-container common-page">
+    
+    <form id="form-add-purchase-contact" class="am-form" action="" method="post" target="">
+
+        <fieldset>
+
+            <legend>添加网站联系方式</legend>
+
+            <!-- name start -->
+            <div id="content-name" class="am-form-group">
+                <label>网站名称：<i>*</i> </label>
+                <input  id="name" required name="name" type="text" placeholder="输入网站名称" />
+            </div>
+            <!-- name end -->
+
+            <hr/>
+
+            <!-- shop start -->
+            <div id="content-shop" class="am-form-group">
+                <label>网店地址：</label>
+                <input  id="shop"  name="shop" type="text" placeholder="输入网店地址" />
+            </div>
+            <!-- shop end -->
+
+            <hr/>
+
+            <!-- website start -->
+            <div id="content-website" class="am-form-group">
+                <label>官网地址：</label>
+                <input id="website" name="website" type="text" placeholder="输入官网地址" />
+            </div>
+            <!-- website end -->
+
+            <hr/>
+
+            <!-- email start -->
+            <div id="content-email" class="am-form-group">
+                <label>网站联系邮箱： </label>
+                <input  id="email"  name="email" type="text" placeholder="输入联系邮箱" />
+            </div>
+            <!-- email end -->
+
+            <hr/>
+            
+            <!-- image-url start -->
+            <div id="content-image-url" class="am-form-group">
+                <label>展示图片url： </label>
+                <input id="image-url"  name="image-url" type="text" placeholder="输入图片地址" />
+            </div>
+            <!-- image-url end -->
+
+            <hr/>
+
+            <!-- description start -->
+            <div id="content-description" class="am-form-group">
+                <label>描述：</label>
+                <textarea id="description" name="description" rows="5" placeholder="描述"></textarea>
+            </div>
+            <!-- description end -->
+
+            <hr/>
+            
+            <div class="am-form-group">
+                <button type="submit" class="am-btn am-btn-primary" data-action="/purchase-contact/add" data-target="_self">保存</button>
+            </div>
+
+        </fieldset>
+
+    </form>
+    
+</div>
+
+<% include ../partials/footer %>
+<% include ../partials/js %>
+
+<script type="text/javascript">
+    $(function() {
+        var purchaseContact = require('purchase-contact');
+        purchaseContact.addFun();
+    });
+</script>
+</body>
+</html>
