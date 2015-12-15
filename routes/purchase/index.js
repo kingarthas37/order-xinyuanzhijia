@@ -103,4 +103,40 @@ router.get('/', function (req, res, next) {
 
 });
 
+
+router.get('/remove/:purchaseId', function (req, res, next) {
+
+    if(!req.AV.user) {
+        return res.redirect('/login');
+    }
+
+    var purchaseId = req.params.purchaseId;
+
+    async.waterfall([
+
+        function (cb) {
+            var query = new AV.Query(PurchaseTrack);
+            query.equalTo('purchaseId', parseInt(purchaseId));
+            query.first({
+                success: function (object) {
+                    cb(null, object);
+                },
+                error: function (err) {
+                    next(err);
+                }
+            });
+        },
+        function (object, cb) {
+            object.destroy({
+                success: function () {
+                    req.flash('success', '删除成功!');
+                    res.redirect('/purchase');
+                }
+            });
+        }
+
+    ]);
+});
+
+
 module.exports = router;

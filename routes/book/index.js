@@ -104,6 +104,39 @@ router.get('/', function (req, res, next) {
 
 });
 
+
+router.get('/remove/:bookId', function (req, res, next) {
+
+    if(!req.AV.user) {
+        return res.redirect('/login');
+    }
+
+    var bookId = req.params.bookId;
+
+    async.waterfall([
+        function (cb) {
+            var query = new AV.Query(Book);
+            query.equalTo('bookId', parseInt(bookId));
+            query.first({
+                success: function (object) {
+                    cb(null, object);
+                },
+                error: function (err) {
+                    next(err);
+                }
+            });
+        },
+        function (object, cb) {
+            object.destroy({
+                success: function () {
+                    req.flash('success', '删除成功!');
+                    res.redirect('/book');
+                }
+            });
+        }
+
+    ]);
+});
  
 
 module.exports = router;
