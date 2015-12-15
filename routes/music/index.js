@@ -28,7 +28,7 @@ router.get('/', function (req, res, next) {
     }
     
     var page = req.query.page ? parseInt(req.query.page) : 1;
-    var limit = req.query.limit ? parseInt(req.query.limit) : 10;
+    var limit = req.query.limit ? parseInt(req.query.limit) : config.page.LIMIT;
     var order = req.query.order || 'desc';
     
     var search = req.query['music-search'] ? req.query['music-search'].trim() : '';
@@ -55,7 +55,8 @@ router.get('/', function (req, res, next) {
             query.count({
                 success: function(count) {
                     data = extend(data,{
-                        musicPager:pager(page,limit,count)
+                        musicPager:pager(page,limit,count),
+                        musicCount:count
                     });
                     cb();
                 },

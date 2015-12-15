@@ -25,11 +25,11 @@
             <form class="am-form-inline" role="form" action="/order">
                 <h3>订单搜索：</h3>
                 <div class="am-form-group">
-                  搜索订单名：<input type="text" name="order-search" class="am-form-field" placeholder="搜索">
+                  搜索订单名：<input type="text" name="search-order-name" class="am-form-field" placeholder="搜索">
                 </div>
                 <span></span>
                 <div class="am-form-group">
-                    搜索收货人/客户姓名：<input type="text" name="name-search" class="am-form-field" placeholder="搜索">
+                    搜索收货人/客户姓名：<input type="text" name="search-customer-name" class="am-form-field" placeholder="搜索">
                 </div>
                 <button type="submit" class="am-btn am-btn-primary">搜索</button>
             </form>
@@ -63,9 +63,10 @@
             
             <ul class="am-pagination">
                 <% if (orderPager.prev) { %> <li>
-                    <a href="/order?page=<%= orderPager.prev %><% if (search) {%>&order-search=<%=search%> <%}%>">上一页</a></li> <% } %>
+                    <a href="/order?page=<%= orderPager.prev %><% if(searchOrderName) {%>&search-order-name=<%=searchOrderName%> <%}%><% if(searchCustomerName) {%>&search-customer-name=<%=searchCustomerName%> <%}%>">上一页</a></li> <% } %>
                 <% if (orderPager.next) { %> <li>
-                    <a href="/order?page=<%= orderPager.next %><% if (search) {%>&order-search=<%=search%> <%}%>">下一页</a></li> <% } %>
+                    <a href="/order?page=<%= orderPager.next %><% if(searchOrderName) {%>&search-order-name=<%=searchOrderName%> <%}%><% if(searchCustomerName) {%>&search-customer-name=<%=searchCustomerName%> <%}%>">下一页</a></li> <% } %>
+                <li class="count">共<%= orderCount %>条</li>
             </ul>
             
             <hr/>

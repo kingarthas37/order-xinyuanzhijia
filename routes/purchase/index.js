@@ -30,7 +30,7 @@ router.get('/', function (req, res, next) {
     }
     
     var page = req.query.page ? parseInt(req.query.page) : 1;
-    var limit = req.query.limit ? parseInt(req.query.limit) : 10;
+    var limit = req.query.limit ? parseInt(req.query.limit) : config.page.LIMIT;
     var order = req.query.order || 'desc';
     
     var search = req.query['purchase-search'] ? req.query['purchase-search'].trim() : '';
@@ -54,7 +54,8 @@ router.get('/', function (req, res, next) {
             query.count({
                 success: function(count) {
                     data = extend(data,{
-                        purchasePager:pager(page,limit,count)
+                        purchasePager:pager(page,limit,count),
+                        purchaseCount:count
                     });
                     cb();
                 },

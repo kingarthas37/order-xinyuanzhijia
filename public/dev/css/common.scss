@@ -1,180 +1,183 @@
 fieldset {
-  margin-top: 30px;
+    margin-top: 30px;
 }
 
 footer p {
-  color: #7f8c8d;
-  margin: 0;
-  padding: 15px 0;
-  text-align: center;
-  background: #2d3e50;
+    color: #7f8c8d;
+    margin: 0;
+    padding: 15px 0;
+    text-align: center;
+    background: #2d3e50;
 }
-
 
 //公共基础样式
 .common-page {
 
-  fieldset {
-    padding: 0;
-  }
-    
-  textarea {
-    margin:0 0 10px 0;
-  }
-
-  .hide {
-    display: none !important;
-  }
-
-  .code-banner {
-    margin-bottom: 10px;
-  }
-
-  .product-title {
-    img {
-      width: 400px;
+    fieldset {
+        padding: 0;
     }
-  }
 
-  label {
-    i {
-      font-weight: bold;
-      color: red;
-      font-size: 16px;
-      font-style: normal;
+    textarea {
+        margin: 0 0 10px 0;
     }
-  }
 
-  label.error {
-    margin-top: 5px;
-    font-weight: normal;
-    color: red;
-  }
-
-  .am-alert {
-      border: none;
-    margin:10px 0;
-  }
-
-  .am-form-inline {
-    span {
-      padding: 0 10px;
+    .hide {
+        display: none !important;
     }
-  }
 
-  #content-info {
-    p {
-      label {
-        font-weight: normal;
-        margin-right: 10px;
-        input {
-          margin-right: 5px;
+    .code-banner {
+        margin-bottom: 10px;
+    }
+
+    .product-title {
+        img {
+            width: 400px;
         }
-      }
     }
 
-    .info-tpl {
-      display: none;
+    label {
+        i {
+            font-weight: bold;
+            color: red;
+            font-size: 16px;
+            font-style: normal;
+        }
     }
-  }
 
-  label.normal {
-    font-weight: normal;
-  }
-  
-  .am-form-horizontal {
-    .am-u-sm-11,.am-u-sm-10 {
-      padding-left: 0;
+    label.error {
+        margin-top: 5px;
+        font-weight: normal;
+        color: red;
     }
-    .am-u-sm-1,.am-u-sm-2 {
-      font-weight: normal;
-      text-align: left;
-      padding-left: 0;
-      padding-right: 0;
+
+    .am-alert {
+        border: none;
+        margin: 10px 0;
     }
-    .address-field:first-child {
-      .remove {
-        display: none;
-      }
+
+    .am-form-inline {
+        span {
+            padding: 0 10px;
+        }
     }
-  }
+
+    #content-info {
+        p {
+            label {
+                font-weight: normal;
+                margin-right: 10px;
+                input {
+                    margin-right: 5px;
+                }
+            }
+        }
+
+        .info-tpl {
+            display: none;
+        }
+    }
+
+    label.normal {
+        font-weight: normal;
+    }
+
+    .am-form-horizontal {
+        .am-u-sm-11, .am-u-sm-10 {
+            padding-left: 0;
+        }
+        .am-u-sm-1, .am-u-sm-2 {
+            font-weight: normal;
+            text-align: left;
+            padding-left: 0;
+            padding-right: 0;
+        }
+        .address-field:first-child {
+            .remove {
+                display: none;
+            }
+        }
+    }
+    
+    .am-pagination {
+        .count {
+            float: right;
+        }
+    }
 
 }
-
 
 //预览生成图片页面
 .common-product-view-page {
 
-  width: 750px;
-  margin:30px auto;
+    width: 750px;
+    margin: 30px auto;
 
-  .preview-content {
-    font-size: 24px;
-    line-height: 30px;
-    div {
-      margin-bottom: 20px;
+    .preview-content {
+        font-size: 24px;
+        line-height: 30px;
+        div {
+            margin-bottom: 20px;
+        }
+        img {
+            width: 100%;
+        }
+        p {
+            margin: 0;
+            padding: 0 15px 20px 15px;
+        }
     }
-    img {
-      width: 100%;
-    }
-    p {
-      margin:0;
-      padding:0 15px 20px 15px;
-    }
-  }
 
 }
-
 
 //autocomplete typeahead
 .twitter-typeahead {
 
-  .typeahead {
-    background-color: #fff;
-  }
+    .typeahead {
+        background-color: #fff;
+    }
 
-  .tt-query {
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  }
+    .tt-query {
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    }
 
-  .tt-hint {
-    color: #999
-  }
+    .tt-hint {
+        color: #999
+    }
 
-  .tt-menu {
-    width: 422px;
-    margin: 12px 0;
-    padding: 8px 0;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    border-radius: 8px;
-    -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
-    -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
-    box-shadow: 0 5px 10px rgba(0,0,0,.2);
-  }
+    .tt-menu {
+        width: 422px;
+        margin: 12px 0;
+        padding: 8px 0;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        border-radius: 8px;
+        -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+        -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+    }
 
-  .tt-suggestion {
-    padding: 3px 20px;
-    font-size: 18px;
-    line-height: 24px;
-  }
+    .tt-suggestion {
+        padding: 3px 20px;
+        font-size: 18px;
+        line-height: 24px;
+    }
 
-  .tt-suggestion:hover {
-    cursor: pointer;
-    color: #fff;
-    background-color: #0097cf;
-  }
+    .tt-suggestion:hover {
+        cursor: pointer;
+        color: #fff;
+        background-color: #0097cf;
+    }
 
-  .tt-suggestion.tt-cursor {
-    color: #fff;
-    background-color: #0097cf;
+    .tt-suggestion.tt-cursor {
+        color: #fff;
+        background-color: #0097cf;
 
-  }
+    }
 
-  .tt-suggestion p {
-    margin: 0;
-  }
-  
+    .tt-suggestion p {
+        margin: 0;
+    }
+
 }

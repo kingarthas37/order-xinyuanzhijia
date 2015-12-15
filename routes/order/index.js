@@ -30,15 +30,20 @@ router.get('/', function (req, res, next) {
     }
     
     var page = req.query.page ? parseInt(req.query.page) : 1;
-    var limit = req.query.limit ? parseInt(req.query.limit) : 10;
+    var limit = req.query.limit ? parseInt(req.query.limit) : config.page.LIMIT;
     var order = req.query.order || 'desc';
     
-    var search = req.query['order-search'] ? req.query['order-search'].trim() : '';
+    var searchOrdername = req.query['search-order-name'];
+    var searchCustomerName = req.query['search-customer-name'];
 
     data = extend(data,{
-        flash: {success:req.flash('success'),error:req.flash('error')},
+        flash: {
+            success:req.flash('success'),
+            error:req.flash('error')
+        },
         user:req.AV.user,
-        search:search
+        searchOrderName:searchOrdername,
+        searchCustomerName:searchCustomerName
     });
 
     async.series([
@@ -47,14 +52,19 @@ router.get('/', function (req, res, next) {
             
             var query = new AV.Query(OrderTrack);
             
-            if(search) {
-                query.contains('name',search);
+            if(searchOrdername) {
+                query.contains('orderName',searchOrdername);
+            }
+            
+            if(searchCustomerName) {
+                query.contains('customerName',searchCustomerName);
             }
             
             query.count({
                 success: function(count) {
                     data = extend(data,{
-                        orderPager:pager(page,limit,count)
+                        orderPager:pager(page,limit,count),
+                        orderCount:count
                     });
                     cb();
                 },
@@ -77,8 +87,12 @@ router.get('/', function (req, res, next) {
                 query.descending('orderId');
             }
 
-            if(search) {
-                query.contains('name',search);
+            if(searchOrdername) {
+                query.contains('orderName',searchOrdername);
+            }
+
+            if(searchCustomerName) {
+                query.contains('customerName',searchCustomerName);
             }
 
             query.find({
