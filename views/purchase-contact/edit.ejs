@@ -13,8 +13,10 @@
 
 <div class="am-container common-page">
 
-    <form id="form-edit-purchase-contact" class="am-form" method="post">
+    <form id="form-edit-purchase-contact" class="am-form" method="post" action="/purchase-contact/edit">
 
+        <input type="hidden" name="purchase-contact-id" value="<%= purchaseContact.get('purchaseContactId') %>"/>
+        
         <fieldset>
 
             <legend>添加网站联系方式</legend>

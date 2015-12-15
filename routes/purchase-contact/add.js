@@ -5,6 +5,7 @@ var AV = require('leanengine');
 
 var extend = require('xtend');
 var config = require('../../lib/config');
+var utils = require('../../lib/utils');
 
 var flash = require('connect-flash');
 
@@ -41,14 +42,20 @@ router.post('/', function (req, res, next) {
     
     var name = req.body['name'];
     var description = req.body['description'];
+    var shop =req.body['shop'];
     var website = req.body['website'];
     var email =req.body['email'];
     var imageUrl = req.body['image-url'];
+    
+    shop = utils.urlCompleting(shop);
+    website = utils.urlCompleting(website);
+    imageUrl = utils.urlCompleting(imageUrl);
     
     var purchaseContact = new PurchaseContact();
 
     purchaseContact.set('name',name);
     purchaseContact.set('description',description);
+    purchaseContact.set('shop',shop);
     purchaseContact.set('website',website);
     purchaseContact.set('email',email);
     purchaseContact.set('imageUrl',imageUrl);
@@ -65,7 +72,5 @@ router.post('/', function (req, res, next) {
     
 });
 
-
- 
 
 module.exports = router;

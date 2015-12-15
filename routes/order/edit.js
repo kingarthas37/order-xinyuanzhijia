@@ -88,7 +88,6 @@ router.post('/', function (req, res, next) {
     var taobao = req.body['taobao'];
 
     var customer = new Customer();
-    var orderTrack = new OrderTrack();
     
     async.waterfall([
 
