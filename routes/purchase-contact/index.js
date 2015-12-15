@@ -107,20 +107,20 @@ router.get('/', function (req, res, next) {
 });
 
 
-/*
-router.get('/:customerId', function (req, res, next) {
+
+router.get('/remove/:purchaseContactId', function (req, res, next) {
 
     if(!req.AV.user) {
         return res.redirect('/login');
     }
 
-    var customerId = req.params.customerId;
+    var purchaseContactId = req.params.purchaseContactId;
 
     async.waterfall([
 
         function (cb) {
-            var query = new AV.Query(Customer);
-            query.equalTo('customerId', parseInt(customerId));
+            var query = new AV.Query(PurchaseContact);
+            query.equalTo('purchaseContactId', parseInt(purchaseContactId));
             query.first({
                 success: function (object) {
                     cb(null, object);
@@ -134,13 +134,15 @@ router.get('/:customerId', function (req, res, next) {
             object.destroy({
                 success: function () {
                     req.flash('success', '删除成功!');
-                    res.redirect('/customer');
+                    res.redirect('/purchase-contact');
                 }
             });
         }
 
     ]);
 });
-*/
+
+
+
 
 module.exports = router;

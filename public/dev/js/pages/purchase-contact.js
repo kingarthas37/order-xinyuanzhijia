@@ -7,9 +7,7 @@ module.exports = {
     indexFun:function() {
 
         $('.remove-purchase-contact').click(function() {
-
             var $this = $(this);
-            
             $('#confirm-remove-purchase-contact').modal({
                 relatedTarget: this,
                 onConfirm: function(options) {
@@ -27,6 +25,6 @@ module.exports = {
         $('#form-add-purchase-contact').validate();
     },
     editFun:function() {
-        $('#form-add-purchase-contact').validate();
+        $('#form-edit-purchase-contact').validate();
     }
 };
