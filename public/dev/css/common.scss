@@ -10,6 +10,18 @@ footer p {
     background: #2d3e50;
 }
 
+.t-c {
+    text-align: center;
+}
+
+.t-l {
+    text-align: left;
+}
+
+.t-r {
+    text-align: right;
+}
+
 //公共基础样式
 .common-page {
 
@@ -101,6 +113,13 @@ footer p {
     .am-pagination {
         .count {
             float: right;
+        }
+    }
+    
+    .am-table {
+        vertical-align: middle;
+        td {
+            vertical-align: middle;
         }
     }
 

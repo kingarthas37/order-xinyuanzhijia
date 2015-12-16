@@ -8,6 +8,15 @@ footer p {
   text-align: center;
   background: #2d3e50; }
 
+.t-c {
+  text-align: center; }
+
+.t-l {
+  text-align: left; }
+
+.t-r {
+  text-align: right; }
+
 .common-page fieldset {
   padding: 0; }
 
@@ -67,6 +76,11 @@ footer p {
 
 .common-page .am-pagination .count {
   float: right; }
+
+.common-page .am-table {
+  vertical-align: middle; }
+  .common-page .am-table td {
+    vertical-align: middle; }
 
 .common-product-view-page {
   width: 750px;
