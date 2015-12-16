@@ -8,6 +8,7 @@ require('jquery-zoom');
 require('jquery-validate');
 require('jquery-zclip');
 require('jquery-datetimepicker');
+require('jquery-form');
 require('flash-detect');
 require('swfobject');
 require('typeahead');

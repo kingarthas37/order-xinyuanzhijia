@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title><%= title %></title>
+    <% include ../partials/css %>
+</head>
+<body>
+
+<form id="form-upload-img" enctype="multipart/form-data" method="post" action="/purchase-contact/upload">
+    <div class="clearfix">
+        <div class="am-form-group am-form-file">
+            <button type="button" class="am-btn am-btn-primary am-btn-sm">
+                <i class="am-icon-cloud-upload"></i> 选择要上传的文件</button>
+            <input type="file" id="icon-image" name="icon-image">
+        </div>
+        <div class="upload-loading">
+            <i class="am-icon-spinner am-icon-spin"></i>
+        </div>
+    </div>
+</form>
+
+
+<% include ../partials/js %>
+<script type="text/javascript">
+    $(function() {
+        var purchaseContact = require('purchase-contact');
+        purchaseContact.uploadTitleImg();
+    });
+</script>
+</body>
+</html>

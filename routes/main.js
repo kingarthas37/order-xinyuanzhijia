@@ -48,7 +48,8 @@ module.exports = {
     //purchase-contact
     '/purchase-contact':require('./purchase-contact'),
     '/purchase-contact/add':require('./purchase-contact/add'),
-    '/purchase-contact/edit':require('./purchase-contact/edit')
+    '/purchase-contact/edit':require('./purchase-contact/edit'),
+    '/purchase-contact/upload':require('./purchase-contact/upload')
     
     
 };

@@ -57,6 +57,9 @@
             <!-- image-url start -->
             <div id="content-image-url" class="am-form-group">
                 <label>展示图片url： </label>
+                <div>
+                    <iframe class="upload-title" src="/purchase-contact/upload" frameborder="0"></iframe>
+                </div>
                 <input id="image-url"  name="image-url" type="text" placeholder="输入图片地址" />
             </div>
             <!-- image-url end -->
@@ -86,10 +89,15 @@
 <% include ../partials/js %>
 
 <script type="text/javascript">
+    var purchaseContact = require('purchase-contact');
     $(function() {
-        var purchaseContact = require('purchase-contact');
         purchaseContact.addFun();
     });
+    
+    //iframe upload callback
+    function uploadTitleImgResponse(url) {
+        purchaseContact.uploadTitleImgResponse(url);
+    }
 </script>
 </body>
 </html>

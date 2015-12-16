@@ -9,6 +9,9 @@ var utils = require('../../lib/utils');
 
 var flash = require('connect-flash');
 
+var multiparty = require('multiparty');
+var fs =require('fs');
+
 //class
 var PurchaseContact = AV.Object.extend('PurchaseContact');
 
@@ -71,6 +74,9 @@ router.post('/', function (req, res, next) {
     });
     
 });
+
+
+ 
 
 
 module.exports = router;
