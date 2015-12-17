@@ -34,8 +34,7 @@
                     <li <% if (currentPage === 'customer') { %> class="am-active" <% } %> ><a href="/customer">用户/收件人管理</a></li>
             </ul>
             </li>
-
-
+            
             </ul>
 
             <% if (user) { %>
@@ -43,7 +42,8 @@
             <li class="am-dropdown" data-am-dropdown>
                 <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">我的账户 <span class="am-icon-caret-down"></span></a>
                 <ul class="am-dropdown-content">
-                    <li><a href="#"><%= user.attributes.username %></a></li>
+                    <li><a href="javascript:;"><%= user.attributes.username %></a></li>
+                    <li><a href="/earning">收入统计</a></li>
                     <li><a href="/logout">退出登录</a></li>
                 </ul>
             </li>
