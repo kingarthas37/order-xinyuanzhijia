@@ -24,20 +24,19 @@
 
         <div class="clearfix">
             <div class="l">
-                2015/12月 支出：1000 收入：1000 盈收：1000 
+                <%= currentDate.getFullYear() %>年<%= currentDate.getMonth() + 1 %>月： 支出：<span id="month-expenses"></span> | 收入：<span id="month-income"></span> | 盈收：<span class="am-badge am-badge-success am-text-default" id="month-earning"></span> 
             </div>
             <div class="r">
-                总收入：
             </div>
         </div>
         <hr/>
 
 
-        <form class="am-form-inline" role="form" action="/purchase">
+        <form class="am-form-inline" role="form" action="/earning">
             <div class="am-form-group">
-                <input type="text" class="am-form-field" value="<%=currentDate.getFullYear()%>-<%=(currentDate.getMonth()+1)%>" data-am-datepicker="{format:'yyyy-mm',viewMode:'months',minViewMode:'months'}">
+                <input name="search-month" type="text" class="am-form-field" value="<%=currentDate.getFullYear()%>-<%=(currentDate.getMonth()+1)%>" data-am-datepicker="{format:'yyyy-mm',viewMode:'months',minViewMode:'months'}">
             </div>
-            <button type="submit" class="am-btn am-btn-primary">搜索</button>
+            <button type="submit"  class="am-btn am-btn-primary">搜索</button>
         </form>
 
         <hr/>
@@ -54,12 +53,12 @@
             </thead>
             <tbody>
                 <% for (var i = 0;i < currentMonthDays; i ++) { %>
-                    <tr>
+                    <tr <% if(currentDate.getDate() == i+1) { %>class="am-active"<% } %>>
                         <td><%= currentDate.getFullYear() %>-<%= currentDate.getMonth() + 1 %>-<%= i + 1 %></td>
-                        <td><% if (earning[i]) { %> <%= earning[i].get('expenses') %> <% } else { %>0<% } %></td>
-                        <td><% if (earning[i]) { %> <%= earning[i].get('income') %> <% } else { %>0<% } %></td>
-                        <td>0</td>
-                        <td><a href="/earning/edit/<%= currentDate.getFullYear() %>-<%= currentDate.getMonth() + 1 %>-<%= i+1 %>">编辑</a></td>
+                        <td class="cell-expenses"><% if (earning[i]) { %> <%= earning[i].get('expenses') %> <% } else { %>0<% } %></td>
+                        <td class="cell-income"><% if (earning[i]) { %> <%= earning[i].get('income') %> <% } else { %>0<% } %></td>
+                        <td><% if (earning[i]) {%> <%= earning[i].get('income') - earning[i].get('expenses') %><% } else { %>0<% } %></td>
+                        <td><a href="/earning/edit?date=<%= currentDate.getFullYear() %>-<%= currentDate.getMonth() + 1 %>-<%= i+1 %>">编辑</a></td>
                     </tr>
                 <% } %>
             </tbody>

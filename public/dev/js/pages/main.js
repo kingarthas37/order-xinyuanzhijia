@@ -7,3 +7,4 @@ require('./music');
 require('./purchase');
 require('./customer');
 require('./order');
+require('./earning');

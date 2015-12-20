@@ -30,6 +30,11 @@ router.get('/', function (req, res, next) {
     }
 
     var currentDate = new Date();
+
+    var searchMonth = req.query['search-month'];
+    if(searchMonth) {
+        currentDate = new Date(searchMonth);
+    }
     
     //当月天数
     var currentYear = currentDate.getFullYear();

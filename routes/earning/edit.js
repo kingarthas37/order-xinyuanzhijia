@@ -13,6 +13,7 @@ var extend = require("xtend");
 
 //class
 var Earning = AV.Object.extend('Earning');
+var PurchaseTrack = AV.Object.extend('PurchaseTrack');
 
 var data =  extend(config.data,{
     title:'编辑收入统计',
@@ -20,14 +21,14 @@ var data =  extend(config.data,{
 });
 
 
-router.get('/:date', function (req, res, next) {
+router.get('/', function (req, res, next) {
 
     if(!req.AV.user) {
         return res.redirect('/login');
     }
-    
-    var date = new Date(req.params.date);
- 
+
+    var date = new Date(req.query.date);
+
     data = extend(data,{
         flash: {
             success:req.flash('success'),
@@ -44,21 +45,22 @@ router.get('/:date', function (req, res, next) {
         query.equalTo('date',date);
         query.first({}).then(function(result) {
             if(result) {
+                
                 data = extend(data,{
                     earning:result
                 });
                 return res.render('earning/edit',data);
+                
             } else {
 
                 var earning = new Earning();
                 earning.set('income',0);
                 earning.set('expenses',0);
                 earning.set('date',date);
-                
-                return earning.save();
+                earning.save().then(function() {
+                    return queryFun();     
+                });
             }
-        }).then(function() {
-            return queryFun();
         });
     }
     
@@ -89,8 +91,6 @@ router.post('/', function (req, res, next) {
     query.equalTo('earningId',earningId);
     
     query.first().then(function(earning) {
-
-        console.info(earning);
         
         earning.set('income',income);
         earning.set('expenses',expenses);
@@ -108,6 +108,38 @@ router.post('/', function (req, res, next) {
         req.flash('success', '编辑收入明细成功!');
         res.redirect('/earning');
     
+    });
+    
+});
+
+
+
+
+router.get('/current-day-expenses',function(req,res,next) {
+
+    if(!req.AV.user) {
+        return res.redirect('/login');
+    }
+    
+    var date = new Date(req.query.date);
+    
+    var query = new AV.Query(PurchaseTrack);
+
+    var startDate = date.getTime();
+    var endDate = startDate + 1000 * 60 * 60 * 24;
+    
+    query.greaterThan('createdAt',new Date(startDate));
+    query.lessThan('createdAt',new Date(endDate));
+
+    query.find().then(function(results) {
+        var value = 0;
+        for(var i=0; i<results.length;i++) {
+            value += parseInt(results[i].get('amount'));
+        }
+       
+        return res.json({
+            value:value
+        });
     });
     
 });

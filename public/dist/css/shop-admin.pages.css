@@ -36,6 +36,10 @@ footer p {
   zoom: 1;
   *display: inline; }
 
+p.normal {
+  margin: 0;
+  padding: 6px 0; }
+
 .common-page fieldset {
   padding: 0; }
 

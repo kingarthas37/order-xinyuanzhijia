@@ -24,7 +24,8 @@
             <!-- expenses start -->
             <div id="content-expenses" class="am-form-group">
                 <label>支出金额(RMB)：<i>*</i> </label>
-                <input  id="expenses" required name="expenses" type="text" placeholder="输入支出金额" value="<%= earning.get('expenses') %>" />
+                <p class="normal"><a class="current-day-expenses" href="javascript:;">计算当天支出金额</a></p>
+                <input id="expenses" required name="expenses" type="text" placeholder="输入支出金额" autocomplete="off" value="<%= earning.get('expenses') %>" />
             </div>
             <!-- expenses end -->
 
@@ -33,7 +34,7 @@
             <!-- expenses comment start -->
             <div id="content-expenses-comment" class="am-form-group">
                 <label>支出说明：</label>
-                <textarea id="expenses-comment" name="expenses-comment" rows="2" placeholder="输入支出说明"><%= earning.get('expensesComment') %></textarea>
+                <textarea id="expenses-comment" name="expenses-comment" rows="5" placeholder="输入支出说明"><%= earning.get('expensesComment') %></textarea>
             </div>
             <!-- expenses comment end -->
 
@@ -42,7 +43,7 @@
             <!-- income start -->
             <div id="content-income" class="am-form-group">
                 <label>收入金额(RMB)：<i>*</i> </label>
-                <input  id="income" required name="income" type="text" placeholder="输入收入金额" value="<%= earning.get('income') %>" />
+                <input  id="income" required name="income" type="text" placeholder="输入收入金额" autocomplete="off" value="<%= earning.get('income') %>" />
             </div>
             <!-- income end -->
 
