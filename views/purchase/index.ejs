@@ -37,6 +37,7 @@
                 <tr>
                     <th width="250">订单名称</th>
                     <th width="250">网站名称</th>
+                    <th>物流方式</th>
                     <th>创建时间</th>
                     <th>最后更新时间</th>
                     <th>删除</th>
@@ -47,6 +48,7 @@
                 <tr>
                     <td><a href="/purchase/edit/<%= purchase[i].get('purchaseId') %>"><%= purchase[i].get('name') %></a> </td>
                     <td><%= purchase[i].get('website') %></td>
+                    <td><%= purchase[i].get('shippingType') %></td>
                     <td><%=purchase[i].createdAt.getFullYear()%>-<%=(purchase[i].createdAt.getMonth()+1)%>-<%=purchase[i].createdAt.getDate()%></td>
                     <td><%=purchase[i].updatedAt.getFullYear()%>-<%=(purchase[i].updatedAt.getMonth()+1)%>-<%=purchase[i].updatedAt.getDate()%></td>
                     <td><a href="/purchase/remove/<%= purchase[i].get('purchaseId') %>" class="remove-purchase">删除</a> </td>

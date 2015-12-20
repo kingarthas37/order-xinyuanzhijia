@@ -119,17 +119,17 @@
 
             <hr/>
 
-            <!-- shippingState start -->
-            <div id="content-shipping-state" class="am-form-group">
+            <!-- shippingStatus start -->
+            <div id="content-shipping-status" class="am-form-group">
                 <label>物流状态：</label>
-                <select name="purchase-shipping-state" id="purchase-shipping-state">
-                    <option value="noshipped" <% if(purchase.get('shippingState')==='noshipped') {%> selected="selected" <% } %>>未发货</option>
-                    <option value="shipped" <% if(purchase.get('shippingState')==='shipped') {%> selected="selected" <% } %>>已发货</option>
-                    <option value="forward" <% if(purchase.get('shippingState')==='forward') {%> selected="selected" <% } %>>已到达转运公司</option>
-                    <option value="arrived" <% if(purchase.get('shippingState')==='arrived') {%> selected="selected" <% } %>>已到货</option>
+                <select name="purchase-shipping-status" id="purchase-shipping-status">
+                    <option value="noshipped" <% if(purchase.get('shippingStatus')==='noshipped') {%> selected="selected" <% } %>>未发货</option>
+                    <option value="shipped" <% if(purchase.get('shippingStatus')==='shipped') {%> selected="selected" <% } %>>已发货</option>
+                    <option value="forward" <% if(purchase.get('shippingStatus')==='forward') {%> selected="selected" <% } %>>已到达转运公司</option>
+                    <option value="arrived" <% if(purchase.get('shippingStatus')==='arrived') {%> selected="selected" <% } %>>已到货</option>
                 </select>
             </div>
-            <!-- shippingState end -->
+            <!-- shippingStatus end -->
 
             <hr/>
 

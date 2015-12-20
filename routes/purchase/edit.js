@@ -79,7 +79,7 @@ router.post('/', function (req, res, next) {
     var purchasePaymentType = req.body['purchase-payment-type'] || '';
     var purchasePaymentInfo = req.body['purchase-payment-info'] || '';
     var purchaseShippingType = req.body['purchase-shipping-type'] || '';
-    var purchaseShippingState = req.body['purchase-shipping-state'] || '';
+    var purchaseShippingStatus = req.body['purchase-shipping-status'] || '';
     var purchaseComment = req.body['purchase-comment'] || '';
 
     var purchaseId = req.body['purchase-id'];
@@ -122,7 +122,7 @@ router.post('/', function (req, res, next) {
                     purchase.set('paymentType',purchasePaymentType);
                     purchase.set('paymentInfo',purchasePaymentInfo);
                     purchase.set('shippingType',purchaseShippingType);
-                    purchase.set('shippingState',purchaseShippingState);
+                    purchase.set('shippingStatus',purchaseShippingStatus);
                     purchase.set('comment',purchaseComment);
                     purchase.save(null, {
                         success: function (results) {
