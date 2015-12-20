@@ -17,6 +17,25 @@ footer p {
 .t-r {
   text-align: right; }
 
+.l {
+  float: left; }
+
+.r {
+  float: right; }
+
+.clearfix {
+  *zoom: 1; }
+  .clearfix:before, .clearfix:after {
+    content: "";
+    display: table; }
+  .clearfix:after {
+    clear: both; }
+
+.inline-block {
+  display: inline-block;
+  zoom: 1;
+  *display: inline; }
+
 .common-page fieldset {
   padding: 0; }
 
@@ -139,23 +158,27 @@ footer p {
 .typeahead-content .twitter-typeahead {
   display: block !important; }
 
-/* purchase contact page */
-#form-add-purchase-contact iframe, #form-edit-purchase-contact iframe {
+/* purchase-contact-page */
+.purchase-contact-page #form-add-purchase-contact iframe, .purchase-contact-page #form-edit-purchase-contact iframe {
   width: 100%;
   height: 40px; }
 
-#form-upload-img {
+.purchase-contact-page #form-upload-img {
   height: 40px;
   width: 400px;
   overflow: hidden; }
-  #form-upload-img .am-form-file {
+  .purchase-contact-page #form-upload-img .am-form-file {
     float: left; }
-  #form-upload-img .upload-loading {
+  .purchase-contact-page #form-upload-img .upload-loading {
     display: none;
     padding-top: 2px;
     float: left;
     margin-left: 10px; }
-    #form-upload-img .upload-loading.on {
+    .purchase-contact-page #form-upload-img .upload-loading.on {
       display: block; }
+
+/* earning page */
+.earning-page .am-datepicker-date {
+  width: 400px; }
 
 /*# sourceMappingURL=shop-admin.pages.css.map */

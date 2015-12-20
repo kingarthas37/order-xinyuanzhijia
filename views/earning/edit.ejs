@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title><%= title %></title>
+    <% include ../partials/css %>
+</head>
+<body>
+
+<% include ../partials/header %>
+
+
+<div class="am-container common-page">
+
+    <form id="form-edit-earning" class="am-form" action="/earning/edit" method="post">
+
+        <input type="hidden" name="earning-id" value="<%= earning.get('earningId') %>"/>
+
+        <fieldset>
+
+            <legend>编辑当天盈收金额</legend>
+
+            <!-- expenses start -->
+            <div id="content-expenses" class="am-form-group">
+                <label>支出金额(RMB)：<i>*</i> </label>
+                <input  id="expenses" required name="expenses" type="text" placeholder="输入支出金额" value="<%= earning.get('expenses') %>" />
+            </div>
+            <!-- expenses end -->
+
+            <hr/>
+
+            <!-- expenses comment start -->
+            <div id="content-expenses-comment" class="am-form-group">
+                <label>支出说明：</label>
+                <textarea id="expenses-comment" name="expenses-comment" rows="2" placeholder="输入支出说明"><%= earning.get('expensesComment') %></textarea>
+            </div>
+            <!-- expenses comment end -->
+
+            <hr/>
+            
+            <!-- income start -->
+            <div id="content-income" class="am-form-group">
+                <label>收入金额(RMB)：<i>*</i> </label>
+                <input  id="income" required name="income" type="text" placeholder="输入收入金额" value="<%= earning.get('income') %>" />
+            </div>
+            <!-- income end -->
+
+            <hr/>
+
+            <!-- income comment start -->
+            <div id="content-income-comment" class="am-form-group">
+                <label>收入说明：</label>
+                <textarea id="income-comment" name="income-comment" rows="5" placeholder="输入收入说明"><%= earning.get('incomeComment') %></textarea>
+            </div>
+            <!-- income comment end -->
+
+            <hr/>
+
+            <div class="am-form-group">
+                <button type="submit" class="am-btn am-btn-primary">保存</button>
+            </div>
+
+        </fieldset>
+
+    </form>
+
+</div>
+
+
+<% include ../partials/footer %>
+<% include ../partials/js %>
+
+<script type="text/javascript">
+    $(function() {
+        var earning = require('earning');
+        earning.editFun();
+    });
+</script>
+</body>
+</html>

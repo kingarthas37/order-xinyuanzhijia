@@ -8,28 +8,40 @@
     display: block !important;
 }
 
-/* purchase contact page */
-#form-add-purchase-contact,#form-edit-purchase-contact {
-    iframe {
-        width: 100%;
+/* purchase-contact-page */
+.purchase-contact-page {
+
+    #form-add-purchase-contact, #form-edit-purchase-contact {
+        iframe {
+            width: 100%;
+            height: 40px;
+        }
+    }
+
+    #form-upload-img {
         height: 40px;
+        width: 400px;
+        overflow: hidden;
+        .am-form-file {
+            float: left;
+        }
+        .upload-loading {
+            &.on {
+                display: block;
+            }
+            display: none;
+            padding-top: 2px;
+            float: left;
+            margin-left: 10px;
+        }
     }
 }
 
-#form-upload-img {
-    height: 40px;
-    width: 400px;
-    overflow: hidden;
-    .am-form-file {
-        float: left;
+/* earning page */
+.earning-page {
+
+    .am-datepicker-date {
+        width: 400px;
     }
-    .upload-loading {
-        &.on {
-            display: block;
-        }
-        display: none;
-        padding-top: 2px;
-        float: left;
-        margin-left: 10px;
-    }
+
 }

@@ -49,7 +49,10 @@ module.exports = {
     '/purchase-contact':require('./purchase-contact'),
     '/purchase-contact/add':require('./purchase-contact/add'),
     '/purchase-contact/edit':require('./purchase-contact/edit'),
-    '/purchase-contact/upload':require('./purchase-contact/upload')
+    '/purchase-contact/upload':require('./purchase-contact/upload'),
     
+    //earning
+    '/earning':require('./earning'),
+    '/earning/edit':require('./earning/edit')
     
 };
