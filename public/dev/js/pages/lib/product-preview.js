@@ -6,7 +6,7 @@ module.exports = function() {
     var previewContent = $('.preview-content');
 
     var html = $.trim(previewContent.html());
-
+    
     var btnCopy = $('.btn-copy');
     btnCopy.zclip({
         path: '/swf/ZeroClipboard.swf',
