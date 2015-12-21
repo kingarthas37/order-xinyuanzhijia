@@ -64,7 +64,7 @@
                     <a href="/customer?page=<%= customerPager.prev %><% if (search) {%>&customer-search=<%=search%> <%}%>">上一页</a></li> <% } %>
                 <% if (customerPager.next) { %> <li>
                     <a href="/customer?page=<%= customerPager.next %><% if (search) {%>&customer-search=<%=search%> <%}%>">下一页</a></li> <% } %>
-                <li class="count">共<%=customerCount%>条</li>
+                <li class="count">第<%=customerPager.page%>页 共<%=customerCount%>条</li>
             </ul>
             
             <hr/>

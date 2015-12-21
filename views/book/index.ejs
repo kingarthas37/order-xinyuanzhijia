@@ -58,7 +58,7 @@
                     <a href="/book?page=<%= bookPager.prev %><% if (search) {%>&book-search=<%=search%> <%}%>">上一页</a></li> <% } %>
                 <% if (bookPager.next) { %> <li>
                     <a href="/book?page=<%= bookPager.next %><% if (search) {%>&book-search=<%=search%> <%}%>">下一页</a></li> <% } %>
-                <li class="count">共<%=bookCount%>条</li>
+                <li class="count">第<%=bookPager.page%>页 共<%=bookCount%>条</li>
             </ul>
             
             <hr/>

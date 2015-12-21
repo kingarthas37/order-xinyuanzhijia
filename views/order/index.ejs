@@ -66,7 +66,7 @@
                     <a href="/order?page=<%= orderPager.prev %><% if(searchOrderName) {%>&search-order-name=<%=searchOrderName%> <%}%><% if(searchCustomerName) {%>&search-customer-name=<%=searchCustomerName%> <%}%>">上一页</a></li> <% } %>
                 <% if (orderPager.next) { %> <li>
                     <a href="/order?page=<%= orderPager.next %><% if(searchOrderName) {%>&search-order-name=<%=searchOrderName%> <%}%><% if(searchCustomerName) {%>&search-customer-name=<%=searchCustomerName%> <%}%>">下一页</a></li> <% } %>
-                <li class="count">共<%= orderCount %>条</li>
+                <li class="count">第<%=orderPager.page%>页 共<%= orderCount %>条</li>
             </ul>
             
             <hr/>
