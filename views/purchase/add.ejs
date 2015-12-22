@@ -21,36 +21,36 @@
             <!-- name start -->
             <div id="content-name" class="am-form-group">
                 <label>订单名称简写：<i>*</i> </label>
-                <input  id="purchase-name" required name="purchase-name" type="text" placeholder="输入订单名称" />
+                <input id="purchase-name" required name="purchase-name" type="text" placeholder="输入订单名称" />
             </div>
             <!-- name end -->
 
             <hr/>
 
             <!-- description start -->
-            <div id="content-description" class="am-form-group">
-                <label>订单名称描述：</label>
-                <textarea id="purchase-description" name="purchase-description" rows="5" placeholder="输入订单描述"></textarea>
+            <div id="content-description" class="am-form-group typeahead-content">
+                <label>网站名称描述(自动填充)：</label>
+                <input type="text" id="purchase-description" name="purchase-description" autocomplete="off" placeholder="输入网站名称描述"/>
             </div>
             <!-- description end -->
 
             <hr/>
 
-            <!-- website start -->
-            <div id="content-website" class="am-form-group">
-                <label>网址：</label>
-                <textarea id="purchase-website" name="purchase-website" rows="5" placeholder="输入网址"></textarea>
-            </div>
-            <!-- website end -->
-
-            <hr/>
-
             <!-- orderLink start -->
             <div id="content-order-link" class="am-form-group">
-                <label>网站查看订单链接：</label>
-                <textarea id="purchase-order-link" name="purchase-order-link"  placeholder="输入网站查看订单链接" rows="5"></textarea>
+                <label>网站订单链接描述：</label>
+                <textarea id="purchase-order-link" name="purchase-order-link" placeholder="输入网站查看订单链接描述" rows="5"></textarea>
             </div>
             <!-- orderLink end -->
+
+            <hr/>
+            
+            <!-- website start -->
+            <div id="content-website" class="am-form-group">
+                <label>网站地址：</label>
+                <input type="text" id="purchase-website" name="purchase-website" placeholder="输入网址"/>
+            </div>
+            <!-- website end -->
 
             <hr/>
 

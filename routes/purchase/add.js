@@ -10,6 +10,7 @@ var flash = require('connect-flash');
 
 //class
 var PurchaseTrack = AV.Object.extend('PurchaseTrack');
+var PurchaseContact = AV.Object.extend('PurchaseContact');
 
 var data =  extend(config.data,{
     title:'订单编辑-编辑订单',
@@ -76,7 +77,36 @@ router.post('/', function (req, res, next) {
         }
     });
 
+});
 
+
+router.get('/website-desc',function(req,res,next) {
+
+    if(!req.AV.user) {
+        return res.json([{
+            "error":config.error.NOT_SUCCESS
+        }]);
+    }
+    
+    var name = req.query.name;
+    
+    var query = new AV.Query(PurchaseContact);
+    query.contains('name',name);
+    var jsonData = [];
+    
+    query.find().then(function(results) {
+        for(var i=0;i<results.length;i++) {
+            var obj = {
+                "value":results[i].get('name'),
+                "website":results[i].get('website'),
+                "email":results[i].get('email')
+            };
+            jsonData.push(obj);
+        }
+        return res.json(jsonData);
+    });
+    
+    
 });
 
 module.exports = router;
