@@ -31,20 +31,11 @@
             <hr/>
 
             <!-- description start -->
-            <div id="content-description" class="am-form-group">
+            <div id="content-description" class="am-form-group typeahead-content">
                 <label>订单名称描述：</label>
-                <textarea id="purchase-description" name="purchase-description" rows="5" placeholder="输入订单描述"><%= purchase.get('description') %></textarea>
+                <input type="text" id="purchase-description" name="purchase-description" value="<%= purchase.get('description') %>" autocomplete="off" placeholder="输入网站名称描述"/>
             </div>
             <!-- description end -->
-
-            <hr/>
-
-            <!-- website start -->
-            <div id="content-website" class="am-form-group">
-                <label>网址：</label>
-                <textarea id="purchase-website" name="purchase-website" rows="5" placeholder="输入网址"><%= purchase.get('website') %></textarea>
-            </div>
-            <!-- website end -->
 
             <hr/>
 
@@ -56,6 +47,17 @@
             <!-- orderLink end -->
 
             <hr/>
+            
+            <!-- website start -->
+            <div id="content-website" class="am-form-group">
+                <label>网址：</label>
+                <textarea id="purchase-website" name="purchase-website" rows="5" placeholder="输入网址"><%= purchase.get('website') %></textarea>
+            </div>
+            <!-- website end -->
+
+            <hr/>
+
+            
 
             <!-- mail start -->
             <div id="content-mail" class="am-form-group">
