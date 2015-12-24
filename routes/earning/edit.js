@@ -27,8 +27,8 @@ router.get('/', function (req, res, next) {
         return res.redirect('/login');
     }
 
-    var date = new Date(req.query.date);
-
+    var date = new Date(req.query.date + ' 00:00:00');
+    
     data = extend(data,{
         flash: {
             success:req.flash('success'),
@@ -121,12 +121,13 @@ router.get('/current-day-expenses',function(req,res,next) {
         return res.redirect('/login');
     }
     
-    var date = new Date(req.query.date);
+    //从客户端传的时间会有8小时时区差，所以需加00:00:00强制转换
+    var date = new Date(req.query.date + ' 00:00:00');
     
     var query = new AV.Query(PurchaseTrack);
 
     var startDate = date.getTime();
-    var endDate = startDate + 1000 * 60 * 60 * 24;
+    var endDate = new Date(date.getTime() + 1000 * 60 * 60 * 24);
     
     query.greaterThan('createdAt',new Date(startDate));
     query.lessThan('createdAt',new Date(endDate));
