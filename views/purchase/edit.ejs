@@ -33,7 +33,7 @@
             <!-- description start -->
             
             <div id="content-description" class="am-form-group typeahead-content">
-                <label>订单名称描述：</label>
+                <label>订单名称描述(自动填充)：</label>
                 <input type="text" id="purchase-description" name="purchase-description" value="<%= purchase.get('description') %>" autocomplete="off" placeholder="输入网站名称描述"/>
             </div>
             <!-- description end -->
@@ -52,7 +52,7 @@
             <!-- website start -->
             <div id="content-website" class="am-form-group">
                 <label>网址：</label>
-                <textarea id="purchase-website" name="purchase-website" rows="5" placeholder="输入网址"><%= purchase.get('website') %></textarea>
+                <input type="text" id="purchase-website" name="purchase-website" placeholder="输入网址" value="<%= purchase.get('website') %>" />
             </div>
             <!-- website end -->
 
