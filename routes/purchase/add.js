@@ -1,6 +1,7 @@
 'use strict';
 
-var router = require('express').Router();
+var router
+    = require('express').Router();
 var AV = require('leanengine');
 
 var extend = require('xtend');
