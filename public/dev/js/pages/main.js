@@ -8,3 +8,4 @@ require('./purchase');
 require('./customer');
 require('./order');
 require('./earning');
+require('./remark');

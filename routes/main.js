@@ -53,6 +53,12 @@ module.exports = {
     
     //earning
     '/earning':require('./earning'),
-    '/earning/edit':require('./earning/edit')
+    '/earning/edit':require('./earning/edit'),
+
+    //remark
+    '/remark':require('./remark'),
+    '/remark/add':require('./remark/add'),
+    '/remark/edit':require('./remark/edit')
+    
     
 };

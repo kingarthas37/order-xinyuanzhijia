@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title><%= title %></title>
+    <% include ../partials/css %>
+</head>
+<body>
+
+<% include ../partials/header %>
+
+<div class="am-container common-page">
+    
+    <form id="form-add-order" class="am-form" action="/order/add" method="post">
+
+        <fieldset>
+
+            <legend><a href="/order/add">添加新发货订单</a></legend>
+            
+            <!-- order name start -->
+            <div id="content-name" class="am-form-group">
+                <label>订单内容：<i>*</i> </label>
+                <input id="order-name" required name="order-name" type="text" placeholder="输入订单内容" />
+            </div>
+            <!-- order name end -->
+
+            <hr/>
+
+            <!-- order description start -->
+            <div id="content-description" class="am-form-group">
+                <label>订单描述：</label>
+                <textarea name="description" id="description" rows="3" placeholder="填写订单描述"></textarea>
+            </div>
+            <!-- order description end -->
+
+            <hr/>
+            
+            <!-- customer name start -->
+            <div id="content-customer-name" class="am-form-group typeahead-content">
+                <label>收货人/客户姓名(自动填充)：<i>*</i> </label>
+                <input type="hidden" id="customer-name-id" name="customer-name-id"/>
+            <div class="am-form-horizontal">
+                <div class="am-form-group">
+                    <div class="am-u-sm-10">
+                        <input id="customer-name" required name="customer-name" type="text" placeholder="输入收货人/客户姓名" autocomplete="off" />
+                    </div>
+                    <label class="am-u-sm-2 am-form-label">
+                        <input type="checkbox" checked="checked" class="new-customer" name="new-customer" /> 新增收货人
+                    </label>
+                </div>
+            </div>
+                
+                
+            </div>
+            <!-- customer name end -->
+
+            <hr/>
+
+            <!-- shipping address start -->
+            <div id="content-shipping-address" class="am-form-group">
+                <label>收货地址：<i>*</i> </label>
+                <div class="am-form-horizontal">
+                    <div class="am-form-group">
+                        <div class="am-u-sm-10">
+                            <input id="shipping-address" required name="shipping-address" type="text" placeholder="输入收货人/客户地址" />
+                        </div>
+                        <label class="am-u-sm-2 am-form-label">
+                            <input type="checkbox" checked="checked" class="new-address" name="new-address" /> 新增收货地址
+                        </label>
+                    </div>
+                </div>
+                <ul class="address-list"></ul>
+            </div>
+            <!-- shipping address end -->
+
+            <hr/>
+            
+            <!-- taobaoname start -->
+            <div id="content-taobao" class="am-form-group">
+                <label>淘宝用户名：</label>
+                <input id="taobao" name="taobao" type="text" placeholder="输入淘宝用户名" />
+            </div>
+            <!-- taobaoname end -->
+
+            <hr/>
+
+
+            <!-- shipping shipping company -->
+            <div id="content-payment-type" class="am-form-group">
+                <label>支付方式：</label>
+                <select name="payment-type" id="payment-type">
+                    <option value="taobao">淘宝支付</option>
+                    <option value="weixin">微信支付</option>
+                    <option value="other">其他</option>
+                </select>
+            </div>
+            <!-- shipping shipping company -->
+
+            <hr/>
+
+            <!-- shipping date start -->
+            <div id="content-shipping-date" class="am-form-group">
+                <label>发货日期：<i>*</i> </label>
+                <input type="text" name="shipping-date" id="shipping-date" placeholder="发货日期" value="<%= currentDate %>" data-am-datepicker="{format:'yyyy-mm-dd'}" readonly required />
+            </div>
+            <!-- shipping date end -->
+
+            <hr/>
+
+            <!-- shipping shipping company -->
+            <div id="content-shipping-company" class="am-form-group">
+                <label>快递公司：</label>
+                <select name="shipping-company" id="shipping-company">
+                    <option value="tiantian">天天快递</option>
+                    <option value="shunfeng">顺丰快递</option>
+                    <option value="baishi">百世汇通</option>
+                    <option value="other">其他</option>
+                </select>
+            </div>
+            <!-- shipping shipping company -->
+
+            <hr/>
+            
+            <!-- shipping tracking number -->
+            <div id="content-tracking-number" class="am-form-group">
+                <label>快递单号：</label>
+                <input type="text" name="tracking-number" id="tracking-number" placeholder="快递单号" autocomplete="off" value="560414088"/>
+            </div>
+            <!-- shipping tracking number -->
+
+            <hr/>
+
+            <!-- shipping status start-->
+            <div id="content-shipping-status" class="am-form-group">
+                <label>发货状态：</label>
+                <select name="shipping-status" id="shipping-status">
+                    <option value="notshipped">未发货</option>
+                    <option value="shipped">已发货</option>
+                </select>
+            </div>
+            <!-- shipping status end -->
+
+
+            <!-- order comment start -->
+            <div id="content-comment" class="am-form-group">
+                <label>备注信息：</label>
+                <textarea name="comment" id="comment" rows="3" placeholder="填写备注信息"></textarea>
+            </div>
+            <!-- order comment end -->
+
+            <hr/>
+
+            <div class="am-form-group">
+                <button type="submit" class="am-btn am-btn-primary">保存</button>
+                <button type="submit" class="am-btn am-btn-primary" onclick="history.back(-1);">返回</button>
+            </div>
+
+        </fieldset>
+
+    </form>
+    
+</div>
+
+<% include ../partials/footer %>
+<% include ../partials/js %>
+
+<script type="text/javascript">
+    $(function() {
+        var order = require('order');
+        order.addFun();
+    });
+</script>
+</body>
+</html>
