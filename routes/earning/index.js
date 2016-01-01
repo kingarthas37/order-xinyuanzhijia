@@ -57,10 +57,10 @@ router.get('/', function (req, res, next) {
     
     //查询一个月之内的条件
     query.greaterThan('date',new Date(currentYear,currentMonth,0));
-    query.lessThan('date',new Date(currentYear,currentMonth + 1,0));
+    query.lessThanOrEqualTo('date',new Date(currentYear,currentMonth + 1,0));
     
     query.find().then(function(results) {
-        
+
         var _results = [];
         
         for(var i=0;i<results.length;i++) {
