@@ -27,7 +27,6 @@
                 <div class="am-form-group">
                   搜索备忘录标题：<input type="text" name="search-remark-title" class="am-form-field" placeholder="搜索">
                 </div>
-                <span></span>
                 <button type="submit" class="am-btn am-btn-primary">搜索</button>
             </form>
 
@@ -37,6 +36,7 @@
                 <thead>
                 <tr>
                     <th width="300">备忘录标题</th>
+                    <th width="100">类型</th>
                     <th width="100">状态</th>
                     <th width="120">创建时间</th>
                     <th width="120">最后更新时间</th>
@@ -47,6 +47,7 @@
                 <% for(var i=0; i < remark.length; i++) {%>
                 <tr>
                     <td><a href="/remark/edit/<%= remark[i].get('title') %>"><%= remark[i].get('title') %></a> </td>
+                    <td><%= remark[i].get('type') %></td>
                     <td><%= remark[i].get('status') %></td>
                     <td><%=remark[i].createdAt.getFullYear()%>-<%=(remark[i].createdAt.getMonth()+1)%>-<%=remark[i].createdAt.getDate()%></td>
                     <td><%=remark[i].updatedAt.getFullYear()%>-<%=(remark[i].updatedAt.getMonth()+1)%>-<%=remark[i].updatedAt.getDate()%></td>
