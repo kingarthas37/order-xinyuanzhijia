@@ -135,4 +135,33 @@ router.get('/remove/:remarkId', function (req, res, next) {
     ]);
 });
 
+
+router.get('/complete',function(req,res) {
+    
+    if (!req.AV.user) {
+        return res.redirect('/login');
+    }
+    
+    var remarkId = parseInt(req.query.remarkId);
+    var checked = req.query.checked;
+
+    
+    var query = new AV.Query(Remark);
+    
+    query.equalTo('remarkId',remarkId);
+    query.first().then(function(result) {
+        
+        result.set('isComplete',(checked === 'true' ? true : false));
+        return result.save();
+        
+    }).then(function(result) {
+        res.json({
+            success:1,
+            result:result
+        });
+    });
+    
+    
+});
+
 module.exports = router;

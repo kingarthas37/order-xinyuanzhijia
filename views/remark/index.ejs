@@ -36,8 +36,8 @@
                 <thead>
                 <tr>
                     <th width="300">备忘录标题</th>
-                    <th width="100">类型</th>
-                    <th width="100">状态</th>
+                    <th class="t-c" width="100">类型</th>
+                    <th class="t-c" width="100">是否完成</th>
                     <th width="120">创建时间</th>
                     <th width="120">最后更新时间</th>
                     <th width="50">删除</th>
@@ -46,12 +46,17 @@
                 <tbody>
                 <% for(var i=0; i < remark.length; i++) {%>
                 <tr>
-                    <td><a href="/remark/edit/<%= remark[i].get('title') %>"><%= remark[i].get('title') %></a> </td>
-                    <td><%= remark[i].get('type') %></td>
-                    <td><%= remark[i].get('status') %></td>
+                    <td><a href="/remark/edit/<%= remark[i].get('remarkId') %>"><%= remark[i].get('title') %></a> </td>
+                    <td class="t-c">
+                        <% if (remark[i].get('type') === 'order') { %>客户订货记录<% } %> 
+                        <% if (remark[i].get('type') === 'purchase') { %>采购信息记录<% } %> 
+                        <% if (remark[i].get('type') === 'user') { %>用户信息记录<% } %> 
+                        <% if (remark[i].get('type') === 'other') { %>其他<% } %> 
+                    </td>
+                    <td class="t-c"><input data-id="<%= remark[i].get('remarkId') %>" class="ckb-is-complete" type="checkbox" <% if(remark[i].get('isComplete')) { %>checked="checked"<% } %> ></td>
                     <td><%=remark[i].createdAt.getFullYear()%>-<%=(remark[i].createdAt.getMonth()+1)%>-<%=remark[i].createdAt.getDate()%></td>
                     <td><%=remark[i].updatedAt.getFullYear()%>-<%=(remark[i].updatedAt.getMonth()+1)%>-<%=remark[i].updatedAt.getDate()%></td>
-                    <td><a href="/remark/remove/<%= remark[i].get('remarkId') %>" class="remove-remark">删除</a> </td>
+                    <td><a href="/remark/remove/<%= remark[i].get('remarkId') %>" class="remove-remark">删除</a></td>
                 </tr>
                 <% } %>
                 </tbody>

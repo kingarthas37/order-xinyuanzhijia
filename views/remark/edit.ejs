@@ -13,142 +13,52 @@
 
 <div class="am-container common-page">
 
-    <form id="form-edit-order" class="am-form" action="/order/edit" method="post">
-
-        <input type="hidden" name="order-id" value="<%= order.get('orderId') %>"/>
+    <form id="form-add-remark" class="am-form" action="/remark/edit" method="post">
+        
+        <input type="hidden" name="remark-id" value="<%= id %>"/>
         
         <fieldset>
 
-            <legend>编辑新发货订单</legend>
+            <legend>编辑备忘录信息</legend>
 
-            <!-- order name start -->
+            <!-- remark title start -->
             <div id="content-name" class="am-form-group">
-                <label>订单内容：<i>*</i> </label>
-                <input id="order-name" required name="order-name" type="text" placeholder="输入订单内容" value="<%= order.get('orderName') %>" />
+                <label>备忘录标题：<i>*</i> </label>
+                <input id="title" required name="title" type="text" placeholder="输入备忘录标题" value="<%= remark.get('title')%>" />
             </div>
-            <!-- order name end -->
+            <!-- remark title end -->
 
             <hr/>
 
-            <!-- order description start -->
-            <div id="content-description" class="am-form-group">
-                <label>订单描述：</label>
-                <textarea name="description" id="description" rows="3" placeholder="填写订单描述"><%= order.get('description') %></textarea>
-            </div>
-            <!-- order description end -->
-
-            <hr/>
-
-            <!-- customer name start -->
-            <div id="content-customer-name" class="am-form-group typeahead-content">
-                <label>收货人/客户姓名(自动填充)：<i>*</i> </label>
-                <input type="hidden" id="customer-name-id" name="customer-name-id" value="<%= order.get('customerId') %>"/>
-                <div class="am-form-horizontal">
-                    <div class="am-form-group">
-                        <div class="am-u-sm-10">
-                            <input id="customer-name" required name="customer-name" type="text" placeholder="输入收货人/客户姓名" autocomplete="off" value="<%= order.get('customerName') %>" />
-                        </div>
-                        <label class="am-u-sm-2 am-form-label">
-                            <input type="checkbox" class="new-customer" name="new-customer" /> 新增收货人
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <!-- customer name end -->
-
-            <hr/>
-
-            <!-- shipping address start -->
-            <div id="content-shipping-address" class="am-form-group">
-                <label>收货地址：<i>*</i> </label>
-                <div class="am-form-horizontal">
-                    <div class="am-form-group">
-                        <div class="am-u-sm-10">
-                            <input id="shipping-address" required name="shipping-address" type="text" placeholder="输入收货人/客户地址" value="<%= order.get('shippingAddress')%>" />
-                        </div>
-                        <label class="am-u-sm-2 am-form-label">
-                            <input type="checkbox" class="new-address" name="new-address" /> 新增收货地址
-                        </label>
-                    </div>
-                </div>
-                <ul class="address-list"></ul>
-            </div>
-            <!-- shipping address end -->
-
-            <hr/>
-
-            <!-- taobaoname start -->
-            <div id="content-taobao" class="am-form-group">
-                <label>淘宝用户名：</label>
-                <input id="taobao" name="taobao" type="text" placeholder="输入淘宝用户名" value="<%= order.get('taobaoName') %>" />
-            </div>
-            <!-- taobaoname end -->
-
-            <hr/>
-
-
-            <!-- shipping shipping company -->
-            <div id="content-payment-type" class="am-form-group">
-                <label>支付方式：</label>
-                <select name="payment-type" id="payment-type">
-                    <option value="taobao" <% if(order.get('paymentType') === 'taobao') { %>selected="selected"<% } %> >淘宝支付</option>
-                    <option value="weixin" <% if(order.get('paymentType') === 'weixin') { %>selected="selected"<% } %> >微信支付</option>
-                    <option value="other" <% if(order.get('paymentType') === 'other') { %>selected="selected"<% } %> >其他</option>
+            <!-- type start -->
+            <div id="content-type" class="am-form-group">
+                <label>备忘录类型：</label>
+                <select name="type" id="type">
+                    <option value="order" <% if (remark.get('type') === 'order') {%>selected="selected"<% } %> >发货信息</option>
+                    <option value="user" <% if (remark.get('type') === 'user') {%>selected="selected"<% } %> >用户信息</option>
+                    <option value="purchase" <% if (remark.get('type') === 'purchase') {%>selected="selected"<% } %> >采购信息</option>
+                    <option value="other" <% if (remark.get('type') === 'other') {%>selected="selected"<% } %> >其他</option>
                 </select>
             </div>
-            <!-- shipping shipping company -->
+            <!-- type end -->
 
             <hr/>
 
-            <!-- shipping date start -->
-            <div id="content-shipping-date" class="am-form-group">
-                <label>发货日期：<i>*</i> </label>
-                <input type="text" name="shipping-date" id="shipping-date" placeholder="发货日期" value="<%= order.get('shippingDate').getFullYear() %>-<%= order.get('shippingDate').getMonth() + 1 %>-<%= order.get('shippingDate').getDate() %>" data-am-datepicker="{format:'yyyy-mm-dd'}" readonly required />
+            <!-- content start -->
+            <div id="content-content" class="am-form-group">
+                <label>备忘录内容：</label>
+                <textarea name="content" id="content" placeholder="输入备忘录内容" rows="5"><%= remark.get('content')%></textarea>
             </div>
-            <!-- shipping date end -->
+            <!-- content end -->
 
             <hr/>
 
-            <!-- shipping shipping company -->
-            <div id="content-shipping-company" class="am-form-group">
-                <label>快递公司：</label>
-                <select name="shipping-company" id="shipping-company">
-                    <option value="tiantian" <% if(order.get('shippingCompany') === 'tiantian') { %>selected="selected"<% } %> >天天快递</option>
-                    <option value="shunfeng" <% if(order.get('shippingCompany') === 'shunfeng') { %>selected="selected"<% } %>>顺丰快递</option>
-                    <option value="baishihuitong" <% if(order.get('shippingCompany') === 'baishihuitong') { %>selected="selected"<% } %>>百世汇通</option>
-                    <option value="other" <% if(order.get('shippingCompany') === 'other') { %>selected="selected"<% } %>>其他</option>
-                </select>
+            <!-- status start -->
+            <div id="content-is-complete" class="am-form-group">
+                <label>是否完结：</label>
+                <div><label><input id="is-complete" name="is-complete" type="checkbox" <% if(remark.get('isComplete')) { %>checked="checked"<% } %> > 已完成</label></div>
             </div>
-            <!-- shipping shipping company -->
-
-            <hr/>
-
-            <!-- shipping tracking number -->
-            <div id="content-tracking-number" class="am-form-group">
-                <label>快递单号：</label>
-                <input type="text" name="tracking-number" id="tracking-number" placeholder="快递单号" autocomplete="off" value="<%= order.get('trackingNumber') %>"/>
-            </div>
-            <!-- shipping tracking number -->
-
-            <hr/>
-
-            <!-- shipping status start-->
-            <div id="content-shipping-status" class="am-form-group">
-                <label>发货状态：</label>
-                <select name="shipping-status" id="shipping-status">
-                    <option value="notshipped" <% if(order.get('shippingStatus') === 'notshipped') { %>selected="selected"<% } %>>未发货</option>
-                    <option value="shipped" <% if(order.get('shippingStatus') === 'shipped') { %>selected="selected"<% } %>>已发货</option>
-                </select>
-            </div>
-            <!-- shipping status end -->
-
-
-            <!-- order comment start -->
-            <div id="content-comment" class="am-form-group">
-                <label>备注信息：</label>
-                <textarea name="comment" id="comment" rows="3" placeholder="填写备注信息"><%= order.get('comment')%></textarea>
-            </div>
-            <!-- order comment end -->
+            <!-- status end -->
 
             <hr/>
 
@@ -170,8 +80,8 @@
 
 <script type="text/javascript">
     $(function() {
-        var order = require('order');
-        order.editFun();
+        var remark = require('remark');
+        remark.editFun();
     });
 </script>
 </body>
