@@ -54,7 +54,7 @@
                     <th>产品分类</th>
                     <th class="small-screen-hide">创建时间</th>
                     <th class="small-screen-hide">最后更新时间</th>
-                    <th>删除</th>
+                    <th class="small-screen-hide">删除</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -64,7 +64,7 @@
                     <td><a href="/product?categoryId=<%= product[i].get('categoryId') %>"><%= product[i].get('categoryName') %></a></td>
                     <td class="small-screen-hide"><%=product[i].createdAt.getFullYear()%>-<%=(product[i].createdAt.getMonth()+1)%>-<%=product[i].createdAt.getDate()%></td>
                     <td class="small-screen-hide"><%=product[i].updatedAt.getFullYear()%>-<%=(product[i].updatedAt.getMonth()+1)%>-<%=product[i].updatedAt.getDate()%></td>
-                    <td><a href="/product/remove/<%= product[i].get('productId') %>" class="remove-product">删除</a> </td>
+                    <td class="small-screen-hide"><a href="/product/remove/<%= product[i].get('productId') %>" class="remove-product">删除</a> </td>
                 </tr>
                 <% } %>
                 </tbody>

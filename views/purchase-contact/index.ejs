@@ -39,7 +39,7 @@
             <th class="t-c">网店链接</th>
             <th class="t-c">官网链接</th>
             <th class="small-screen-hide">联系邮箱</th>
-            <th>删除</th>
+            <th class="small-screen-hide">删除</th>
         </tr>
         </thead>
         <tbody>
@@ -50,7 +50,7 @@
             <td class="t-c"><% if(purchaseContact[i].get('shop')) { %><a href="<%=purchaseContact[i].get('shop') %>" target="_blank">网店链接<% } else { %>--<% } %></a></td>
             <td class="t-c"><% if(purchaseContact[i].get('website')) { %><a href="<%=purchaseContact[i].get('website') %>" target="_blank">官网链接</a> <% } else { %>--<% } %></td>
             <td class="small-screen-hide"><%=purchaseContact[i].get('email') %></td>
-            <td><a href="/purchase-contact/remove/<%= purchaseContact[i].get('purchaseContactId') %>" class="remove-purchase-contact">删除</a> </td>
+            <td class="small-screen-hide"><a href="/purchase-contact/remove/<%= purchaseContact[i].get('purchaseContactId') %>" class="remove-purchase-contact">删除</a> </td>
         </tr>
         <% } %>
         </tbody>
