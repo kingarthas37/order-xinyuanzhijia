@@ -10,7 +10,7 @@
 
 <% include ../partials/header %>
 
-<div class="am-container common-page">
+<div class="am-container common-page purchase-page">
 
     <% if (flash.success != '') { %>
     <div class="am-alert am-alert-success">
@@ -20,10 +20,9 @@
     
         <fieldset>
 
-            <legend><a href="/purchase">订单跟踪列表</a></legend>
+            <legend><a href="/purchase">采购订单列表</a></legend>
 
             <form class="am-form-inline" role="form" action="/purchase">
-                <h3>订单搜索：</h3>
                 <div class="am-form-group">
                   搜索订单：<input type="text" name="purchase-search" class="am-form-field" placeholder="搜索">
                 </div>
@@ -35,22 +34,22 @@
             <table class="am-table">
                 <thead>
                 <tr>
-                    <th width="250">订单名称</th>
-                    <th width="250">网站名称</th>
+                    <th>订单名称</th>
+                    <th class="small-screen-hide">网站名称</th>
                     <th>物流方式</th>
                     <th>创建时间</th>
-                    <th>最后更新时间</th>
-                    <th>删除</th>
+                    <th class="small-screen-hide">最后更新时间</th>
+                    <th width="60">删除</th>
                 </tr>
                 </thead>
                 <tbody>
                 <% for(var i=0; i < purchase.length; i++) {%>
                 <tr>
                     <td><a href="/purchase/edit/<%= purchase[i].get('purchaseId') %>"><%= purchase[i].get('name') %></a> </td>
-                    <td><%= purchase[i].get('website') %></td>
+                    <td class="small-screen-hide"><%= purchase[i].get('website') %></td>
                     <td><%= purchase[i].get('shippingType') %></td>
                     <td><%=purchase[i].createdAt.getFullYear()%>-<%=(purchase[i].createdAt.getMonth()+1)%>-<%=purchase[i].createdAt.getDate()%></td>
-                    <td><%=purchase[i].updatedAt.getFullYear()%>-<%=(purchase[i].updatedAt.getMonth()+1)%>-<%=purchase[i].updatedAt.getDate()%></td>
+                    <td class="small-screen-hide"><%=purchase[i].updatedAt.getFullYear()%>-<%=(purchase[i].updatedAt.getMonth()+1)%>-<%=purchase[i].updatedAt.getDate()%></td>
                     <td><a href="/purchase/remove/<%= purchase[i].get('purchaseId') %>" class="remove-purchase">删除</a> </td>
                 </tr>
                 <% } %>

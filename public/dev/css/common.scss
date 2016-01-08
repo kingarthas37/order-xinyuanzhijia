@@ -231,3 +231,10 @@ p.normal {
     }
 
 }
+
+/* breakpoint responsive sets */
+@include breakpoint(small-only) {
+    .small-screen-hide {
+        display: none;
+    }
+}

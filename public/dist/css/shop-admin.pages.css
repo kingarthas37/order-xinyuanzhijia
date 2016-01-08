@@ -154,6 +154,11 @@ p.normal {
 .twitter-typeahead .tt-suggestion p {
   margin: 0; }
 
+/* breakpoint responsive sets */
+@media only screen and (max-width: 640px) {
+  .small-screen-hide {
+    display: none; } }
+
 /* sign page */
 .sign-page {
   padding: 30px 0; }
