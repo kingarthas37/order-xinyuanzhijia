@@ -23,7 +23,6 @@
             <legend><a href="/customer">收货人管理列表</a></legend>
 
             <form class="am-form-inline" role="form" action="/customer">
-                <h3>用户/收货人搜索：</h3>
                 <div class="am-form-group">
                   搜索：<input type="text" name="customer-search" class="am-form-field" placeholder="搜索">
                 </div>
@@ -35,11 +34,11 @@
             <table class="am-table">
                 <thead>
                 <tr>
-                    <th width="250">用户名</th>
-                    <th width="250">淘宝用户名</th>
+                    <th>用户名</th>
+                    <th>淘宝用户名</th>
                     <th>创建时间</th>
-                    <th>最后更新时间</th>
-                    <th width="50">删除</th>
+                    <th class="small-screen-hide">最后更新时间</th>
+                    <th>删除</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -52,7 +51,7 @@
                         <% } %>
                     </td>
                     <td><%=customer[i].createdAt.getFullYear()%>-<%=(customer[i].createdAt.getMonth()+1)%>-<%=customer[i].createdAt.getDate()%></td>
-                    <td><%=customer[i].updatedAt.getFullYear()%>-<%=(customer[i].updatedAt.getMonth()+1)%>-<%=customer[i].updatedAt.getDate()%></td>
+                    <td class="small-screen-hide"><%=customer[i].updatedAt.getFullYear()%>-<%=(customer[i].updatedAt.getMonth()+1)%>-<%=customer[i].updatedAt.getDate()%></td>
                     <td><a href="/customer/remove/<%= customer[i].get('customerId') %>" class="remove-customer">删除</a> </td>
                 </tr>
                 <% } %>

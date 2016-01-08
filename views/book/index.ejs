@@ -23,7 +23,7 @@
             <legend><a href="/book">电子书列表</a></legend>
 
             <form class="am-form-inline" role="form" action="/book">
-                <h3>电子书搜索：</h3>
+               
                 <div class="am-form-group">
                   搜索电子书：<input type="text" name="book-search" class="am-form-field" placeholder="搜索">
                 </div>
@@ -35,18 +35,18 @@
             <table class="am-table">
                 <thead>
                 <tr>
-                   <th width="500">电子书名称</th>
-                    <th>创建时间</th>
-                    <th>最后更新时间</th>
-                    <th width="50">删除</th>
+                   <th >电子书名称</th>
+                    <th class="small-screen-hide">创建时间</th>
+                    <th class="small-screen-hide">最后更新时间</th>
+                    <th  >删除</th>
                 </tr>
                 </thead>
                 <tbody>
                 <% for(var i=0; i < book.length; i++) {%>
                 <tr>
                     <td><a href="/book/edit/<%= book[i].get('bookId') %>"><%= book[i].get('name') %></a> </td>
-                    <td><%=book[i].createdAt.getFullYear()%>-<%=(book[i].createdAt.getMonth()+1)%>-<%=book[i].createdAt.getDate()%></td>
-                    <td><%=book[i].updatedAt.getFullYear()%>-<%=(book[i].updatedAt.getMonth()+1)%>-<%=book[i].updatedAt.getDate()%></td>
+                    <td class="small-screen-hide"><%=book[i].createdAt.getFullYear()%>-<%=(book[i].createdAt.getMonth()+1)%>-<%=book[i].createdAt.getDate()%></td>
+                    <td class="small-screen-hide"><%=book[i].updatedAt.getFullYear()%>-<%=(book[i].updatedAt.getMonth()+1)%>-<%=book[i].updatedAt.getDate()%></td>
                     <td><a href="/book/remove/<%= book[i].get('bookId') %>" class="remove-book">删除</a> </td>
                 </tr>
                 <% } %>

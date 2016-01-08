@@ -149,6 +149,9 @@ p.normal {
     
     .am-table {
         vertical-align: middle;
+        th {
+            min-width: 50px;
+        }
         td {
             vertical-align: middle;
         }
@@ -160,6 +163,13 @@ p.normal {
 .common-product-view-page {
 
     width: 750px;
+    
+    @include breakpoint(small-only) {
+        width:100%;
+        padding-left:15px;
+        padding-right:15px;
+    }
+    
     margin: 30px auto;
 
     .preview-content {

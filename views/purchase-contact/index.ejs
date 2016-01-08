@@ -23,7 +23,6 @@
     <legend><a href="/purchase-contact">网站联系方式列表</a></legend>
 
     <form class="am-form-inline" role="form" action="/purchase-contact">
-        <h3>搜索：</h3>
         <div class="am-form-group">
             搜索名称：<input type="text" name="purchase-contact-search" class="am-form-field" placeholder="搜索">
         </div>
@@ -35,12 +34,12 @@
     <table class="am-table">
         <thead>
         <tr>
-            <th width="120">图片</th>
-            <th width="250">网站内容</th>
-            <th width="100" class="t-c">网店链接</th>
-            <th width="100" class="t-c">官网链接</th>
-            <th width="200">联系邮箱</th>
-            <th width="70">删除</th>
+            <th>图片</th>
+            <th>网站内容</th>
+            <th class="t-c">网店链接</th>
+            <th class="t-c">官网链接</th>
+            <th class="small-screen-hide">联系邮箱</th>
+            <th>删除</th>
         </tr>
         </thead>
         <tbody>
@@ -50,7 +49,7 @@
             <td><a href="/purchase-contact/edit/<%= purchaseContact[i].get('purchaseContactId') %>"><%= purchaseContact[i].get('name') %></a> </td>
             <td class="t-c"><% if(purchaseContact[i].get('shop')) { %><a href="<%=purchaseContact[i].get('shop') %>" target="_blank">网店链接<% } else { %>--<% } %></a></td>
             <td class="t-c"><% if(purchaseContact[i].get('website')) { %><a href="<%=purchaseContact[i].get('website') %>" target="_blank">官网链接</a> <% } else { %>--<% } %></td>
-            <td><%=purchaseContact[i].get('email') %></td>
+            <td class="small-screen-hide"><%=purchaseContact[i].get('email') %></td>
             <td><a href="/purchase-contact/remove/<%= purchaseContact[i].get('purchaseContactId') %>" class="remove-purchase-contact">删除</a> </td>
         </tr>
         <% } %>

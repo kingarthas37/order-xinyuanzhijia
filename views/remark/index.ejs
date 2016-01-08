@@ -23,7 +23,7 @@
             <legend><a href="/remark">备忘录列表</a></legend>
 
             <form class="am-form-inline" role="form" action="/remark">
-                <h3>备忘录搜索：</h3>
+              
                 <div class="am-form-group">
                   搜索备忘录标题：<input type="text" name="search-remark-title" class="am-form-field" placeholder="搜索">
                 </div>
@@ -35,12 +35,12 @@
             <table class="am-table">
                 <thead>
                 <tr>
-                    <th width="300">备忘录标题</th>
-                    <th class="t-c" width="100">类型</th>
-                    <th class="t-c" width="100">是否完成</th>
-                    <th width="120">创建时间</th>
-                    <th width="120">最后更新时间</th>
-                    <th width="50">删除</th>
+                    <th>备忘录标题</th>
+                    <th class="t-c">类型</th>
+                    <th class="t-c">是否完成</th>
+                    <th>创建时间</th>
+                    <th class="small-screen-hide">最后更新时间</th>
+                    <th>删除</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -55,7 +55,7 @@
                     </td>
                     <td class="t-c"><input data-id="<%= remark[i].get('remarkId') %>" class="ckb-is-complete" type="checkbox" <% if(remark[i].get('isComplete')) { %>checked="checked"<% } %> ></td>
                     <td><%=remark[i].createdAt.getFullYear()%>-<%=(remark[i].createdAt.getMonth()+1)%>-<%=remark[i].createdAt.getDate()%></td>
-                    <td><%=remark[i].updatedAt.getFullYear()%>-<%=(remark[i].updatedAt.getMonth()+1)%>-<%=remark[i].updatedAt.getDate()%></td>
+                    <td class="small-screen-hide"><%=remark[i].updatedAt.getFullYear()%>-<%=(remark[i].updatedAt.getMonth()+1)%>-<%=remark[i].updatedAt.getDate()%></td>
                     <td><a href="/remark/remove/<%= remark[i].get('remarkId') %>" class="remove-remark">删除</a></td>
                 </tr>
                 <% } %>
