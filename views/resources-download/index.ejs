@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title><%= title %></title>
+    <% include ../partials/css %>
+</head>
+<body>
+
+<% include ../partials/header %>
+
+<div class="am-container common-page earning-page">
+
+    <% if (flash.success != '') { %>
+    <div class="am-alert am-alert-success">
+        <p><%= flash.success %></p>
+    </div>
+    <% } %>
+    
+    <fieldset>
+
+        <legend><a href="/resources-download">资源下载管理</a></legend>
+        
+        <table class="am-table">
+            <thead>
+            <tr>
+                <th>资源名称</th>
+                <th>预览</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% for (var i = 0;i < resourcesDownload.length; i ++) { %>
+                <tr>
+                    <td><a href="/resources-download/edit/<%= resourcesDownload[i].get('resourcesDownloadId') %>"><%= resourcesDownload[i].get('name') %></a></td>
+                    <td><a href="/resources-download/preview/<%= resourcesDownload[i].get('resourcesDownloadId') %>">预览</a> </td>
+                </tr>
+            <% } %>
+            </tbody>
+        </table>
+ 
+    </fieldset>
+    
+</div>
+
+
+<% include ../partials/footer %>
+<% include ../partials/js %>
+
+</body>
+</html>

@@ -58,7 +58,12 @@ module.exports = {
     //remark
     '/remark':require('./remark'),
     '/remark/add':require('./remark/add'),
-    '/remark/edit':require('./remark/edit')
+    '/remark/edit':require('./remark/edit'),
+    
+    //resources-download
+    '/resources-download':require('./resources-download'),
+    '/resources-download/preview':require('./resources-download/preview')
+    
     
     
 };
