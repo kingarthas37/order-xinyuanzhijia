@@ -62,7 +62,8 @@ module.exports = {
     
     //resources-download
     '/resources-download':require('./resources-download'),
-    '/resources-download/preview':require('./resources-download/preview')
+    '/resources-download/preview':require('./resources-download/preview'),
+    '/resources-download/edit':require('./resources-download/edit')
     
     
     

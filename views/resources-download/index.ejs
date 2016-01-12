@@ -26,6 +26,7 @@
             <thead>
             <tr>
                 <th>资源名称</th>
+                <th>编辑</th>
                 <th>预览</th>
             </tr>
             </thead>
@@ -33,6 +34,7 @@
             <% for (var i = 0;i < resourcesDownload.length; i ++) { %>
                 <tr>
                     <td><a href="/resources-download/edit/<%= resourcesDownload[i].get('resourcesDownloadId') %>"><%= resourcesDownload[i].get('name') %></a></td>
+                    <td><a href="/resources-download/edit/<%= resourcesDownload[i].get('resourcesDownloadId') %>">编辑</a> </td>
                     <td><a href="/resources-download/preview/<%= resourcesDownload[i].get('resourcesDownloadId') %>">预览</a> </td>
                 </tr>
             <% } %>

@@ -13,70 +13,29 @@
 
 <div class="am-container common-page">
 
-    <form id="form-edit-earning" class="am-form" action="/earning/edit" method="post">
-
-        <input type="hidden" name="earning-id" value="<%= earning.get('earningId') %>"/>
-
+    <form id="form-edit-resources-download" class="am-form" action="/resources-download/edit" method="post">
+        <input type="hidden" name="resources-download-id" value="<%= resourcesDownload.get('resourcesDownloadId')%>">
         <fieldset>
 
-            <legend>编辑当天盈收金额</legend>
+            <legend>编辑-<%= resourcesDownload.get('name') %></legend>
 
-            <!-- expenses start -->
-            <div id="content-expenses" class="am-form-group">
-                <label>支出金额(RMB)：<i>*</i> </label>
-                <p class="normal"><a class="current-day-expenses" href="javascript:;">获取当天采购金额</a></p>
-                <input id="expenses" required name="expenses" type="text" placeholder="输入支出金额" autocomplete="off" value="<%= earning.get('expenses') %>" />
+            <div class="am-form-group">
+                <textarea name="content" rows="50"><%= markdown %></textarea>
             </div>
-            <!-- expenses end -->
 
-            <hr/>
-
-            <!-- expenses comment start -->
-            <div id="content-expenses-comment" class="am-form-group">
-                <label>支出说明：(每笔支出请换行)</label>
-                <textarea id="expenses-comment" name="expenses-comment" rows="5" placeholder="输入支出说明"><%= earning.get('expensesComment') %></textarea>
-            </div>
-            <!-- expenses comment end -->
-
-            <hr/>
-            
-            <!-- income start -->
-            <div id="content-income" class="am-form-group">
-                <label>收入金额(RMB)：<i>*</i> </label>
-                <input  id="income" required name="income" type="text" placeholder="输入收入金额" autocomplete="off" value="<%= earning.get('income') %>" />
-            </div>
-            <!-- income end -->
-
-            <hr/>
-
-            <!-- income comment start -->
-            <div id="content-income-comment" class="am-form-group">
-                <label>收入说明：(每笔收入请换行)</label>
-                <textarea id="income-comment" name="income-comment" rows="5" placeholder="输入收入说明"><%= earning.get('incomeComment') %></textarea>
-            </div>
-            <!-- income comment end -->
-
-            <hr/>
+            <hr>
 
             <div class="am-form-group">
                 <button type="submit" class="am-btn am-btn-primary">保存</button>
             </div>
-
+            
         </fieldset>
 
     </form>
-
 </div>
-
 
 <% include ../partials/footer %>
 <% include ../partials/js %>
 
-<script type="text/javascript">
-    $(function() {
-        var earning = require('earning');
-        earning.editFun();
-    });
-</script>
 </body>
 </html>
