@@ -89,7 +89,8 @@
   },
   "browserify-shim": {
     "jquery": "$",
-    "swfobject": "swfobject"
+    "swfobject": "swfobject",
+    "flash-detect":"FlashDetect"
   },
   "css-common": [
     "public/css/amazeui.min.css",

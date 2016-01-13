@@ -63,8 +63,9 @@ module.exports = {
     //resources-download
     '/resources-download':require('./resources-download'),
     '/resources-download/preview':require('./resources-download/preview'),
-    '/resources-download/edit':require('./resources-download/edit')
+    '/resources-download/edit':require('./resources-download/edit'),
     
-    
+    //taobao-mail-create
+    '/mail/taobao-mail-create':require('./mail/taobao-mail-create')
     
 };

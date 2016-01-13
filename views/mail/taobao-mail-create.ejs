@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title><%= title %></title>
+    <% include ../partials/css %>
+</head>
+<body>
+
+<% include ../partials/header %>
+
+<div class="am-container common-page taobao-mail-create-page">
+
+    <% if (flash.success != '') { %>
+    <div class="am-alert am-alert-success">
+        <p><%= flash.success %></p>
+    </div>
+    <% } %>
+
+    <form role="form" class="am-form">
+
+    <fieldset>
+
+        <legend><a href="/mail/taobao-mail-create">淘宝发货邮件代码生成</a></legend>
+
+            <div class="am-form-group">
+                    <label>输入淘宝商品复制代码：</label>
+                    <textarea id="textarea"  rows="3" placeholder="输入淘宝商品复制代码"></textarea>
+            </div>
+        
+            <div class="am-form-group">
+                <button id="btn-create" type="button" class="am-btn am-btn-primary" disabled="disabled">生成内容</button>
+                <button type="button" class="am-btn am-btn-primary copy-title">复制邮件标题</button>
+                <button type="button" class="am-btn am-btn-primary copy-wangwang">复制回复旺旺内容</button>
+                <button type="button" class="am-btn am-btn-primary copy-haoping">复制好评回复</button>
+            </div>
+        
+        
+        <p class="am-alert am-alert-success copy-info"></p>
+
+        <hr>
+
+        <div class="mail-title-box">
+            <span class="mail-title"></span>
+        </div>
+
+
+        <div class="mail-content">
+
+        </div>
+
+    </fieldset>
+    </form>
+
+
+</div>
+
+
+
+
+<% include ../partials/js %>
+
+<script type="text/javascript">
+    $(function() {
+         var taobaoMailCreate = require('taobao-mail-create');
+         taobaoMailCreate();
+    });
+</script>
+</body>
+</html>

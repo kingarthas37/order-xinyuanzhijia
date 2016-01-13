@@ -9,3 +9,4 @@ require('./customer');
 require('./order');
 require('./earning');
 require('./remark');
+require('./taobao-mail-create');

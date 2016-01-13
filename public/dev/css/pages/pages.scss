@@ -39,9 +39,23 @@
 
 /* earning page */
 .earning-page {
-
     .am-datepicker-date {
         width: 400px;
     }
+}
 
+/* taobao-mail-create-page */
+.taobao-mail-create-page {
+    .copy-title {
+        display: none;
+    }
+    .copy-info {
+        display: none;
+    }
+    .copy-info.on {
+        display: block;
+    }
+    .mail-title-box {
+        display: none;
+    }
 }

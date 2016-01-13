@@ -197,4 +197,17 @@ p.normal {
 .earning-page .am-datepicker-date {
   width: 400px; }
 
+/* taobao-mail-create-page */
+.taobao-mail-create-page .copy-title {
+  display: none; }
+
+.taobao-mail-create-page .copy-info {
+  display: none; }
+
+.taobao-mail-create-page .copy-info.on {
+  display: block; }
+
+.taobao-mail-create-page .mail-title-box {
+  display: none; }
+
 /*# sourceMappingURL=shop-admin.pages.css.map */
