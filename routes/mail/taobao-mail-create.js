@@ -20,13 +20,7 @@ var data =  extend(config.data,{
 });
 
 
-
-//首页
 router.get('/', function (req, res, next) {
-    
-    if (!req.AV.user) {
-        return res.redirect('/login');
-    }
 
     data = extend(data,{
         flash: {
@@ -42,10 +36,6 @@ router.get('/', function (req, res, next) {
 
 
 router.get('/get-content',function(req,res,next) {
-    
-    if(!req.AV.user) {
-        return res.redirect('/login');
-    }
 
     var query = new AV.Query(ResourcesDownload);
     query.containedIn('resourcesDownloadId',[2,3]);
