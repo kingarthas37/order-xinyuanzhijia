@@ -57,31 +57,42 @@ module.exports = function() {
         }
         //过滤淘宝复制过来得数据
         function filterTaobaoData(_data) {
+            
             _data = $.trim(_data);
-            //orderId
-            if(/订单编号/.test(_data)) {
-                orderId = /订单编号[^\d]*(\d+)/.exec(_data)[1];
-            }
-            //userName
-            if(/查询该买家订单/.test(_data)) {
-                userName = /\n([^\n]*?)查询该买家订单/.exec(_data)[1];
-                userName = $.trim(userName);
-            }
-            _data.replace(/查看宝贝详情\n([^\n]*)/g,function(text,content) {
-                createDataArr.push(encodeURIComponent($.trim(content)));
-                return '';
+            _data = _data.replace(/\n/g,'|');
+            
+            var __data = _data.split('|');
+
+            var dataArr = $.grep(__data,function(n,i) {
+                return n;
             });
+            
+            //orderId
+            if(/订单号/.test(_data)) {
+                orderId = /订单号: [^\d]*(\d+)/.exec(_data)[1];
+            }
+            
+            //userName
+            $.each(dataArr,function(i,n) {
+                if(n.indexOf('') > -1) {
+                    userName = n.replace('','');
+                }
+            });
+            
             //匹配数据
-            $.each(createDataArr,function(i,n) {
+            $.each(dataArr,function(i,n) {
                 $.each(initDataArr,function(_i,_n) {
-                    if(n == _n.title) {
+                    if(encodeURIComponent($.trim(n)) == _n.title) {
                         finalDataArray.push(_n);
                         return;
                     }
                 });
             });
+            
             createFinalContent();
         }
+    
+    
         //最终生成html
         function createFinalContent() {
             mailContent.load('/templates/taobao-mail.html',function(d) {
@@ -125,22 +136,12 @@ module.exports = function() {
                 });
 
             });
-
-//            mailTitle.text(TAOBAONAME + '-' + decodeURIComponent(finalDataArray[0].title) + (finalDataArray.length > 1 ? '等多件' : ''));
-//
-//            
-//            mailContent.find('h3').text(contentTitle);
-//
-//            var lists = '';
-//            for(var i=0;i<finalDataArray.length;i++) {
-//                lists += '<h4>'+ (i+1) +'.' + decodeURIComponent(finalDataArray[i].title) + '</h4>';
-//                lists += '<div class="list" style="margin-bottom: 20px">'+ decodeURIComponent(finalDataArray[i].content) +'</div>';
-//            }
-//            mailContent.find('.content').html(lists);
+            
         }
 
         //复制功能
         if (FlashDetect.installed) {
+            
             $('.copy-title').show().zclip({
                 path: '/swf/ZeroClipboard.swf',
                 copy: function () {
@@ -150,15 +151,7 @@ module.exports = function() {
                     copyInfo.show().text('复制邮件标题成功!');
                 }
             });
-//            $('.copy-content').show().zclip({
-//                path: '/swf/ZeroClipboard.swf',
-//                copy: function () {
-//                    return $('.mail-content').html();
-//                },
-//                afterCopy: function () {
-//                    copyInfo.show().text('复制邮件内容成功!');
-//                }
-//            });
+            
             $('.copy-wangwang').show().zclip({
                 path: '/swf/ZeroClipboard.swf',
                 copy: function () {

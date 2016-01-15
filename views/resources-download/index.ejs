@@ -33,7 +33,7 @@
             <tbody>
             <% for (var i = 0;i < resourcesDownload.length; i ++) { %>
                 <tr>
-                    <td><a href="/resources-download/edit/<%= resourcesDownload[i].get('resourcesDownloadId') %>"><%= resourcesDownload[i].get('name') %></a></td>
+                    <td><a href="/resources-download/preview/<%= resourcesDownload[i].get('resourcesDownloadId') %>"><%= resourcesDownload[i].get('name') %></a></td>
                     <td><a href="/resources-download/edit/<%= resourcesDownload[i].get('resourcesDownloadId') %>">编辑</a> </td>
                     <td><a href="/resources-download/preview/<%= resourcesDownload[i].get('resourcesDownloadId') %>">预览</a> </td>
                 </tr>
