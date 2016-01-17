@@ -34,13 +34,14 @@ router.post('/',function(req,res,next) {
     if(req.AV.user) {
         return res.redirect('/');
     }
-    
+
+    var returnUrl = req.query.return;
     var username = req.body.username;
     var password = req.body.password;
-
+    
     AV.User.logIn(username, password, {
         success: function(user) {
-            res.redirect('/');
+            res.redirect(returnUrl ? returnUrl : '/');
         },
         error: function(user, error) {
             req.flash('error',error.message);

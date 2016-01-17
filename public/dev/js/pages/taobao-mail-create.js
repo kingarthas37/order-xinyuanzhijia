@@ -13,7 +13,6 @@ module.exports = function() {
         var mailContent = $('.mail-content');
         var copyInfo = $('.copy-info');
         var initDataArr = []; //初始商品数据存放数组
-        var createDataArr = []; //生成最后商品数据存放数组
         var orderId = ''; //生成数据的订单号
         var userName = ''; //生成数据的用户名
         var finalDataArray = [];  //最终生成的内容
@@ -76,6 +75,7 @@ module.exports = function() {
             $.each(dataArr,function(i,n) {
                 if(n.indexOf('') > -1) {
                     userName = n.replace('','');
+                    return;
                 }
             });
             
