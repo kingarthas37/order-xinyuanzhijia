@@ -23,7 +23,7 @@ var data =  extend(config.data,{
 router.get('/:purchaseContactId', function (req, res, next) {
 
     if(!req.AV.user) {
-        return res.redirect('/login');
+        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
     
     var purchaseContactId = parseInt(req.params.purchaseContactId);
@@ -50,7 +50,7 @@ router.get('/:purchaseContactId', function (req, res, next) {
 router.post('/', function (req, res, next) {
 
     if(!req.AV.user) {
-        return res.redirect('/login');
+        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
 
     var name = req.body['name'];

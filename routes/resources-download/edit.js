@@ -25,7 +25,7 @@ var data =  extend(config.data,{
 router.get('/:resourcesDownloadId', function (req, res, next) {
 
     if (!req.AV.user) {
-        return res.redirect('/login');
+        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
 
     var resourcesDownloadId = parseInt(req.params.resourcesDownloadId);
@@ -59,7 +59,7 @@ router.get('/:resourcesDownloadId', function (req, res, next) {
 router.post('/',function(req,res,next) {
 
     if (!req.AV.user) {
-        return res.redirect('/login');
+        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
 
     var resourcesDownloadId = parseInt(req.body['resources-download-id']);

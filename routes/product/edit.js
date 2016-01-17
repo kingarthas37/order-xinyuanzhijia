@@ -27,7 +27,7 @@ var data = extend(data,{
 router.get('/:productId', function (req, res, next) {
 
     if(!req.AV.user) {
-        return res.redirect('/login');
+        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
     
     var productId = parseInt(req.params.productId);
@@ -102,7 +102,7 @@ router.get('/:productId', function (req, res, next) {
 router.post('/', function (req, res, next) {
 
     if(!req.AV.user) {
-        return res.redirect('/login');
+        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
     
     var mdCodeInfo = req.body['md-code-info'] || '';

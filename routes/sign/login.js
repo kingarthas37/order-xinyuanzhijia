@@ -41,7 +41,7 @@ router.post('/',function(req,res,next) {
     
     AV.User.logIn(username, password, {
         success: function(user) {
-            res.redirect(returnUrl ? returnUrl : '/');
+            res.redirect(returnUrl ? decodeURIComponent(returnUrl) : '/');
         },
         error: function(user, error) {
             req.flash('error',error.message);

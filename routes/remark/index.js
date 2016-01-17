@@ -26,7 +26,7 @@ var data =  extend(config.data,{
 router.get('/', function (req, res, next) {
 
     if (!req.AV.user) {
-        return res.redirect('/login');
+        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
     
     var page = req.query.page ? parseInt(req.query.page) : 1;
@@ -104,7 +104,7 @@ router.get('/', function (req, res, next) {
 router.get('/remove/:remarkId', function (req, res, next) {
 
     if(!req.AV.user) {
-        return res.redirect('/login');
+        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
 
     var remarkId = req.params.remarkId;
@@ -139,7 +139,7 @@ router.get('/remove/:remarkId', function (req, res, next) {
 router.get('/complete',function(req,res) {
     
     if (!req.AV.user) {
-        return res.redirect('/login');
+        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
     
     var remarkId = parseInt(req.query.remarkId);

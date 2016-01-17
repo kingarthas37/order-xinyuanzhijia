@@ -26,7 +26,7 @@ router.get('/', function (req, res, next) {
 
      
     if (!req.AV.user) {
-        return res.redirect('/login');
+        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
 
     var currentDate = new Date();

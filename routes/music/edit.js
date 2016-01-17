@@ -22,7 +22,7 @@ var data = extend(config.data,{
 router.get('/:musicId', function (req, res, next) {
 
     if(!req.AV.user) {
-        return res.redirect('/login');
+        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
     
     var musicId = parseInt(req.params.musicId);
@@ -69,7 +69,7 @@ router.get('/:musicId', function (req, res, next) {
 router.post('/', function (req, res, next) {
 
     if(!req.AV.user) {
-        return res.redirect('/login');
+        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
     
     var mdCodeName = req.body['md-code-name'] || '';

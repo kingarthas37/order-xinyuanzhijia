@@ -23,7 +23,7 @@ var data =  extend(config.data,{
 router.get('/:remarkId', function (req, res, next) {
 
     if(!req.AV.user) {
-        return res.redirect('/login');
+        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
     
     var remarkId = parseInt(req.params.remarkId);
@@ -66,7 +66,7 @@ router.get('/:remarkId', function (req, res, next) {
 router.post('/', function (req, res, next) {
 
     if(!req.AV.user) {
-        return res.redirect('/login');
+        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
     
     var remarkId = parseInt(req.body['remark-id']);

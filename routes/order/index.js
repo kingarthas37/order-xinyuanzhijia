@@ -26,7 +26,7 @@ var data =  extend(config.data,{
 router.get('/', function (req, res, next) {
 
     if (!req.AV.user) {
-        return res.redirect('/login');
+        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
     
     var page = req.query.page ? parseInt(req.query.page) : 1;
@@ -121,7 +121,7 @@ router.get('/', function (req, res, next) {
 router.get('/remove/:orderId', function (req, res, next) {
 
     if(!req.AV.user) {
-        return res.redirect('/login');
+        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
 
     var orderId = req.params.orderId;

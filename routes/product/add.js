@@ -28,7 +28,7 @@ var data = extend(config.data,{
 router.get('/', function (req, res, next) {
 
     if(!req.AV.user) {
-        return res.redirect('/login');
+        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
     
     data = extend(data,{
@@ -75,7 +75,7 @@ router.get('/', function (req, res, next) {
 router.post('/', function (req, res, next) {
 
     if(!req.AV.user) {
-        return res.redirect('/login');
+        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
 
     var mdCodeInfo = req.body['md-code-info'] || '';
