@@ -144,6 +144,18 @@ p.normal {
   border-radius: 8px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); }
 
+.twitter-typeahead .tt-value {
+  display: block; }
+
+.twitter-typeahead .tt-footer {
+  display: block;
+  padding: 3px 0;
+  font-size: 12px;
+  color: #999;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; }
+
 .twitter-typeahead .tt-suggestion {
   padding: 3px 20px;
   font-size: 18px;
@@ -153,10 +165,14 @@ p.normal {
   cursor: pointer;
   color: #fff;
   background-color: #0097cf; }
+  .twitter-typeahead .tt-suggestion:hover .tt-footer {
+    color: #fff; }
 
 .twitter-typeahead .tt-suggestion.tt-cursor {
   color: #fff;
   background-color: #0097cf; }
+  .twitter-typeahead .tt-suggestion.tt-cursor .tt-footer {
+    color: #fff; }
 
 .twitter-typeahead .tt-suggestion p {
   margin: 0; }

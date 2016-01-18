@@ -217,6 +217,20 @@ p.normal {
         -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
         box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
     }
+    
+    .tt-value {
+        display: block;
+    }
+    
+    .tt-footer {
+        display: block;
+        padding: 3px 0;
+        font-size: 12px;
+        color: #999;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
 
     .tt-suggestion {
         padding: 3px 20px;
@@ -228,12 +242,17 @@ p.normal {
         cursor: pointer;
         color: #fff;
         background-color: #0097cf;
+        .tt-footer {
+            color: #fff;
+        }
     }
 
     .tt-suggestion.tt-cursor {
         color: #fff;
         background-color: #0097cf;
-
+        .tt-footer {
+            color: #fff;
+        }
     }
 
     .tt-suggestion p {

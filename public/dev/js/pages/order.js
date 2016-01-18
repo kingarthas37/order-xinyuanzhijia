@@ -47,7 +47,14 @@ module.exports = {
         var newAddress = $('.new-address');
         
         customerNameInput.typeahead(null, {
-            display: 'value',
+            display: function(item) {
+                return item.value;
+            },
+            templates: {
+                suggestion: function(item) {
+                    return '<div><span class="tt-value">' + item.value + '</span><span class="tt-footer">' + (item.taobao ? ('(淘宝名:' + item.taobao +') ') : '') + item.address +'</span></div>';
+                }
+            },
             highlight: true,
             source: new Bloodhound({
                 datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
@@ -71,23 +78,26 @@ module.exports = {
                 newCustomer.prop('checked',true);
                 newAddress.prop('checked',true);
                 customerNameIdInput.val('');
-                taobao.val('');
-                shippingAddress.val('').get(0).focus();
+                //taobao.val('');
+                //shippingAddress.val('').get(0).focus();
                 addressList.empty();
             },
             
             'typeahead:select':function(event,item) {
-
                 customerNameIdInput.val(item.customerId);
                 taobao.val(item.taobao);
                 var address = item.address.split('|');
                 addressList.empty();
-                for(var i=0;i<address.length;i++) {
-                    addressList.append('<li><span>' + address[i] + '</span> <a href="javascript:;">使用此地址</a> </li>');
-                }
-
-                newCustomer.prop('checked',false);
                 
+                if(address.length === 1) {
+                    shippingAddress.val(address[0]);
+                    newAddress.prop('checked',false);
+                } else  {
+                    for(var i=0;i<address.length;i++) {
+                        addressList.append('<li><span>' + address[i] + '</span> <a href="javascript:;">使用此地址</a> </li>');
+                    }
+                }
+                newCustomer.prop('checked',false);
             }
         });
 

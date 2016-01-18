@@ -159,6 +159,9 @@ module.exports = function() {
                 },
                 afterCopy: function () {
                     copyInfo.show().text('复制旺旺回复内容成功!');
+                    setTimeout(function() {
+                        location.reload();
+                    },1000);
                 }
             });
             $('.copy-haoping').show().zclip({
