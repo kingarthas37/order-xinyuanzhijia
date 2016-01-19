@@ -40,18 +40,19 @@ router.post('/', function (req, res, next) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
     
-    var purchaseName = req.body['purchase-name'] || '';
-    var purchaseDescription = req.body['purchase-description'] ||'';
-    var purchaseWebsite = req.body['purchase-website'] || '';
-    var purchaseOrderLink = req.body['purchase-order-link'] || '';
-    var purchaseMail = req.body['purchase-mail'] || '';
-    var purchaseAmount = req.body['purchase-amount'] || '';
-    var purchaseTrackingNumber = req.body['purchase-tracking-number'] || '';
-    var purchasePaymentType = req.body['purchase-payment-type'] || '';
-    var purchasePaymentInfo = req.body['purchase-payment-info'] || '';
-    var purchaseShippingType = req.body['purchase-shipping-type'] || '';
-    var purchaseshippingStatus = req.body['purchase-shipping-status'] || '';
-    var purchaseComment = req.body['purchase-comment'] || '';
+    var purchaseName = req.body['purchase-name'];
+    var purchaseDescription = req.body['purchase-description'];
+    var purchaseWebsite = req.body['purchase-website'];
+    var purchaseOrderLink = req.body['purchase-order-link'];
+    var purchaseMail = req.body['purchase-mail'];
+    var purchaseAmount = req.body['purchase-amount'];
+    var purchaseTrackingNumber = req.body['purchase-tracking-number'];
+    var purchasePaymentType = req.body['purchase-payment-type'];
+    var purchasePaymentInfo = req.body['purchase-payment-info'];
+    var purchaseShippingType = req.body['purchase-shipping-type'];
+    var purchaseshippingStatus = req.body['purchase-shipping-status'];
+    var purchaseComment = req.body['purchase-comment'];
+    var purchaseImage = req.body['purchase-image'];
 
     var purchaseTrack = new PurchaseTrack();
 
@@ -67,6 +68,7 @@ router.post('/', function (req, res, next) {
     purchaseTrack.set('shippingType',purchaseShippingType);
     purchaseTrack.set('shippingStatus',purchaseshippingStatus);
     purchaseTrack.set('comment',purchaseComment);
+    purchaseTrack.set('image',purchaseImage);
 
     purchaseTrack.save(null, {
         success: function () {
@@ -100,7 +102,8 @@ router.get('/website-desc',function(req,res,next) {
             var obj = {
                 "value":results[i].get('name'),
                 "website":results[i].get('website'),
-                "email":results[i].get('email')
+                "email":results[i].get('email'),
+                "image":results[i].get('imageUrl')
             };
             jsonData.push(obj);
         }

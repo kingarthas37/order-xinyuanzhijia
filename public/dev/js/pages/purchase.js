@@ -37,6 +37,8 @@ module.exports = {
         var purchaseDescription = $('#purchase-description');
         var purchaseWebsite = $('#purchase-website');
         var purchaseEmail = $('#purchase-mail');
+        var purchaseImage = $('#purchase-image');
+        var purchaseImageView = $('.purchase-image');
 
         purchaseDescription.typeahead(null, {
             display: 'value',
@@ -58,8 +60,10 @@ module.exports = {
 
         purchaseDescription.on({
             'typeahead:select':function(event,item) {
-                purchaseWebsite.val(item.website);
+                purchaseWebsite.val(item.website ? item.website : item.shop);
                 purchaseEmail.val(item.email);
+                purchaseImage.val(item.image);
+                purchaseImageView.find('img').attr('src',item.image);
             }
         });
     }

@@ -11,7 +11,7 @@
 <% include ../partials/header %>
 
 
-<div class="am-container common-page">
+<div class="am-container common-page purchase-page">
 
     <form id="form-edit-purchase" class="am-form" action="/purchase/edit" method="post">
 
@@ -39,6 +39,18 @@
             <!-- description end -->
 
             <hr/>
+
+            <!-- image start -->
+            <div id="content-image" class="am-form-group">
+                <label>网站名称描述(自动填充)：</label>
+                <input type="hidden" id="purchase-image" name="purchase-image"/>
+                <div>
+                    <div class="purchase-image">
+                        <img src="" alt="">
+                    </div>
+                </div>
+            </div>
+            <!-- image end -->
 
             <!-- orderLink start -->
             <div id="content-order-link" class="am-form-group">

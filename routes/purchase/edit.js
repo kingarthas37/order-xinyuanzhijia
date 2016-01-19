@@ -69,18 +69,19 @@ router.post('/', function (req, res, next) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
 
-    var purchaseName = req.body['purchase-name'] || '';
-    var purchaseDescription = req.body['purchase-description'] ||'';
-    var purchaseWebsite = req.body['purchase-website'] || '';
-    var purchaseOrderLink = req.body['purchase-order-link'] || '';
-    var purchaseMail = req.body['purchase-mail'] || '';
-    var purchaseAmount = req.body['purchase-amount'] || '';
-    var purchaseTrackingNumber = req.body['purchase-tracking-number'] || '';
-    var purchasePaymentType = req.body['purchase-payment-type'] || '';
-    var purchasePaymentInfo = req.body['purchase-payment-info'] || '';
-    var purchaseShippingType = req.body['purchase-shipping-type'] || '';
-    var purchaseShippingStatus = req.body['purchase-shipping-status'] || '';
-    var purchaseComment = req.body['purchase-comment'] || '';
+    var purchaseName = req.body['purchase-name'];
+    var purchaseDescription = req.body['purchase-description'];
+    var purchaseWebsite = req.body['purchase-website'];
+    var purchaseOrderLink = req.body['purchase-order-link'];
+    var purchaseMail = req.body['purchase-mail'];
+    var purchaseAmount = req.body['purchase-amount'];
+    var purchaseTrackingNumber = req.body['purchase-tracking-number'];
+    var purchasePaymentType = req.body['purchase-payment-type'];
+    var purchasePaymentInfo = req.body['purchase-payment-info'];
+    var purchaseShippingType = req.body['purchase-shipping-type'];
+    var purchaseShippingStatus = req.body['purchase-shipping-status'];
+    var purchaseComment = req.body['purchase-comment'];
+    var purchaseImage = req.body['purchase-image'];
 
     var purchaseId = req.body['purchase-id'];
     
@@ -124,6 +125,7 @@ router.post('/', function (req, res, next) {
                     purchase.set('shippingType',purchaseShippingType);
                     purchase.set('shippingStatus',purchaseShippingStatus);
                     purchase.set('comment',purchaseComment);
+                    purchase.set('image',purchaseImage);
                     purchase.save(null, {
                         success: function (results) {
                             data = extend(data, {

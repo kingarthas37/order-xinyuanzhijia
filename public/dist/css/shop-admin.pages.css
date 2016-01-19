@@ -190,6 +190,19 @@ p.normal {
 .typeahead-content .twitter-typeahead {
   display: block !important; }
 
+/* purchase page */
+.purchase-page .purchase-image {
+  display: table-cell;
+  text-align: center;
+  width: 100px;
+  height: 100px;
+  border: 1px solid #ddd;
+  vertical-align: middle; }
+  .purchase-page .purchase-image img {
+    vertical-align: middle;
+    max-width: 90px;
+    max-height: 90px; }
+
 /* purchase-contact-page */
 .purchase-contact-page #form-add-purchase-contact iframe, .purchase-contact-page #form-edit-purchase-contact iframe {
   width: 100%;
