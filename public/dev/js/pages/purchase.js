@@ -1,12 +1,14 @@
 'use strict';
 
+
+
 require('jquery-validate');
 var Bloodhound = require('bloodhound');
 
 module.exports = {
 
     indexFun:function() {
-
+        
         $('.remove-purchase').click(function() {
 
             var $this = $(this);
