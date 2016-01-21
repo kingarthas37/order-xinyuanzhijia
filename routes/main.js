@@ -66,6 +66,11 @@ module.exports = {
     '/resources-download/edit':require('./resources-download/edit'),
     
     //taobao-mail-create
-    '/mail/taobao-mail-create':require('./mail/taobao-mail-create')
+    '/mail/taobao-mail-create':require('./mail/taobao-mail-create'),
+    
+    //product-category
+    '/product-category':require('./product-category'),
+    '/product-category/add':require('./product-category/add'),
+    '/product-category/edit':require('./product-category/edit')
     
 };

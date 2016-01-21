@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title><%= title %></title>
+    <% include ../partials/css %>
+</head>
+<body>
+
+<% include ../partials/header %>
+
+
+<div class="am-container common-page">
+
+    <form id="form-add-remark" class="am-form" action="/remark/edit" method="post">
+        
+        <input type="hidden" name="remark-id" value="<%= id %>"/>
+        
+        <fieldset>
+
+            <legend>编辑备忘录信息</legend>
+
+            <!-- remark title start -->
+            <div id="content-name" class="am-form-group">
+                <label>备忘录标题：<i>*</i> </label>
+                <input id="title" required name="title" type="text" placeholder="输入备忘录标题" value="<%= remark.get('title')%>" />
+            </div>
+            <!-- remark title end -->
+
+            <hr/>
+
+            <!-- type start -->
+            <div id="content-type" class="am-form-group">
+                <label>备忘录类型：</label>
+                <select name="type" id="type">
+                    <option value="order" <% if (remark.get('type') === 'order') {%>selected="selected"<% } %> >发货信息</option>
+                    <option value="user" <% if (remark.get('type') === 'user') {%>selected="selected"<% } %> >用户信息</option>
+                    <option value="purchase" <% if (remark.get('type') === 'purchase') {%>selected="selected"<% } %> >采购信息</option>
+                    <option value="other" <% if (remark.get('type') === 'other') {%>selected="selected"<% } %> >其他</option>
+                </select>
+            </div>
+            <!-- type end -->
+
+            <hr/>
+
+            <!-- content start -->
+            <div id="content-content" class="am-form-group">
+                <label>备忘录内容：</label>
+                <textarea name="content" id="content" placeholder="输入备忘录内容" rows="5"><%= remark.get('content')%></textarea>
+            </div>
+            <!-- content end -->
+
+            <hr/>
+
+            <!-- status start -->
+            <div id="content-is-complete" class="am-form-group">
+                <label>是否完结：</label>
+                <div><label><input id="is-complete" name="is-complete" type="checkbox" <% if(remark.get('isComplete')) { %>checked="checked"<% } %> > 已完成</label></div>
+            </div>
+            <!-- status end -->
+
+            <hr/>
+
+            <div class="am-form-group">
+                <button type="submit" class="am-btn am-btn-primary">保存</button>
+                <button type="submit" class="am-btn am-btn-primary" onclick="history.back(-1);">返回</button>
+            </div>
+
+        </fieldset>
+
+    </form>
+
+
+</div>
+
+
+<% include ../partials/footer %>
+<% include ../partials/js %>
+
+<script type="text/javascript">
+    $(function() {
+        var remark = require('remark');
+        remark.editFun();
+    });
+</script>
+</body>
+</html>

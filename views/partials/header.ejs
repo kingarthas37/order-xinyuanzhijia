@@ -17,7 +17,7 @@
                     <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">产品管理 <span class="am-icon-caret-down"></span></a>
                     <ul class="am-dropdown-content">
                       <li <% if (currentPage === 'product') { %> class="am-active" <% } %>  ><a href="/product">产品管理</a></li>
-                      <li <% if (currentPage === 'category-product') { %> class="am-active" <% } %>  ><a href="/product-category">产品分类管理</a></li>
+                      <li <% if (currentPage === 'product-category') { %> class="am-active" <% } %>  ><a href="/product-category">产品分类管理</a></li>
                       <li <% if (currentPage === 'book') { %> class="am-active" <% } %>  ><a href="/book">电子书管理</a></li>
                       <li <% if (currentPage === 'music') { %> class="am-active" <% } %>  ><a href="/music">音乐管理</a></li>
                     </ul>
@@ -39,7 +39,6 @@
                     <li <% if (currentPage === 'customer') { %> class="am-active" <% } %> ><a href="/customer">用户/收件人管理</a></li>
             </ul>
             </li>
-
                 <li class="am-dropdown" data-am-dropdown>
                     <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">其他 <span class="am-icon-caret-down"></span></a>
                     <ul class="am-dropdown-content">
@@ -48,7 +47,6 @@
                         <li <% if (currentPage === 'taobao-mail-create') { %> class="am-active" <% } %> ><a href="/mail/taobao-mail-create">淘宝发货邮件代码生成</a></li>
                     </ul>
                 </li>
-            
             </ul>
 
             <% if (user) { %>
