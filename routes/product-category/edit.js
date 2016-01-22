@@ -11,57 +11,41 @@ var async = require('async');
 var extend = require("xtend");
 
 //class
-var Remark = AV.Object.extend('Remark');
+var ProductCategory = AV.Object.extend('ProductCategory');
 
 var data =  extend(config.data,{
-    title:'备忘录-编辑备忘录',
-    currentPage:'remark'
+    title:'产品分类-编辑产品分类',
+    currentPage:'productCategory'
 });
 
 
 //编辑产品页
-router.get('/:remarkId', function (req, res, next) {
+router.get('/:productCategoryId', function (req, res, next) {
 
     if(!req.AV.user) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
     
-    var remarkId = parseInt(req.params.remarkId);
+    var productCategoryId = parseInt(req.params.productCategoryId);
 
     data = extend(data,{
         flash: { success:req.flash('success'), error:req.flash('error') },
         user:req.AV.user,
-        id: remarkId
+        productCategoryId: productCategoryId
     });
 
-    async.series([
-
-        function (cb) {
-
-            var query = new AV.Query(Remark);
-            query.equalTo('remarkId', remarkId);
-            query.first({
-                success: function (results) {
-                    data = extend(data, {
-                        remark: results
-                    });
-                    cb();
-                },
-                error: function (err) {
-                    next(err);
-                }
-            });
-
-        },
-
-        function () {
-            res.render('remark/edit', data);
-        }
-
-    ]);
-
+    var query = new AV.Query(ProductCategory);
+    query.equalTo('categoryId', productCategoryId);
+    query.first().then(function(result) {
+        data = extend(data, {
+            productCategory: result
+        });
+        res.render('product-category/edit', data);
+    });
 
 });
+
+
 
 router.post('/', function (req, res, next) {
 
@@ -69,26 +53,22 @@ router.post('/', function (req, res, next) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
     
-    var remarkId = parseInt(req.body['remark-id']);
+    var productCategoryId = parseInt(req.body['product-category-id']);
 
-    var title = req.body['title'];
-    var content = req.body['content'];
-    var isComplete = req.body['is-complete'] ? true : false;
-    var type = req.body['type'];
-    
+    var categoryName = req.body['name'];
 
-    var query = new AV.Query(Remark);
+    var query = new AV.Query(ProductCategory);
 
-    query.equalTo('remarkId',remarkId);
+    query.equalTo('categoryId',productCategoryId);
     query.first().then(function(result) {
-        result.set('title',title);
-        result.set('content',content);
-        result.set('type',type);
-        result.set('isComplete',isComplete);
+        
+        result.set('categoryName',categoryName);
+        
         return result.save();
+        
     }).then(function() {
-        req.flash('success', '编辑备忘录成功!');
-        res.redirect('/remark');
+        req.flash('success', '编辑产品分类成功!');
+        res.redirect('/product-category');
     });
 
 });

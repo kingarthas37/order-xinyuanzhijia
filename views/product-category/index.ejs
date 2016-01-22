@@ -37,7 +37,7 @@
                     <th>分类标题</th>
                     <th class="small-screen-hide">创建时间</th>
                     <th class="small-screen-hide">最后更新时间</th>
-                    <th>编辑</th>
+                    <th>删除</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -46,7 +46,7 @@
                     <td><a href="/product-category/edit/<%= productCategory[i].get('categoryId') %>"><%= productCategory[i].get('categoryName') %></a> </td>
                     <td class="small-screen-hide"><%=productCategory[i].createdAt.getFullYear()%>-<%=(productCategory[i].createdAt.getMonth()+1)%>-<%=productCategory[i].createdAt.getDate()%></td>
                     <td class="small-screen-hide"><%=productCategory[i].updatedAt.getFullYear()%>-<%=(productCategory[i].updatedAt.getMonth()+1)%>-<%=productCategory[i].updatedAt.getDate()%></td>
-                    <td><a href="/product-category/edit/<%= productCategory[i].get('categoryId') %>">编辑</a></td>
+                    <td><a href="/product-category/remove/<%= productCategory[i].get('categoryId') %>">删除</a></td>
                 </tr>
                 <% } %>
                 </tbody>
@@ -90,7 +90,6 @@
 
 <script type="text/javascript">
     $(function() {
-        var productCategory = require('product-category');
         productCategory.indexFun();
     });
 </script>

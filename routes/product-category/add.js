@@ -11,10 +11,10 @@ var format = require('date-format');
 var flash = require('connect-flash');
 
 //class
-var Remark = AV.Object.extend('Remark');
+var ProductCategory = AV.Object.extend('ProductCategory');
 
 var data = extend(config.data, {
-    title: '备忘录-编辑备忘录',
+    title: '产品分类-编辑产品分类',
     currentPage: 'remark'
 });
 
@@ -29,7 +29,7 @@ router.get('/', function (req, res, next) {
         user: req.AV.user
     });
 
-    res.render('remark/add', data);
+    res.render('product-category/add', data);
 
 });
 
@@ -40,34 +40,22 @@ router.post('/', function (req, res, next) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
 
-    var title = req.body['title'];
-    var content = req.body['content'];
-    var isComplete = req.body['is-complete'] ? true : false;
-    var type = req.body['type'];
+    var categoryName = req.body['name'];
 
-    var remark = new Remark();
+    var productCategory = new ProductCategory();
 
     async.waterfall([
-
         function (cb) {
-
-            remark.set('title', title);
-            remark.set('content', content);
-            remark.set('isComplete', isComplete);
-            remark.set('type',type);
-
-            remark.save().then(function () {
-                req.flash('success', '添加备忘录成功!');
-                res.redirect('/remark');
+            productCategory.set('categoryName', categoryName);
+            productCategory.save().then(function () {
+                req.flash('success', '添加产品分类成功!');
+                res.redirect('/product-category');
             });
-            
         }
-
     ]);
 
 
 });
 
- 
 
 module.exports = router;
