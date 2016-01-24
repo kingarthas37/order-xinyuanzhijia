@@ -11,6 +11,7 @@ var extend = require("xtend");
 var config = require('../../lib/config');
 
 //class
+var Product = AV.Object.extend('Product');
 var ProductCategory = AV.Object.extend('ProductCategory');
 
 //lib
@@ -99,6 +100,50 @@ router.get('/', function (req, res, next) {
     ]);
 
 });
+
+
+
+router.get('/remove/:productCategoryId', function (req,res) {
+
+    if(!req.AV.user) {
+        return res.json({
+            error:1,
+            msg:config.error.NOT_SUCCESS
+        });
+    }
+
+    var categoryId = parseInt(req.params.productCategoryId);
+    
+    
+    var queryProduct = new AV.Query(Product);
+    queryProduct.equalTo('categoryId',categoryId);
+    queryProduct.first().then(function(result) {
+        
+        if(result) {
+            res.json({
+                success:0,
+                msg:'此分类已绑定产品,无法删除,请先更改产品相关分类再删除'
+            });
+            return AV.Promise.error('此分类已绑定产品,无法删除,请先更改产品相关分类再删除');
+        }
+
+        var query = new AV.Query(ProductCategory);
+        query.equalTo('categoryId',categoryId );
+        return query.first();
+        
+    }).then(function(result) {
+        result.destroy({
+            success: function () {
+                req.flash('success', '删除成功!');
+                return res.json({
+                    success:1
+                });
+            }
+        });
+    });
+ 
+});
+
 
 
 module.exports = router;

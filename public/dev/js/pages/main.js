@@ -9,4 +9,5 @@ require('./customer');
 require('./order');
 require('./earning');
 require('./remark');
+require('./product-category');
 require('./taobao-mail-create');

@@ -46,7 +46,7 @@
                     <td><a href="/product-category/edit/<%= productCategory[i].get('categoryId') %>"><%= productCategory[i].get('categoryName') %></a> </td>
                     <td class="small-screen-hide"><%=productCategory[i].createdAt.getFullYear()%>-<%=(productCategory[i].createdAt.getMonth()+1)%>-<%=productCategory[i].createdAt.getDate()%></td>
                     <td class="small-screen-hide"><%=productCategory[i].updatedAt.getFullYear()%>-<%=(productCategory[i].updatedAt.getMonth()+1)%>-<%=productCategory[i].updatedAt.getDate()%></td>
-                    <td><a href="/product-category/remove/<%= productCategory[i].get('categoryId') %>">删除</a></td>
+                    <td><a class="remove-product-category" data-id="<%= productCategory[i].get('categoryId') %>" href="/product-category/remove/<%= productCategory[i].get('categoryId') %>">删除</a></td>
                 </tr>
                 <% } %>
                 </tbody>
@@ -85,11 +85,23 @@
 </div>
 
 
+<div class="am-modal am-modal-alert" tabindex="-1" id="alert-remove-product-category">
+    <div class="am-modal-dialog">
+        <div class="am-modal-bd">
+        </div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn">确定</span>
+        </div>
+    </div>
+</div>
+
+
 <% include ../partials/footer %>
 <% include ../partials/js %>
 
 <script type="text/javascript">
     $(function() {
+        var productCategory = require('product-category');
         productCategory.indexFun();
     });
 </script>

@@ -137,9 +137,12 @@ router.get('/remove/:remarkId', function (req, res, next) {
 
 
 router.get('/complete',function(req,res) {
-    
-    if (!req.AV.user) {
-        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
+
+    if(!req.AV.user) {
+        return res.json({
+            error:1,
+            msg:config.error.NOT_SUCCESS
+        });
     }
     
     var remarkId = parseInt(req.query.remarkId);
