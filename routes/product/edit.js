@@ -116,6 +116,10 @@ router.post('/', function (req, res, next) {
     var mdCodeImage = req.body['md-code-image'] || '';
     var categoryId = parseInt(req.body['select-category']) || 1;
 
+    var productLink = req.body['product-link'];
+    var shopLink = req.body['shop-link'];
+    var taobaoLink = req.body['taobao-link'];
+
     var productId = req.body['product-id'];
 
     data = extend(data,{
@@ -154,6 +158,9 @@ router.post('/', function (req, res, next) {
                     post.set('detail', mdCodeDetail);
                     post.set('image', mdCodeImage);
                     post.set('categoryId', categoryId);
+                    post.set('productLink',productLink);
+                    post.set('shopLink',shopLink);
+                    post.set('taobaoLink',taobaoLink);
                     post.save(null, {
                         success: function (results) {
                             data = extend(data, {

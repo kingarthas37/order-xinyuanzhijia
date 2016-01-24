@@ -88,6 +88,10 @@ router.post('/', function (req, res, next) {
     var mdCodeDetail = req.body['md-code-detail'] || '';
     var mdCodeImage = req.body['md-code-image'] || '';
     var categoryId = parseInt(req.body['select-category']) || 1;
+    
+    var productLink = req.body['product-link'];
+    var shopLink = req.body['shop-link'];
+    var taobaoLink = req.body['taobao-link'];
 
     var product = new Product();
 
@@ -101,13 +105,16 @@ router.post('/', function (req, res, next) {
     product.set('detail', mdCodeDetail);
     product.set('image', mdCodeImage);
     product.set('categoryId', categoryId);
+    product.set('productLink',productLink);
+    product.set('shopLink',shopLink);
+    product.set('taobaoLink',taobaoLink);
 
     product.save(null, {
         success: function () {
 
             var query = new AV.Query(Category);
             query.find({
-                success: function (results) {
+                success: function () {
                     req.flash('success', '添加商品成功!');
                     res.redirect('/product');
                 }

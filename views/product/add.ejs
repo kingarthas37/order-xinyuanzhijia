@@ -108,24 +108,51 @@
 
             <!-- images start -->
             <div id="content-image" class="am-form-group">
-                <label for="">产品图片：</label>
+                <label >产品图片：</label>
                 <textarea id="md-code-image" name="md-code-image" rows="5" placeholder="输入产品图片"></textarea>
             </div>
             <!-- images end -->
 
             <hr/>
             
-            
-            
             <!-- video start -->
             <div id="content-video" class="am-form-group">
-                <label for="">产品视频：</label>
+                <label >产品视频：</label>
                 <input  id="md-code-video" name="md-code-video" type="text" placeholder="输入产品视频" />
             </div>
             <!-- video end -->
 
             <hr/>
+            
+            <legend>产品链接</legend>
 
+            <!-- product-link start -->
+            <div id="content-product-link" class="am-form-group">
+                <label>产品链接：</label>
+                <input  id="product-link" name="product-link" type="text" placeholder="输入产品链接" />
+            </div>
+            <!-- product-link end -->
+
+            <hr/>
+
+            <!-- taobao-link start -->
+            <div id="content-taobao-link" class="am-form-group">
+                <label>淘宝链接：</label>
+                <input  id="taobao-link" name="taobao-link" type="text" placeholder="输入淘宝链接" />
+            </div>
+            <!-- taobao-link end -->
+
+            <hr/>
+
+            <!-- shop-link start -->
+            <div id="content-shop-link" class="am-form-group">
+                <label>网店链接：</label>
+                <input  id="shop-link" name="shop-link" type="text" placeholder="输入网店链接" />
+            </div>
+            <!-- shop-link end -->
+
+            <hr/>
+            
             <div class="am-form-group">
                 <button type="submit" class="am-btn am-btn-primary" data-action="/product/add" data-target="_self">保存</button>
                 <button type="submit" class="am-btn am-btn-success" data-action="/product/preview" data-target="_blank">预览</button>
