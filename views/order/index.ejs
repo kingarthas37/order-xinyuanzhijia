@@ -50,7 +50,7 @@
                 <% for(var i=0; i < order.length; i++) {%>
                 <tr>
                     <td><a href="/order/edit/<%= order[i].get('orderId') %>"><%= order[i].get('orderName') %></a> </td>
-                    <td><a href="/customer/edit/<%= order[i].get('customerId') %>"><%= order[i].get('customerName') %></a> </td>
+                    <td><a title="<%= order[i].get('shippingAddress') %>" href="/customer/edit/<%= order[i].get('customerId') %>"><%= order[i].get('customerName') %></a> </td>
                     <td><% if (order[i].get('shippingStatus') === 'shipped' ) { %>已发货<% } else { %><strong>未发货</strong><% } %></td>
                     <td><%=order[i].createdAt.getFullYear()%>-<%=(order[i].createdAt.getMonth()+1)%>-<%=order[i].createdAt.getDate()%></td>
                     <td class="small-screen-hide"><%=order[i].updatedAt.getFullYear()%>-<%=(order[i].updatedAt.getMonth()+1)%>-<%=order[i].updatedAt.getDate()%></td>

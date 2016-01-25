@@ -10,6 +10,7 @@ var extend = require("xtend");
 var markdown = require("markdown").markdown;
 
 var config = require('../../lib/config');
+var utils = require('../../lib/utils');
 
 //class
 var Product = AV.Object.extend('Product');
@@ -92,6 +93,11 @@ router.post('/', function (req, res, next) {
     var productLink = req.body['product-link'];
     var shopLink = req.body['shop-link'];
     var taobaoLink = req.body['taobao-link'];
+    var comment = req.body['comment'];
+    
+    productLink = utils.urlCompleting(productLink);
+    shopLink = utils.urlCompleting(shopLink);
+    taobaoLink = utils.urlCompleting(taobaoLink);
 
     var product = new Product();
 
@@ -108,6 +114,7 @@ router.post('/', function (req, res, next) {
     product.set('productLink',productLink);
     product.set('shopLink',shopLink);
     product.set('taobaoLink',taobaoLink);
+    product.set('comment',comment);
 
     product.save(null, {
         success: function () {

@@ -119,6 +119,11 @@ router.post('/', function (req, res, next) {
     var productLink = req.body['product-link'];
     var shopLink = req.body['shop-link'];
     var taobaoLink = req.body['taobao-link'];
+    var comment = req.body['comment'];
+
+    productLink = utils.urlCompleting(productLink);
+    shopLink = utils.urlCompleting(shopLink);
+    taobaoLink = utils.urlCompleting(taobaoLink);
 
     var productId = req.body['product-id'];
 
@@ -161,6 +166,7 @@ router.post('/', function (req, res, next) {
                     post.set('productLink',productLink);
                     post.set('shopLink',shopLink);
                     post.set('taobaoLink',taobaoLink);
+                    post.set('comment',comment);
                     post.save(null, {
                         success: function (results) {
                             data = extend(data, {

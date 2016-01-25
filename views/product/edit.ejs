@@ -25,7 +25,7 @@
 
             <!-- name start -->
             <div id="content-name" class="am-form-group">
-                <label for="">产品名称 <i>*</i></label>
+                <label >产品名称 <i>*</i></label>
                 <input id="md-code-name" required name="md-code-name" type="text" placeholder="输入产品名称[必填]" value="<%= product.get('name') %>" />
             </div>
             <!-- name end -->
@@ -50,7 +50,7 @@
 
             <!-- detail start -->
             <div id="content-detail" class="am-form-group">
-                <label for=""> 产品详情： <i>*</i> </label>
+                <label > 产品详情： <i>*</i> </label>
                 <textarea id="md-code-detail" name="md-code-detail" rows="5" placeholder="输入产品详情[必填]" required ><%= product.get('detail') %></textarea>
             </div>
             <!-- detail end -->
@@ -79,7 +79,7 @@
 
             <!-- review start -->
             <div id="content-review" class="am-form-group">
-                <label for=""> 店主评语： </label>
+                <label > 店主评语： </label>
                 <textarea id="md-code-review" name="md-code-review" rows="3" placeholder="输入店主评语"><%= product.get('review') %></textarea>
             </div>
             <!-- review end -->
@@ -89,7 +89,7 @@
             <!-- property start -->
             <div id="content-property" class="am-form-group">
 
-                <label for="">产品属性：</label>
+                <label >产品属性：</label>
                 
                 <textarea id="md-code-property" name="md-code-property" rows="3" placeholder="输入产品属性"><%= product.get('property') %></textarea>
             </div>
@@ -100,7 +100,7 @@
 
             <!-- instruction start -->
             <div id="content-instruction" class="am-form-group">
-                <label for="">产品说明：</label>
+                <label >产品说明：</label>
                 <textarea id="md-code-instruction" name="md-code-instruction" rows="3" placeholder="输入产品说明"><%= product.get('instruction') %></textarea>
             </div>
             <!-- instruction end -->
@@ -110,7 +110,7 @@
 
             <!-- images start -->
             <div id="content-image" class="am-form-group">
-                <label for="">产品图片：</label>
+                <label >产品图片：</label>
                 <textarea id="md-code-image" name="md-code-image" rows="5" placeholder="输入产品图片"><%= product.get('image') %></textarea>
             </div>
             <!-- images end -->
@@ -119,12 +119,48 @@
 
             <!-- video start -->
             <div id="content-video" class="am-form-group">
-                <label for="">产品视频：</label>
+                <label >产品视频：</label>
                 <input id="md-code-video" name="md-code-video" type="text" placeholder="输入产品视频" value="<%= product.get('video') %>" />
             </div>
             <!-- video end -->
 
             <hr/>
+
+            <legend>产品链接</legend>
+
+            <!-- product-link start -->
+            <div id="content-product-link" class="am-form-group">
+                <label>产品链接：</label>
+                <input  id="product-link" name="product-link" type="text" value="<%= product.get('productLink') %>" placeholder="输入产品链接" />
+            </div>
+            <!-- product-link end -->
+
+            <hr/>
+
+            <!-- taobao-link start -->
+            <div id="content-taobao-link" class="am-form-group">
+                <label>淘宝链接：</label>
+                <input  id="taobao-link" name="taobao-link" type="text" value="<%= product.get('taobaoLink') %>" placeholder="输入淘宝链接" />
+            </div>
+            <!-- taobao-link end -->
+
+            <hr/>
+
+            <!-- shop-link start -->
+            <div id="content-shop-link" class="am-form-group">
+                <label>网店链接：</label>
+                <input  id="shop-link" name="shop-link" type="text" value="<%= product.get('shopLink') %>" placeholder="输入网店链接" />
+            </div>
+            <!-- shop-link end -->
+
+            <hr/>
+
+            <!-- comment start -->
+            <div id="content-comment" class="am-form-group">
+                <label >备注：</label>
+                <textarea id="comment" name="comment" rows="3" placeholder="输入备注"><%= product.get('comment') %></textarea>
+            </div>
+            <!-- comment end -->
 
             <div class="am-form-group">
                 <button type="submit" class="am-btn am-btn-primary" data-action="/product/edit" data-target="_self">保存</button>
