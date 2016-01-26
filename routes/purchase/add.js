@@ -102,6 +102,7 @@ router.get('/website-desc',function(req,res,next) {
             var obj = {
                 "value":results[i].get('name'),
                 "website":results[i].get('website'),
+                "shop":results[i].get('shop'),
                 "email":results[i].get('email'),
                 "image":results[i].get('imageUrl')
             };
