@@ -71,6 +71,11 @@ module.exports = {
     //product-category
     '/product-category':require('./product-category'),
     '/product-category/add':require('./product-category/add'),
-    '/product-category/edit':require('./product-category/edit')
+    '/product-category/edit':require('./product-category/edit'),
+    
+    //product-book
+    '/product-book':require('./product-book'),
+    '/product-book/add':require('./product-book/add'),
+    '/product-book/edit':require('./product-book/edit')
     
 };

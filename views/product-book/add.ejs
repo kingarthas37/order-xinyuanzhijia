@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title><%= title %></title>
+    <% include ../partials/css %>
+</head>
+<body>
+
+<% include ../partials/header %>
+
+<div class="am-container common-page">
+    
+    <form id="form-add-product-book" class="am-form" action="/product-book/add" method="post">
+
+        <fieldset>
+
+            <legend><a href="/product-book/add">添加新预定记录信息</a></legend>
+            
+            <!-- product-book title start -->
+            <div id="content-name" class="am-form-group">
+                <label>备忘预定记录：<i>*</i> </label>
+                <input id="title" required name="title" type="text" placeholder="输入备忘预定记录" />
+            </div>
+            <!-- product-book title end -->
+
+            <hr/>
+
+            <!-- comment start -->
+            <div id="content-comment" class="am-form-group">
+                <label>预定记录内容：</label>
+                <textarea name="comment" id="comment" placeholder="输入预定记录内容" rows="5"></textarea>
+            </div>
+            <!-- comment end -->
+
+            <hr/>
+            
+            <!-- status start -->
+            <div id="content-is-complete" class="am-form-group">
+                <label>是否完结：</label>
+                <div><label><input id="is-complete" name="is-complete" type="checkbox"> 已完成</label></div>
+            </div>
+            <!-- status end -->
+
+            <hr/>
+
+            <div class="am-form-group">
+                <button type="submit" class="am-btn am-btn-primary">保存</button>
+                <button type="submit" class="am-btn am-btn-primary" onclick="history.back(-1);">返回</button>
+            </div>
+
+        </fieldset>
+
+    </form>
+    
+</div>
+
+<% include ../partials/footer %>
+<% include ../partials/js %>
+
+<script type="text/javascript">
+    $(function() {
+        var productBook = require('product-book');
+        productBook.addFun();
+    });
+</script>
+</body>
+</html>

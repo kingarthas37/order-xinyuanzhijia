@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title><%= title %></title>
+    <% include ../partials/css %>
+</head>
+<body>
+
+<% include ../partials/header %>
+
+<div class="am-container common-page">
+
+    <% if (flash.success != '') { %>
+    <div class="am-alert am-alert-success">
+        <p><%= flash.success %></p>
+    </div>
+    <% } %>
+    
+        <fieldset>
+
+            <legend><a href="/product-book">客户产品预定列表</a></legend>
+
+            <form class="am-form-inline" role="form" action="/product-book">
+                <div class="am-form-group">
+                  搜索标题：<input type="text" name="search-product-book-title" class="am-form-field" placeholder="搜索">
+                </div>
+                <button type="submit" class="am-btn am-btn-primary">搜索</button>
+            </form>
+
+            <hr/>
+            
+            <table class="am-table">
+                <thead>
+                <tr>
+                    <th>备忘录标题</th>
+                    <th class="t-c">是否完成</th>
+                    <th>创建时间</th>
+                    <th class="small-screen-hide">最后更新时间</th>
+                    <th class="small-screen-hide">删除</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% for(var i=0; i < productBook.length; i++) {%>
+                <tr>
+                    <td><a title="<%= productBook[i].get('comment') %>" href="/product-book/edit/<%= productBook[i].get('productBookId') %>"><%= productBook[i].get('title') %></a> </td>
+                    <td class="t-c"><input data-id="<%= productBook[i].get('productBookId') %>" class="ckb-is-complete" type="checkbox" <% if(productBook[i].get('isComplete')) { %>checked="checked"<% } %> ></td>
+                    <td><%=productBook[i].createdAt.getFullYear()%>-<%=(productBook[i].createdAt.getMonth()+1)%>-<%=productBook[i].createdAt.getDate()%></td>
+                    <td class="small-screen-hide"><%=productBook[i].updatedAt.getFullYear()%>-<%=(productBook[i].updatedAt.getMonth()+1)%>-<%=productBook[i].updatedAt.getDate()%></td>
+                    <td class="small-screen-hide"><a href="/product-book/remove/<%= productBook[i].get('productBookId') %>" class="remove-product-book">删除</a></td>
+                </tr>
+                <% } %>
+                </tbody>
+            </table>
+            
+            <ul class="am-pagination">
+                <% if (productBookPager.prev) { %> <li>
+                    <a href="/product-book?page=<%= productBookPager.prev %><% if(searchProductBookTitle) {%>&search-product-book-title=<%=searchProductBookTitle%> <%}%>">上一页</a></li> <% } %>
+                <% if (productBookPager.next) { %> <li>
+                    <a href="/product-book?page=<%= productBookPager.next %><% if(searchProductBookTitle) {%>&search-product-book-title=<%=searchProductBookTitle%> <%}%>">下一页</a></li> <% } %>
+                <li class="count">第<%=productBookPager.page%>页 共<%= productBookCount %>条</li>
+            </ul>
+            
+            <hr/>
+
+            <div class="am-form-group">
+                <a href="/product-book/add" class="am-btn am-btn-primary" role="button">添加预定记录</a>
+            </div>
+
+        </fieldset>
+
+
+</div>
+
+
+<div class="am-modal am-modal-confirm" tabindex="-1" id="confirm-remove-product-book">
+    <div class="am-modal-dialog">
+        <div class="am-modal-bd">
+            确定要删除这条记录吗？
+        </div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+            <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+        </div>
+    </div>
+</div>
+
+
+<% include ../partials/footer %>
+<% include ../partials/js %>
+
+<script type="text/javascript">
+    $(function() {
+        var productBook = require('product-book');
+        productBook.indexFun();
+    });
+</script>
+</body>
+</html>
