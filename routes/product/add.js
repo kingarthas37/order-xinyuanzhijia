@@ -123,7 +123,7 @@ router.post('/', function (req, res, next) {
             query.find({
                 success: function () {
                     req.flash('success', '添加商品成功!');
-                    res.redirect('/product');
+                    res.redirect('/product?categoryId=' + categoryId);
                 }
             });
 

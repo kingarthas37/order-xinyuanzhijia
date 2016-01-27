@@ -16,6 +16,7 @@ var Banner = AV.Object.extend('ProductBanner');
 
 //lib
 var config = require('../../lib/config');
+var utils = require('../../lib/utils');
 
 var data = extend(data,{
     title:'产品编辑-编辑产品',
@@ -207,7 +208,7 @@ router.post('/', function (req, res, next) {
                         category: results
                     });
                     req.flash('success', '编辑商品成功!');
-                    res.redirect('/product');
+                    res.redirect('/product?categoryId='+ categoryId);
                 }
             });
 
