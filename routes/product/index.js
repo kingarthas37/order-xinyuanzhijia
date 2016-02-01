@@ -38,14 +38,11 @@ router.get('/', function (req, res, next) {
     
     var search = req.query['product-search'] ? req.query['product-search'].trim() : '';
 
-    let aaa = 'kingarthas';
-    
     data = extend(data,{
         categoryId:categoryId,
         search:search,
         flash:{success:req.flash('success'),error:req.flash('error')},
-        user:req.AV.user,
-        aaa:aaa
+        user:req.AV.user
     });
     
     async.series([
