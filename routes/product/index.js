@@ -38,7 +38,6 @@ router.get('/', function (req, res, next) {
     
     var search = req.query['product-search'] ? req.query['product-search'].trim() : '';
 
-    let aaa = 'kingarthas';
     
     data = extend(data,{
         categoryId:categoryId,
