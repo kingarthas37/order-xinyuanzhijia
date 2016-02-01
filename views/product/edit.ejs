@@ -155,6 +155,17 @@
 
             <hr/>
 
+
+            <!-- comment start -->
+            <div id="content-comment" class="am-form-group">
+                <label >备注：</label>
+                <textarea id="comment" name="comment" rows="3"  placeholder="输入备注"><%= product.get('comment') %></textarea>
+            </div>
+            <!-- comment end -->
+
+            <hr/>
+            
+
             <div class="am-form-group">
                 <button type="submit" class="am-btn am-btn-primary" data-action="/product/edit" data-target="_self">保存</button>
                 <button type="submit" class="am-btn am-btn-primary" data-action="/product/add" data-target="_self">复制并新增</button>
