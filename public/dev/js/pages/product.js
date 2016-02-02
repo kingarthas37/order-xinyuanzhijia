@@ -38,6 +38,7 @@ module.exports = {
         $('#form-add-product').validate();
         this.chooseBanner();
         this.formActionSelect();
+        this.setTabs();
 
     },
     editFun:function() {
@@ -45,6 +46,7 @@ module.exports = {
         $('#form-add-product').validate();
         this.chooseBanner();
         this.formActionSelect();
+        this.setTabs();
     },
     
     previewFun:productPreview,
@@ -142,6 +144,13 @@ module.exports = {
             return true;
         });
         
+    },
+    
+    //tab控件
+    setTabs:function() {
+        $('.am-tabs').tabs({
+            animation:false
+        });
     }
 
 };

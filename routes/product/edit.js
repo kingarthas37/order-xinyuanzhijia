@@ -110,10 +110,13 @@ router.post('/', function (req, res, next) {
     var mdCodeBanner = req.body['md-code-banner'] || '';
     var mdCodeVideo = req.body['md-code-video'] || '';
     var mdCodeName = req.body['md-code-name'] || '';
+    var mdCodeNameEn = req.body['md-code-name-en'] || '';
     var mdCodeReview = req.body['md-code-review'] || '';
     var mdCodeProperty = req.body['md-code-property'] || '';
     var mdCodeInstruction = req.body['md-code-instruction'] || '';
+    var mdCodeInstructionEn = req.body['md-code-instruction-en'] || '';
     var mdCodeDetail = req.body['md-code-detail'] || '';
+    var mdCodeDetailEn = req.body['md-code-detail-en'] || '';
     var mdCodeImage = req.body['md-code-image'] || '';
     var categoryId = parseInt(req.body['select-category']) || 1;
 
@@ -158,10 +161,13 @@ router.post('/', function (req, res, next) {
                     post.set('banner', mdCodeBanner);
                     post.set('video', mdCodeVideo);
                     post.set('name', mdCodeName);
+                    post.set('nameEn', mdCodeNameEn);
                     post.set('review', mdCodeReview);
                     post.set('property', mdCodeProperty);
                     post.set('instruction', mdCodeInstruction);
+                    post.set('instructionEn', mdCodeInstructionEn);
                     post.set('detail', mdCodeDetail);
+                    post.set('detailEn', mdCodeDetailEn);
                     post.set('image', mdCodeImage);
                     post.set('categoryId', categoryId);
                     post.set('productLink',productLink);

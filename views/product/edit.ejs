@@ -24,10 +24,27 @@
             <legend>编辑产品</legend>
 
             <!-- name start -->
-            <div id="content-name" class="am-form-group">
-                <label >产品名称 <i>*</i></label>
-                <input id="md-code-name" required name="md-code-name" type="text" placeholder="输入产品名称[必填]" value="<%= product.get('name') %>" />
+            <div class="am-tabs">
+                <ul class="am-tabs-nav am-nav am-nav-tabs">
+                    <li class="am-active"><a href="#name-tab-1">产品名称 <i>*</i>:</a></li>
+                    <li><a href="#name-tab-2">产品名称(英文):</a></li>
+                </ul>
+
+                <div class="am-tabs-bd">
+                    <div class="am-tab-panel am-active" id="name-tab-1">
+                        <div id="content-name" class="am-form-group">
+                            <input  id="md-code-name" required value="<%= product.get('name')%>" name="md-code-name" type="text" placeholder="输入产品名称[必填]" />
+                        </div>
+                    </div>
+                    <div class="am-tab-panel" id="name-tab-2">
+                        <div id="content-name-en" class="am-form-group">
+                            <input  id="md-code-name-en" name="md-code-name-en" value="<%= product.get('nameEn')%>" type="text" placeholder="输入产品名称(英文)" />
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <hr>
             <!-- name end -->
         
             <hr/>
@@ -49,9 +66,24 @@
 
 
             <!-- detail start -->
-            <div id="content-detail" class="am-form-group">
-                <label > 产品详情： <i>*</i> </label>
-                <textarea id="md-code-detail" name="md-code-detail" rows="5" placeholder="输入产品详情[必填]" required ><%= product.get('detail') %></textarea>
+            <div class="am-tabs">
+                <ul class="am-tabs-nav am-nav am-nav-tabs">
+                    <li class="am-active"><a href="#detail-tab-1">产品名称 <i>*</i>:</a></li>
+                    <li><a href="#detail-tab-2">产品名称(英文):</a></li>
+                </ul>
+
+                <div class="am-tabs-bd">
+                    <div class="am-tab-panel am-active" id="detail-tab-1">
+                        <div id="content-detail" class="am-form-group">
+                            <textarea id="md-code-detail" name="md-code-detail" rows="5" placeholder="输入产品详情[必填]" required ><%= product.get('detail') %></textarea>
+                        </div>
+                    </div>
+                    <div class="am-tab-panel" id="detail-tab-2">
+                        <div id="content-detail-en" class="am-form-group">
+                            <textarea id="md-code-detail-en" name="md-code-detail" rows="5" placeholder="输入产品详情(英文)"><%= product.get('detailEn') %></textarea>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- detail end -->
             
@@ -99,10 +131,25 @@
 
 
             <!-- instruction start -->
-            <div id="content-instruction" class="am-form-group">
-                <label >产品说明：</label>
-                <textarea id="md-code-instruction" name="md-code-instruction" rows="3" placeholder="输入产品说明"><%= product.get('instruction') %></textarea>
+            <div class="am-tabs">
+                <ul class="am-tabs-nav am-nav am-nav-tabs">
+                    <li class="am-active"><a href="#instruction-tab-1">产品说明 <i>*</i>:</a></li>
+                    <li><a href="#instruction-tab-2">产品说明(英文):</a></li>
+                </ul>
+                <div class="am-tabs-bd">
+                    <div class="am-tab-panel am-active" id="instruction-tab-1">
+                        <div id="content-instruction" class="am-form-group">
+                            <textarea id="md-code-instruction" name="md-code-instruction" rows="3" placeholder="输入产品说明"><%= product.get('instruction') %></textarea>
+                        </div>
+                    </div>
+                    <div class="am-tab-panel" id="instruction-tab-2">
+                        <div id="content-instruction-en" class="am-form-group">
+                            <textarea id="md-code-instruction-en" name="md-code-instruction-en" rows="3" placeholder="输入产品说明(英文)"><%= product.get('instructionEn') %></textarea>
+                        </div>
+                    </div>
+                </div>
             </div>
+            
             <!-- instruction end -->
 
             <hr/>
@@ -169,7 +216,8 @@
             <div class="am-form-group">
                 <button type="submit" class="am-btn am-btn-primary" data-action="/product/edit" data-target="_self">保存</button>
                 <button type="submit" class="am-btn am-btn-primary" data-action="/product/add" data-target="_self">复制并新增</button>
-                <button type="submit" class="am-btn am-btn-success" data-action="/product/preview" data-target="_blank">预览</button>
+                <button type="button" class="am-btn am-btn-success" data-action="/product/preview" data-target="_blank">预览</button>
+                <button type="button" class="am-btn am-btn-primary" onclick="history.back(-1);">返回</button>
             </div>
 
         </fieldset>

@@ -83,10 +83,13 @@ router.post('/', function (req, res, next) {
     var mdCodeBanner = req.body['md-code-banner'] || '';
     var mdCodeVideo = req.body['md-code-video'] || '';
     var mdCodeName = req.body['md-code-name'] || '';
+    var mdCodeNameEn = req.body['md-code-name-en'] || '';
     var mdCodeReview = req.body['md-code-review'] || '';
     var mdCodeProperty = req.body['md-code-property'] || '';
     var mdCodeInstruction = req.body['md-code-instruction'] || '';
+    var mdCodeInstructionEn = req.body['md-code-instruction-en'] || '';
     var mdCodeDetail = req.body['md-code-detail'] || '';
+    var mdCodeDetailEn = req.body['md-code-detail-en'] || '';
     var mdCodeImage = req.body['md-code-image'] || '';
     var categoryId = parseInt(req.body['select-category']) || 1;
     
@@ -105,10 +108,13 @@ router.post('/', function (req, res, next) {
     product.set('banner', mdCodeBanner);
     product.set('video', mdCodeVideo);
     product.set('name', mdCodeName);
+    product.set('nameEn', mdCodeNameEn);
     product.set('review', mdCodeReview);
     product.set('property', mdCodeProperty);
     product.set('instruction', mdCodeInstruction);
+    product.set('instructionEn', mdCodeInstructionEn);
     product.set('detail', mdCodeDetail);
+    product.set('detailEn', mdCodeDetailEn);
     product.set('image', mdCodeImage);
     product.set('categoryId', categoryId);
     product.set('productLink',productLink);
@@ -132,7 +138,6 @@ router.post('/', function (req, res, next) {
             next(err);
         }
     });
-
 
 });
 

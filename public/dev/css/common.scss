@@ -156,6 +156,23 @@ p.normal {
             vertical-align: middle;
         }
     }
+    
+    .am-tabs-nav {
+        li {
+            i {
+                font-weight: bold;
+                color: red;
+                font-style: normal;
+            }
+        }
+    }
+    
+    .am-tabs-bd {
+        .am-form-group {
+            margin-bottom: 0;
+        }
+    }
+    
 
 }
 

@@ -107,6 +107,14 @@ p.normal {
   .common-page .am-table td {
     vertical-align: middle; }
 
+.common-page .am-tabs-nav li i {
+  font-weight: bold;
+  color: red;
+  font-style: normal; }
+
+.common-page .am-tabs-bd .am-form-group {
+  margin-bottom: 0; }
+
 .common-product-view-page {
   width: 750px;
   margin: 30px auto; }
