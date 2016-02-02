@@ -83,7 +83,15 @@
             <!-- shipping address end -->
 
             <hr/>
+            
+            <h3>该用户购买记录:</h3>
+            <ul>
+                <% for (var i=0;i <order.length ;i++) { %>
+                    <li><a href="/order/edit/<%= order[i].get('orderId') %>"><%= order[i].get('orderName') %></a>; 快递公司:<%= order[i].get('shippingCompany') %>; 快递单号:<%= order[i].get('trackingNumber') %> </li>
+                <% } %>
+            </ul>
 
+            <hr>
             
             <div class="am-form-group">
                 <button type="submit" class="am-btn am-btn-primary">保存</button>

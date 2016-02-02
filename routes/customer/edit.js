@@ -12,6 +12,7 @@ var extend = require("xtend");
 
 //class
 var Customer = AV.Object.extend('Customer');
+var OrderTrack = AV.Object.extend('OrderTrack');
 
 var data =  extend(config.data,{
     title:'收货人管理-编辑收货人',
@@ -36,6 +37,21 @@ router.get('/:customerId', function (req, res, next) {
     
     async.waterfall([
     
+        function(cb) {
+          
+            let query = new AV.Query(OrderTrack);
+            query.equalTo('customerId',customerId);
+            query.find().then(function(results) {
+                if(results) {
+                    data = extend(data, {
+                        order: results
+                    });
+                }
+                cb();
+            });
+            
+        },
+        
         function(cb) {
 
             var query = new AV.Query(Customer);
