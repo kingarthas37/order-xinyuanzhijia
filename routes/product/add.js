@@ -14,6 +14,7 @@ var utils = require('../../lib/utils');
 
 //class
 var Product = AV.Object.extend('Product');
+var ProductHistory = AV.Object.extend('ProductHistory');
 var Category = AV.Object.extend('ProductCategory');
 var Banner = AV.Object.extend('ProductBanner');
 
@@ -79,30 +80,31 @@ router.post('/', function (req, res, next) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
 
-    var mdCodeInfo = req.body['md-code-info'] || '';
-    var mdCodeBanner = req.body['md-code-banner'] || '';
-    var mdCodeVideo = req.body['md-code-video'] || '';
-    var mdCodeName = req.body['md-code-name'] || '';
-    var mdCodeNameEn = req.body['md-code-name-en'] || '';
-    var mdCodeReview = req.body['md-code-review'] || '';
-    var mdCodeProperty = req.body['md-code-property'] || '';
-    var mdCodeInstruction = req.body['md-code-instruction'] || '';
-    var mdCodeInstructionEn = req.body['md-code-instruction-en'] || '';
-    var mdCodeDetail = req.body['md-code-detail'] || '';
-    var mdCodeDetailEn = req.body['md-code-detail-en'] || '';
-    var mdCodeImage = req.body['md-code-image'] || '';
-    var categoryId = parseInt(req.body['select-category']) || 1;
-    
-    var productLink = req.body['product-link'];
-    var shopLink = req.body['shop-link'];
-    var taobaoLink = req.body['taobao-link'];
-    var comment = req.body['comment'];
+    let mdCodeInfo = req.body['md-code-info'] || '';
+    let mdCodeBanner = req.body['md-code-banner'] || '';
+    let mdCodeVideo = req.body['md-code-video'] || '';
+    let mdCodeName = req.body['md-code-name'] || '';
+    let mdCodeNameEn = req.body['md-code-name-en'] || '';
+    let mdCodeReview = req.body['md-code-review'] || '';
+    let mdCodeProperty = req.body['md-code-property'] || '';
+    let mdCodeInstruction = req.body['md-code-instruction'] || '';
+    let mdCodeInstructionEn = req.body['md-code-instruction-en'] || '';
+    let mdCodeDetail = req.body['md-code-detail'] || '';
+    let mdCodeDetailEn = req.body['md-code-detail-en'] || '';
+    let mdCodeImage = req.body['md-code-image'] || '';
+    let categoryId = parseInt(req.body['select-category']) || 1;
+
+    let productLink = req.body['product-link'];
+    let shopLink = req.body['shop-link'];
+    let taobaoLink = req.body['taobao-link'];
+    let comment = req.body['comment'];
     
     productLink = utils.urlCompleting(productLink);
     shopLink = utils.urlCompleting(shopLink);
     taobaoLink = utils.urlCompleting(taobaoLink);
 
-    var product = new Product();
+    let product = new Product();
+    let productHistory = new ProductHistory();
 
     product.set('info', mdCodeInfo);
     product.set('banner', mdCodeBanner);
@@ -121,23 +123,40 @@ router.post('/', function (req, res, next) {
     product.set('shopLink',shopLink);
     product.set('taobaoLink',taobaoLink);
     product.set('comment',comment);
+ 
+    product.save().then(result => {
 
-    product.save(null, {
-        success: function () {
+        let query = new AV.Query(Product);
+        return query.get(result.id);
+        
+    }).then(result => {
 
-            var query = new AV.Query(Category);
-            query.find({
-                success: function () {
-                    req.flash('success', '添加商品成功!');
-                    res.redirect('/product?categoryId=' + categoryId);
-                }
-            });
-
-        },
-        error: function (err) {
-            next(err);
-        }
+        productHistory.set('productId',result.get('productId'));
+        productHistory.set('info', mdCodeInfo);
+        productHistory.set('banner', mdCodeBanner);
+        productHistory.set('video', mdCodeVideo);
+        productHistory.set('name', mdCodeName);
+        productHistory.set('nameEn', mdCodeNameEn);
+        productHistory.set('review', mdCodeReview);
+        productHistory.set('property', mdCodeProperty);
+        productHistory.set('instruction', mdCodeInstruction);
+        productHistory.set('instructionEn', mdCodeInstructionEn);
+        productHistory.set('detail', mdCodeDetail);
+        productHistory.set('detailEn', mdCodeDetailEn);
+        productHistory.set('image', mdCodeImage);
+        productHistory.set('categoryId', categoryId);
+        productHistory.set('productLink',productLink);
+        productHistory.set('shopLink',shopLink);
+        productHistory.set('taobaoLink',taobaoLink);
+        productHistory.set('comment',comment);
+        
+        return productHistory.save();
+        
+    }).then(() => {
+        req.flash('success', '添加商品成功!');
+        res.redirect('/product?categoryId=' + categoryId);
     });
+   
 
 });
 
