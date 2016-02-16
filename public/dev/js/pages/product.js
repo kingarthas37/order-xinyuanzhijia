@@ -39,6 +39,7 @@ module.exports = {
         this.chooseBanner();
         this.formActionSelect();
         this.setTabs();
+        this.setMainImage();
 
     },
     editFun:function() {
@@ -47,6 +48,7 @@ module.exports = {
         this.chooseBanner();
         this.formActionSelect();
         this.setTabs();
+        this.setMainImage();
     },
     
     previewFun:productPreview,
@@ -151,6 +153,25 @@ module.exports = {
         $('.am-tabs').tabs({
             animation:false
         });
+    },
+    
+    //设置主图预览
+    setMainImage:function() {
+        
+        var contentImage = $('#content-main-image').find('ul');
+        var mainImage = $('#main-image');
+        
+        mainImage.change(function() {
+            contentImage.empty();
+            var arr = mainImage.val().split('\n');
+            if($.trim(arr[0])==='') {
+                return;
+            }
+            $.each(arr,function(i,n) {
+                contentImage.append('<li><a href="'+ arr[i] +'" target="_blank"><img src="' + arr[i] + '"/></a></li>');
+            });
+        }).trigger('change');
+        
     }
 
 };

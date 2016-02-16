@@ -107,6 +107,9 @@ p.normal {
   .common-page .am-table td {
     vertical-align: middle; }
 
+.common-page .am-tabs-nav li.am-active {
+  font-weight: bold; }
+
 .common-page .am-tabs-nav li i {
   font-weight: bold;
   color: red;
@@ -246,5 +249,18 @@ p.normal {
 
 .taobao-mail-create-page .mail-title-box {
   display: none; }
+
+/* product page */
+.product-page #content-main-image ul {
+  margin: 0;
+  padding: 0; }
+
+.product-page #content-main-image li {
+  display: inline-block;
+  margin-right: 5px; }
+  .product-page #content-main-image li img {
+    border: 1px solid #ddd;
+    width: 80px;
+    height: 80px; }
 
 /*# sourceMappingURL=shop-admin.pages.css.map */

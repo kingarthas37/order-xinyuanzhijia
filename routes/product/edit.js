@@ -110,9 +110,11 @@ router.post('/', function (req, res, next) {
     var mdCodeBanner = req.body['md-code-banner'];
     var mdCodeVideo = req.body['md-code-video'];
     var mdCodeName = req.body['md-code-name'];
+    var mainImage = req.body['main-image'];
     var mdCodeNameEn = req.body['md-code-name-en'];
     var mdCodeReview = req.body['md-code-review'];
     var mdCodeProperty = req.body['md-code-property'];
+    var mdCodePropertyEn = req.body['md-code-property-en'];
     var mdCodeInstruction = req.body['md-code-instruction'];
     var mdCodeInstructionEn = req.body['md-code-instruction-en'];
     var mdCodeDetail = req.body['md-code-detail'];
@@ -144,9 +146,11 @@ router.post('/', function (req, res, next) {
         result.set('banner', mdCodeBanner);
         result.set('video', mdCodeVideo);
         result.set('name', mdCodeName);
+        result.set('mainImage',mainImage);
         result.set('nameEn', mdCodeNameEn);
         result.set('review', mdCodeReview);
         result.set('property', mdCodeProperty);
+        result.set('propertyEn',mdCodePropertyEn);
         result.set('instruction', mdCodeInstruction);
         result.set('instructionEn', mdCodeInstructionEn);
         result.set('detail', mdCodeDetail);
@@ -192,8 +196,10 @@ router.post('/', function (req, res, next) {
         productHistory.set('video', mdCodeVideo);
         productHistory.set('name', mdCodeName);
         productHistory.set('nameEn', mdCodeNameEn);
+        productHistory.set('mainImage',mainImage);
         productHistory.set('review', mdCodeReview);
         productHistory.set('property', mdCodeProperty);
+        productHistory.set('propertyEn',mdCodePropertyEn);
         productHistory.set('instruction', mdCodeInstruction);
         productHistory.set('instructionEn', mdCodeInstructionEn);
         productHistory.set('detail', mdCodeDetail);

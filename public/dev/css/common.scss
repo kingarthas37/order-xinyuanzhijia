@@ -159,6 +159,9 @@ p.normal {
     
     .am-tabs-nav {
         li {
+            &.am-active {
+                font-weight: bold;
+            }
             i {
                 font-weight: bold;
                 color: red;

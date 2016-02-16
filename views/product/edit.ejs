@@ -13,7 +13,7 @@
 
 
 
-<div class="am-container common-page">
+<div class="am-container common-page product-page">
 
     <form id="form-edit-product" class="am-form" action="" method="post" target="">
 
@@ -46,8 +46,17 @@
 
             <hr>
             <!-- name end -->
-        
-            <hr/>
+
+            <!-- main image start -->
+            <div id="content-main-image" class="am-form-group">
+                <label>产品主展示图片： </label>
+                <textarea id="main-image" name="main-image" rows="3" placeholder="输入产品主展示图片(每张图片直接用http://链接,无需使用md5,隔张图片请换行)"><%= product.get('mainImage') %></textarea>
+                <ul>
+                </ul>
+            </div>
+
+            <hr>
+            <!-- main image end -->
     
                 <!-- select category start -->
                 <div id="content-category" class="am-form-group am-form-select">
@@ -118,7 +127,6 @@
             <hr/>
 
             <!-- property start -->
-
             <div class="am-tabs">
                 <ul class="am-tabs-nav am-nav am-nav-tabs">
                     <li class="am-active"><a href="#property-tab-1">产品属性 <i>*</i>:</a></li>
@@ -128,19 +136,16 @@
                 <div class="am-tabs-bd">
                     <div class="am-tab-panel am-active" id="property-tab-1">
                         <div id="content-property" class="am-form-group">
-                            <label >产品属性：</label>
                             <textarea id="md-code-property" name="md-code-property" rows="3" placeholder="输入产品属性"><%= product.get('property') %></textarea>
                         </div>
                     </div>
                     <div class="am-tab-panel" id="property-tab-2">
                         <div id="content-property-en" class="am-form-group">
-                            <label >产品属性：</label>
-                            <textarea id="md-code-property-en" name="md-code-property-en" rows="3" placeholder="输入产品属性(英文)"><%= product.get('property') %></textarea>
+                            <textarea id="md-code-property-en" name="md-code-property-en" rows="3" placeholder="输入产品属性(英文)"><%= product.get('propertyEn') %></textarea>
                         </div>
                     </div>
                 </div>
             </div>
-            
             <!-- property end -->
 
             <hr/>
