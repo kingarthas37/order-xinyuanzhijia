@@ -11,6 +11,7 @@ var markdown = require("markdown").markdown;
 
 //class
 var Product = AV.Object.extend('Product');
+var ProductHistory = AV.Object.extend('ProductHistory');
 var Category = AV.Object.extend('ProductCategory');
 var Banner = AV.Object.extend('ProductBanner');
 
@@ -106,18 +107,17 @@ router.post('/', function (req, res, next) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
     
-    var mdCodeInfo = req.body['md-code-info'] || '';
-    var mdCodeBanner = req.body['md-code-banner'] || '';
-    var mdCodeVideo = req.body['md-code-video'] || '';
-    var mdCodeName = req.body['md-code-name'] || '';
-    var mdCodeNameEn = req.body['md-code-name-en'] || '';
-    var mdCodeReview = req.body['md-code-review'] || '';
-    var mdCodeProperty = req.body['md-code-property'] || '';
-    var mdCodeInstruction = req.body['md-code-instruction'] || '';
-    var mdCodeInstructionEn = req.body['md-code-instruction-en'] || '';
-    var mdCodeDetail = req.body['md-code-detail'] || '';
-    var mdCodeDetailEn = req.body['md-code-detail-en'] || '';
-    var mdCodeImage = req.body['md-code-image'] || '';
+    var mdCodeBanner = req.body['md-code-banner'];
+    var mdCodeVideo = req.body['md-code-video'];
+    var mdCodeName = req.body['md-code-name'];
+    var mdCodeNameEn = req.body['md-code-name-en'];
+    var mdCodeReview = req.body['md-code-review'];
+    var mdCodeProperty = req.body['md-code-property'];
+    var mdCodeInstruction = req.body['md-code-instruction'];
+    var mdCodeInstructionEn = req.body['md-code-instruction-en'];
+    var mdCodeDetail = req.body['md-code-detail'];
+    var mdCodeDetailEn = req.body['md-code-detail-en'];
+    var mdCodeImage = req.body['md-code-image'];
     var categoryId = parseInt(req.body['select-category']) || 1;
 
     var productLink = req.body['product-link'];
@@ -129,99 +129,89 @@ router.post('/', function (req, res, next) {
     shopLink = utils.urlCompleting(shopLink);
     taobaoLink = utils.urlCompleting(taobaoLink);
 
-    var productId = req.body['product-id'];
+    var productId = parseInt(req.body['product-id']);
 
     data = extend(data,{
         flash: { success:req.flash('success'), error:req.flash('error') },
         user:req.AV.user
     });
+    
+    var query = new AV.Query(Product);
+    query.equalTo('productId', productId);
+    
+    query.first().then(result => {
 
-    async.waterfall([
+        result.set('banner', mdCodeBanner);
+        result.set('video', mdCodeVideo);
+        result.set('name', mdCodeName);
+        result.set('nameEn', mdCodeNameEn);
+        result.set('review', mdCodeReview);
+        result.set('property', mdCodeProperty);
+        result.set('instruction', mdCodeInstruction);
+        result.set('instructionEn', mdCodeInstructionEn);
+        result.set('detail', mdCodeDetail);
+        result.set('detailEn', mdCodeDetailEn);
+        result.set('image', mdCodeImage);
+        result.set('categoryId', categoryId);
+        result.set('productLink',productLink);
+        result.set('shopLink',shopLink);
+        result.set('taobaoLink',taobaoLink);
+        result.set('comment',comment);
 
-        function (cb) {
+        return result.save();
+        
+    }).then(result => {
+ 
+        data = extend(data, {
+            product: result
+        });
+       
+        let query = new AV.Query(Banner);
+       
+        return query.find();
+        
+    }).then(results => {
+ 
+        data = extend(data, {
+            banner: results
+        });
 
-            var query = new AV.Query(Product);
-            query.equalTo('productId', parseInt(productId));
-            query.first({
-                success: function (results) {
-                    cb(null, results.id, query);
-                },
-                error: function (err) {
-                    next(err);
-                }
-            });
+        let query = new AV.Query(Category);
+        return query.find();
+        
+    }).then(results => {
+ 
+        data = extend(data, {
+            category: results
+        });
+        
+        var productHistory = new ProductHistory();
+        
+        productHistory.set('productId',productId);
+        productHistory.set('banner', mdCodeBanner);
+        productHistory.set('video', mdCodeVideo);
+        productHistory.set('name', mdCodeName);
+        productHistory.set('nameEn', mdCodeNameEn);
+        productHistory.set('review', mdCodeReview);
+        productHistory.set('property', mdCodeProperty);
+        productHistory.set('instruction', mdCodeInstruction);
+        productHistory.set('instructionEn', mdCodeInstructionEn);
+        productHistory.set('detail', mdCodeDetail);
+        productHistory.set('detailEn', mdCodeDetailEn);
+        productHistory.set('image', mdCodeImage);
+        productHistory.set('categoryId', categoryId);
+        productHistory.set('productLink',productLink);
+        productHistory.set('shopLink',shopLink);
+        productHistory.set('taobaoLink',taobaoLink);
+        productHistory.set('comment',comment);
 
-        },
-
-        function (objectId, query, cb) {
-            
-            query.get(objectId, {
-                success: function (post) {
-                    post.set('info', mdCodeInfo);
-                    post.set('banner', mdCodeBanner);
-                    post.set('video', mdCodeVideo);
-                    post.set('name', mdCodeName);
-                    post.set('nameEn', mdCodeNameEn);
-                    post.set('review', mdCodeReview);
-                    post.set('property', mdCodeProperty);
-                    post.set('instruction', mdCodeInstruction);
-                    post.set('instructionEn', mdCodeInstructionEn);
-                    post.set('detail', mdCodeDetail);
-                    post.set('detailEn', mdCodeDetailEn);
-                    post.set('image', mdCodeImage);
-                    post.set('categoryId', categoryId);
-                    post.set('productLink',productLink);
-                    post.set('shopLink',shopLink);
-                    post.set('taobaoLink',taobaoLink);
-                    post.set('comment',comment);
-                    post.save(null, {
-                        success: function (results) {
-                            data = extend(data, {
-                                product: results
-                            });
-                            cb(null);
-                        },
-                        error: function (err) {
-                            next(err);
-                        }
-                    });
-                },
-                error: function (err) {
-                    next(err);
-                }
-
-            });
-
-        },
-        function (cb) {
-
-            var query = new AV.Query(Banner);
-            query.find({
-                success: function (results) {
-                    data = extend(data, {
-                        banner: results
-                    });
-                    cb();
-                }
-            });
-
-        },
-        function (cb) {
-            var query = new AV.Query(Category);
-            query.find({
-                success: function (results) {
-                    data = extend(data, {
-                        category: results
-                    });
-                    req.flash('success', '编辑商品成功!');
-                    res.redirect('/product?categoryId='+ categoryId);
-                }
-            });
-
-        }
-
-    ]);
-
+        return productHistory.save();
+        
+    }).then(() => {
+        req.flash('success', '编辑商品成功!');
+        res.redirect('/product?categoryId='+ categoryId);
+    });
+    
 });
 
 module.exports = router;

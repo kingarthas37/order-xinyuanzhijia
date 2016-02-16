@@ -48,8 +48,9 @@
                     <td><a href="/purchase/edit/<%= purchase[i].get('purchaseId') %>"> <% if (purchase[i].get('image')) { %><img src="<%= purchase[i].get('image') %>" width="40" /><% } %> <%= purchase[i].get('name') %></a> </td>
                     <td class="small-screen-hide"><%= purchase[i].get('website') %></td>
                     <td class="t-c">
-                        <% if(purchase[i].get('shippingType') === '8dexpress') { %>八达<%  } %>
                         <% if(purchase[i].get('shippingType') === 'tianji') { %>天际<%  } %>
+                        <% if(purchase[i].get('shippingType') === 'zhuanyunbang') { %>转运帮<%  } %>
+                        <% if(purchase[i].get('shippingType') === '8dexpress') { %>八达<%  } %>
                         <% if(purchase[i].get('shippingType') === 'direct') { %>直邮<%  } %>
                     </td>
                     <td><%=purchase[i].createdAt.getFullYear()%>-<%=(purchase[i].createdAt.getMonth()+1)%>-<%=purchase[i].createdAt.getDate()%></td>

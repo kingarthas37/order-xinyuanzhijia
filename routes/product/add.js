@@ -80,7 +80,6 @@ router.post('/', function (req, res, next) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
 
-    let mdCodeInfo = req.body['md-code-info'] || '';
     let mdCodeBanner = req.body['md-code-banner'] || '';
     let mdCodeVideo = req.body['md-code-video'] || '';
     let mdCodeName = req.body['md-code-name'] || '';
@@ -106,7 +105,6 @@ router.post('/', function (req, res, next) {
     let product = new Product();
     let productHistory = new ProductHistory();
 
-    product.set('info', mdCodeInfo);
     product.set('banner', mdCodeBanner);
     product.set('video', mdCodeVideo);
     product.set('name', mdCodeName);
@@ -132,7 +130,6 @@ router.post('/', function (req, res, next) {
     }).then(result => {
 
         productHistory.set('productId',result.get('productId'));
-        productHistory.set('info', mdCodeInfo);
         productHistory.set('banner', mdCodeBanner);
         productHistory.set('video', mdCodeVideo);
         productHistory.set('name', mdCodeName);
