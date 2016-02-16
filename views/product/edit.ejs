@@ -107,8 +107,7 @@
             <!-- banner end -->
             
             <hr/>
- 
-
+            
             <!-- review start -->
             <div id="content-review" class="am-form-group">
                 <label > 店主评语： </label>
@@ -119,16 +118,32 @@
             <hr/>
 
             <!-- property start -->
-            <div id="content-property" class="am-form-group">
 
-                <label >产品属性：</label>
-                
-                <textarea id="md-code-property" name="md-code-property" rows="3" placeholder="输入产品属性"><%= product.get('property') %></textarea>
+            <div class="am-tabs">
+                <ul class="am-tabs-nav am-nav am-nav-tabs">
+                    <li class="am-active"><a href="#property-tab-1">产品属性 <i>*</i>:</a></li>
+                    <li><a href="#property-tab-2">产品属性(英文):</a></li>
+                </ul>
+
+                <div class="am-tabs-bd">
+                    <div class="am-tab-panel am-active" id="property-tab-1">
+                        <div id="content-property" class="am-form-group">
+                            <label >产品属性：</label>
+                            <textarea id="md-code-property" name="md-code-property" rows="3" placeholder="输入产品属性"><%= product.get('property') %></textarea>
+                        </div>
+                    </div>
+                    <div class="am-tab-panel" id="property-tab-2">
+                        <div id="content-property-en" class="am-form-group">
+                            <label >产品属性：</label>
+                            <textarea id="md-code-property-en" name="md-code-property-en" rows="3" placeholder="输入产品属性(英文)"><%= product.get('property') %></textarea>
+                        </div>
+                    </div>
+                </div>
             </div>
+            
             <!-- property end -->
 
             <hr/>
-
 
             <!-- instruction start -->
             <div class="am-tabs">
