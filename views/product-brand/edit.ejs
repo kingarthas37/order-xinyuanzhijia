@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title><%= title %></title>
+    <% include ../partials/css %>
+</head>
+<body>
+
+<% include ../partials/header %>
+
+
+<div class="am-container common-page">
+
+    <form id="form-add-productCategory" class="am-form" action="/product-category/edit" method="post">
+        
+        <input type="hidden" name="product-category-id" value="<%= productCategoryId %>"/>
+        
+        <fieldset>
+
+            <legend>编辑产品分类信息</legend>
+
+            <!-- productCategory name start -->
+            <div id="content-name" class="am-form-group">
+                <label>产品分类标题：<i>*</i> </label>
+                <input id="name" required name="name" type="text" placeholder="输入产品分类标题" value="<%= productCategory.get('categoryName')%>" />
+            </div>
+            <!-- productCategory name end -->
+
+            <hr/>
+            
+            <div class="am-form-group">
+                <button type="submit" class="am-btn am-btn-primary">保存</button>
+                <button type="button" class="am-btn am-btn-primary" onclick="history.back(-1);">返回</button>
+            </div>
+
+        </fieldset>
+
+    </form>
+
+
+</div>
+
+
+<% include ../partials/footer %>
+<% include ../partials/js %>
+
+<script type="text/javascript">
+    $(function() {
+        var productCategory = require('productCategory');
+        productCategory.editFun();
+    });
+</script>
+</body>
+</html>

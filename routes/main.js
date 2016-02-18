@@ -76,6 +76,11 @@ module.exports = {
     //product-book
     '/product-book':require('./product-book'),
     '/product-book/add':require('./product-book/add'),
-    '/product-book/edit':require('./product-book/edit')
+    '/product-book/edit':require('./product-book/edit'),
+    
+    //brand
+    '/product-brand':require('./product-brand'),
+    '/product-brand/add':require('./product-brand/add'),
+    '/product-brand/edit':require('./product-brand/edit')
     
 };

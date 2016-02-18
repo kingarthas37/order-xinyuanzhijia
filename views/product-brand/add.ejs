@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title><%= title %></title>
+    <% include ../partials/css %>
+</head>
+<body>
+
+<% include ../partials/header %>
+
+<div class="am-container common-page">
+    
+    <form id="form-add-product-category" class="am-form" action="/product-category/add" method="post">
+
+        <fieldset>
+
+            <legend><a href="/product-category/add">添加新产品分类信息</a></legend>
+            
+            <!-- category name start -->
+            <div id="content-name" class="am-form-group">
+                <label>产品分类标题：<i>*</i> </label>
+                <input id="name" required name="name" type="text" placeholder="输入产品分类标题" />
+            </div>
+            <!-- category name end -->
+
+            <hr/>
+
+            <div class="am-form-group">
+                <button type="submit" class="am-btn am-btn-primary">保存</button>
+                <button type="button" class="am-btn am-btn-primary" onclick="history.back(-1);">返回</button>
+            </div>
+
+        </fieldset>
+
+    </form>
+    
+</div>
+
+<% include ../partials/footer %>
+<% include ../partials/js %>
+
+<script type="text/javascript">
+    $(function() {
+        var productCategory = require('product-category');
+        productCategory.addFun();
+    });
+</script>
+</body>
+</html>
