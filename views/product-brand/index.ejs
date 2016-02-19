@@ -20,29 +20,46 @@
     
         <fieldset>
 
-            <legend><a href="/product-brand">产品分类列表</a></legend>
+            <legend><a href="/product-brand">品牌列表</a></legend>
 
             <form class="am-form-inline" role="form" action="/product-brand">
                 <div class="am-form-group">
-                  搜索品牌名：<input type="text" name="search-product-brand-name" class="am-form-field" placeholder="搜索">
+                  搜索名称：<input type="text" name="search-name" class="am-form-field" placeholder="搜索">
                 </div>
                 <button type="submit" class="am-btn am-btn-primary">搜索</button>
             </form>
 
             <hr/>
-            
-            
-             
+
+            <table class="am-table">
+                <thead>
+                <tr>
+                    <th>品牌/创造者名</th>
+                    <th class="small-screen-hide">创建时间</th>
+                    <th class="small-screen-hide">更新时间</th>
+                    <th>删除</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% for(var i=0; i < productBrand.length; i++) {%>
+                <tr>
+                    <td><a href="/product-brand/edit/<%= productBrand[i].get('productBrandId') %>"><%= productBrand[i].get('name') %></a> </td>
+                    <td class="small-screen-hide"><%=productBrand[i].createdAt.getFullYear()%>-<%=(productBrand[i].createdAt.getMonth()+1)%>-<%=productBrand[i].createdAt.getDate()%></td>
+                    <td class="small-screen-hide"><%=productBrand[i].updatedAt.getFullYear()%>-<%=(productBrand[i].updatedAt.getMonth()+1)%>-<%=productBrand[i].updatedAt.getDate()%></td>
+                    <td><a class="remove-product-brand" data-id="<%= productBrand[i].get('productBrandId') %>" href="/product-brand/remove/<%= productBrand[i].get('productBrandId') %>">删除</a></td>
+                </tr>
+                <% } %>
+                </tbody>
+            </table>
             
             <hr/>
 
             <div class="am-form-group">
-                <a href="/product-brand/add" class="am-btn am-btn-primary" role="button">添加新分类</a>
+                <a href="/product-brand/add" class="am-btn am-btn-primary" role="button">添加新品牌</a>
             </div>
 
         </fieldset>
-
-
+    
 </div>
 
 

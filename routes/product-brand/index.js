@@ -24,7 +24,7 @@ var data =  extend(config.data,{
 
 //首页
 router.get('/', function (req, res, next) {
-
+    
     if (!req.AV.user) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
@@ -33,7 +33,7 @@ router.get('/', function (req, res, next) {
     var limit = req.query.limit ? parseInt(req.query.limit) : config.page.LIMIT;
     var order = req.query.order || 'desc';
     
-    var searchProductBrandName = req.query['search-product-brand-name'];
+    var searchName = req.query['search-name'];
 
     data = extend(data,{
         flash: {
@@ -41,12 +41,12 @@ router.get('/', function (req, res, next) {
             error:req.flash('error')
         },
         user:req.AV.user,
-        searchProductBrandName:searchProductBrandName
+        searchName:searchName
     });
     
     var query = new AV.Query(ProductBrand);
-    if(searchProductBrandName) {
-        query.contains('brandName',searchProductBrandName);
+    if(searchName) {
+        query.contains('name',searchName);
     }
     
     query.count().then((count)=> {
@@ -65,8 +65,8 @@ router.get('/', function (req, res, next) {
             query.descending('productBrandId');
         }
 
-        if(searchProductBrandName) {
-            query.contains('brandName',searchProductBrandName);
+        if(searchName) {
+            query.contains('name',searchName);
         }
         
         return query.find();
@@ -93,39 +93,17 @@ router.get('/remove/:productBrandId', function (req,res) {
             msg:config.error.NOT_SUCCESS
         });
     }
-
-    var brandId = parseInt(req.params.productBrandId);
-    
-    
-    var queryProduct = new AV.Query(Product);
-    queryProduct.equalTo('brandId',brandId);
-    queryProduct.first().then(function(result) {
-        
-        if(result) {
-            res.json({
-                success:0,
-                msg:'此分类已绑定产品,无法删除,请先更改产品相关分类再删除'
-            });
-            return AV.Promise.error('此分类已绑定产品,无法删除,请先更改产品相关分类再删除');
-        }
-
-        var query = new AV.Query(ProductBrand);
-        query.equalTo('brandId',brandId );
-        return query.first();
-        
-    }).then(function(result) {
-        result.destroy({
-            success: function () {
-                req.flash('success', '删除成功!');
-                return res.json({
-                    success:1
-                });
-            }
-        });
+    let productBrandId = parseInt(req.params.productBrandId);
+    let query = new AV.Query(ProductBrand);
+    query.equalTo('productBrandId',productBrandId);
+    query.first().then((result) => {
+        return result.destroy();
+    }).then(() => {
+        req.flash('success', '删除成功!');
+        return res.redirect('/product-brand');
     });
  
 });
-
 
 
 module.exports = router;
