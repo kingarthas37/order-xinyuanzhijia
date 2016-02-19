@@ -15,7 +15,7 @@ var ProductCategory = AV.Object.extend('ProductCategory');
 
 var data = extend(config.data, {
     title: '产品分类-编辑产品分类',
-    currentPage: 'remark'
+    currentPage: 'product-category'
 });
 
 

@@ -11,27 +11,24 @@ var format = require('date-format');
 var flash = require('connect-flash');
 
 //class
-var ProductCategory = AV.Object.extend('ProductCategory');
+var ProductBrand = AV.Object.extend('ProductBrand');
 
 var data = extend(config.data, {
     title: '产品分类-编辑产品分类',
-    currentPage: 'remark'
+    currentPage: 'product-brand'
 });
 
 
 router.get('/', function (req, res, next) {
-
     if (!req.AV.user) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
-
     data = extend(data, {
         user: req.AV.user
     });
-
-    res.render('product-category/add', data);
-
+    res.render('product-brand/add', data);
 });
+
 
 
 router.post('/', function (req, res, next) {
@@ -40,19 +37,35 @@ router.post('/', function (req, res, next) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
 
-    var categoryName = req.body['name'];
+    let name = req.body['name'];
+    let authorName = req.body['author-name'];
+    let authorImage = req.body['author-image'];
+    let mdAuthorIntro = req.body['md-author-intro'];
+    let mdAuthorIntroEn = req.body['md-author-intro-en'];
+    let brandName = req.body['brand-name'];
+    let brandImage = req.body['brand-image'];
+    let mdBrandIntro = req.body['md-brand-intro'];
+    let mdBrandIntroEn = req.body['md-brand-intro-en'];
+    let productImages = req.body['product-images'];
+    
 
-    var productCategory = new ProductCategory();
+    var productBrand = new ProductBrand();
 
-    async.waterfall([
-        function (cb) {
-            productCategory.set('categoryName', categoryName);
-            productCategory.save().then(function () {
-                req.flash('success', '添加产品分类成功!');
-                res.redirect('/product-category');
-            });
-        }
-    ]);
+    productBrand.set('name', name);
+    productBrand.set('authorName',authorName);
+    productBrand.set('authorImage',authorImage);
+    productBrand.set('authorIntro',mdAuthorIntro);
+    productBrand.set('authorIntroEn',mdAuthorIntroEn);
+    productBrand.set('brandName',brandName);
+    productBrand.set('brandImage',brandImage);
+    productBrand.set('brandIntro',mdBrandIntro);
+    productBrand.set('brandIntroEn',mdBrandIntroEn);
+    productBrand.set('productImages',productImages);
+    
+    productBrand.save().then(()=>{
+        req.flash('success', '添加品牌成功!');
+        res.redirect('/product-brand');
+    });
 
 
 });
