@@ -11,25 +11,114 @@
 <% include ../partials/header %>
 
 
-<div class="am-container common-page">
+<div class="am-container common-page product-brand-page">
 
-    <form id="form-add-productCategory" class="am-form" action="/product-category/edit" method="post">
-        
-        <input type="hidden" name="product-category-id" value="<%= productCategoryId %>"/>
-        
+    <form id="form-add-product-brand" class="am-form" action="/product-brand/edit/<%= productBrandId %>" method="post">
+
         <fieldset>
 
-            <legend>编辑产品分类信息</legend>
+            <legend>编辑产品品牌信息</legend>
 
-            <!-- productCategory name start -->
-            <div id="content-name" class="am-form-group">
-                <label>产品分类标题：<i>*</i> </label>
-                <input id="name" required name="name" type="text" placeholder="输入产品分类标题" value="<%= productCategory.get('categoryName')%>" />
+            <!--  name start -->
+            <div class="am-form-group">
+                <label>品牌简称：<i>*</i> </label>
+                <input id="name" required name="name" type="text" placeholder="输入品牌简称" value="<%= productBrand.get('name') %>" />
             </div>
-            <!-- productCategory name end -->
+            <!--  name end -->
+
+            <hr>
+
+            <!--  author name start -->
+            <div class="am-form-group">
+                <label>作者名:</label>
+                <input id="author-name" name="author-name" type="text" placeholder="输入产品作者名" value="<%= productBrand.get('authorName') %>" />
+            </div>
+            <!--  author name end -->
 
             <hr/>
-            
+
+            <!--  author name start -->
+            <div class="am-form-group">
+                <label>作者图片:</label>
+                <input id="author-image" name="author-image" type="text" placeholder="输入作者图片" value="<%= productBrand.get('authorImage') %>" />
+            </div>
+            <!--  author name end -->
+
+            <hr/>
+
+            <!-- author intro start -->
+            <div class="am-tabs">
+                <ul class="am-tabs-nav am-nav am-nav-tabs">
+                    <li class="am-active"><a href="#author-intro-tab-1">作者介绍:</a></li>
+                    <li><a href="#author-intro-tab-2">作者介绍(英文):</a></li>
+                </ul>
+
+                <div class="am-tabs-bd">
+                    <div class="am-tab-panel am-active" id="author-intro-tab-1">
+                        <div class="am-form-group">
+                            <textarea id="md-author-intro" name="md-author-intro" rows="5" placeholder="作者介绍(md5)"><%= productBrand.get('authorIntro') %></textarea>
+                        </div>
+                    </div>
+                    <div class="am-tab-panel" id="author-intro-tab-2">
+                        <div class="am-form-group">
+                            <textarea id="md-author-intro-en" name="md-author-intro-en" rows="5" placeholder="作者介绍(英文)(md5)"><%= productBrand.get('authorIntroEn') %></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- author intro end -->
+
+            <hr>
+
+            <!--  brand name start -->
+            <div class="am-form-group">
+                <label>品牌名:</label>
+                <input id="brand-name" name="brand-name" type="text" placeholder="输入产品品牌名" value="<%= productBrand.get('brandName') %>" />
+            </div>
+            <!--  brand name end -->
+
+            <hr/>
+
+            <!--  brand name start -->
+            <div class="am-form-group">
+                <label>品牌图片:</label>
+                <input id="brand-image" name="brand-image" type="text" placeholder="输入品牌图片" value="<%= productBrand.get('brandImage') %>" />
+            </div>
+            <!--  brand name end -->
+
+            <hr/>
+
+            <!-- brand intro start -->
+            <div class="am-tabs">
+                <ul class="am-tabs-nav am-nav am-nav-tabs">
+                    <li class="am-active"><a href="#brand-intro-tab-1">品牌介绍:</a></li>
+                    <li><a href="#brand-intro-tab-2">品牌介绍(英文):</a></li>
+                </ul>
+
+                <div class="am-tabs-bd">
+                    <div class="am-tab-panel am-active" id="brand-intro-tab-1">
+                        <div class="am-form-group">
+                            <textarea id="md-brand-intro" name="md-brand-intro" rows="5" placeholder="品牌介绍(md5)"><%= productBrand.get('brandIntro') %></textarea>
+                        </div>
+                    </div>
+                    <div class="am-tab-panel" id="brand-intro-tab-2">
+                        <div class="am-form-group">
+                            <textarea id="md-brand-intro-en" name="md-brand-intro-en" rows="5" placeholder="品牌介绍(英文)(md5)"><%= productBrand.get('brandIntroEn') %></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- brand intro end -->
+
+            <hr/>
+
+            <div class="am-form-group">
+                <label>相关产品图片:</label>
+                <textarea id="product-images" name="product-images" rows="5" placeholder="产品图片(每张图片路径请换行)"><%= productBrand.get('productImages') %></textarea>
+            </div>
+
+            <hr>
+
             <div class="am-form-group">
                 <button type="submit" class="am-btn am-btn-primary">保存</button>
                 <button type="button" class="am-btn am-btn-primary" onclick="history.back(-1);">返回</button>
@@ -39,7 +128,6 @@
 
     </form>
 
-
 </div>
 
 
@@ -48,8 +136,8 @@
 
 <script type="text/javascript">
     $(function() {
-        var productCategory = require('productCategory');
-        productCategory.editFun();
+        var productBrand = require('product-brand');
+        productBrand.editFun();
     });
 </script>
 </body>
