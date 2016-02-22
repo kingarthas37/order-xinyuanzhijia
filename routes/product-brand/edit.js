@@ -47,30 +47,48 @@ router.get('/:productBrandId', function (req, res, next) {
 
 
 
-router.post('/:productBrandId', function (req, res, next) {
+router.post('/:productBrandId', function (req, res) {
 
     if(!req.AV.user) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
     
-    var productBrandId = parseInt(req.body['product-brand-id']);
+    var productBrandId = parseInt(req.params['productBrandId']);
 
-    var brandName = req.body['name'];
+    let name = req.body['name'];
+    let authorName = req.body['author-name'];
+    let authorImage = req.body['author-image'];
+    let mdAuthorIntro = req.body['md-author-intro'];
+    let mdAuthorIntroEn = req.body['md-author-intro-en'];
+    let brandName = req.body['brand-name'];
+    let brandImage = req.body['brand-image'];
+    let mdBrandIntro = req.body['md-brand-intro'];
+    let mdBrandIntroEn = req.body['md-brand-intro-en'];
+    let productImages = req.body['product-images'];
 
     var query = new AV.Query(ProductBrand);
 
-    query.equalTo('brandId',productBrandId);
-    query.first().then(function(result) {
-        
+    query.equalTo('productBrandId',productBrandId);
+    query.first().then((result) => {
+
+        result.set('name', name);
+        result.set('authorName',authorName);
+        result.set('authorImage',authorImage);
+        result.set('authorIntro',mdAuthorIntro);
+        result.set('authorIntroEn',mdAuthorIntroEn);
         result.set('brandName',brandName);
+        result.set('brandImage',brandImage);
+        result.set('brandIntro',mdBrandIntro);
+        result.set('brandIntroEn',mdBrandIntroEn);
+        result.set('productImages',productImages);
         
         return result.save();
         
-    }).then(function() {
-        req.flash('success', '编辑产品分类成功!');
+    }).then(() => {
+        req.flash('success', '编辑产品品牌成功!');
         res.redirect('/product-brand');
     });
-
+    
 });
 
 module.exports = router;
