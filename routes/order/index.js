@@ -12,6 +12,7 @@ var config = require('../../lib/config');
 
 //class
 var OrderTrack = AV.Object.extend('OrderTrack');
+var Customer = AV.Object.extend('Customer');
 
 //lib
 var pager = require('../../lib/pager');
@@ -45,75 +46,67 @@ router.get('/', function (req, res, next) {
         searchOrderName:searchOrdername,
         searchCustomerName:searchCustomerName
     });
+    
+    
+    let query = new AV.Query(OrderTrack);
+    
+    if(searchOrdername) {
+        query.contains('orderName',searchOrdername);
+    }
 
-    async.series([
+    if(searchCustomerName) {
+        query.contains('customerName',searchCustomerName);
+    }
+    
+    query.count().then((count) => {
+        
+        data = extend(data,{
+            orderPager:pager(page,limit,count),
+            orderCount:count
+        });
+        
+        query.skip((page - 1) * limit);
+        query.limit(limit);
 
-        function(cb) {
-            
-            var query = new AV.Query(OrderTrack);
-            
-            if(searchOrdername) {
-                query.contains('orderName',searchOrdername);
-            }
-            
-            if(searchCustomerName) {
-                query.contains('customerName',searchCustomerName);
-            }
-            
-            query.count({
-                success: function(count) {
-                    data = extend(data,{
-                        orderPager:pager(page,limit,count),
-                        orderCount:count
-                    });
-                    cb();
-                },
-                error: function(error) {
-                    next(error);
-                }
-            });
-        },
-
-        function (cb) {
-
-            var query = new AV.Query(OrderTrack);
-
-            query.skip((page - 1) * limit);
-            query.limit(limit);
-            
-            if(order === 'asc') {
-                query.ascending("orderId");
-            } else {
-                query.descending('orderId');
-            }
-
-            if(searchOrdername) {
-                query.contains('orderName',searchOrdername);
-            }
-
-            if(searchCustomerName) {
-                query.contains('customerName',searchCustomerName);
-            }
-
-            query.find({
-                success: function (results) {
-                    data = extend(data, {
-                        order: results
-                    });
-                    cb();
-                },
-                error: function (err) {
-                    next(err);
-                }
-            });
-
-        },
-
-        function () {
-            res.render('order', data);
+        if(order === 'asc') {
+            query.ascending("orderId");
+        } else {
+            query.descending('orderId');
         }
 
-    ]);
+        if(searchOrdername) {
+            query.contains('orderName',searchOrdername);
+        }
+
+        if(searchCustomerName) {
+            query.contains('customerName',searchCustomerName);
+        }
+        
+        return query.find();
+        
+    }).then((results)=> {
+
+        data = extend(data, {
+            order: results
+        });
+        
+        let customerQuery = new AV.Query(Customer);
+        
+        //数组查询,用于关联列表查询
+        customerQuery.containedIn('customerId',results.map(x=>x.get('customerId')));
+        customerQuery.select('taobao');
+        return customerQuery.find();
+        
+    }).then((results)=> {
+
+        console.info(results);
+        data = extend(data,{
+            customer:results
+        });
+
+        res.render('order', data);
+        
+    });
 
 });
 
