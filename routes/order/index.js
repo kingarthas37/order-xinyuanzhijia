@@ -98,14 +98,10 @@ router.get('/', function (req, res, next) {
         return customerQuery.find();
         
     }).then((results)=> {
-
-        console.info(results);
         data = extend(data,{
             customer:results
         });
-
         res.render('order', data);
-        
     });
 
 });
