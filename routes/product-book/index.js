@@ -12,6 +12,7 @@ var config = require('../../lib/config');
 
 //class
 var ProductBook = AV.Object.extend('ProductBook');
+var Customer = AV.Object.extend('Customer');
 
 //lib
 var pager = require('../../lib/pager');
@@ -145,13 +146,12 @@ router.get('/complete',function(req,res) {
         });
     }
     
-    var id = parseInt(req.query.id);
+    var productBookId = parseInt(req.query.productBookId);
     var checked = req.query.checked;
-
     
     var query = new AV.Query(ProductBook);
     
-    query.equalTo('id',id);
+    query.equalTo('productBookId',productBookId);
     query.first().then(function(result) {
         
         result.set('isComplete',(checked === 'true' ? true : false));
@@ -164,6 +164,46 @@ router.get('/complete',function(req,res) {
         });
     });
     
+});
+
+
+router.get('/get-customer-name',(req,res)=> {
+
+    if(!req.AV.user) {
+        return res.json({
+            error:1,
+            msg:config.error.NOT_SUCCESS
+        });
+    }
+
+    let name = req.query.name;
+
+    let queryName = new AV.Query(Customer);
+    queryName.contains('name',name);
+    
+    let queryTaobao = new AV.Query(Customer);
+    queryTaobao.contains('taobao',name);
+    
+    let queryWeixin = new AV.Query(Customer);
+    queryWeixin.contains('weixin',name);
+    
+    let query = AV.Query.or(queryName,queryTaobao,queryWeixin);
+    
+    let jsonData = [];
+
+    query.find().then((results) => {
+        
+        for(let i=0;i<results.length;i++) {
+            let obj = {
+                "value":results[i].get('name'),
+                "taobao":results[i].get('taobao'),
+                "weixin":results[i].get('weixin'),
+                "customerId":results[i].get('customerId')
+            };
+            jsonData.push(obj);
+        }
+        return res.json(jsonData);
+    });
     
 });
 

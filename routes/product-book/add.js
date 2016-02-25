@@ -41,31 +41,25 @@ router.post('/', function (req, res, next) {
     }
 
     var title = req.body['title'];
+    var customerId = parseInt(req.body['customer-id']);
+    var customerName = req.body['customer-name'];
     var comment = req.body['comment'];
     var isComplete = req.body['is-complete'] ? true : false;
 
     var productBook = new ProductBook();
 
-    async.waterfall([
+    productBook.set('title', title);
+    productBook.set('customerId',customerId);
+    productBook.set('customerName',customerName);
+    productBook.set('comment', comment);
+    productBook.set('isComplete', isComplete);
 
-        function (cb) {
-
-            productBook.set('title', title);
-            productBook.set('comment', comment);
-            productBook.set('isComplete', isComplete);
-
-            productBook.save().then(function () {
-                req.flash('success', '添加预定记录成功!');
-                res.redirect('/product-book');
-            });
-            
-        }
-
-    ]);
-
+    productBook.save().then(function () {
+        req.flash('success', '添加预定记录成功!');
+        res.redirect('/product-book');
+    });
 
 });
 
- 
 
 module.exports = router;

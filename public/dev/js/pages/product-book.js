@@ -1,6 +1,7 @@
 'use strict';
 
 require('jquery-validate');
+var Bloodhound = require('bloodhound');
 
 module.exports = {
 
@@ -37,9 +38,53 @@ module.exports = {
     },
     addFun:function() {
         $('#form-add-product-book').validate();
+        this.customerTypeAhead();
     },
     editFun:function() {
         $('#form-edit-product-book').validate();
+        this.customerTypeAhead();
+    },
+
+    customerTypeAhead:function() {
+
+        var customerName = $('#customer-name');
+        let customerId = $('#customer-id');
+        
+        customerName.typeahead(null,{
+            display: function(item) {
+                return item.value;
+            },
+            templates: {
+                suggestion: function(item) {
+                    return '<div><span class="tt-value">' + item.value + '</span><span class="tt-footer">' + (item.taobao ? ('淘宝名:' + item.taobao +' ') : ' ') + (item.weixin ? ('微信号:' + item.weixin) : '') +'</span></div>';
+                }
+            },
+            highlight:true,
+            source: new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url:'/product-book/get-customer-name',
+                    prepare: function (query, settings) {
+                        settings.data = {
+                            name:customerName.val()
+                        };
+                        return settings;
+                    }
+                }
+            })
+        });
+
+        customerName.on({
+            'typeahead:select':function(event,item) {
+                customerId.val(item.customerId);
+            }
+        });
+
+        customerName.on('change',function() {
+            customerId.val('');
+        });
+        
     }
 
 };

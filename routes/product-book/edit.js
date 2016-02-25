@@ -19,7 +19,7 @@ var data =  extend(config.data,{
 });
 
 //编辑产品页
-router.get('/:productBookId', function (req, res, next) {
+router.get('/:productBookId', function (req, res) {
 
     if(!req.AV.user) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
@@ -33,32 +33,15 @@ router.get('/:productBookId', function (req, res, next) {
         productBookId: productBookId
     });
 
-    async.series([
-
-        function (cb) {
-
-            var query = new AV.Query(ProductBook);
-            query.equalTo('productBookId', productBookId);
-            query.first({
-                success: function (results) {
-                    data = extend(data, {
-                        productBook: results
-                    });
-                    cb();
-                },
-                error: function (err) {
-                    next(err);
-                }
-            });
-
-        },
-
-        function () {
-            res.render('product-book/edit', data);
-        }
-
-    ]);
-
+    let query = new AV.Query(ProductBook);
+    query.equalTo('productBookId', productBookId);
+    
+    query.first().then((result)=> {
+        data = extend(data, {
+            productBook: result
+        });
+        res.render('product-book/edit', data);
+    });
 
 });
 
@@ -71,6 +54,8 @@ router.post('/', function (req, res, next) {
     var productBookId = parseInt(req.body['product-book-id']);
 
     var title = req.body['title'];
+    var customerId = parseInt(req.body['customer-id']);
+    var customerName = req.body['customerName'];
     var comment = req.body['comment'];
     var isComplete = req.body['is-complete'] ? true : false;
     
@@ -79,6 +64,8 @@ router.post('/', function (req, res, next) {
     query.equalTo('productBookId',productBookId);
     query.first().then(function(result) {
         result.set('title',title);
+        result.set('customerId',customerId);
+        result.set('customerName',customerName);
         result.set('comment',comment);
         result.set('isComplete',isComplete);
         return result.save();

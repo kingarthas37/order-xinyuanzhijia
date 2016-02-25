@@ -34,7 +34,8 @@
             <table class="am-table">
                 <thead>
                 <tr>
-                    <th>备忘录标题</th>
+                    <th>标题</th>
+                    <th>客户名</th>
                     <th class="t-c">是否完成</th>
                     <th>创建时间</th>
                     <th class="small-screen-hide">更新时间</th>
@@ -45,6 +46,7 @@
                 <% for(var i=0; i < productBook.length; i++) {%>
                 <tr>
                     <td><a title="<%= productBook[i].get('comment') %>" href="/product-book/edit/<%= productBook[i].get('productBookId') %>"><%= productBook[i].get('title') %></a> </td>
+                    <td><%= productBook[i].get('customerName') %></td>
                     <td class="t-c"><input data-id="<%= productBook[i].get('productBookId') %>" class="ckb-is-complete" type="checkbox" <% if(productBook[i].get('isComplete')) { %>checked="checked"<% } %> ></td>
                     <td><%=productBook[i].createdAt.getFullYear()%>-<%=(productBook[i].createdAt.getMonth()+1)%>-<%=productBook[i].createdAt.getDate()%></td>
                     <td class="small-screen-hide"><%=productBook[i].updatedAt.getFullYear()%>-<%=(productBook[i].updatedAt.getMonth()+1)%>-<%=productBook[i].updatedAt.getDate()%></td>

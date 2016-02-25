@@ -17,11 +17,22 @@
         <fieldset>
 
             <legend><a href="/product-book/add">添加新预定记录信息</a></legend>
+
+            <input type="hidden" id="customer-id" name="customer-id">
             
+            <!-- product-book customer name start -->
+            <div class="am-form-group typeahead-content">
+                <label>客户姓名(自动填充)：<i>*</i> </label>
+                <input id="customer-name" required name="customer-name" type="text" placeholder="输入客户名" />
+            </div>
+            <!-- product-book customer name end -->
+
+            <hr>
+
             <!-- product-book title start -->
             <div id="content-name" class="am-form-group">
-                <label>备忘预定记录：<i>*</i> </label>
-                <input id="title" required name="title" type="text" placeholder="输入备忘预定记录" />
+                <label>标题：<i>*</i> </label>
+                <input id="title" required name="title" type="text" placeholder="输入标题" />
             </div>
             <!-- product-book title end -->
 
@@ -29,8 +40,8 @@
 
             <!-- comment start -->
             <div id="content-comment" class="am-form-group">
-                <label>预定记录内容：</label>
-                <textarea name="comment" id="comment" placeholder="输入预定记录内容" rows="5"></textarea>
+                <label>预定内容说明：</label>
+                <textarea name="comment" id="comment" placeholder="输入预定内容说明" rows="5"></textarea>
             </div>
             <!-- comment end -->
 
