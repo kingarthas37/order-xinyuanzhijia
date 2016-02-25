@@ -85,7 +85,7 @@ router.get('/', function (req, res, next) {
         return query.find();
         
     }).then((results)=> {
-
+        
         data = extend(data, {
             order: results
         });
@@ -94,12 +94,21 @@ router.get('/', function (req, res, next) {
         
         //数组查询,用于关联列表查询
         customerQuery.containedIn('customerId',results.map(x=>x.get('customerId')));
-        customerQuery.select('taobao');
         return customerQuery.find();
         
     }).then((results)=> {
+        
+        //对关联查询结果进行重新排序
+        let _results = data.order.map((item)=>{
+            for(let i=0;i< results.length;i++) {
+                if(item.get('customerId') === results[i].get('customerId')) {
+                    return results[i];
+                }
+            }
+        });
+        
         data = extend(data,{
-            customer:results
+            customer:_results
         });
         res.render('order', data);
     });
