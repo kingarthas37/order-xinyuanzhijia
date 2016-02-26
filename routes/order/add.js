@@ -155,10 +155,18 @@ router.get('/search-customer', function (req, res, next) {
         }]);
     }
 
-    var name = req.query.name || '';
+    var name = req.query.name;
+    
+    let queryName = new AV.Query(Customer);
+    queryName.startsWith('name',name);
 
-    var query = new AV.Query(Customer);
-    query.startsWith('name',name);
+    let queryTaobao = new AV.Query(Customer);
+    queryTaobao.startsWith('taobao',name);
+
+    let queryWeixin = new AV.Query(Customer);
+    queryWeixin.startsWith('weixin',name);
+
+    let query = AV.Query.or(queryName,queryTaobao,queryWeixin);
 
     var jsonData = [];
 
