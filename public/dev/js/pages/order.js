@@ -25,17 +25,22 @@ module.exports = {
 
     },
     addFun:function() {
-        
         $('#form-add-order').validate();
         this.orderTypeAhead();
-        
+        this.domUpdate();
     },
     editFun:function() {
-
         $('#form-edit-order').validate();
         this.orderTypeAhead();
+        this.domUpdate();
     },
-
+    domUpdate:function() {
+        var shippingCompany = $('#shipping-company');
+        var trackingNumber = $('#tracking-number');
+        shippingCompany.change(function() {
+            trackingNumber.val('').get(0).focus();
+        });
+    },
     orderTypeAhead:function() {
         
         var customerNameInput = $('#customer-name');

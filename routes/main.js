@@ -81,6 +81,11 @@ module.exports = {
     //brand
     '/product-brand':require('./product-brand'),
     '/product-brand/add':require('./product-brand/add'),
-    '/product-brand/edit':require('./product-brand/edit')
+    '/product-brand/edit':require('./product-brand/edit'),
+    
+    //record-category
+    '/record-category':require('./record-category'),
+    '/record-category/add':require('./record-category/add'),
+    '/record-category/edit':require('./record-category/edit')
     
 };
