@@ -17,9 +17,7 @@ var data =  extend(config.data,{
 });
 
 router.get('/',function(req,res) {
-
     return res.render('purchase-contact/upload',data);
-    
 });
 
 router.post('/',function(req,res) {
@@ -27,6 +25,5 @@ router.post('/',function(req,res) {
         res.send(result);
     });
 });
-
 
 module.exports = router;

@@ -122,6 +122,19 @@
     
 </div>
 
+
+<div class="am-modal am-modal-alert" tabindex="-1" id="alert-image-upload-error">
+    <div class="am-modal-dialog">
+        <div class="am-modal-bd">
+            
+        </div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn">确定</span>
+        </div>
+    </div>
+</div>
+
+
 <% include ../partials/footer %>
 <% include ../partials/js %>
 
@@ -132,10 +145,16 @@
         record.addFun();
     });
 
-    //iframe upload callback
+    //iframe upload image callback
     function uploadImgResponse(url) {
         record.uploadImgResponse(url);
     }
+    
+    //iframe upload image error
+    function  uploadImgError(error) {
+        record.uploadImgError(error);
+    }
+    
 </script>
 </body>
 </html>

@@ -4,7 +4,6 @@ require('jquery-validate');
 require('jquery-form');
 
 module.exports = {
-
     indexFun:function() {
         
             $('.remove-record').click(function() {
@@ -38,9 +37,11 @@ module.exports = {
             uploadLoading.addClass('on');
             $(this).ajaxSubmit({
                 success:function(data) {
+                    uploadLoading.removeClass('on');
                     if(data.success) {
-                        uploadLoading.removeClass('on');
                         window.parent.uploadImgResponse(data.url);
+                    } else {
+                        window.parent.uploadImgError(data.error);
                     }
                 }
             });
@@ -55,5 +56,10 @@ module.exports = {
     
     uploadImgResponse:function(url) {
         $('#image').val(url);
+    },
+    uploadImgError:function(error) {
+        var modal = $('#alert-image-upload-error');
+        modal.find('.am-modal-bd').text(error);
+        modal.modal();
     }
 };
