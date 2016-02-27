@@ -1,6 +1,6 @@
 'use strict';
 
-var router = require('express').Router();
+require('express').Router();
 
 module.exports = {
     
@@ -82,6 +82,12 @@ module.exports = {
     '/product-brand':require('./product-brand'),
     '/product-brand/add':require('./product-brand/add'),
     '/product-brand/edit':require('./product-brand/edit'),
+    
+    //record
+    '/record':require('./record'),
+    '/record/add':require('./record/add'),
+    '/record/edit':require('./record/edit'),
+    '/record/upload':require('./record/upload'),
     
     //record-category
     '/record-category':require('./record-category'),

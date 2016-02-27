@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title><%= title %></title>
+    <% include ../partials/css %>
+</head>
+<body>
+
+<% include ../partials/header %>
+
+<div class="am-container common-page record-page">
+    
+    <% if (flash.success != '') { %>
+    <div class="am-panel am-panel-success">
+        <div class="am-panel-hd"><h3 class="am-panel-title"><%= flash.success %></h3></div>
+    </div>
+    <% } %>
+
+    <form id="form-add-record" class="am-form" action="/record/add" method="post">
+
+        <fieldset>
+
+            <legend>添加产品</legend>
+
+            <!-- name start -->
+            <div class="am-form-group">
+                <label>产品录入名：<i>*</i> </label>
+                <input id="name" required name="name" type="text" placeholder="输入产品录入名[必填]" />
+            </div>
+            <!-- name end -->
+
+            <hr>
+
+            <!-- english name start -->
+            <div class="am-form-group">
+                <label>产品录入英文名：</label>
+                <input id="english-name" name="english-name" type="text" placeholder="输入产品英文名" />
+            </div>
+            <!-- english name end -->
+            
+            <hr/>
+
+            <!-- category start -->
+            <div class="am-form-group">
+                <label>分类：</label>
+                <select name="category" id="category">
+                </select>
+            </div>
+            <!-- category end -->
+
+            <hr>
+            
+            <!-- url start -->
+            <div class="am-form-group">
+                <label>网址：</label>
+                <input id="url" name="url" type="text" placeholder="输入网址" />
+            </div>
+            <!-- url end -->
+
+            <hr/>
+
+            <!-- price start -->
+            <div class="am-form-group">
+                <label>价格(美元)：</label>
+                <input id="price" name="price" type="text" placeholder="输入价格" />
+            </div>
+            <!-- price end -->
+
+            <hr/>
+
+            <!-- freight start -->
+            <div class="am-form-group">
+                <label>运费(美元)：</label>
+                <input id="freight" name="freight" type="text" placeholder="输入运费" />
+            </div>
+            <!-- freight end -->
+
+            <hr/>
+
+            <!-- direct shipping -->
+            <div class="am-form-group">
+                <label>是否支持直邮：</label>
+                <div>
+                    <label class="normal"> <input type="checkbox" id="shipping-direct" name="shipping-direct"> 支持直邮</label>
+                </div>
+            </div>
+            <!-- direct shipping -->
+
+            <hr>
+            
+            <!-- image start -->
+            <div class="am-form-group">
+                <label>图片： </label>
+                <div>
+                    <iframe class="upload-title" src="/record/upload" frameborder="0"></iframe>
+                </div>
+                <input id="image"  name="image" type="text" placeholder="图片" />
+            </div>
+            <!-- image end -->
+
+            <hr>
+
+            <!-- comment start -->
+            <div class="am-form-group">
+                <label>描述：</label>
+                <textarea id="comment" name="comment" rows="5" placeholder="备注"></textarea>
+            </div>
+            <!-- comment end -->
+
+            <hr>
+            
+            <div class="am-form-group">
+                <button type="submit" class="am-btn am-btn-primary">保存</button>
+                <button type="button" class="am-btn am-btn-primary" onclick="history.back(-1);">返回</button>
+            </div>
+
+        </fieldset>
+
+    </form>
+    
+</div>
+
+<% include ../partials/footer %>
+<% include ../partials/js %>
+
+<script type="text/javascript">
+    var record = require('record');
+    
+    $(function() {
+        record.addFun();
+    });
+
+    //iframe upload callback
+    function uploadImgResponse(url) {
+        record.uploadImgResponse(url);
+    }
+</script>
+</body>
+</html>

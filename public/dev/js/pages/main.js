@@ -13,3 +13,5 @@ require('./product-category');
 require('./taobao-mail-create');
 require('./product-book');
 require('./product-brand');
+require('./record');
+require('./record-category');

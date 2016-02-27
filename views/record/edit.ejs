@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title><%= title %></title>
+    <% include ../partials/css %>
+</head>
+<body>
+
+<% include ../partials/header %>
+
+
+
+
+<div class="am-container common-page product-page">
+
+    <form id="form-edit-product" class="am-form" action="" method="post" target="">
+
+        <input type="hidden" name="product-id" value="<%= product.get('productId') %>"/>
+            
+        <fieldset>
+
+            <legend>编辑产品</legend>
+
+            <!-- name start -->
+            <div class="am-tabs">
+                <ul class="am-tabs-nav am-nav am-nav-tabs">
+                    <li class="am-active"><a href="#name-tab-1">产品名称 <i>*</i>:</a></li>
+                    <li><a href="#name-tab-2">产品名称(英文):</a></li>
+                </ul>
+
+                <div class="am-tabs-bd">
+                    <div class="am-tab-panel am-active" id="name-tab-1">
+                        <div id="content-name" class="am-form-group">
+                            <input  id="md-code-name" required value="<%= product.get('name')%>" name="md-code-name" type="text" placeholder="输入产品名称[必填]" />
+                        </div>
+                    </div>
+                    <div class="am-tab-panel" id="name-tab-2">
+                        <div id="content-name-en" class="am-form-group">
+                            <input  id="md-code-name-en" name="md-code-name-en" value="<%= product.get('nameEn')%>" type="text" placeholder="输入产品名称(英文)" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <!-- name end -->
+
+            <!-- main image start -->
+            <div id="content-main-image" class="am-form-group">
+                <label>产品主展示图片： </label>
+                <textarea id="main-image" name="main-image" rows="3" placeholder="输入产品主展示图片(每张图片直接用http://链接,无需使用md5,隔张图片请换行)"><%= product.get('mainImage') %></textarea>
+                <ul>
+                </ul>
+            </div>
+
+            <hr>
+            <!-- main image end -->
+    
+                <!-- select category start -->
+                <div id="content-category" class="am-form-group am-form-select">
+                    <label>选择商品分类：<i>*</i></label>
+                    <select id="select-category" name="select-category" min="1">
+                        <option value="0">请选择商品分类[必填项]</option>
+                        <% for (var i=0;i < category.length; i++) { %>
+                        <option <% if ( category[i].get('categoryId') == product.get('categoryId') ) { %> selected="selected" <% } %> value="<%= category[i].get('categoryId'); %>"><%= category[i].get('categoryName'); %></option>
+                    <% } %>
+                </select>
+                <span class="am-form-caret"></span>
+            </div>
+            <!-- select category end -->
+            
+            <hr/>
+
+
+            <!-- detail start -->
+            <div class="am-tabs">
+                <ul class="am-tabs-nav am-nav am-nav-tabs">
+                    <li class="am-active"><a href="#detail-tab-1">产品详情 <i>*</i>:</a></li>
+                    <li><a href="#detail-tab-2">产品详情(英文):</a></li>
+                </ul>
+
+                <div class="am-tabs-bd">
+                    <div class="am-tab-panel am-active" id="detail-tab-1">
+                        <div id="content-detail" class="am-form-group">
+                            <textarea id="md-code-detail" name="md-code-detail" rows="5" placeholder="输入产品详情[必填]" required ><%= product.get('detail') %></textarea>
+                        </div>
+                    </div>
+                    <div class="am-tab-panel" id="detail-tab-2">
+                        <div id="content-detail-en" class="am-form-group">
+                            <textarea id="md-code-detail-en" name="md-code-detail-en" rows="5" placeholder="输入产品详情(英文)"><%= product.get('detailEn') %></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- detail end -->
+            
+            <hr/>
+
+            <!-- banner start -->
+            <div id="content-banner" class="am-form-group am-form-select">
+                <label>选择商品匹配的banner：</label>
+                <label class="normal"><input class="banner-enable" type="checkbox" <%if (!product.get('banner')) { %> checked="checked" <% } %>/> 不选择</label>
+                <select id="select-banner" <%if (!product.get('banner')) { %> class="hide" <% } %>>
+                    <option value="0">随机选择</option>
+                    <% for(var i=0;i< banner.length;i++) { %>
+                    <option <% if( product.get('banner').indexOf(banner[i].get('bannerUrl')) > -1 ) { %> selected="selected" <% } %> value="<%= banner[i].get('bannerId') %>" data-src="<%= banner[i].get('bannerUrl') %>"><%= banner[i].get('bannerText') %></option>
+                    <% } %>
+                </select>
+                <span class="am-form-caret"></span>
+            </div>
+            <div class="code-banner product-title<%if (!product.get('banner')) { %> hide<% } %>"></div>
+
+            <input id="md-code-banner" type="text" name="md-code-banner" value="<%= product.get('banner') %>" readonly="readonly" <%if (!product.get('banner')) { %> class="hide" <% } %> />
+            <!-- banner end -->
+            
+            <hr/>
+            
+            <!-- review start -->
+            <div id="content-review" class="am-form-group">
+                <label > 店主评语： </label>
+                <textarea id="md-code-review" name="md-code-review" rows="3" placeholder="输入店主评语"><%= product.get('review') %></textarea>
+            </div>
+            <!-- review end -->
+
+            <hr/>
+
+            <!-- property start -->
+            <div class="am-tabs">
+                <ul class="am-tabs-nav am-nav am-nav-tabs">
+                    <li class="am-active"><a href="#property-tab-1">产品属性 <i>*</i>:</a></li>
+                    <li><a href="#property-tab-2">产品属性(英文):</a></li>
+                </ul>
+
+                <div class="am-tabs-bd">
+                    <div class="am-tab-panel am-active" id="property-tab-1">
+                        <div id="content-property" class="am-form-group">
+                            <textarea id="md-code-property" name="md-code-property" rows="3" placeholder="输入产品属性"><%= product.get('property') %></textarea>
+                        </div>
+                    </div>
+                    <div class="am-tab-panel" id="property-tab-2">
+                        <div id="content-property-en" class="am-form-group">
+                            <textarea id="md-code-property-en" name="md-code-property-en" rows="3" placeholder="输入产品属性(英文)"><%= product.get('propertyEn') %></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- property end -->
+
+            <hr/>
+
+            <!-- instruction start -->
+            <div class="am-tabs">
+                <ul class="am-tabs-nav am-nav am-nav-tabs">
+                    <li class="am-active"><a href="#instruction-tab-1">产品说明 <i>*</i>:</a></li>
+                    <li><a href="#instruction-tab-2">产品说明(英文):</a></li>
+                </ul>
+                <div class="am-tabs-bd">
+                    <div class="am-tab-panel am-active" id="instruction-tab-1">
+                        <div id="content-instruction" class="am-form-group">
+                            <textarea id="md-code-instruction" name="md-code-instruction" rows="3" placeholder="输入产品说明"><%= product.get('instruction') %></textarea>
+                        </div>
+                    </div>
+                    <div class="am-tab-panel" id="instruction-tab-2">
+                        <div id="content-instruction-en" class="am-form-group">
+                            <textarea id="md-code-instruction-en" name="md-code-instruction-en" rows="3" placeholder="输入产品说明(英文)"><%= product.get('instructionEn') %></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- instruction end -->
+
+            <hr/>
+ 
+
+            <!-- images start -->
+            <div id="content-image" class="am-form-group">
+                <label >产品图片：</label>
+                <textarea id="md-code-image" name="md-code-image" rows="5" placeholder="输入产品图片"><%= product.get('image') %></textarea>
+            </div>
+            <!-- images end -->
+
+            <hr/>
+
+            <!-- video start -->
+            <div id="content-video" class="am-form-group">
+                <label >产品视频：</label>
+                <input id="md-code-video" name="md-code-video" type="text" placeholder="输入产品视频" value="<%= product.get('video') %>" />
+            </div>
+            <!-- video end -->
+
+            <hr/>
+
+            <legend>产品链接</legend>
+
+            <!-- product-link start -->
+            <div id="content-product-link" class="am-form-group">
+                <label>产品链接：</label>
+                <input  id="product-link" name="product-link" type="text" value="<%= product.get('productLink') %>" placeholder="输入产品链接" />
+            </div>
+            <!-- product-link end -->
+
+            <hr/>
+
+            <!-- taobao-link start -->
+            <div id="content-taobao-link" class="am-form-group">
+                <label>淘宝链接：</label>
+                <input  id="taobao-link" name="taobao-link" type="text" value="<%= product.get('taobaoLink') %>" placeholder="输入淘宝链接" />
+            </div>
+            <!-- taobao-link end -->
+
+            <hr/>
+
+            <!-- shop-link start -->
+            <div id="content-shop-link" class="am-form-group">
+                <label>网店链接：</label>
+                <input  id="shop-link" name="shop-link" type="text" value="<%= product.get('shopLink') %>" placeholder="输入网店链接" />
+            </div>
+            <!-- shop-link end -->
+
+            <hr/>
+
+
+            <!-- comment start -->
+            <div id="content-comment" class="am-form-group">
+                <label >备注：</label>
+                <textarea id="comment" name="comment" rows="3"  placeholder="输入备注"><%= product.get('comment') %></textarea>
+            </div>
+            <!-- comment end -->
+
+            <hr/>
+            
+
+            <div class="am-form-group">
+                <button type="submit" class="am-btn am-btn-primary" data-action="/product/edit" data-target="_self">保存</button>
+                <button type="submit" class="am-btn am-btn-primary" data-action="/product/add" data-target="_self">复制并新增</button>
+                <button type="submit" class="am-btn am-btn-success" data-action="/product/preview" data-target="_blank">预览</button>
+                <button type="button" class="am-btn am-btn-primary" onclick="history.back(-1);">返回</button>
+            </div>
+
+        </fieldset>
+
+    </form>
+
+</div>
+
+
+<% include ../partials/footer %>
+<% include ../partials/js %>
+
+<script type="text/javascript">
+    $(function() {
+        var product = require('product');
+        product.editFun();
+    });
+</script>
+</body>
+</html>
