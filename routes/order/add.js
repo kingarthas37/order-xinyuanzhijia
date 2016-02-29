@@ -158,13 +158,13 @@ router.get('/search-customer', function (req, res, next) {
     var name = req.query.name;
     
     let queryName = new AV.Query(Customer);
-    queryName.startsWith('name',name);
+    queryName.contains('name',name);
 
     let queryTaobao = new AV.Query(Customer);
-    queryTaobao.startsWith('taobao',name);
+    queryTaobao.contains('taobao',name);
 
     let queryWeixin = new AV.Query(Customer);
-    queryWeixin.startsWith('weixin',name);
+    queryWeixin.contains('weixin',name);
 
     let query = AV.Query.or(queryName,queryTaobao,queryWeixin);
 

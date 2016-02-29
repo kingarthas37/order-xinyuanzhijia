@@ -10,21 +10,20 @@ var extend = require("xtend");
 var config = require('../../lib/config');
 
 //class
-var Product = AV.Object.extend('Product');
-var Category = AV.Object.extend('ProductCategory');
+var Record = AV.Object.extend('Record');
+var RecordCategory = AV.Object.extend('RecordCategory');
 
 //lib
 var pager = require('../../lib/pager');
 
 var data = extend(config.data,{
-    title: '产品编辑-首页',
-    currentPage: 'product'
+    title: '产品录入编辑-首页',
+    currentPage: 'record'
 });
 
- 
 
 //首页
-router.get('/', function (req, res, next) {
+router.get('/',(req, res, next) => {
     
     if(!req.AV.user) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
@@ -34,145 +33,103 @@ router.get('/', function (req, res, next) {
     var limit = req.query.limit ? parseInt(req.query.limit) : config.page.LIMIT;
     var order = req.query.order || 'desc';
 
-    var categoryId = req.query.categoryId ? parseInt(req.query.categoryId) : '';
+    var recordCategoryId = req.query.recordCategoryId ? parseInt(req.query.recordCategoryId) : '';
     
-    var search = req.query['product-search'] ? req.query['product-search'].trim() : '';
+    var search = req.query['search-name'];
 
     data = extend(data,{
-        categoryId:categoryId,
+        recordCategoryId:recordCategoryId,
         search:search,
         flash:{success:req.flash('success'),error:req.flash('error')},
         user:req.AV.user
     });
+
+
+    let query = new AV.Query(Record);
+
+    if(recordCategoryId) {
+        query.equalTo('recordCategoryId',recordCategoryId);
+    }
+
+    if(search) {
+        query.contains('name',search);
+    }
     
-    async.series([
+    query.count().then((count)=> {
+        
+        data = extend(data,{
+            recordPager:pager(page,limit,count),
+            recordCount:count
+        });
 
-        function(cb) {
-            var query = new AV.Query(Product);
-            
-            if(categoryId) {
-                query.equalTo('categoryId',categoryId);
-            }
-            
-            if(search) {
-                query.contains('name',search);
-            }
-            
-            query.count({
-                success: function(count) {
-                    data = extend(data,{
-                        productPager:pager(page,limit,count),
-                        productCount:count
-                    });
-                    cb();
-                },
-                error: function(error) {
-                    next(error);
-                }
-            });
-        },
+        query.skip((page - 1) * limit);
+        query.limit(limit);
 
-        function (cb) {
-
-            var query = new AV.Query(Product);
-
-            query.skip((page - 1) * limit);
-            query.limit(limit);
-
-            if(order === 'asc') {
-                query.ascending('productId');
-            } else {
-                query.descending('productId');
-            }
-
-            if(categoryId) {
-                query.equalTo('categoryId',categoryId);
-            }
-
-            if(search) {
-                query.contains('name',search);
-            }
-
-            query.find({
-                success: function (results) {
-                    data = extend(data, {
-                        product: results
-                    });
-                    cb();
-                },
-                error: function (err) {
-                    next(err);
-                }
-            });
-
-        },
-
-        function (cb) {
-
-            var query = new AV.Query(Category);
-            query.find({
-                success: function (results) {
-                    data = extend(data,{
-                        category:results
-                    });
-                    for (var i in data.product) {
-                        data.product[i].set('categoryName', (function () {
-                            for (var _i in results) {
-                                if (results[_i].get('categoryId') === data.product[i].get('categoryId')) {
-                                    return results[_i].get('categoryName');
-                                }
-                            }
-                        })());
-                    }
-                    cb();
-                },
-                error: function (err) {
-                    next(err);
-                }
-            });
-
-        },
-
-        function () {
-            res.render('product', data);
+        if(order === 'asc') {
+            query.ascending('recordId');
+        } else {
+            query.descending('recordId');
         }
 
-    ]);
+        if(recordCategoryId) {
+            query.equalTo('recordCategoryId',recordCategoryId);
+        }
 
+        if(search) {
+            let queryEn = new AV.Query(Record);
+            queryEn.contains('nameEn',search);
+            query.contains('name',search);
+            query = AV.Query.or(query,queryEn);
+        }
+        
+        return query.find();
+        
+    }).then((results)=> {
+        
+        data = extend(data, {
+            record: results
+        });
+
+        let queryCategory = new AV.Query(RecordCategory);
+        return queryCategory.find();
+        
+    }).then((results) => {
+
+        data = extend(data,{
+            recordCategory:results
+        });
+        
+        for (let i in data.record) {
+            data.record[i].set('recordCategoryName', (function () {
+                for (let j in results) {
+                    if (results[j].get('recordCategoryId') === data.record[i].get('recordCategoryId')) {
+                        return results[j].get('name');
+                    }
+                }
+            })());
+        }
+
+        res.render('record', data);
+        
+    });
+    
 });
 
 
-router.get('/remove/:productId', function (req, res, next) {
+router.get('/remove/:recordId', function (req, res, next) {
 
-    var productId = req.params.productId;
-
-    async.waterfall([
-
-        function (cb) {
-            var query = new AV.Query(Product);
-            query.equalTo('productId', parseInt(productId));
-            query.first({
-
-                success: function (object) {
-                    cb(null, object);
-                },
-
-                error: function (err) {
-                    next(err);
-                }
-
-            });
-        },
-        function (object, cb) {
-            object.destroy({
-                success: function () {
-                    req.flash('success', '删除成功!');
-                    res.redirect('/product');
-                }
-            });
-        }
-
-    ]);
+    var recordId = parseInt(req.params.recordId);
+    let query = new AV.Query(Record);
+    query.equalTo('recordId', recordId);
+    query.first().then((item)=> {
+        item.destroy({
+            success: function () {
+                req.flash('success', '删除成功!');
+                res.redirect('/record');
+            }
+        });
+    });
+  
 });
 
 module.exports = router;

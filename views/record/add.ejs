@@ -36,7 +36,7 @@
             <!-- english name start -->
             <div class="am-form-group">
                 <label>产品录入英文名：</label>
-                <input id="english-name" name="english-name" type="text" placeholder="输入产品英文名" />
+                <input id="name-en" name="name-en" type="text" placeholder="输入产品英文名" />
             </div>
             <!-- english name end -->
             
@@ -46,6 +46,9 @@
             <div class="am-form-group">
                 <label>分类：</label>
                 <select name="category" id="category">
+                    <% for (var i=0;i<recordCategory.length;i++) { %>
+                    <option value="<%= recordCategory[i].get('recordCategoryId')%>"><%= recordCategory[i].get('name') %></option>
+                    <% } %>
                 </select>
             </div>
             <!-- category end -->
