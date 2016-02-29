@@ -79,15 +79,17 @@ module.exports = {
         customerNameInput.on({
             
             //change表示此用户为新用户，而不是autocomplete选择出来的老用户，所以数据需要重置
-            'change':function() {
-                newCustomer.prop('checked',true);
-                newAddress.prop('checked',true);
-                customerNameIdInput.val('');
-                //taobao.val('');
-                //shippingAddress.val('').get(0).focus();
-                addressList.empty();
+            'keyup':function() {
+                if(!$(this).data('typeselect')) {
+                    newCustomer.prop('checked',true);
+                    newAddress.prop('checked',true);
+                    customerNameIdInput.val('');
+                    addressList.empty();
+                }
             },
-            
+            'focus':function() {
+                $(this).data('typeselect',false);
+            },
             'typeahead:select':function(event,item) {
                 customerNameIdInput.val(item.customerId);
                 taobao.val(item.taobao);
@@ -103,6 +105,7 @@ module.exports = {
                     }
                 }
                 newCustomer.prop('checked',false);
+                $(this).data('typeselect',true);
             }
         });
 
