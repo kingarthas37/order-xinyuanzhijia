@@ -60,8 +60,12 @@
                 <tbody>
                 <% for(var i=0; i < record.length; i++) {%>
                 <tr>
-                    <td><a href="/record/edit/<%= record[i].get('recordId') %>" title="<%= record[i].get('nameEn')%>"><%= record[i].get('name') %></a> </td>
-                    <td class="t-c"><a href="/record?recordCategoryId=<%= record[i].get('recordCategoryId') %>"><%= record[i].get('recordCategoryName') %></a> </td>
+                    <td>
+                        <% if(record[i].get('image')) { %> <img src="<%= record[i].get('image') %>" width="40" alt=""> <% } %>
+                        <a href="/record/edit/<%= record[i].get('recordId') %>" title="<%= record[i].get('nameEn')%>"><%= record[i].get('name') %></a> </td>
+                    <td class="t-c">
+                        <a href="/record?recordCategoryId=<%= record[i].get('recordCategoryId') %>"><%= record[i].get('recordCategoryName') %></a>
+                    </td>
                     <td class="t-c small-screen-hide"><%=(record[i].createdAt.getMonth()+1)%>-<%=record[i].createdAt.getDate()%></td>
                     <td class="t-c small-screen-hide"><%=(record[i].updatedAt.getMonth()+1)%>-<%=record[i].updatedAt.getDate()%></td>
                     <td class="t-c small-screen-hide"><a href="/record/remove/<%= record[i].get('recordId') %>" class="remove-record">删除</a> </td>
