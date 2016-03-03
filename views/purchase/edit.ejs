@@ -43,9 +43,9 @@
             <!-- image start -->
             <div id="content-image" class="am-form-group">
                 <label>图片展示：</label>
-                <input type="hidden" id="purchase-image" name="purchase-image"/>
+                <input type="hidden" id="purchase-image" name="purchase-image" value="<%= purchase.get('image') %>"/>
                 <div>
-                    <div class="purchase-image">
+                    <div class="show-image">
                         <img src="<%= purchase.get('image') %>" alt="">
                     </div>
                 </div>

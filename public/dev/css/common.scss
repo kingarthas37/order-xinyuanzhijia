@@ -179,6 +179,23 @@ p.normal {
             margin-bottom: 0;
         }
     }
+
+    
+    .show-image {
+        margin-top: 15px;
+        display: table-cell;
+        text-align: center;
+        width: 100px;
+        height: 100px;
+        border:1px solid #ddd;
+        vertical-align: middle;
+        img {
+            vertical-align: middle;
+            max-width: 90px;
+            max-height: 90px;
+        }
+    }
+    
 }
 
 iframe.upload-title {

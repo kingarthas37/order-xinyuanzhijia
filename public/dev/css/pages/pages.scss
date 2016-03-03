@@ -8,23 +8,6 @@
     display: block !important;
 }
 
-/* purchase page */
-.purchase-page {
-    .purchase-image {
-        display: table-cell;
-        text-align: center;
-        width: 100px;
-        height: 100px;
-        border:1px solid #ddd;
-        vertical-align: middle;
-        img {
-            vertical-align: middle;
-            max-width: 90px;
-            max-height: 90px;
-        }
-    }
-}
-
 /* earning page */
 .earning-page {
     .am-datepicker-date {

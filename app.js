@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 
-app.use(AV.Cloud.CookieSession({secret: 'secret-av', maxAge: 3600000, fetchUser: true}));
+app.use(AV.Cloud.CookieSession({secret: 'secret-av', maxAge: 1000*60*60*24, fetchUser: true}));
 
 app.use(session({secret: 'secret'}));
 app.use(require('connect-flash')());

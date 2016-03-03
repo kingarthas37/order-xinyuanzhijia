@@ -59,9 +59,9 @@ module.exports = {
         });
 
     },
-
     uploadImgResponse: function (url) {
         $('#image').val(url);
+        $('.show-image').html('<img src="'+url+'"/>');
     },
     uploadImgError: function (error) {
         var modal = $('#alert-image-upload-error');
