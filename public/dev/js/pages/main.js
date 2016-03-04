@@ -1,5 +1,6 @@
 require('../../../js/main');
 
+require('./index');
 require('./sign');
 require('./product');
 require('./book');

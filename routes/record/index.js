@@ -77,9 +77,8 @@ router.get('/',(req, res, next) => {
 
         if(search) {
             let queryEn = new AV.Query(Record);
-            queryEn.contains('nameEn',search);
+            queryEn.contains('nameEn',que);
             query.contains('name',search);
-            query = AV.Query.or(query,queryEn);
         }
         
         return query.find();

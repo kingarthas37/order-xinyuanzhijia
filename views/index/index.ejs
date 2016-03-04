@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+  <title>51wish.cn-admin - 首页</title>
+  <% include ../partials/css %>
+</head>
+<body>
+
+<% include ../partials/header %>
+
+<div class="am-container common-page index-page">
+
+  <fieldset>
+    
+    <legend>首页</legend>
+
+    <div class="clearfix">
+      <div class="l">
+        本月支出：<span id="month-expenses"><%= earningMonth.expenses %></span> | 收入：<span id="month-income"><%= earningMonth.income %></span> | 盈收：<span class="am-badge am-badge-success am-text-default"><%= earningMonth.earning %></span>
+      </div>
+      <div class="r">
+      </div>
+    </div>
+    
+    <div class="am-form-group">
+      
+      <div id="chat-earning"></div>
+      
+    </div>
+  
+  </fieldset>
+  
+</div>
+
+<% include ../partials/footer %>
+<% include ../partials/js %>
+<script src="/js/echarts.min.js"></script>
+<script type="text/javascript">
+  $(function() {
+    var index = require('index');
+    index.indexFun();
+  });
+</script>
+</body>
+</html>

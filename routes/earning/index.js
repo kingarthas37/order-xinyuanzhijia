@@ -22,8 +22,7 @@ var data =  extend(config.data,{
 
 
 //首页
-router.get('/', function (req, res, next) {
-
+router.get('/', function (req, res) {
      
     if (!req.AV.user) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));

@@ -227,6 +227,10 @@ iframe.upload-title {
   .small-screen-hide {
     display: none; } }
 
+/* index page */
+.index-page #chat-earning {
+  height: 300px; }
+
 /* sign page */
 .sign-page {
   padding: 30px 0; }
