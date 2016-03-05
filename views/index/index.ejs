@@ -51,7 +51,7 @@
                                     <% if(purchase[i].get('shippingType') === 'direct') { %>直邮<%  } %>
                                 </td>
                                 <td>
-                                    <%=purchase[i].createdAt.getFullYear()%>-<%=(purchase[i].createdAt.getMonth()+1)%>-<%=purchase[i].createdAt.getDate()%>
+                                    <%=purchase[i].createdAt.getFullYear()%>/<%=(purchase[i].createdAt.getMonth()+1)%>/<%=purchase[i].createdAt.getDate()%>
                                 </td>
                             </tr>
                             <% } %>
@@ -78,7 +78,7 @@
                                        href="/customer/edit/<%= order[i].get('customerId') %>"><%=
                                     order[i].get('customerName') %></a></td>
                                 <td>
-                                    <%=order[i].createdAt.getFullYear()%>-<%=(order[i].createdAt.getMonth()+1)%>-<%=order[i].createdAt.getDate()%>
+                                    <%=order[i].createdAt.getFullYear()%>/<%=(order[i].createdAt.getMonth()+1)%>/<%=order[i].createdAt.getDate()%>
                                 </td>
                             </tr>
                             <% } %>
