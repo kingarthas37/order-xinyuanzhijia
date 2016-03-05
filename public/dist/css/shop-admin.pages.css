@@ -231,6 +231,10 @@ iframe.upload-title {
 .index-page #chart-earning {
   height: 250px; }
 
+.index-page h4 .more {
+  float: right;
+  font-weight: normal; }
+
 /* sign page */
 .sign-page {
   padding: 30px 0; }

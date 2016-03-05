@@ -11,6 +11,7 @@ var config = require('../../lib/config');
 var Earning = AV.Object.extend('Earning');
 var OrderTrack = AV.Object.extend('OrderTrack');
 var Customer = AV.Object.extend('Customer');
+var PurchaseTrack = AV.Object.extend('PurchaseTrack');
 
 var data = {
     title: '首页',
@@ -141,6 +142,24 @@ router.get('/',(req,res)=> {
                 
                 resolve();
                 
+            });
+            
+        }),
+        
+        //采购订单列表
+        new AV.Promise(resolve => {
+            
+            let query = new AV.Query(PurchaseTrack);
+
+            query.limit(6);
+            query.descending('purchaseId');
+            query.select('purchaseId','name','shippingType');
+
+            query.find().done(items => {
+                data = extend(data, {
+                    purchase: items
+                });
+                resolve();
             });
             
         })
