@@ -228,8 +228,8 @@ iframe.upload-title {
     display: none; } }
 
 /* index page */
-.index-page #chat-earning {
-  height: 300px; }
+.index-page #chart-earning {
+  height: 250px; }
 
 /* sign page */
 .sign-page {
