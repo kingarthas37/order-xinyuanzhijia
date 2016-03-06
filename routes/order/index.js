@@ -36,6 +36,7 @@ router.get('/', function (req, res, next) {
     
     var searchOrdername = req.query['search-order-name'];
     var searchCustomerName = req.query['search-customer-name'];
+    let searchAddress = req.query['search-address'];
 
     data = extend(data,{
         flash: {
@@ -44,7 +45,8 @@ router.get('/', function (req, res, next) {
         },
         user:req.AV.user,
         searchOrderName:searchOrdername,
-        searchCustomerName:searchCustomerName
+        searchCustomerName:searchCustomerName,
+        searchAddress:searchAddress
     });
     
     
@@ -56,6 +58,10 @@ router.get('/', function (req, res, next) {
 
     if(searchCustomerName) {
         query.contains('customerName',searchCustomerName);
+    }
+    
+    if(searchAddress) {
+        query.contains('shippingAddress',searchAddress);
     }
     
     query.count().then((count) => {
@@ -80,6 +86,10 @@ router.get('/', function (req, res, next) {
 
         if(searchCustomerName) {
             query.contains('customerName',searchCustomerName);
+        }
+        
+        if(searchAddress) {
+            query.contains('shippingAddress',searchAddress);
         }
         
         return query.find();

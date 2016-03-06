@@ -10,7 +10,7 @@
 
 <% include ../partials/header %>
 
-<div class="am-container common-page">
+<div class="am-container common-page order-page">
 
     <% if (flash.success != '') { %>
     <div class="am-alert am-alert-success">
@@ -24,11 +24,15 @@
 
             <form class="am-form-inline" role="form" action="/order">
                 <div class="am-form-group">
-                  搜索订单名：<input type="text" name="search-order-name" class="am-form-field" placeholder="搜索">
+                  订单名：<input type="text" name="search-order-name" class="am-form-field" placeholder="搜索">
                 </div>
                 <span></span>
                 <div class="am-form-group">
-                    搜索收货人/客户姓名：<input type="text" name="search-customer-name" class="am-form-field" placeholder="搜索">
+                    用户名：<input type="text" name="search-customer-name" class="am-form-field" placeholder="搜索">
+                </div>
+                <span></span>
+                <div class="am-form-group">
+                    地址：<input type="text" name="search-address" class="am-form-field" placeholder="搜索">
                 </div>
                 <button type="submit" class="am-btn am-btn-primary">搜索</button>
             </form>
@@ -64,9 +68,9 @@
             
             <ul class="am-pagination">
                 <% if (orderPager.prev) { %> <li>
-                    <a href="/order?page=<%= orderPager.prev %><% if(searchOrderName) {%>&search-order-name=<%=searchOrderName%> <%}%><% if(searchCustomerName) {%>&search-customer-name=<%=searchCustomerName%> <%}%>">上一页</a></li> <% } %>
+                    <a href="/order?page=<%= orderPager.prev %><% if(searchOrderName) {%>&search-order-name=<%=searchOrderName%> <%}%><% if(searchCustomerName) {%>&search-customer-name=<%=searchCustomerName%> <%}%><% if(searchAddress) {%>&search-address=<%=searchAddress%> <%}%>">上一页</a></li> <% } %>
                 <% if (orderPager.next) { %> <li>
-                    <a href="/order?page=<%= orderPager.next %><% if(searchOrderName) {%>&search-order-name=<%=searchOrderName%> <%}%><% if(searchCustomerName) {%>&search-customer-name=<%=searchCustomerName%> <%}%>">下一页</a></li> <% } %>
+                    <a href="/order?page=<%= orderPager.next %><% if(searchOrderName) {%>&search-order-name=<%=searchOrderName%> <%}%><% if(searchCustomerName) {%>&search-customer-name=<%=searchCustomerName%> <%}%><% if(searchAddress) {%>&search-address=<%=searchAddress%> <%}%>">下一页</a></li> <% } %>
                 <li class="count">第<%=orderPager.page%>页 共<%= orderCount %>条</li>
             </ul>
             

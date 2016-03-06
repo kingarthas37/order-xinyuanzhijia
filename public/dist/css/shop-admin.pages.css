@@ -287,4 +287,8 @@ iframe.upload-title {
 .earning-page .earning-info, .earning-page .am-badge {
   font-size: 1.4rem; }
 
+/* order page */
+.order-page .am-form-inline .am-form-field {
+  width: 160px; }
+
 /*# sourceMappingURL=shop-admin.pages.css.map */
