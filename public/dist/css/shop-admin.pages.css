@@ -231,9 +231,16 @@ iframe.upload-title {
 .index-page #chart-earning {
   height: 250px; }
 
-.index-page h4 .more {
-  float: right;
+.index-page th {
+  font-weight: normal;
+  font-size: 1.4rem; }
+
+.index-page h4 {
+  font-size: 1.4rem;
   font-weight: normal; }
+  .index-page h4 .more {
+    float: right;
+    font-weight: normal; }
 
 .index-page .earning-info, .index-page .am-badge {
   font-size: 1.4rem; }
