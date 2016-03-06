@@ -7,7 +7,10 @@ module.exports = {
         var chartEarning = echarts.init($('#chart-earning')[0]);
         chartEarning.setOption({
             title: {
-                text: '2016年收入明细'
+                text: '2016年收入明细',
+                textStyle:{
+                    fontSize:14
+                }
             },
             tooltip : {
                 trigger: 'axis'
@@ -18,7 +21,8 @@ module.exports = {
                     '收入金额':true,
                     '盈利':false
                 },
-                data:['支出金额','收入金额','盈利']
+                data:['支出金额','收入金额','盈利'],
+                right:'0%'
             },
             toolbox: {
                 feature: {
@@ -29,6 +33,7 @@ module.exports = {
                 left: '0%',
                 right: '0%',
                 bottom: '0%',
+                top:'15%',
                 containLabel: true
             },
             xAxis : [

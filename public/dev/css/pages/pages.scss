@@ -12,6 +12,10 @@
         }
     }
     
+    .earning-info,.am-badge {
+        font-size: 1.4rem;
+    }
+    
 }
 
 /* sign page */
@@ -63,5 +67,12 @@
                 height: 80px;
             }
         }
+    }
+}
+
+/* earning page */
+.earning-page {
+    .earning-info,.am-badge {
+        font-size: 1.4rem;
     }
 }
