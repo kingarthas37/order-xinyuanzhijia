@@ -9,7 +9,8 @@ module.exports = {
             title: {
                 text: '2016年收入明细',
                 textStyle:{
-                    fontSize:14
+                    fontWeight:'normal',
+                    fontSize:12
                 }
             },
             tooltip : {
@@ -21,7 +22,7 @@ module.exports = {
                     '收入金额':true,
                     '盈利':false
                 },
-                data:['支出金额','收入金额','盈利'],
+                data:['支出','收入','盈利'],
                 right:'0%'
             },
             toolbox: {
@@ -51,14 +52,14 @@ module.exports = {
             ],
             series : [
                 {
-                    name:'支出金额',
+                    name:'支出',
                     type:'line',
                     areaStyle: {normal: {}},
                     data:dataEarning.expenses,
                     itemStyle:{normal:{color: '#0e90d2'}}
                 },
                 {
-                    name:'收入金额',
+                    name:'收入',
                     type:'line',
                     areaStyle: {normal: {}},
                     data:dataEarning.income,
