@@ -82,61 +82,12 @@ router.post('/', function (req, res, next) {
     var comment = req.body['comment'];
 
     var customerName = req.body['customer-name'];
-    var newCustomer = req.body['new-customer'];
     var shippingAddress = req.body['shipping-address'];
-    var newAddress = req.body['new-address'];
     var taobao = req.body['taobao'];
 
     var customer = new Customer();
     
     async.waterfall([
-
-        function(cb) {
-
-            //如果是新用户，注册customer
-            if(newCustomer && !customerId) {
-                customer.set('name',customerName);
-                customer.set('taobao',taobao);
-                customer.set('address',shippingAddress);
-
-                customer.save().then(function(customer) {
-
-                    var query = new AV.Query(Customer);
-                    query.get(customer.id,{
-                        success:function(customer) {
-
-                            //获取新的customerId，重新赋值
-                            customerId = customer.get('customerId');
-                            cb(null);
-                        },
-                        error:function(err) {
-                            next(err);
-                        }
-                    });
-
-                });
-
-            } else {
-
-                //如果是新地址,则保存地址
-                if(newAddress) {
-                    var query = new AV.Query(Customer);
-                    query.equalTo('customerId',customerId);
-                    query.first()
-                        .then(function(customer) {
-                            customer.set('address',customer.get('address') + '|' + shippingAddress);
-                            return customer.save();
-                        })
-                        .then(function() {
-                            cb(null);
-                        });
-                } else {
-                    cb(null);
-                }
-            }
-
-        },
-
         //取到新的customerId,如果有customerId,则保存到order，否则保存已有的customerId
         function() {
 

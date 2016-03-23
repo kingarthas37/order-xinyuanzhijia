@@ -26,12 +26,14 @@ module.exports = {
     },
     addFun:function() {
         $('#form-add-order').validate();
-        this.orderTypeAhead();
+        this.typeAhead();
+        this.orderTypeAheadAdd();
         this.domUpdate();
     },
     editFun:function() {
         $('#form-edit-order').validate();
-        this.orderTypeAhead();
+        this.typeAhead();
+        this.orderTypeAheadUpdate();
         this.domUpdate();
     },
     domUpdate:function() {
@@ -41,7 +43,7 @@ module.exports = {
             trackingNumber.val('').get(0).focus();
         });
     },
-    orderTypeAhead:function() {
+    orderTypeAheadAdd:function() {
         
         var customerNameInput = $('#customer-name');
         var customerNameIdInput = $('#customer-name-id');
@@ -51,31 +53,6 @@ module.exports = {
         var taobao = $('#taobao');
         var newAddress = $('.new-address');
         
-        customerNameInput.typeahead(null, {
-            display: function(item) {
-                return item.value;
-            },
-            templates: {
-                suggestion: function(item) {
-                    return '<div><span class="tt-value">' + item.value + '</span><span class="tt-footer">' + (item.taobao ? ('(淘宝名:' + item.taobao +') ') : '') + item.address +'</span></div>';
-                }
-            },
-            highlight: true,
-            source: new Bloodhound({
-                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-                queryTokenizer: Bloodhound.tokenizers.whitespace,
-                remote: {
-                    url:'/order/add/search-customer',
-                    prepare: function (query, settings) {
-                        settings.data = {
-                            name:customerNameInput.val()
-                        };
-                        return settings;
-                    }
-                }
-            })
-        });
-
         customerNameInput.on({
             
             //change表示此用户为新用户，而不是autocomplete选择出来的老用户，所以数据需要重置
@@ -126,5 +103,64 @@ module.exports = {
             newAddress.prop('checked',true);
         });
         
+    },
+    orderTypeAheadUpdate:function() {
+
+        var customerNameInput = $('#customer-name');
+        var customerNameIdInput = $('#customer-name-id');
+        var shippingAddress = $('#shipping-address');
+        var addressList = $('.address-list');
+        var taobao = $('#taobao');
+
+        customerNameInput.on({
+            'typeahead:select':function(event,item) {
+                customerNameIdInput.val(item.customerId);
+                taobao.val(item.taobao);
+                var address = item.address.split('|');
+                addressList.empty();
+
+                if(address.length === 1) {
+                    shippingAddress.val(address[0]);
+                } else  {
+                    for(var i=0;i<address.length;i++) {
+                        addressList.append('<li><span>' + address[i] + '</span> <a href="javascript:;">使用此地址</a> </li>');
+                    }
+                }
+            }
+        });
+
+        addressList.on('click','a',function() {
+            shippingAddress.val($(this).parents('li').find('span').text());
+            addressList.empty();
+        });
+        
+    },
+    typeAhead:function() {
+        
+        var customerNameInput = $('#customer-name');
+        customerNameInput.typeahead(null, {
+            display: function(item) {
+                return item.value;
+            },
+            templates: {
+                suggestion: function(item) {
+                    return '<div><span class="tt-value">' + item.value + '</span><span class="tt-footer">' + (item.taobao ? ('(淘宝名:' + item.taobao +') ') : '') + item.address +'</span></div>';
+                }
+            },
+            highlight: true,
+            source: new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url:'/order/add/search-customer',
+                    prepare: function (query, settings) {
+                        settings.data = {
+                            name:customerNameInput.val()
+                        };
+                        return settings;
+                    }
+                }
+            })
+        });
     }
 };
