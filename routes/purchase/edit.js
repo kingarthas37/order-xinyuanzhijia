@@ -76,6 +76,7 @@ router.post('/', function (req, res, next) {
     var purchaseMail = req.body['purchase-mail'];
     var purchaseAmount = req.body['purchase-amount'];
     var purchaseTrackingNumber = req.body['purchase-tracking-number'];
+    var purchaseShippingCompany = req.body['purchase-shipping-company'];
     var purchasePaymentType = req.body['purchase-payment-type'];
     var purchasePaymentInfo = req.body['purchase-payment-info'];
     var purchaseShippingType = req.body['purchase-shipping-type'];
@@ -120,6 +121,7 @@ router.post('/', function (req, res, next) {
                     purchase.set('mail',purchaseMail);
                     purchase.set('amount',purchaseAmount);
                     purchase.set('trackingNumber',purchaseTrackingNumber);
+                    purchase.set('shippingCompany',purchaseShippingCompany);
                     purchase.set('paymentType',purchasePaymentType);
                     purchase.set('paymentInfo',purchasePaymentInfo);
                     purchase.set('shippingType',purchaseShippingType);

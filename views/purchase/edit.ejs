@@ -90,6 +90,19 @@
 
             <hr/>
 
+            <!-- shipping company start -->
+            <div class="am-form-group">
+                <label>物流公司：</label>
+                <select id="purchase-shipping-company" name="purchase-shipping-company">
+                    <option value="usps" <% if(purchase.get('shippingCompany') === 'usps'){ %>selected="selected"<% }%> >USPS</option>
+                    <option value="chinapost" <% if(purchase.get('shippingCompany') === 'chinapost'){ %>selected="selected"<% }%>>中国邮政</option>
+                    <option value="fedex" <% if(purchase.get('shippingCompany') === 'fedex'){ %>selected="selected"<% }%>>Fedex</option>
+                </select>
+            </div>
+            <!-- shipping company end -->
+
+            <hr/>
+
             <!-- trackingNumber start -->
             <div id="content-tracking-number" class="am-form-group">
                 <label>订单tracking number：</label>

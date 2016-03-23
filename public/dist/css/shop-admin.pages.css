@@ -291,4 +291,16 @@ iframe.upload-title {
 .order-page .am-form-inline .am-form-field {
   width: 160px; }
 
+/* purchase page */
+.purchase-page .purchase-image {
+  border: 1px solid #ddd;
+  height: 100px;
+  width: 100px;
+  text-align: center;
+  display: inline-block;
+  line-height: 100px; }
+  .purchase-page .purchase-image img {
+    max-width: 90px;
+    max-height: 90px; }
+
 /*# sourceMappingURL=shop-admin.pages.css.map */

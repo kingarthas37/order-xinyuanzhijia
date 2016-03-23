@@ -93,3 +93,19 @@
         }
     }
 }
+
+/* purchase page */
+.purchase-page {
+    .purchase-image {
+        border:1px solid #ddd;
+        height: 100px;
+        width: 100px;
+        text-align: center;
+        display: inline-block;
+        line-height: 100px;
+        img {
+            max-width: 90px;
+            max-height: 90px;
+        }
+    }
+}

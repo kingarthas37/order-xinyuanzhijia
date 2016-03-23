@@ -36,7 +36,8 @@
                 <tr>
                     <th>订单名称</th>
                     <th class="small-screen-hide">网站名称</th>
-                    <th>物流方式</th>
+                    <th>物流公司</th>
+                    <th>转运公司</th>
                     <th>创建时间</th>
                     <th class="small-screen-hide">更新时间</th>
                     <th class="small-screen-hide">删除</th>
@@ -47,11 +48,18 @@
                 <tr>
                     <td><a href="/purchase/edit/<%= purchase[i].get('purchaseId') %>"> <% if (purchase[i].get('image')) { %><img src="<%= purchase[i].get('image') %>" width="40" /><% } %> <%= purchase[i].get('name') %></a> </td>
                     <td class="small-screen-hide">
-                        <% if(purchase[i].get('website').length > 40) { %>
-                        <a href="<%= purchase[i].get('website') %>" title="<%= purchase[i].get('website') %>" target="_blank"><%= purchase[i].get('website').substr(0,40) %>...</a>
+                        <% if(purchase[i].get('website').length > 20) { %>
+                        <a href="<%= purchase[i].get('website') %>" title="<%= purchase[i].get('website') %>" target="_blank"><%= purchase[i].get('website').substr(0,20) %>...</a>
                         <% } else { %>
                         <a href="<%= purchase[i].get('website') %>" title="<%= purchase[i].get('website') %>" target="_blank"><%= purchase[i].get('website') %></a>
                         <% } %>
+                    </td>
+                    <td>
+                        <% if(purchase[i].get('shippingCompany') === 'usps') { %><a href="https://tools.usps.com/go/TrackConfirmAction_input?strOrigTrackNum=<%= purchase[i].get('trackingNumber')%>" title="<%= purchase[i].get('trackingNumber')%>" target="_blank">USPS</a><%  } %>
+                        
+                        <% if(purchase[i].get('shippingCompany') === 'chinapost') { %><a href="http://yjcx.chinapost.com.cn/zdxt/yjcx/#" title="<%= purchase[i].get('trackingNumber')%>" target="_blank"><%= purchase[i].get('trackingNumber') %></a><%  } %>
+                        
+                        <% if(purchase[i].get('shippingCompany') === 'fedex') { %><a href="https://www.fedex.com/apps/fedextrack/?action=track&action=track&tracknumbers=<%= purchase[i].get('trackingNumber')%>" title="<%= purchase[i].get('trackingNumber')%>"  target="_blank">Fedex</a><%  } %>
                     </td>
                     <td class="t-c">
                         <% if(purchase[i].get('shippingType') === 'tianji') { %>天际<%  } %>
