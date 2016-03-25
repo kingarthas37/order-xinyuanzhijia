@@ -36,10 +36,10 @@
                 <tr>
                     <th>订单名称</th>
                     <th class="small-screen-hide">网站名称</th>
-                    <th>物流公司</th>
-                    <th>转运公司</th>
+                    <th class="t-c">物流公司</th>
+                    <th class="t-c">转运公司</th>
+                    <th class="t-c">物流状态</th>
                     <th>创建时间</th>
-                    <th class="small-screen-hide">更新时间</th>
                     <th class="small-screen-hide">删除</th>
                 </tr>
                 </thead>
@@ -54,7 +54,10 @@
                         <a href="<%= purchase[i].get('website') %>" title="<%= purchase[i].get('website') %>" target="_blank"><%= purchase[i].get('website') %></a>
                         <% } %>
                     </td>
-                    <td>
+                    <td class="t-c">
+
+                        <% if(purchase[i].get('shippingCompany') === 'none') { %>-<%  } %>
+                        
                         <% if(purchase[i].get('shippingCompany') === 'usps') { %><a href="https://tools.usps.com/go/TrackConfirmAction_input?strOrigTrackNum=<%= purchase[i].get('trackingNumber')%>" title="<%= purchase[i].get('trackingNumber')%>" target="_blank">USPS</a><%  } %>
                         
                         <% if(purchase[i].get('shippingCompany') === 'chinapost') { %><a href="http://yjcx.chinapost.com.cn/zdxt/yjcx/#" title="<%= purchase[i].get('trackingNumber')%>" target="_blank"><%= purchase[i].get('trackingNumber') %></a><%  } %>
@@ -66,9 +69,16 @@
                         <% if(purchase[i].get('shippingType') === 'zhuanyunbang') { %>转运帮<%  } %>
                         <% if(purchase[i].get('shippingType') === '8dexpress') { %>八达<%  } %>
                         <% if(purchase[i].get('shippingType') === 'direct') { %>直邮<%  } %>
+                        <% if(purchase[i].get('shippingType') === 'other') { %>其他<%  } %>
+                    </td>
+                    <td>
+                        <% if(purchase[i].get('shippingStatus') === 'noshipped') { %>未发货<%  } %>
+                        <% if(purchase[i].get('shippingStatus') === 'shipped') { %>转运帮<%  } %>
+                        <% if(purchase[i].get('shippingStatus') === '8dexpress') { %>已发货<%  } %>
+                        <% if(purchase[i].get('shippingStatus') === 'forward') { %>已到达转运公司<%  } %>
+                        <% if(purchase[i].get('shippingStatus') === 'arrived') { %>已到货<%  } %>
                     </td>
                     <td><%=purchase[i].createdAt.getFullYear()%>-<%=(purchase[i].createdAt.getMonth()+1)%>-<%=purchase[i].createdAt.getDate()%></td>
-                    <td class="small-screen-hide"><%=purchase[i].updatedAt.getFullYear()%>-<%=(purchase[i].updatedAt.getMonth()+1)%>-<%=purchase[i].updatedAt.getDate()%></td>
                     <td class="small-screen-hide"><a href="/purchase/remove/<%= purchase[i].get('purchaseId') %>" class="remove-purchase">删除</a> </td>
                 </tr>
                 <% } %>

@@ -45,7 +45,7 @@
                 <label>图片展示：</label>
                 <input type="hidden" id="purchase-image" name="purchase-image" value="<%= purchase.get('image') %>"/>
                 <div>
-                    <div class="show-image">
+                    <div class="purchase-image">
                         <img src="<%= purchase.get('image') %>" alt="">
                     </div>
                 </div>
@@ -94,6 +94,7 @@
             <div class="am-form-group">
                 <label>物流公司：</label>
                 <select id="purchase-shipping-company" name="purchase-shipping-company">
+                    <option value="none" <% if(purchase.get('shippingCompany') === 'none'){ %>selected="selected"<% }%>>无</option>
                     <option value="usps" <% if(purchase.get('shippingCompany') === 'usps'){ %>selected="selected"<% }%> >USPS</option>
                     <option value="chinapost" <% if(purchase.get('shippingCompany') === 'chinapost'){ %>selected="selected"<% }%>>中国邮政</option>
                     <option value="fedex" <% if(purchase.get('shippingCompany') === 'fedex'){ %>selected="selected"<% }%>>Fedex</option>
@@ -119,6 +120,7 @@
                 <select name="purchase-payment-type" id="purchase-payment-type">
                     <option value="paypal" <% if(purchase.get('paymentType')==='paypal') {%> selected="selected" <% } %>  >paypal</option>
                     <option value="creditcard" <% if(purchase.get('paymentType')==='creditcard') {%> selected="selected" <% } %>>信用卡</option>
+                    <option value="other" <% if(purchase.get('paymentType')==='other') {%> selected="selected" <% } %>>其他</option>
                 </select>
             </div>
             <!-- paymentType end -->
@@ -143,6 +145,7 @@
                     <option value="zhuanyunbang" <% if(purchase.get('shippingType')==='zhuanyunbang') {%> selected="selected" <% } %>>转运-转运帮</option>
                     <option value="8dexpress" <% if(purchase.get('shippingType')==='8dexpress') {%> selected="selected" <% } %>>转运-八达网</option>
                     <option value="direct" <% if(purchase.get('shippingType')==='direct') {%> selected="selected" <% } %>>直邮</option>
+                    <option value="other" <% if(purchase.get('shippingType')==='other') {%> selected="selected" <% } %>>其他</option>
                 </select>
             </div>
             <!-- shippingType end -->
