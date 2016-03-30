@@ -37,8 +37,8 @@
                     <th>订单名称</th>
                     <th class="small-screen-hide">网站名称</th>
                     <th class="t-c">物流公司</th>
+                    <th class="t-c">物流单号</th>
                     <th class="t-c">转运公司</th>
-                    <th class="t-c">物流状态</th>
                     <th>创建时间</th>
                     <th class="small-screen-hide">删除</th>
                 </tr>
@@ -47,6 +47,7 @@
                 <% for(var i=0; i < purchase.length; i++) {%>
                 <tr>
                     <td><a href="/purchase/edit/<%= purchase[i].get('purchaseId') %>"> <% if (purchase[i].get('image')) { %><img src="<%= purchase[i].get('image') %>" width="40" /><% } %> <%= purchase[i].get('name') %></a> </td>
+                    
                     <td class="small-screen-hide">
                         <% if(purchase[i].get('website').length > 20) { %>
                         <a href="<%= purchase[i].get('website') %>" title="<%= purchase[i].get('website') %>" target="_blank"><%= purchase[i].get('website').substr(0,20) %>...</a>
@@ -54,16 +55,16 @@
                         <a href="<%= purchase[i].get('website') %>" title="<%= purchase[i].get('website') %>" target="_blank"><%= purchase[i].get('website') %></a>
                         <% } %>
                     </td>
+                    
                     <td class="t-c">
-
-                        <% if(purchase[i].get('shippingCompany') === 'none') { %>-<%  } %>
-                        
-                        <% if(purchase[i].get('shippingCompany') === 'usps') { %><a href="https://tools.usps.com/go/TrackConfirmAction_input?strOrigTrackNum=<%= purchase[i].get('trackingNumber')%>" title="<%= purchase[i].get('trackingNumber')%>" target="_blank">USPS</a><%  } %>
-                        
-                        <% if(purchase[i].get('shippingCompany') === 'chinapost') { %><a href="http://yjcx.chinapost.com.cn/zdxt/yjcx/#" title="<%= purchase[i].get('trackingNumber')%>" target="_blank"><%= purchase[i].get('trackingNumber') %></a><%  } %>
-                        
-                        <% if(purchase[i].get('shippingCompany') === 'fedex') { %><a href="https://www.fedex.com/apps/fedextrack/?action=track&action=track&tracknumbers=<%= purchase[i].get('trackingNumber')%>" title="<%= purchase[i].get('trackingNumber')%>"  target="_blank">Fedex</a><%  } %>
+                        <% if(purchase[i].get('shippingCompany') === 'none') { %>-<%  } else { %><%= purchase[i].get('shippingCompany') %><% } %>
                     </td>
+
+                    <td class="t-c">
+                        <% if(purchase[i].get('trackingNumber') === '') { %>-<% } else if(purchase[i].get('trackingNumber').indexOf('http') > -1) { %> <a
+                            href="<%= purchase[i].get('trackingNumber') %>" target="_blank">查看物流单号</a> <% } else { %> <%= purchase[i].get('trackingNumber') %> <% } %>
+                    </td>
+                    
                     <td class="t-c">
                         <% if(purchase[i].get('shippingType') === 'tianji') { %>天际<%  } %>
                         <% if(purchase[i].get('shippingType') === 'zhuanyunbang') { %>转运帮<%  } %>
@@ -71,13 +72,7 @@
                         <% if(purchase[i].get('shippingType') === 'direct') { %>直邮<%  } %>
                         <% if(purchase[i].get('shippingType') === 'other') { %>其他<%  } %>
                     </td>
-                    <td>
-                        <% if(purchase[i].get('shippingStatus') === 'noshipped') { %>未发货<%  } %>
-                        <% if(purchase[i].get('shippingStatus') === 'shipped') { %>转运帮<%  } %>
-                        <% if(purchase[i].get('shippingStatus') === '8dexpress') { %>已发货<%  } %>
-                        <% if(purchase[i].get('shippingStatus') === 'forward') { %>已到达转运公司<%  } %>
-                        <% if(purchase[i].get('shippingStatus') === 'arrived') { %>已到货<%  } %>
-                    </td>
+                    
                     <td><%=purchase[i].createdAt.getFullYear()%>-<%=(purchase[i].createdAt.getMonth()+1)%>-<%=purchase[i].createdAt.getDate()%></td>
                     <td class="small-screen-hide"><a href="/purchase/remove/<%= purchase[i].get('purchaseId') %>" class="remove-purchase">删除</a> </td>
                 </tr>
@@ -100,8 +95,7 @@
             </div>
 
         </fieldset>
-
-
+    
 </div>
 
 

@@ -83,58 +83,11 @@
 
             <!-- amount start -->
             <div id="content-amount" class="am-form-group">
-                <label>订单金额(RMB)：</label>
-                <input  id="purchase-amount" name="purchase-amount" type="text" placeholder="输入订单金额"  value="<%= purchase.get('amount') %>" />
+                <label>订单金额(RMB)：<i>*</i></label>
+                <input  id="purchase-amount" name="purchase-amount" required type="text" placeholder="输入订单金额"  value="<%= purchase.get('amount') %>" />
             </div>
             <!-- amount end -->
 
-            <hr/>
-
-            <!-- shipping company start -->
-            <div class="am-form-group">
-                <label>物流公司：</label>
-                <select id="purchase-shipping-company" name="purchase-shipping-company">
-                    <option value="none" <% if(purchase.get('shippingCompany') === 'none'){ %>selected="selected"<% }%>>无</option>
-                    <option value="usps" <% if(purchase.get('shippingCompany') === 'usps'){ %>selected="selected"<% }%> >USPS</option>
-                    <option value="chinapost" <% if(purchase.get('shippingCompany') === 'chinapost'){ %>selected="selected"<% }%>>中国邮政</option>
-                    <option value="fedex" <% if(purchase.get('shippingCompany') === 'fedex'){ %>selected="selected"<% }%>>Fedex</option>
-                </select>
-            </div>
-            <!-- shipping company end -->
-
-            <hr/>
-
-            <!-- trackingNumber start -->
-            <div id="content-tracking-number" class="am-form-group">
-                <label>订单tracking number：</label>
-                <input  id="purchase-tracking-number" name="purchase-tracking-number" type="text" placeholder="输入tracking number" value="<%= purchase.get('trackingNumber') %>" />
-            </div>
-            <!-- trackingNumber end -->
-
-            <hr/>
-
-
-            <!-- paymentType start -->
-            <div id="content-payment-type" class="am-form-group">
-                <label>支付方式：</label>
-                <select name="purchase-payment-type" id="purchase-payment-type">
-                    <option value="paypal" <% if(purchase.get('paymentType')==='paypal') {%> selected="selected" <% } %>  >paypal</option>
-                    <option value="creditcard" <% if(purchase.get('paymentType')==='creditcard') {%> selected="selected" <% } %>>信用卡</option>
-                    <option value="other" <% if(purchase.get('paymentType')==='other') {%> selected="selected" <% } %>>其他</option>
-                </select>
-            </div>
-            <!-- paymentType end -->
-
-            <hr/>
-
-
-            <!-- paymentInfo start -->
-            <div id="content-payment-info" class="am-form-group">
-                <label>支付凭证：</label>
-                <input  id="purchase-payment-info" name="purchase-payment-info" type="text" placeholder="输入支付凭证" value="<%= purchase.get('paymentInfo') %>" />
-            </div>
-            <!-- paymentInfo end -->
-            
             <hr/>
 
             <!-- shippingType start -->
@@ -152,19 +105,45 @@
 
             <hr/>
 
-            <!-- shippingStatus start -->
-            <div id="content-shipping-status" class="am-form-group">
-                <label>物流状态：</label>
-                <select name="purchase-shipping-status" id="purchase-shipping-status">
-                    <option value="noshipped" <% if(purchase.get('shippingStatus')==='noshipped') {%> selected="selected" <% } %>>未发货</option>
-                    <option value="shipped" <% if(purchase.get('shippingStatus')==='shipped') {%> selected="selected" <% } %>>已发货</option>
-                    <option value="forward" <% if(purchase.get('shippingStatus')==='forward') {%> selected="selected" <% } %>>已到达转运公司</option>
-                    <option value="arrived" <% if(purchase.get('shippingStatus')==='arrived') {%> selected="selected" <% } %>>已到货</option>
+            <!-- paymentType start -->
+            <div id="content-payment-type" class="am-form-group">
+                <label>支付方式：</label>
+                <select name="purchase-payment-type" id="purchase-payment-type">
+                    <option value="paypal" <% if(purchase.get('paymentType')==='paypal') {%> selected="selected" <% } %>  >paypal</option>
+                    <option value="creditcard" <% if(purchase.get('paymentType')==='creditcard') {%> selected="selected" <% } %>>信用卡</option>
+                    <option value="other" <% if(purchase.get('paymentType')==='other') {%> selected="selected" <% } %>>其他</option>
                 </select>
             </div>
-            <!-- shippingStatus end -->
+            <!-- paymentType end -->
 
             <hr/>
+
+            <!-- shipping company start -->
+            <div class="am-form-group">
+                <label>物流公司：</label>
+                <select id="purchase-shipping-company" name="purchase-shipping-company">
+                    <option value="none" <% if(purchase.get('shippingCompany') === 'none'){ %>selected="selected"<% }%>>无</option>
+                    <option value="usps" <% if(purchase.get('shippingCompany') === 'usps'){ %>selected="selected"<% }%>>USPS</option>
+                    <option value="chinapost" <% if(purchase.get('shippingCompany') === 'chinapost'){ %>selected="selected"<% }%>>中国邮政</option>
+                    <option value="ups" <% if(purchase.get('shippingCompany') === 'ups'){ %>selected="selected"<% }%>>ups</option>
+                    <option value="fedex" <% if(purchase.get('shippingCompany') === 'fedex'){ %>selected="selected"<% }%>>Fedex</option>
+                    <option value="dhl" <% if(purchase.get('shippingCompany') === 'dhl'){ %>selected="selected"<% }%>>DHL</option>
+                    <option value="other" <% if(purchase.get('shippingCompany') === 'other'){ %>selected="selected"<% }%>>其他</option>
+                </select>
+            </div>
+            <!-- shipping company end -->
+
+            <hr/>
+
+            <!-- trackingNumber start -->
+            <div id="content-tracking-number" class="am-form-group">
+                <label>Tracking Number：(如果是带连接http的单号则会列表页直接打开)</label>
+                <input  id="purchase-tracking-number" name="purchase-tracking-number" type="text" placeholder="输入tracking number" value="<%= purchase.get('trackingNumber') %>" />
+            </div>
+            <!-- trackingNumber end -->
+
+            <hr/>
+            
 
             <!-- comment start -->
             <div id="content-comment" class="am-form-group">
