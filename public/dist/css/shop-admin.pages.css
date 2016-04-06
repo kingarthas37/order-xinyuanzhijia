@@ -1,6 +1,11 @@
 fieldset {
   margin-top: 30px; }
 
+header .am-topbar-brand b {
+  font-size: 13px;
+  margin-left: 4px;
+  font-weight: normal; }
+
 footer p {
   color: #7f8c8d;
   margin: 0;

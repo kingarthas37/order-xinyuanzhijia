@@ -35,7 +35,6 @@
                 <thead>
                 <tr>
                     <th>订单名称</th>
-                    <th class="small-screen-hide">网站名称</th>
                     <th class="t-c">物流公司</th>
                     <th class="t-c">物流单号</th>
                     <th class="t-c">转运公司</th>
@@ -47,15 +46,6 @@
                 <% for(var i=0; i < purchase.length; i++) {%>
                 <tr>
                     <td><a href="/purchase/edit/<%= purchase[i].get('purchaseId') %>"> <% if (purchase[i].get('image')) { %><img src="<%= purchase[i].get('image') %>" width="40" /><% } %> <%= purchase[i].get('name') %></a> </td>
-                    
-                    <td class="small-screen-hide">
-                        <% if(purchase[i].get('website').length > 20) { %>
-                        <a href="<%= purchase[i].get('website') %>" title="<%= purchase[i].get('website') %>" target="_blank"><%= purchase[i].get('website').substr(0,20) %>...</a>
-                        <% } else { %>
-                        <a href="<%= purchase[i].get('website') %>" title="<%= purchase[i].get('website') %>" target="_blank"><%= purchase[i].get('website') %></a>
-                        <% } %>
-                    </td>
-                    
                     <td class="t-c">
                         <% if(purchase[i].get('shippingCompany') === 'none') { %>-<%  } else { %><%= purchase[i].get('shippingCompany') %><% } %>
                     </td>

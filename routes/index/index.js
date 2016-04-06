@@ -31,7 +31,7 @@ router.get('/',(req,res)=> {
     
     AV.Promise.when(
         
-        //月收入统计=
+        //chart统计
         new AV.Promise(resolve => {
 
             let currentDate = new Date();
@@ -49,16 +49,29 @@ router.get('/',(req,res)=> {
                     earning:[],
                     date:[]
                 };
+                
+                //年收入统计
+                let earningYear = {
+                    expenses:0,
+                    income:0,
+                    earning:0
+                };
 
                 items.forEach(item => {
                     earning.expenses.push(item.get('expenses'));
                     earning.income.push(item.get('income'));
                     earning.earning.push(item.get('income') - item.get('expenses'));
-                    earning.date.push( (item.get('date').getMonth() + 1) + '/' + item.get('date').getDate() );
+                    earning.date.push( (item.get('date').getMonth() + 1) + '/' + item.get('date').getDate());
+
+                    earningYear.expenses += item.get('expenses');
+                    earningYear.income += item.get('income');
+                    earningYear.earning += (item.get('income') - item.get('expenses'));
+                    
                 });
                 
                 data = extend(data,{
-                    earningTotal:earning
+                    earningTotal:earning,
+                    earningYear:earningYear
                 });
                 
                 resolve();
@@ -66,7 +79,7 @@ router.get('/',(req,res)=> {
             
         }),
         
-        //收入统计chart
+        //月收入统计
         new AV.Promise(resolve => {
             
             let currentDate = new Date();
