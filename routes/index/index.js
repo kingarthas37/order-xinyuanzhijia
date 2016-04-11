@@ -39,6 +39,7 @@ router.get('/',(req,res)=> {
             
             let query = new AV.Query(Earning);
             query.greaterThan('date',new Date(currentYear,0,0));
+            query.limit(366);
             query.select('expenses','income','date');
             
             query.find().done(items=> {
