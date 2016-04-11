@@ -139,5 +139,20 @@ router.get('/remove/:purchaseId', function (req, res, next) {
     ]);
 });
 
+router.get('/shipping-status',(req,res)=> {
+    let purchaseId = parseInt(req.query.purchaseId);
+    let status = req.query.status;
+    
+    let query = new AV.Query(PurchaseTrack);
+    query.equalTo('purchaseId',purchaseId);
+    query.first().done(item=> {
+        item.set('shippingStatus',status);
+        return item.save();
+    }).done(()=> {
+        res.send({success:1});
+    });
+     
+});
+
 
 module.exports = router;

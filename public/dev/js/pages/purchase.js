@@ -24,6 +24,19 @@ module.exports = {
             });
             return false;
         });
+        
+        $('.ckb-shipping-status').click(function() {
+            $.ajax({
+                url:'/purchase/shipping-status',
+                type:'get',
+                data:{
+                    purchaseId:$(this).attr('data-id'),
+                    status:this.checked ? 'arrived' : 'notarrived'
+                }
+            }).done(function(data) {
+                console.info(data);
+            });
+        });
 
     },
     addFun:function() {

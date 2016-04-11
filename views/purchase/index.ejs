@@ -34,6 +34,7 @@
             <table class="am-table">
                 <thead>
                 <tr>
+                    <th></th>
                     <th>订单名称</th>
                     <th class="t-c">物流公司</th>
                     <th class="t-c">物流单号</th>
@@ -45,11 +46,11 @@
                 <tbody>
                 <% for(var i=0; i < purchase.length; i++) {%>
                 <tr>
+                    <td class="t-c"><input <% if(purchase[i].get('shippingStatus') === 'arrived') { %> checked="checked" <% } %> type="checkbox" data-id="<%=purchase[i].get('purchaseId')%>" class="ckb-shipping-status"></td>
                     <td><a href="/purchase/edit/<%= purchase[i].get('purchaseId') %>"> <% if (purchase[i].get('image')) { %><img src="<%= purchase[i].get('image') %>" width="40" /><% } %> <%= purchase[i].get('name') %></a> </td>
                     <td class="t-c">
                         <% if(purchase[i].get('shippingCompany') === 'none') { %>-<%  } else { %><%= purchase[i].get('shippingCompany') %><% } %>
                     </td>
-
                     <td class="t-c">
                         <% if(purchase[i].get('trackingNumber') === '') { %>-<% } else if(purchase[i].get('trackingNumber').indexOf('http') > -1) { %> <a
                             href="<%= purchase[i].get('trackingNumber') %>" target="_blank">查看物流单号</a> <% } else { %> <%= purchase[i].get('trackingNumber') %> <% } %>
