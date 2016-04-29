@@ -112,7 +112,7 @@
       "algorithm": "binary-tree"
     }
   ],
-  "path": {
+  "publicPath": {
     "base": "public/",
     "dist": "public/dist",
     "min": "public/min/",

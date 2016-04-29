@@ -14,17 +14,17 @@ var config = require('../../package.json');
 gulp.task('watch', ['css','browserify'], function () { 
     
     if(args.sync) {
-        browserSync.init([path.join(config.path.cssDist,'*.css'),path.join(config.path.jsDist,'*.js')],{
+        browserSync.init([path.join(config.publicPath.cssDist,'*.css'),path.join(config.publicPath.jsDist,'*.js')],{
             proxy: args.sync !== true ? args.sync : '10.140.110.55:8000',
             open:true
         });
     }
     
     //监听所有images目录，执行task: image
-    gulp.watch(config.path.imageDev + '**/*.+(jpg|jpeg|png|gif)',['image']);
+    gulp.watch(config.publicPath.imageDev + '**/*.+(jpg|jpeg|png|gif)',['image']);
     //监听*.scss目录，执行task: css
-    gulp.watch(config.path.cssDev + '**/*.scss', ['css']);
+    gulp.watch(config.publicPath.cssDev + '**/*.scss', ['css']);
     //监听所有sprite目录，执行task:sprite
-    gulp.watch(config.path.spriteDev + '**/*.png' , ['sprite']);
+    gulp.watch(config.publicPath.spriteDev + '**/*.png' , ['sprite']);
     
 });

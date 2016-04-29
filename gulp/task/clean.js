@@ -20,7 +20,7 @@ gulp.task('clean:rev',function() {
     }
     
     return del.sync([
-        path.join(config.path.min)
+        path.join(config.publicPath.min)
     ]);
 });
 
@@ -36,16 +36,16 @@ gulp.task('clean:files', function () {
     var unlinkArr = [];
     
     //查找js,css md5
-    if(fs.existsSync(path.join(config.path.min,'asset-manifest.json'))) {
-        var assetMap = require(path.resolve(path.join(config.path.min,'rev-manifest.json')));
+    if(fs.existsSync(path.join(config.publicPath.min,'asset-manifest.json'))) {
+        var assetMap = require(path.resolve(path.join(config.publicPath.min,'rev-manifest.json')));
         _.each(assetMap,function(value) {
             unlinkArr.push(value);
         });
     }
 
     //查找images md5
-    if(fs.existsSync(path.join(config.path.imageMin,'image-manifest.json'))) {
-        var imageMap = require(path.resolve(path.join(config.path.imageMin,'rev-manifest.json')));
+    if(fs.existsSync(path.join(config.publicPath.imageMin,'image-manifest.json'))) {
+        var imageMap = require(path.resolve(path.join(config.publicPath.imageMin,'rev-manifest.json')));
         _.each(imageMap,function(value) {
             unlinkArr.push(path.join('images',value));
         });
@@ -54,8 +54,8 @@ gulp.task('clean:files', function () {
     //执行删除
     if(unlinkArr.length) {
         for(var i=0; i< unlinkArr.length;i++) {
-            if(fs.existsSync(path.join(config.path.min,unlinkArr[i]))) {
-                fs.unlinkSync(path.join(config.path.min,unlinkArr[i]));
+            if(fs.existsSync(path.join(config.publicPath.min,unlinkArr[i]))) {
+                fs.unlinkSync(path.join(config.publicPath.min,unlinkArr[i]));
             }
         }
     }

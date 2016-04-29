@@ -30,20 +30,20 @@ gulp.task('sprite',function () {
             }, sprite);
         })();
 
-        var spriteData = gulp.src(path.join(config.path.spriteDev ,sprite.name ,'*.png'))
+        var spriteData = gulp.src(path.join(config.publicPath.spriteDev ,sprite.name ,'*.png'))
             .pipe(spritesmith(options));
 
         async.series([
             function(cb) {
                 //生成到dist/images目录
                 spriteData.img
-                    .pipe(gulp.dest(config.path.imageDist))
+                    .pipe(gulp.dest(config.publicPath.imageDist))
                     .on('end',cb);
             },
             function () {
                 //生成.scss到dev/css/sprites/目录
                 spriteData.css
-                    .pipe(gulp.dest(path.join(config.path.cssDev, 'sprites')))
+                    .pipe(gulp.dest(path.join(config.publicPath.cssDev, 'sprites')))
                     .on('end',next);
             }
         ]);
@@ -73,20 +73,20 @@ gulp.task('sprite:prod',function () {
             }, sprite);
         })();
 
-        var spriteData = gulp.src(path.join(config.path.spriteDev ,sprite.name ,'*.png'))
+        var spriteData = gulp.src(path.join(config.publicPath.spriteDev ,sprite.name ,'*.png'))
             .pipe(spritesmith(options));
 
         async.series([
             function(cb) {
                 //生成到dist/images目录
                 spriteData.img
-                    .pipe(gulp.dest(config.path.imageMin))
+                    .pipe(gulp.dest(config.publicPath.imageMin))
                     .on('end',cb);
             },
             function () {
                 //生成.scss到dev/css/sprites/目录
                 spriteData.css
-                    .pipe(gulp.dest(path.join(config.path.cssDev, 'sprites')))
+                    .pipe(gulp.dest(path.join(config.publicPath.cssDev, 'sprites')))
                     .on('end',next);
             }
         ]);
@@ -119,20 +119,20 @@ gulp.task('sprite1', function () {
         };
 
         //生成sprite找到 /dev/css/sprites/common/*.png
-        var spriteData = gulp.src(path.join(config.path.spriteDev ,name ,'*.png'))
+        var spriteData = gulp.src(path.join(config.publicPath.spriteDev ,name ,'*.png'))
             //使用newer如果图片不是最新生成的则不用重新编译
-            .pipe(newer(path.join(config.path.imageDist,options.imgName)))
+            .pipe(newer(path.join(config.publicPath.imageDist,options.imgName)))
             //extend sprite参数
             .pipe(spritesmith(xtend(params,options)));
 
         //将sprite-common.png 生成到/dist/images目录下
         var imgStream = spriteData.img
-            .pipe(gulp.dest(config.path.imageDist));
+            .pipe(gulp.dest(config.publicPath.imageDist));
 
         //编译sprites/common.scss，重写common.scss
         //注意：common.scss需要先手动生成
         var cssStream = spriteData.css
-            .pipe(gulp.dest(path.join(config.path.cssDev, 'sprites')));
+            .pipe(gulp.dest(path.join(config.publicPath.cssDev, 'sprites')));
         
         return merge(imgStream, cssStream);
         
@@ -154,15 +154,15 @@ gulp.task('sprite:prod', function () {
             cssFormat: 'css'
         };
 
-        var spriteData = gulp.src(path.join(config.path.spriteDev ,name ,'*.png'))
-            .pipe(newer(path.join(config.path.imageMin,options.imgName)))
+        var spriteData = gulp.src(path.join(config.publicPath.spriteDev ,name ,'*.png'))
+            .pipe(newer(path.join(config.publicPath.imageMin,options.imgName)))
             .pipe(spritesmith(xtend(params,options)));
 
         var imgStream = spriteData.img
-            .pipe(gulp.dest(config.path.imageMin));  //生成到min目录下
+            .pipe(gulp.dest(config.publicPath.imageMin));  //生成到min目录下
 
         var cssStream = spriteData.css
-            .pipe(gulp.dest(path.join(config.path.cssDev, 'sprites')));
+            .pipe(gulp.dest(path.join(config.publicPath.cssDev, 'sprites')));
 
         return merge(imgStream, cssStream);
 

@@ -27,23 +27,23 @@ gulp.task('rev',['clean:rev','image:prod','sprite:prod','css-common:prod','css:p
             var revAll = new RevAll({
                 fileNameManifest:'image-manifest.json'
             });
-            gulp.src([path.join(config.path.imageMin,'**/*.+(jpg|jpeg|png|gif)'),'!' + path.join(config.path.imageMin,'sprites/**')])
+            gulp.src([path.join(config.publicPath.imageMin,'**/*.+(jpg|jpeg|png|gif)'),'!' + path.join(config.publicPath.imageMin,'sprites/**')])
                 .pipe(revAll.revision())
-                .pipe(gulp.dest(path.join(config.path.min,'images')))
+                .pipe(gulp.dest(path.join(config.publicPath.min,'images')))
                 .pipe(revAll.manifestFile())
-                .pipe(gulp.dest(path.join(config.path.min,'images')))
+                .pipe(gulp.dest(path.join(config.publicPath.min,'images')))
                 .on('end',cb);
         },
         
         //读取image-manifest.json，然后使用fingerprint修改css里的对应image url
         function(cb) {
-            var manifest = require(path.resolve(path.join(config.path.min,'images','image-manifest.json')));
-            gulp.src(path.join(config.path.cssMin,'*.css'))
+            var manifest = require(path.resolve(path.join(config.publicPath.min,'images','image-manifest.json')));
+            gulp.src(path.join(config.publicPath.cssMin,'*.css'))
                 .pipe(fingerprint(manifest,{
                     base:'../images/',
                     prefix: '../images/'
                 }))
-                .pipe(gulp.dest(config.path.cssMin))
+                .pipe(gulp.dest(config.publicPath.cssMin))
                 .on('end',cb);
         },
         
@@ -53,11 +53,11 @@ gulp.task('rev',['clean:rev','image:prod','sprite:prod','css-common:prod','css:p
                 dontRenameFile: ['images/'],
                 fileNameManifest:'asset-manifest.json'
             });
-            gulp.src([config.path.cssMin + '*.+(css|map)',config.path.jsMin + '*.+(js|map)'])
+            gulp.src([config.publicPath.cssMin + '*.+(css|map)',config.publicPath.jsMin + '*.+(js|map)'])
                 .pipe(revAll.revision())
-                .pipe(gulp.dest(config.path.min))
+                .pipe(gulp.dest(config.publicPath.min))
                 .pipe(revAll.manifestFile())
-                .pipe(gulp.dest(config.path.min));
+                .pipe(gulp.dest(config.publicPath.min));
         }
     ],
     function(err) {

@@ -19,7 +19,7 @@ gulp.task('css-common',function() {
         .pipe(sourcemaps.init())
         .pipe(concat(config.name + '.external.css'))
         .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest(config.path.cssDist));
+        .pipe(gulp.dest(config.publicPath.cssDist));
 });
 
 
@@ -31,7 +31,7 @@ gulp.task('css-common:prod',function() {
         .pipe(minifyCss({compatibility: 'ie8'}))
         .pipe(sourcemaps.write('.'))
         .pipe(size())
-        .pipe(gulp.dest(config.path.cssMin));
+        .pipe(gulp.dest(config.publicPath.cssMin));
 });
 
 
@@ -39,19 +39,19 @@ gulp.task('css-common:prod',function() {
 //所有页面级的css管理都有main.scss控制
 //增加autoprefixer功能
 gulp.task('css',['sprite'], function () {
-    return gulp.src(path.join(config.path.cssDev,'main.scss'))
+    return gulp.src(path.join(config.publicPath.cssDev,'main.scss'))
         .pipe(sourcemaps.init())
         .pipe(sass())
         .pipe(autoprefixer())
         .pipe(rename(config.name + '.pages.css'))
         .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest(config.path.cssDist));
+        .pipe(gulp.dest(config.publicPath.cssDist));
 });
 
 
 //页面级css的prod，原理同上，只增加了css压缩
 gulp.task('css:prod',['css-common:prod'], function () {
-      return gulp.src(path.join(config.path.cssDev,'main.scss'))
+      return gulp.src(path.join(config.publicPath.cssDev,'main.scss'))
         .pipe(sourcemaps.init())
         .pipe(sass())
         .pipe(autoprefixer())
@@ -59,5 +59,5 @@ gulp.task('css:prod',['css-common:prod'], function () {
         .pipe(minifyCss({compatibility: 'ie8'}))
         .pipe(sourcemaps.write('.'))
         .pipe(size())
-        .pipe(gulp.dest(config.path.cssMin));
+        .pipe(gulp.dest(config.publicPath.cssMin));
 });
