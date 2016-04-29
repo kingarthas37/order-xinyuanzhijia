@@ -92,6 +92,11 @@ module.exports = {
     //record-category
     '/record-category':require('./record-category'),
     '/record-category/add':require('./record-category/add'),
-    '/record-category/edit':require('./record-category/edit')
+    '/record-category/edit':require('./record-category/edit'),
+    
+    //identity-manage
+    '/identity-manage':require('./record-category'),
+    '/identity-manage/add':require('./record-category/add'),
+    '/identity-manage/edit':require('./record-category/edit')
     
 };
