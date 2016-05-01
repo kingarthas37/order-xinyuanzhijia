@@ -38,6 +38,7 @@
                     <th>订单名称</th>
                     <th class="t-c">物流公司</th>
                     <th class="t-c">物流单号</th>
+                    <th class="t-c">金额</th>
                     <th class="t-c">转运公司</th>
                     <th>创建时间</th>
                     <th class="small-screen-hide">删除</th>
@@ -55,7 +56,7 @@
                         <% if(purchase[i].get('trackingNumber') === '') { %>-<% } else if(purchase[i].get('trackingNumber').indexOf('http') > -1) { %> <a
                             href="<%= purchase[i].get('trackingNumber') %>" target="_blank">查看物流单号</a> <% } else { %> <%= purchase[i].get('trackingNumber') %> <% } %>
                     </td>
-                    
+                    <td class="t-c"><%= purchase[i].get('amount') %></td>
                     <td class="t-c">
                         <% if(purchase[i].get('shippingType') === 'tianji') { %>天际<%  } %>
                         <% if(purchase[i].get('shippingType') === 'zhuanyunbang') { %>转运帮<%  } %>
