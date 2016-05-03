@@ -38,7 +38,6 @@
                     <th>淘宝用户名</th>
                     <th>创建时间</th>
                     <th class="small-screen-hide">更新时间</th>
-                    <th class="small-screen-hide">删除</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -52,7 +51,6 @@
                     </td>
                     <td><%=customer[i].createdAt.getFullYear()%>-<%=(customer[i].createdAt.getMonth()+1)%>-<%=customer[i].createdAt.getDate()%></td>
                     <td class="small-screen-hide"><%=customer[i].updatedAt.getFullYear()%>-<%=(customer[i].updatedAt.getMonth()+1)%>-<%=customer[i].updatedAt.getDate()%></td>
-                    <td class="small-screen-hide"><a href="/customer/remove/<%= customer[i].get('customerId') %>" class="remove-customer">删除</a> </td>
                 </tr>
                 <% } %>
                 </tbody>

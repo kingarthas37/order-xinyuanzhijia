@@ -123,8 +123,9 @@
                 <label>物流公司：</label>
                 <select id="purchase-shipping-company" name="purchase-shipping-company">
                     <option value="none" <% if(purchase.get('shippingCompany') === 'none'){ %>selected="selected"<% }%>>无</option>
-                    <option value="usps" <% if(purchase.get('shippingCompany') === 'usps'){ %>selected="selected"<% }%>>USPS</option>
+                    <option value="usps" <% if(purchase.get('shippingCompany') === 'usps'){ %>selected="selected"<% }%>>usps</option>
                     <option value="chinapost" <% if(purchase.get('shippingCompany') === 'chinapost'){ %>selected="selected"<% }%>>中国邮政</option>
+                    <option value="ems" <% if(purchase.get('shippingCompany') === 'ems'){ %>selected="selected"<% }%>>ems</option>
                     <option value="ups" <% if(purchase.get('shippingCompany') === 'ups'){ %>selected="selected"<% }%>>ups</option>
                     <option value="fedex" <% if(purchase.get('shippingCompany') === 'fedex'){ %>selected="selected"<% }%>>Fedex</option>
                     <option value="dhl" <% if(purchase.get('shippingCompany') === 'dhl'){ %>selected="selected"<% }%>>DHL</option>
