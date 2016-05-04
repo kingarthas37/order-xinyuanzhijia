@@ -95,8 +95,8 @@ module.exports = {
     '/record-category/edit':require('./record-category/edit'),
     
     //identity-manage
-    '/identity-manage':require('./record-category'),
-    '/identity-manage/add':require('./record-category/add'),
-    '/identity-manage/edit':require('./record-category/edit')
+    '/identity':require('./identity'),
+    '/identity/add':require('./record-category/add'),
+    '/identity/edit':require('./record-category/edit')
     
 };
