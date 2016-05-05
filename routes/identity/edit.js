@@ -11,22 +11,22 @@ var async = require('async');
 var extend = require("xtend");
 
 //class
-var RecordCategory = AV.Object.extend('RecordCategory');
+var Identity = AV.Object.extend('Identity');
 
 var data =  extend(config.data,{
-    title:'产品收录分类',
-    currentPage:'recordCategory'
+    title:'编辑身份证',
+    currentPage:'identity'
 });
 
 
 //编辑产品页
-router.get('/:recordCategoryId', (req, res) => {
+router.get('/:identityId', (req, res) => {
 
     if(!req.AV.user) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
     
-    var recordCategoryId = parseInt(req.params.recordCategoryId);
+    var identityId = parseInt(req.params.identityId);
 
     data = extend(data,{
         flash: { success:req.flash('success'), error:req.flash('error') },
@@ -34,38 +34,57 @@ router.get('/:recordCategoryId', (req, res) => {
     });
 
     
-    var query = new AV.Query(RecordCategory);
-    query.equalTo('recordCategoryId', recordCategoryId);
+    var query = new AV.Query(Identity);
+    query.equalTo('identityId', identityId);
     query.first().then(function(result) {
         data = extend(data, {
-            recordCategory:result
+            identity:result
         });
-        res.render('record-category/edit', data);
+        res.render('identity/edit', data);
     });
 
 });
 
 
 
-router.post('/:recordCategoryId',(req,res) => {
+router.post('/:identityId',(req,res) => {
 
     if(!req.AV.user) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
     
-    let recordCategoryId = parseInt(req.params['recordCategoryId']);
+    let identityId = parseInt(req.params['identityId']);
     let name = req.body['name'];
-    let query = new AV.Query(RecordCategory);
+    let cardNo = req.body['card-no'];
+    let cardAddress = req.body['card-address'];
+    let shippingAddress = req.body['shipping-address'];
+    let phone = req.body['phone'];
+    let cardImageFront = req.body['card-image-front'];
+    let cardImageBack = req.body['card-image-back'];
+    let cardImageAll = req.body['card-image-all'];
+    let isOften = req.body['is-often'] ? true : false;
+    
+    let query = new AV.Query(Identity);
 
-    query.equalTo('recordCategoryId',recordCategoryId);
-    query.first().then((result) => {
-        
-        result.set('name',name);
-        return result.save();
+    query.equalTo('identityId',identityId);
+    
+    query.first().then(result => {
+        console.info(isOften);
+        return result.save({
+            name:name,
+            cardNo:cardNo,
+            cardAddress:cardAddress,
+            shippingAddress:shippingAddress,
+            phone:phone,
+            cardImageFront:cardImageFront,
+            cardImageBack:cardImageBack,
+            cardImageAll:cardImageAll,
+            isOften:isOften
+        });
         
     }).then(() => {
-        req.flash('success', '编辑产品分类成功!');
-        res.redirect('/record-category');
+        req.flash('success','编辑身份证成功!');
+        res.redirect('/identity');
     });
 
 });

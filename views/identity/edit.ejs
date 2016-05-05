@@ -11,23 +11,112 @@
 <% include ../partials/header %>
 
 
-<div class="am-container common-page">
+<div class="am-container common-page identity-page">
 
-    <form id="form-edit-record-category" class="am-form" action="/record-category/edit/<%= recordCategory.get('recordCategoryId') %>" method="post">
-        
+    <form id="form-edit-identity" class="am-form" action="/identity/edit/<%= identity.get('identityId') %>" method="post">
+
         <fieldset>
 
-            <legend>编辑产品收录分类</legend>
+            <legend><a href="/identity/edit/<%= identity.get('identityId') %>">编辑身份证</a></legend>
 
-            <!-- recordCategory name start -->
-            <div id="content-name" class="am-form-group">
-                <label>产品收录分类标题：<i>*</i> </label>
-                <input id="name" required name="name" type="text" placeholder="输入产品收录分类" value="<%= recordCategory.get('name')%>" />
+            <!-- name start -->
+            <div class="am-form-group">
+                <label>身份证姓名：<i>*</i> </label>
+                <input id="name" required name="name" type="text" placeholder="输入身份证姓名" value="<%= identity.get('name') %>" />
             </div>
-            <!-- recordCategory name end -->
+            <!-- name end -->
+
+
+            <!-- card no start -->
+            <div class="am-form-group">
+                <label>身份证号：</label>
+                <input id="card-no" name="card-no" type="text" placeholder="输入身份证号" value="<%= identity.get('cardNo') %>" />
+            </div>
+            <!-- card no end -->
+
+
+            <!-- card address start -->
+            <div class="am-form-group">
+                <label>身份证地址：</label>
+                <input id="card-address"  name="card-address" type="text" placeholder="输入身份证地址" value="<%= identity.get('cardAddress') %>" />
+            </div>
+            <!-- card address end -->
+
+
+            <!-- shipping address start -->
+            <div class="am-form-group">
+                <label>收货地址：</label>
+                <input id="shipping-address" name="shipping-address" type="text" placeholder="输入收货地址" value="<%= identity.get('shippingAddress') %>" />
+            </div>
+            <!-- shipping address end -->
+
+
+            <!-- phone start -->
+            <div class="am-form-group">
+                <label>手机号：</label>
+                <input id="phone" name="phone" type="text" placeholder="输入手机号" value="<%= identity.get('phone') %>" />
+            </div>
+            <!-- phone end -->
+
+
+            <!-- card image front start -->
+            <div class="am-form-group">
+                <label>上传身份证正面照： </label>
+                <div>
+                    <iframe class="upload-title" src="/identity/upload?callback=frontUploadCallback" frameborder="0"></iframe>
+                </div>
+                <input id="card-image-front" name="card-image-front" type="text" placeholder="身份证正面" value="<%= identity.get('cardImageFront') %>" />
+                <div id="card-front-view" class="card-view">
+                    <% if (identity.get('cardImageFront')) { %>
+                    <img src="<%= identity.get('cardImageFront') %>" alt="">
+                    <% } %>
+                </div>
+            </div>
+            <!-- card image front end -->
+
+
+            <!-- card image back start -->
+            <div class="am-form-group">
+                <label>上传身份证反面照： </label>
+                <div>
+                    <iframe class="upload-title" src="/identity/upload?callback=backUploadCallback" frameborder="0"></iframe>
+                </div>
+                <input id="card-image-back" name="card-image-back" type="text" placeholder="身份证反面" value="<%= identity.get('cardImageBack') %>" />
+                <div id="card-back-view" class="card-view">
+                    <% if (identity.get('cardImageFront')) { %>
+                    <img src="<%= identity.get('cardImageBack') %>" alt="">
+                    <% } %>
+                </div>
+            </div>
+            <!-- card image back end -->
+
+
+            <!-- card image all start -->
+            <div class="am-form-group">
+                <label>上传身份证正反面照： </label>
+                <div>
+                    <iframe class="upload-title" src="/identity/upload?callback=allUploadCallback" frameborder="0"></iframe>
+                </div>
+                <input id="card-image-all" name="card-image-all" type="text" placeholder="身份证正反面" value="<%= identity.get('cardImageAll') %>" />
+                <div id="card-all-view" class="card-view">
+                    <% if (identity.get('cardImageFront')) { %>
+                    <img src="<%= identity.get('cardImageAll') %>" alt="">
+                    <% } %>
+                </div>
+            </div>
+            <!-- card image all end -->
+
+
+            <!-- phone start -->
+            <div class="am-form-group">
+                <label>是否常用：</label>
+                <input type="checkbox" id="is-often" name="is-often" <% if(identity.get('isOften')) { %>checked="checked"<%}%>>
+            </div>
+            <!-- phone end -->
+
 
             <hr/>
-            
+
             <div class="am-form-group">
                 <button type="submit" class="am-btn am-btn-primary">保存</button>
                 <button type="button" class="am-btn am-btn-primary" onclick="history.back(-1);">返回</button>
@@ -45,10 +134,27 @@
 <% include ../partials/js %>
 
 <script type="text/javascript">
-    $(function() {
-        var recordCategory = require('recordCategory');
-        recordCategory.editFun();
-    });
+        $(function() {
+            var identity = require('identity');
+            identity.editFun();
+        });
+
+        //iframe upload callback
+        function frontUploadCallback(url) {
+            $('#card-image-front').val(url);
+            $('#card-front-view').empty().append('<img src="'+ url +'"/>');
+        }
+
+        function backUploadCallback(url) {
+            $('#card-image-back').val(url);
+            $('#card-back-view').empty().append('<img src="'+ url +'"/>');
+        }
+
+        function allUploadCallback(url) {
+            $('#card-image-all').val(url);
+            $('#card-all-view').empty().append('<img src="'+ url +'"/>');
+
+        }
 </script>
 </body>
 </html>

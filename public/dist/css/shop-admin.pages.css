@@ -31,6 +31,12 @@ footer p {
 label.normal {
   font-weight: normal; }
 
+span.split {
+  padding: 0 5px; }
+  span.split:after {
+    content: "|";
+    color: #ddd; }
+
 .clearfix {
   *zoom: 1; }
   .clearfix:before, .clearfix:after {

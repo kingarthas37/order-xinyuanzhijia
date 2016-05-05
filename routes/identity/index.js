@@ -45,8 +45,9 @@ router.get('/', (req, res) => {
     });
     
     let query = new AV.Query(Identity);
+    
     if(searchName) {
-        query.contains('cardName',searchName);
+        query.contains('name',searchName);
     }
     
     query.count().then(count => {
@@ -96,13 +97,8 @@ router.get('/remove/:identityId', function (req,res) {
     let query = new AV.Query(Identity);
     query.equalTo('identityId',identityId);
     query.first().then(function(result) {
-        result.destroy({
-            success: function () {
-                req.flash('success', '删除成功!');
-                return res.json({
-                    success:1
-                });
-            }
+        result.destroy().then(function() {
+            res.redirect('/identity');
         });
     });
  

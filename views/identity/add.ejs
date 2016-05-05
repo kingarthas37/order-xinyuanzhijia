@@ -97,7 +97,7 @@
             <!-- phone start -->
             <div class="am-form-group">
                 <label>是否常用：</label>
-                <input type="checkbox" checked="checked" id="is-often" name="if-often">
+                <input type="checkbox" checked="checked" id="is-often" name="is-often">
             </div>
             <!-- phone end -->
             
@@ -133,10 +133,12 @@
 
     function backUploadCallback(url) {
         $('#card-image-back').val(url);
+        $('#card-back-view').empty().append('<img src="'+ url +'"/>');
     }
 
     function allUploadCallback(url) {
         $('#card-image-all').val(url);
+        $('#card-all-view').empty().append('<img src="'+ url +'"/>');
         
     }
     

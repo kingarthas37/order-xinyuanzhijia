@@ -35,17 +35,20 @@
             <thead>
             <tr>
                 <th>姓名</th>
-                <th>正面</th>
-                <th>反面</th>
-                <th>双面</th>
-                <th>删除</th>
+                <th class="t-c">正面</th>
+                <th class="t-c">反面</th>
+                <th class="t-c">双面</th>
+                <th class="t-c">删除</th>
             </tr>
             </thead>
             <tbody>
             <% for(var i=0; i < identity.length; i++) {%>
             <tr>
-                <td><%= identity[i].get('name') %></td>
-                <td><a class="remove-identity" data-id="<%= identity[i].get('identityId') %>" href="/identity/remove/<%= identity[i].get('identityId') %>">删除</a></td>
+                <td><a href="/identity/edit/<%= identity[i].get('identityId') %>"><%= identity[i].get('name') %></a> </td>
+                <td class="t-c"><a href="<%= identity[i].get('cardImageFront') %>" target="_blank">查看</a><span class="split"></span><a href="<%= identity[i].get('cardImageFront') %>" download>下载</a></td>
+                <td class="t-c"><a href="<%= identity[i].get('cardImageBack') %>" target="_blank">查看</a><span class="split"></span><a href="<%= identity[i].get('cardImageBack') %>" download>下载</a></td>
+                <td class="t-c"><a href="<%= identity[i].get('cardImageAll') %>" target="_blank">查看</a><span class="split"></span><a href="<%= identity[i].get('cardImageAll') %>" download>下载</a></td>
+                <td class="t-c"><a class="remove-identity" href="/identity/remove/<%= identity[i].get('identityId') %>">删除</a></td>
             </tr>
             <% } %>
             </tbody>
@@ -62,7 +65,7 @@
         <hr/>
 
         <div class="am-form-group">
-            <a href="/identity/add" class="am-btn am-btn-primary" role="button">添加新分类</a>
+            <a href="/identity/add" class="am-btn am-btn-primary" role="button">添加身份证</a>
         </div>
 
     </fieldset>
@@ -78,17 +81,6 @@
         <div class="am-modal-footer">
             <span class="am-modal-btn" data-am-modal-confirm>确定</span>
             <span class="am-modal-btn" data-am-modal-cancel>取消</span>
-        </div>
-    </div>
-</div>
-
-
-<div class="am-modal am-modal-alert" tabindex="-1" id="alert-remove-identity">
-    <div class="am-modal-dialog">
-        <div class="am-modal-bd">
-        </div>
-        <div class="am-modal-footer">
-            <span class="am-modal-btn">确定</span>
         </div>
     </div>
 </div>

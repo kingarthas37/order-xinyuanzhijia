@@ -40,11 +40,28 @@ router.post('/', function (req, res, next) {
     }
 
     let name = req.body['name'];
-    var recordCategory = new Identity();
-
-    recordCategory.set('name', name);
+    let cardNo = req.body['card-no'];
+    let cardAddress = req.body['card-address'];
+    let shippingAddress = req.body['shipping-address'];
+    let phone = req.body['phone'];
+    let cardImageFront = req.body['card-image-front'];
+    let cardImageBack = req.body['card-image-back'];
+    let cardImageAll = req.body['card-image-all'];
+    let isOften = req.body['is-often'] ? true : false;
     
-    recordCategory.save().then(()=> {
+    var identity = new Identity();
+    
+    identity.save({
+        name:name,
+        cardNo:cardNo,
+        cardAddress:cardAddress,
+        shippingAddress:shippingAddress,
+        phone:phone,
+        cardImageFront:cardImageFront,
+        cardImageBack:cardImageBack,
+        cardImageAll:cardImageAll,
+        isOften:isOften
+    }).then(()=> {
         req.flash('success', '添加产品分类成功!');
         res.redirect('/identity');
     });
