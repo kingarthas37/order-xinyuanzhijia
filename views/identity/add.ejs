@@ -10,20 +10,97 @@
 
 <% include ../partials/header %>
 
-<div class="am-container common-page">
+<div class="am-container common-page identity-page">
     
-    <form id="form-add-record-category" class="am-form" action="/record-category/add" method="post">
+    <form id="form-add-identity" class="am-form" action="/identity/add" method="post">
 
         <fieldset>
 
-            <legend><a href="/record-category/add">添加新产品收录分类</a></legend>
+            <legend><a href="/identity/add">添加身份证</a></legend>
             
-            <!-- category name start -->
+            <!-- name start -->
             <div class="am-form-group">
-                <label>产品收录分类标题：<i>*</i> </label>
-                <input id="name" required name="name" type="text" placeholder="输入产品录入分类标题" />
+                <label>身份证姓名：<i>*</i> </label>
+                <input id="name" required name="name" type="text" placeholder="输入身份证姓名" />
             </div>
-            <!-- category name end -->
+            <!-- name end -->
+
+
+            <!-- card no start -->
+            <div class="am-form-group">
+                <label>身份证号：</label>
+                <input id="card-no" name="card-no" type="text" placeholder="输入身份证号" />
+            </div>
+            <!-- card no end -->
+            
+            
+            <!-- card address start -->
+            <div class="am-form-group">
+                <label>身份证地址：</label>
+                <input id="card-address"  name="card-address" type="text" placeholder="输入身份证地址" />
+            </div>
+            <!-- card address end -->
+
+            
+            <!-- shipping address start -->
+            <div class="am-form-group">
+                <label>收货地址：</label>
+                <input id="shipping-address" name="shipping-address" type="text" placeholder="输入收货地址" />
+            </div>
+            <!-- shipping address end -->
+
+            
+            <!-- phone start -->
+            <div class="am-form-group">
+                <label>手机号：</label>
+                <input id="phone" name="phone" type="text" placeholder="输入手机号" />
+            </div>
+            <!-- phone end -->
+
+
+            <!-- card image front start -->
+            <div class="am-form-group">
+                <label>上传身份证正面照： </label>
+                <div>
+                    <iframe class="upload-title" src="/identity/upload?callback=frontUploadCallback" frameborder="0"></iframe>
+                </div>
+                <input id="card-image-front" name="card-image-front" type="text" placeholder="身份证正面" />
+                <div id="card-front-view" class="card-view"></div>
+            </div>
+            <!-- card image front end -->
+
+
+            <!-- card image back start -->
+            <div class="am-form-group">
+                <label>上传身份证反面照： </label>
+                <div>
+                    <iframe class="upload-title" src="/identity/upload?callback=backUploadCallback" frameborder="0"></iframe>
+                </div>
+                <input id="card-image-back" name="card-image-back" type="text" placeholder="身份证反面" />
+                <div id="card-back-view" class="card-view"></div>
+            </div>
+            <!-- card image back end -->
+
+
+            <!-- card image all start -->
+            <div class="am-form-group">
+                <label>上传身份证正反面照： </label>
+                <div>
+                    <iframe class="upload-title" src="/identity/upload?callback=allUploadCallback" frameborder="0"></iframe>
+                </div>
+                <input id="card-image-all" name="card-image-all" type="text" placeholder="身份证正反面" />
+                <div id="card-all-view" class="card-view"></div>
+            </div>
+            <!-- card image all end -->
+
+
+            <!-- phone start -->
+            <div class="am-form-group">
+                <label>是否常用：</label>
+                <input type="checkbox" checked="checked" id="is-often" name="if-often">
+            </div>
+            <!-- phone end -->
+            
 
             <hr/>
 
@@ -42,10 +119,27 @@
 <% include ../partials/js %>
 
 <script type="text/javascript">
+    
     $(function() {
-        var recordCategory = require('record-category');
-        recordCategory.addFun();
+        var identity = require('identity');
+        identity.addFun();
     });
+
+    //iframe upload callback
+    function frontUploadCallback(url) {
+        $('#card-image-front').val(url);
+        $('#card-front-view').empty().append('<img src="'+ url +'"/>');
+    }
+
+    function backUploadCallback(url) {
+        $('#card-image-back').val(url);
+    }
+
+    function allUploadCallback(url) {
+        $('#card-image-all').val(url);
+        
+    }
+    
 </script>
 </body>
 </html>

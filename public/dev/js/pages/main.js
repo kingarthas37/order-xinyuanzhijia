@@ -16,3 +16,4 @@ require('./product-book');
 require('./product-brand');
 require('./record');
 require('./record-category');
+require('./identity');

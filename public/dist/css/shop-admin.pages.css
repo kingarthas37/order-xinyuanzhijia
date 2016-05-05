@@ -308,4 +308,11 @@ iframe.upload-title {
     max-width: 90px;
     max-height: 90px; }
 
+/* identity page */
+.identity-page .card-view img {
+  width: 200px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  padding: 4px; }
+
 /*# sourceMappingURL=shop-admin.pages.css.map */
