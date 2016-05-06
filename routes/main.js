@@ -67,6 +67,7 @@ module.exports = {
     
     //taobao-mail-create
     '/mail/taobao-mail-create':require('./mail/taobao-mail-create'),
+    '/mail/taobao-read':require('./mail/taobao-read'),
     
     //product-category
     '/product-category':require('./product-category'),

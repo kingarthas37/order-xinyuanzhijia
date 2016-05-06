@@ -56,12 +56,10 @@ module.exports = function() {
         }
         //过滤淘宝复制过来得数据
         function filterTaobaoData(_data) {
-            
+
             _data = $.trim(_data);
             _data = _data.replace(/\n/g,'|');
-            
             var __data = _data.split('|');
-
             var dataArr = $.grep(__data,function(n,i) {
                 return n;
             });
@@ -72,12 +70,7 @@ module.exports = function() {
             }
             
             //userName
-            $.each(dataArr,function(i,n) {
-                if(n.indexOf('') > -1) {
-                    userName = n.replace('','');
-                    return;
-                }
-            });
+            userName = dataArr[4];
             
             //匹配数据
             $.each(dataArr,function(i,n) {
