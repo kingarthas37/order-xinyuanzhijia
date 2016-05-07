@@ -8,6 +8,7 @@ nbproject
 *.iml
 *.swp
 *.un~
+/.avoscloud
 /shot
 .DS_Store
 
