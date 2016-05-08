@@ -18,7 +18,7 @@ var data =  extend(config.data,{
 
 router.get('/', function (req, res, next) {
     let type = req.query.type || 'baiduyun';
-    res.render(`mail/taobao-read-${type}`, data);
+   // res.render(`mail/taobao-read-${type}`, data);
 });
 
 
