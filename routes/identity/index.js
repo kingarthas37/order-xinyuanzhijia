@@ -34,20 +34,26 @@ router.get('/', (req, res) => {
     let order = req.query.order || 'desc';
 
     let searchName = req.query['search-name'];
-
+    let searchIsOften = req.query['search-isoften'] !== '0' ? true :false;
+    
     data = extend(data,{
         flash: {
             success:req.flash('success'),
             error:req.flash('error')
         },
         user:req.AV.user,
-        searchName:searchName
+        searchName:searchName,
+        searchIsOften:searchIsOften
     });
     
     let query = new AV.Query(Identity);
     
     if(searchName) {
         query.contains('name',searchName);
+    }
+    
+    if(searchIsOften) {
+        query.equalTo('isOften',true);
     }
     
     query.count().then(count => {
@@ -68,6 +74,10 @@ router.get('/', (req, res) => {
 
         if(searchName) {
             query.contains('name',searchName);
+        }
+
+        if(searchIsOften) {
+            query.equalTo('isOften',true);
         }
         
         return query.find();

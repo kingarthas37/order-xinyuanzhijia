@@ -37,6 +37,9 @@ span.split {
     content: "|";
     color: #ddd; }
 
+.am-form select {
+  min-width: 50px; }
+
 .clearfix {
   *zoom: 1; }
   .clearfix:before, .clearfix:after {

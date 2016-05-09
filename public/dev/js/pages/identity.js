@@ -21,6 +21,10 @@ module.exports = {
             });
             return false;
         });
+        
+        $('.search-isoften').change(function() {
+            $('form').find('.am-btn').click();
+        });
 
     },
     addFun: function () {

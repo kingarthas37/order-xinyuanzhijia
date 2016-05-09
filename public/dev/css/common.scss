@@ -52,6 +52,12 @@ span.split {
     }
 }
 
+.am-form {
+    select {
+        min-width: 50px;
+    }
+}
+
 .clearfix {
     &:before,
     &:after {

@@ -27,6 +27,17 @@
                 搜索身份证姓名：<input type="text" name="search-name" class="am-form-field" placeholder="搜索">
             </div>
             <button type="submit" class="am-btn am-btn-primary">搜索</button>
+            
+                <span></span>
+
+            <div class="am-form-group">常用身份证</div>
+            <div class="am-form-group am-form-select am-form">
+                <select name="search-isoften" class="search-isoften">
+                    <option value="1" <% if (searchIsOften) { %> selected="selected"<%}%> >是</option>
+                    <option value="0" <% if (!searchIsOften) { %> selected="selected"<%}%>>否</option>
+                </select>
+            </div>
+            
         </form>
 
         <hr/>
