@@ -110,7 +110,7 @@ module.exports = function() {
                 for(var i=0;i<finalDataArray.length;i++) {
 
                     lists += '<div style="border-bottom: 1px dashed #ccc; margin-bottom: 5px;">';
-                    lists += '<div style="font-weight: bold; padding:5px 10px 0 10px; margin:0; ">'+ (i+1) +'.' + decodeURIComponent(finalDataArray[i].title) + '</div>';
+                    lists += '<div style="font-weight: bold; padding:5px; margin:0; ">'+ (i+1) +'.' + decodeURIComponent(finalDataArray[i].title) + '</div>';
 
                     //更新content html
                     var _content = decodeURIComponent(finalDataArray[i].content);
@@ -118,7 +118,7 @@ module.exports = function() {
                     _content = _content.replace(/链接\S/g,'<br/>下载链接:<span style="padding-left:6px;"></span>');
                     _content = _content.replace(/密码\S([^\n]+)/gi,'<br/>下载密码:<strong style="color:#645a7e;padding-left:6px;">$1</strong><div style="padding-bottom: 6px;"></div>');
 
-                    lists += '<div style="padding:5px 10px 5px 10px; margin:0;">'+ _content +'</div>';
+                    lists += '<div style="padding:5px; margin:0;">'+ _content +'</div>';
                     lists += '</div>';
                 }
 
