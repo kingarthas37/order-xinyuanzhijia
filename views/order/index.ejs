@@ -45,6 +45,7 @@
                     <th>订单名称</th>
                     <th>收件人</th>
                     <th>淘宝名</th>
+                    <th>快递</th>
                     <th>状态</th>
                     <th>创建时间</th>
                     <th class="small-screen-hide">更新时间</th>
@@ -57,6 +58,13 @@
                     <td><a href="/order/edit/<%= order[i].get('orderId') %>"><%= order[i].get('orderName') %></a> </td>
                     <td><a title="<%= order[i].get('shippingAddress') %>" href="/customer/edit/<%= order[i].get('customerId') %>"><%= order[i].get('customerName') %></a> </td>
                     <td><%= customer[i].get('taobao') %></td>
+                    <td>
+                        <a href="http://www.kuaidi100.com/auto.shtml?nu=<%= order[i].get('trackingNumber') %>" target="_blank"><% if(order[i].get('shippingCompany') == 'tiantian') {%>天天<%}%>
+                            <% if(order[i].get('shippingCompany') == 'shunfeng') {%>顺丰<%}%>
+                            <% if(order[i].get('shippingCompany') == 'baishi') {%>百世汇通<%}%>
+                            <% if(order[i].get('shippingCompany') == 'other') {%>其他<%}%>
+                        </a>
+                    </td>
                     <td><% if (order[i].get('shippingStatus') === 'shipped' ) { %>已发货<% } else { %><strong>未发货</strong><% } %></td>
                     <td><%=order[i].createdAt.getFullYear()%>-<%=(order[i].createdAt.getMonth()+1)%>-<%=order[i].createdAt.getDate()%></td>
                     <td class="small-screen-hide"><%=order[i].updatedAt.getFullYear()%>-<%=(order[i].updatedAt.getMonth()+1)%>-<%=order[i].updatedAt.getDate()%></td>
