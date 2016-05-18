@@ -5,19 +5,6 @@ var FlashDetect = require('flash-detect');
 
 module.exports = function () {
 
-    /*$.ajax({
-        type: 'get',
-        url: 'https://leancloud.cn/1.1/classes/ProductCategory2/570b63dc8ac247004d210f00',
-        headers: {
-            "x-lc-id": "QuiPuWpJPzCahsgBK7teBOJN-gzGzoHsz",
-            "x-lc-sign": "de61a82f19a2c195d427b38fdc3e2a2b,1463370642489",
-            "content-type": "application/json"
-        },
-        success: function (data) {
-            console.info(12,data);
-        }
-    });*/
-
     var TAOBAONAME = '暮雪的心愿城';
     var taobaoData = null;
     var btnCreate = $('#btn-create');
