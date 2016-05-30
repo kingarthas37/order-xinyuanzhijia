@@ -29,6 +29,7 @@ router.get('/', function (req, res, next) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
     
+    var siteType = req.query['site-type'] || 'normal';
     var page = req.query.page ? parseInt(req.query.page) : 1;
     var limit = req.query.limit ? parseInt(req.query.limit) : config.page.LIMIT;
     var order = req.query.order || 'desc';
@@ -36,12 +37,17 @@ router.get('/', function (req, res, next) {
     var search = req.query['purchase-contact-search'] ? req.query['purchase-contact-search'].trim() : '';
 
     data = extend(data,{
+        currentPage: siteType === 'etsy' ? 'purchase-contact-etsy' : 'purchase-contact'
+    });
+
+    data = extend(data,{
         flash: {
             success:req.flash('success'),
             error:req.flash('error')
         },
         user:req.AV.user,
-        search:search
+        search,
+        siteType
     });
 
     async.series([
@@ -49,6 +55,8 @@ router.get('/', function (req, res, next) {
         function(cb) {
             
             var query = new AV.Query(PurchaseContact);
+            
+            query.equalTo('siteType',siteType);
             
             if(search) {
                 query.contains('name',search);
@@ -81,6 +89,8 @@ router.get('/', function (req, res, next) {
                 query.descending('purchaseContactId');
             }
 
+            query.equalTo('siteType',siteType);
+
             if(search) {
                 query.contains('name',search);
             }
@@ -100,6 +110,7 @@ router.get('/', function (req, res, next) {
         },
 
         function () {
+            console.info(data.currentPage);
             res.render('purchase-contact', data);
         }
 

@@ -27,8 +27,11 @@ router.get('/', function (req, res, next) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
     
+    let siteType = req.query['site-type'] || 'normal';
+    
     data = extend(data,{
-        user:req.AV.user
+        user:req.AV.user,
+        siteType
     });
     
     res.render('purchase-contact/add', data);
@@ -49,6 +52,7 @@ router.post('/', function (req, res, next) {
     var website = req.body['website'];
     var email =req.body['email'];
     var imageUrl = req.body['image-url'];
+    var siteType = req.body['site-type'];
     
     shop = utils.urlCompleting(shop);
     website = utils.urlCompleting(website);
@@ -62,6 +66,7 @@ router.post('/', function (req, res, next) {
     purchaseContact.set('website',website);
     purchaseContact.set('email',email);
     purchaseContact.set('imageUrl',imageUrl);
+    purchaseContact.set('siteType',siteType);
 
     purchaseContact.save(null, {
         success: function () {

@@ -36,7 +36,9 @@
                 <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">采购管理 <span class="am-icon-caret-down"></span></a>
                 <ul class="am-dropdown-content">
                         <li <% if (currentPage === 'purchase') { %> class="am-active" <% } %> ><a href="/purchase">采购订单管理</a></li>
+                        <li <% if (currentPage === 'purchase-etsy') { %> class="am-active" <% } %> ><a href="/purchase?site-type=etsy">etsy.com采购订单管理</a></li>
                         <li <% if (currentPage === 'purchase-contact') { %> class="am-active" <% } %> ><a href="/purchase-contact">采购网站管理</a></li>
+                        <li <% if (currentPage === 'purchase-contact-etsy') { %> class="am-active" <% } %> ><a href="/purchase-contact?site-type=etsy">etsy.com采购网站管理</a></li>
                 </ul>
                 </li>
 

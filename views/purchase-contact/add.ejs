@@ -21,12 +21,24 @@
             <!-- name start -->
             <div id="content-name" class="am-form-group">
                 <label>网站名称：<i>*</i> </label>
-                <input  id="name" required name="name" type="text" placeholder="输入网站名称" />
+                <input id="name" required name="name" type="text" placeholder="输入网站名称" />
             </div>
             <!-- name end -->
 
             <hr/>
 
+            <!-- sitetype start -->
+            <div class="am-form-group">
+                <label>网站类型：</label>
+                <select name="site-type" id="site-type">
+                    <option value="normal" <%if(siteType === 'normal') { %>selected<% } %>>普通网站</option>
+                    <option value="etsy" <%if(siteType === 'etsy') { %>selected<% } %> >etsy.com</option>
+                </select>
+            </div>
+            <!-- sitetype end -->
+
+            <hr/>
+            
             <!-- shop start -->
             <div id="content-shop" class="am-form-group">
                 <label>网店地址：</label>

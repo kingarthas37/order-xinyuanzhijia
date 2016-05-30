@@ -18,7 +18,7 @@
     </div>
     <% } %>
     
-        <fieldset>
+    <fieldset>
 
     <legend><a href="/purchase-contact">网站联系方式列表</a></legend>
 
@@ -67,7 +67,7 @@
     <hr/>
 
     <div class="am-form-group">
-        <a href="/purchase-contact/add" class="am-btn am-btn-primary" role="button">添加网站联系方式</a>
+        <a href="/purchase-contact/add<% if(siteType==='etsy') {%>?site-type=etsy<% } %>" class="am-btn am-btn-primary" role="button">添加网站联系方式</a>
     </div>
 
 </fieldset>

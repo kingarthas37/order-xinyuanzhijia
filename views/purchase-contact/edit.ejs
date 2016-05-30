@@ -30,6 +30,18 @@
 
             <hr/>
 
+            <!-- sitetype start -->
+            <div class="am-form-group">
+                <label>网站类型：</label>
+                <select name="site-type" id="site-type">
+                    <option value="normal" <%if (purchaseContact.get('siteType')==='normal') { %>selected<% } %>>普通网站</option>
+                    <option value="etsy" <%if (purchaseContact.get('siteType')==='etsy') { %>selected<% } %>>etsy.com</option>
+                </select>
+            </div>
+            <!-- sitetype end -->
+
+            <hr/>
+
             <!-- shop start -->
             <div id="content-shop" class="am-form-group">
                 <label>网店地址：</label>
