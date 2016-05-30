@@ -25,8 +25,11 @@ router.get('/', function (req, res, next) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
     
+    let siteType = req.query['site-type'];
+    
     data = extend(data,{
-        user:req.AV.user
+        user:req.AV.user,
+        siteType
     });
     
     res.render('purchase/add', data);
@@ -54,6 +57,7 @@ router.post('/', function (req, res, next) {
     var purchaseshippingStatus = req.body['purchase-shipping-status'];
     var purchaseComment = req.body['purchase-comment'];
     var purchaseImage = req.body['purchase-image'];
+    var siteType = req.body['site-type'];
 
     var purchaseTrack = new PurchaseTrack();
 
@@ -71,6 +75,7 @@ router.post('/', function (req, res, next) {
     purchaseTrack.set('shippingStatus',purchaseshippingStatus);
     purchaseTrack.set('comment',purchaseComment);
     purchaseTrack.set('image',purchaseImage);
+    purchaseTrack.set('siteType',siteType);
 
     purchaseTrack.save(null, {
         success: function () {

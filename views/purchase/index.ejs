@@ -27,6 +27,20 @@
                   搜索订单：<input type="text" name="purchase-search" class="am-form-field" placeholder="搜索">
                 </div>
                 <button type="submit" class="am-btn am-btn-primary">搜索</button>
+
+                <span></span>
+
+                <div class="am-form-group">选择网站类型：</div>
+
+                <div class="am-form-group am-form-select am-form">
+                    <select id="select-site-type">
+                        <option value="" <% if(!siteType) { %>selected<%}%>>所有</option>
+                        <option value="normal" <% if(siteType==='normal') { %>selected<%}%> >默认网站</option>
+                        <option value="etsy" <% if(siteType==='etsy') { %>selected<%}%> >etsy.com</option>
+                    </select>
+                </div>
+
+                <% if(siteType) { %><input type="hidden" name="site-type" value="<%= siteType %>"><% } %>
             </form>
 
             <hr/>
@@ -74,9 +88,9 @@
             
             <ul class="am-pagination">
                 <% if (purchasePager.prev) { %> <li>
-                    <a href="/purchase?page=<%= purchasePager.prev %><% if (search) {%>&purchase-search=<%=search%> <%}%>">上一页</a></li> <% } %>
+                    <a href="/purchase?page=<%= purchasePager.prev %><% if (search) {%>&purchase-search=<%=search%> <%}%><% if (siteType) {%>&site-type=<%=siteType%> <%}%>">上一页</a></li> <% } %>
                 <% if (purchasePager.next) { %> <li>
-                    <a href="/purchase?page=<%= purchasePager.next %><% if (search) {%>&purchase-search=<%=search%> <%}%>">下一页</a></li> <% } %>
+                    <a href="/purchase?page=<%= purchasePager.next %><% if (search) {%>&purchase-search=<%=search%> <%}%><% if (siteType) {%>&site-type=<%=siteType%> <%}%>">下一页</a></li> <% } %>
                 <li class="count">第<%=purchasePager.page%>页 共<%=purchaseCount%>条</li>
             </ul>
             
@@ -84,6 +98,7 @@
 
             <div class="am-form-group">
                 <a href="/purchase/add" class="am-btn am-btn-primary" role="button">添加订单记录</a>
+                <a href="/purchase/add?site-type=etsy" class="am-btn am-btn-primary" role="button">添加etsy.com订单记录</a>
             </div>
 
         </fieldset>

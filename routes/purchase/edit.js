@@ -83,6 +83,7 @@ router.post('/', function (req, res, next) {
     var purchaseShippingStatus = req.body['purchase-shipping-status'];
     var purchaseComment = req.body['purchase-comment'];
     var purchaseImage = req.body['purchase-image'];
+    var siteType = req.body['site-type'];
 
     var purchaseId = req.body['purchase-id'];
     
@@ -128,6 +129,7 @@ router.post('/', function (req, res, next) {
                     purchase.set('shippingStatus',purchaseShippingStatus);
                     purchase.set('comment',purchaseComment);
                     purchase.set('image',purchaseImage);
+                    purchase.set('siteType',siteType);
                     purchase.save(null, {
                         success: function (results) {
                             data = extend(data, {

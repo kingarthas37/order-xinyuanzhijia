@@ -33,12 +33,14 @@ router.get('/', function (req, res, next) {
     var limit = req.query.limit ? parseInt(req.query.limit) : config.page.LIMIT;
     var order = req.query.order || 'desc';
     
+    var siteType = req.query['site-type'];
     var search = req.query['purchase-search'] ? req.query['purchase-search'].trim() : '';
 
     data = extend(data,{
         flash: {success:req.flash('success'),error:req.flash('error')},
         user:req.AV.user,
-        search:search
+        search:search,
+        siteType
     });
 
     async.series([
@@ -46,6 +48,10 @@ router.get('/', function (req, res, next) {
         function(cb) {
             
             var query = new AV.Query(PurchaseTrack);
+            
+            if(siteType) {
+                query.equalTo('siteType',siteType);
+            }
             
             if(search) {
                 query.contains('name',search);
@@ -76,6 +82,10 @@ router.get('/', function (req, res, next) {
                 query.ascending("purchaseId");
             } else {
                 query.descending('purchaseId');
+            }
+            
+            if(siteType) {
+                query.equalTo('siteType',siteType);
             }
 
             if(search) {

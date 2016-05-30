@@ -40,6 +40,18 @@
 
             <hr/>
 
+            <!-- sitetype start -->
+            <div class="am-form-group">
+                <label>网站类型：</label>
+                <select name="site-type" id="site-type">
+                    <option value="normal" <%if(purchase.get('siteType') === 'normal') { %>selected<% } %>>默认网站</option>
+                    <option value="etsy" <%if(purchase.get('siteType') === 'etsy') { %>selected<% } %> >etsy.com</option>
+                </select>
+            </div>
+            <!-- sitetype end -->
+            
+            <hr/>
+            
             <!-- image start -->
             <div id="content-image" class="am-form-group">
                 <label>图片展示：</label>

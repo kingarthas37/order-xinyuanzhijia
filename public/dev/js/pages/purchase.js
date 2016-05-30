@@ -38,6 +38,13 @@ module.exports = {
             });
         });
 
+        $('#select-site-type').change(function() {
+            if(this.value) {
+                return location.href = '/purchase?site-type=' + this.value;
+            }
+            location.href = '/purchase';
+        });
+
     },
     addFun:function() {
         $('#form-add-purchase').validate();
