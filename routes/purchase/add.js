@@ -99,9 +99,12 @@ router.get('/website-desc',function(req,res,next) {
     }
     
     var name = req.query.name;
+    var siteType = req.query['site-type'];
     
     var query = new AV.Query(PurchaseContact);
+    query.equalTo('siteType',siteType);
     query.contains('name',name);
+    
     var jsonData = [];
     
     query.find().then(function(results) {
