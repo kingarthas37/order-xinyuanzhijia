@@ -317,6 +317,12 @@ iframe.upload-title {
     max-width: 90px;
     max-height: 90px; }
 
+.purchase-page .icon-etsy {
+  font-weight: bold;
+  font-style: normal;
+  color: #f56400;
+  font-size: 10px; }
+
 /* identity page */
 .identity-page .card-view img {
   width: 200px;

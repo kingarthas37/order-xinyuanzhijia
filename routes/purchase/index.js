@@ -22,12 +22,40 @@ var data =  extend(config.data,{
 });
 
 
+/*router.get('/test',function(req,res,next) {
+    
+    let query = new AV.Query(PurchaseTrack);
+    query.limit(300);
+    query.find().then(function(results) {
+
+        let count = 0;
+        async.forEach(results,function(item, callback) {
+            
+            if(item.get('website').indexOf('etsy') > -1) {
+                item.set('siteType','etsy');
+            } else {
+                item.set('siteType','normal');
+            }
+            
+            item.save().then(function() {
+                count ++;
+                console.info('已完成' + count);
+                callback();
+            });
+            
+        },function(err) {
+            res.redirect('/purchase');
+        });
+    });
+});*/
+
 //首页
 router.get('/', function (req, res, next) {
 
     if (!req.AV.user) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
+    
     
     var page = req.query.page ? parseInt(req.query.page) : 1;
     var limit = req.query.limit ? parseInt(req.query.limit) : config.page.LIMIT;
