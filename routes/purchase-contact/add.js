@@ -31,7 +31,7 @@ router.get('/', function (req, res, next) {
     
     data = extend(data,{
         user:req.AV.user,
-        siteType
+        siteType:siteType
     });
     
     res.render('purchase-contact/add', data);
