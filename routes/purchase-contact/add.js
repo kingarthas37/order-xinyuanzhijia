@@ -72,7 +72,7 @@ router.post('/', function (req, res, next) {
         success: function () {
             req.flash('success', '添加联系方式成功!');
             let site = siteType === 'etsy' ? '?site-type=etsy' : '';
-            res.redirect(`/purchase-contact${site}`);
+          //  res.redirect(`/purchase-contact${site}`);
         },
         error: function (err) {
             next(err);
