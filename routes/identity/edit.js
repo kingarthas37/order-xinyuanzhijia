@@ -69,7 +69,6 @@ router.post('/:identityId',(req,res) => {
     query.equalTo('identityId',identityId);
     
     query.first().then(result => {
-        console.info(isOften);
         return result.save({
             name:name,
             cardNo:cardNo,

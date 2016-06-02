@@ -110,7 +110,6 @@ router.get('/', function (req, res, next) {
         },
 
         function () {
-            console.info(data.currentPage);
             res.render('purchase-contact', data);
         }
 
