@@ -35,14 +35,14 @@ router.get('/', function (req, res, next) {
     
     var siteType = req.query['site-type'];
     var search = req.query['purchase-search'] ? req.query['purchase-search'].trim() : '';
-
     data = extend(data,{
         flash: {success:req.flash('success'),error:req.flash('error')},
         user:req.AV.user,
         search:search,
-        siteType
+        siteType:siteType
     });
 
+    
     async.series([
 
         function(cb) {
