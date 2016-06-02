@@ -46,8 +46,8 @@ router.get('/', function (req, res, next) {
             error:req.flash('error')
         },
         user:req.AV.user,
-        search:search,
-        siteType:siteType
+        search,
+        siteType
     });
 
     async.series([
