@@ -60,7 +60,7 @@
                 </thead>
                 <tbody>
                 <% for(var i=0; i < purchase.length; i++) {%>
-                <tr>
+                <tr <% if(purchase[i].get('shippingStatus') === 'arrived') { %>class="off"<%}%>>
                     <td class="t-c"><input <% if(purchase[i].get('shippingStatus') === 'arrived') { %> checked="checked" <% } %> type="checkbox" data-id="<%=purchase[i].get('purchaseId')%>" class="ckb-shipping-status"></td>
                     <td><a href="/purchase/edit/<%= purchase[i].get('purchaseId') %>"> <% if (purchase[i].get('image')) { %><img src="<%= purchase[i].get('image') %>" width="40" /><% } %> <%= purchase[i].get('name') %></a> <% if(purchase[i].get('siteType')==='etsy') {%> <i class="icon-etsy">Etsy</i> <%}%></td>
                     <td class="t-c">

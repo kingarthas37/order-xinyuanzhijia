@@ -33,8 +33,13 @@ module.exports = {
                     purchaseId:$(this).attr('data-id'),
                     status:this.checked ? 'arrived' : 'notarrived'
                 }
-            }).done(function(data) {
-                console.info(data);
+            }).done(data => {
+                let tr = $(this).parents('tr');
+                if(this.checked) {
+                    tr.addClass('off')
+                } else {
+                    tr.removeClass('off')
+                }
             });
         });
 

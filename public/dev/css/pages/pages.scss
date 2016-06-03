@@ -96,6 +96,13 @@
 
 /* purchase page */
 .purchase-page {
+    
+    table {
+        tr.off {
+            background: #feffed;
+        }
+    }
+    
     .purchase-image {
         border:1px solid #ddd;
         height: 100px;

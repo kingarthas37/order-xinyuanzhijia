@@ -306,6 +306,9 @@ iframe.upload-title {
   width: 160px; }
 
 /* purchase page */
+.purchase-page table tr.off {
+  background: #feffed; }
+
 .purchase-page .purchase-image {
   border: 1px solid #ddd;
   height: 100px;
