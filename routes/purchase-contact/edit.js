@@ -95,8 +95,9 @@ router.post('/', function (req, res, next) {
             purchaseContact: results
         });
 
+        let site = siteType === 'etsy' ? '?site-type=etsy' : '';
         req.flash('success', '编辑联系方式!');
-        res.redirect('/purchase-contact');
+        res.redirect(`/purchase-contact${site}`);
     
     });
     
