@@ -9,7 +9,7 @@ module.exports = function() {
     
     var btnCopy = $('.btn-copy');
     btnCopy.zclip({
-        path: '/swf/ZeroClipboard.swf',
+        path: '/assets/swf/ZeroClipboard.swf',
         copy: function () {
             return html;
         },

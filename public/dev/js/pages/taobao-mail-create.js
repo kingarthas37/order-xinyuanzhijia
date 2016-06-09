@@ -89,7 +89,7 @@ module.exports = function () {
 
     //最终生成html
     function createFinalContent() {
-        mailContent.load('/templates/taobao-mail.html', function (d) {
+        mailContent.load('/assets/templates/taobao-mail.html', function (d) {
 
             if (!finalDataArray.length) {
                 alert('数据错误，请检查!');
@@ -137,7 +137,7 @@ module.exports = function () {
     if (FlashDetect.installed) {
 
         $('.copy-title').show().zclip({
-            path: '/swf/ZeroClipboard.swf',
+            path: '/assets/swf/ZeroClipboard.swf',
             copy: function () {
                 return $('.mail-title').text();
             },
@@ -147,7 +147,7 @@ module.exports = function () {
         });
 
         $('.copy-wangwang').show().zclip({
-            path: '/swf/ZeroClipboard.swf',
+            path: '/assets/swf/ZeroClipboard.swf',
             copy: function () {
                 return '亲,商品已发送至您此邮箱,请注意查收! ps:如果您是手机端阅读(尤其是iPhone/iPad),请花30秒时间点击下邮件里的在手机中阅读的链接说明,希望本店商品能对亲有帮助哦,并祝亲能收获满满,心想事成,加油!!';
             },
@@ -159,7 +159,7 @@ module.exports = function () {
             }
         });
         $('.copy-haoping').show().zclip({
-            path: '/swf/ZeroClipboard.swf',
+            path: '/assets/swf/ZeroClipboard.swf',
             copy: function () {
                 return '亲,我们已收到您的好评,感谢您对本店的支持,本店会一如既往地为您服务并会持续上架您喜欢的商品,请继续关注我们哦!以下是店主作为答谢赠送您的"天使音乐":[身体工房馆-天使疗愈花园-召唤天使] 下载链接: http://pan.baidu.com/s/1i31U9VJ 密码: 6882';
             },

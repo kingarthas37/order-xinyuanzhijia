@@ -105,16 +105,6 @@
     "public/css/admin.css",
     "public/css/jquery.datetimepicker.css"
   ],
-  "sprites": [
-    {
-      "name": "common",
-      "algorithm": "binary-tree"
-    },
-    {
-      "name": "page",
-      "algorithm": "binary-tree"
-    }
-  ],
   "publicPath": {
     "base": "public/",
     "dist": "public/dist",

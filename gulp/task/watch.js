@@ -10,7 +10,7 @@ var config = require('../../package.json');
 
 
 // Watch监听，运行gulp后执行
-//['css','browserify']需要依赖，否则会事先执行watch导致不断run css和sprite的task
+//['css','browserify']需要依赖，否则会事先执行watch导致不断run css的task
 gulp.task('watch', ['css','browserify'], function () { 
     
     if(args.sync) {
@@ -24,7 +24,5 @@ gulp.task('watch', ['css','browserify'], function () {
     gulp.watch(config.publicPath.imageDev + '**/*.+(jpg|jpeg|png|gif)',['image']);
     //监听*.scss目录，执行task: css
     gulp.watch(config.publicPath.cssDev + '**/*.scss', ['css']);
-    //监听所有sprite目录，执行task:sprite
-    gulp.watch(config.publicPath.spriteDev + '**/*.png' , ['sprite']);
     
 });

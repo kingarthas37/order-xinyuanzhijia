@@ -33,7 +33,7 @@ gulp.task('browserify', function () {
         packageCache: {},
         fullPaths: false,
         entries: [path.resolve(config.publicPath.jsDev,'common/main.js')],  //入口为/common/main.js
-        debug: true  //开启sourcemaps
+        debug: false  //sourcemaps
     }).transform(babelify,{
         compact: false,
         presets:['es2015'],
@@ -74,7 +74,7 @@ gulp.task('browserify:prod', function () {
     //factor-bundle增加common/main.js和pages/main.js
     var b = browserify({
         entries: [path.resolve(config.publicPath.jsDev,'common/main.js'),path.resolve(config.publicPath.jsDev,'pages/main.js')],
-        debug: true
+        debug: false
     }).transform(babelify,{
         compact: false,
         presets:['es2015'],
@@ -112,9 +112,7 @@ gulp.task('browserify:prod', function () {
                     //生成单个js文件，增加sourcemaps,压缩js
                     file(path.basename(filepath), content, {src: true})
                         .pipe(buffer())
-                        .pipe(sourcemaps.init({loadMaps: true}))
                         .pipe(uglify())
-                        .pipe(sourcemaps.write('.'))
                         .pipe(gulp.dest(path.resolve(config.publicPath.jsMin)))
                         .on('end',function() {
                             cb();
@@ -126,21 +124,14 @@ gulp.task('browserify:prod', function () {
                     //如果处理的文件是name.external.js就表示最后一个js，此时合并common.js和page.js为main.js
                     if(filepath === (config.name + '.external.js')) {
                         gulp.src([config.publicPath.jsMin + config.name + '.common.js',config.publicPath.jsMin + config.name + '.pages.js'])
-                            .pipe(sourcemaps.init({loadMaps: true}))
                             .pipe(concat(config.name + '.main.js'))
-                            .pipe(sourcemaps.write('.'))
                             .pipe(gulp.dest(config.publicPath.jsMin))
                             .on('end',cb);
                     }
                 },
                 
                 function() {
-                    
-                    //合并完之后，将common.js和pages.js删除
-                    var unlinkArr = ['.common.js','.common.js.map','.pages.js','.pages.js.map'];
-                    for(var i=0;i<unlinkArr.length;i++) {
-                        fs.unlinkSync(config.publicPath.jsMin + config.name + unlinkArr[i]);
-                    }
+                    console.info('prod env run success.');
                 }
                 
             ],function(err) {
