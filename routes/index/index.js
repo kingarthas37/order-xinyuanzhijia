@@ -13,10 +13,10 @@ var OrderTrack = AV.Object.extend('OrderTrack');
 var Customer = AV.Object.extend('Customer');
 var PurchaseTrack = AV.Object.extend('PurchaseTrack');
 
-var data = {
+var data = extend(config.data,{
     title: '首页',
     currentPage: 'index'
-};
+});
 
 router.get('/',(req,res)=> {
     
