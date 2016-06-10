@@ -5,13 +5,14 @@ var AV = require('leanengine');
 
 var flash = require('connect-flash');
 var extend = require('xtend');
+var config = require('../../lib/config');
 
-var data = {
+var data = extend(config.data,{
     title: '登录',
     currentPage: 'sign',
     flash:{success:null,error:null},
     user:null
-};
+});
 
 
 router.get('/',function(req,res,next) {
