@@ -60,7 +60,7 @@ module.exports = {
                 if(!$(this).data('typeselect')) {
                     newCustomer.prop('checked',true);
                     newAddress.prop('checked',true);
-                    customerNameIdInput.val('');
+                //    customerNameIdInput.val('');
                     addressList.empty();
                 }
             },
