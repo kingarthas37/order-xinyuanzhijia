@@ -16,5 +16,3 @@ node_modules/
 .avoscloud/
 
 npm-debug.log
- 
-public/min/
