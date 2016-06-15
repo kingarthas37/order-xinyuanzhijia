@@ -49,21 +49,19 @@
             <table class="am-table">
                 <thead>
                 <tr>
-                    <th></th>
                     <th>订单名称</th>
-                    <th class="t-c">物流公司</th>
-                    <th class="t-c">物流单号</th>
+                    <th class="t-c">物流</th>
+                    <th class="t-c">单号</th>
                     <th class="t-c">金额</th>
-                    <th class="t-c">转运公司</th>
-                    <th>创建时间</th>
+                    <th class="t-c">转运</th>
+                    <th>时间</th>
                     <th class="small-screen-hide">删除</th>
                 </tr>
                 </thead>
                 <tbody>
                 <% for(var i=0; i < purchase.length; i++) {%>
                 <tr <% if(purchase[i].get('shippingStatus') === 'arrived') { %>class="off"<%}%>>
-                    <td class="t-c"><input <% if(purchase[i].get('shippingStatus') === 'arrived') { %> checked="checked" <% } %> type="checkbox" data-id="<%=purchase[i].get('purchaseId')%>" class="ckb-shipping-status"></td>
-                    <td><a href="/purchase/edit/<%= purchase[i].get('purchaseId') %>"> <% if (purchase[i].get('image')) { %><img src="<%= purchase[i].get('image') %>" width="40" /><% } %> <%= purchase[i].get('name') %></a> <% if(purchase[i].get('siteType')==='etsy') {%> <i class="icon-etsy">Etsy</i> <%}%></td>
+                    <td><input <% if(purchase[i].get('shippingStatus') === 'arrived') { %> checked="checked" <% } %> type="checkbox" data-id="<%=purchase[i].get('purchaseId')%>" class="ckb-shipping-status"> <a href="/purchase/edit/<%= purchase[i].get('purchaseId') %>"> <% if (purchase[i].get('image')) { %><img src="<%= purchase[i].get('image') %>?imageMogr2/thumbnail/30" width="30" /><% } %> <%= purchase[i].get('name') %></a> <% if(purchase[i].get('siteType')==='etsy') {%><i class="icon-etsy">E</i> <%}%></td>
                     <td class="t-c">
                         <% if(purchase[i].get('shippingCompany') === 'none') { %>-<%  } else { %><%= purchase[i].get('shippingCompany') %><% } %>
                     </td>
@@ -80,7 +78,7 @@
                         <% if(purchase[i].get('shippingType') === 'other') { %>其他<%  } %>
                     </td>
                     
-                    <td><%=purchase[i].createdAt.getFullYear()%>-<%=(purchase[i].createdAt.getMonth()+1)%>-<%=purchase[i].createdAt.getDate()%></td>
+                    <td><%=(purchase[i].createdAt.getMonth()+1)%>/<%=purchase[i].createdAt.getDate()%></td>
                     <td class="small-screen-hide"><a href="/purchase/remove/<%= purchase[i].get('purchaseId') %>" class="remove-purchase">删除</a> </td>
                 </tr>
                 <% } %>
