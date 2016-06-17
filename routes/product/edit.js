@@ -19,7 +19,7 @@ var Banner = AV.Object.extend('ProductBanner');
 var config = require('../../lib/config');
 var utils = require('../../lib/utils');
 
-var data = extend(data,{
+var data = extend(config.data,{
     title:'产品编辑-编辑产品',
     currentPage:'product'
 });
