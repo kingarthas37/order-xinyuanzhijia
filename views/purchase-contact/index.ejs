@@ -47,7 +47,7 @@
         <tbody>
         <% for(var i=0; i < purchaseContact.length; i++) {%>
         <tr>
-            <td><a target="_blank" href="<%=purchaseContact[i].get('imageUrl') %>"><img width="80" src="<%=purchaseContact[i].get('imageUrl') %>" alt=""/></a></td>
+            <td><a target="_blank" href="<%=purchaseContact[i].get('imageUrl') %>"><img width="80" src="<%=purchaseContact[i].get('imageUrl') %>?imageMogr2/thumbnail/80" alt=""/></a></td>
             <td><a href="/purchase-contact/edit/<%= purchaseContact[i].get('purchaseContactId') %>"><%= purchaseContact[i].get('name') %></a> </td>
             <td class="t-c"><% if(purchaseContact[i].get('shop')) { %><a href="<%=purchaseContact[i].get('shop') %>" target="_blank">网店链接<% } else { %>--<% } %></a></td>
             <td class="t-c"><% if(purchaseContact[i].get('website')) { %><a href="<%=purchaseContact[i].get('website') %>" target="_blank">官网链接</a> <% } else { %>--<% } %></td>
