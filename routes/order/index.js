@@ -57,7 +57,11 @@ router.get('/', function (req, res, next) {
     }
 
     if(searchCustomerName) {
-        query.contains('customerName',searchCustomerName);
+        let queryName = new AV.Query(OrderTrack);
+        queryName.contains('customerName',searchCustomerName);
+        let queryTaobaoName = new AV.Query(OrderTrack);
+        queryTaobaoName.contains('taobaoName',searchCustomerName);
+        query = new AV.Query.or(queryName,queryTaobaoName);
     }
     
     if(searchAddress) {
@@ -85,7 +89,11 @@ router.get('/', function (req, res, next) {
         }
 
         if(searchCustomerName) {
-            query.contains('customerName',searchCustomerName);
+            let queryName = new AV.Query(OrderTrack);
+            queryName.contains('customerName',searchCustomerName);
+            let queryTaobaoName = new AV.Query(OrderTrack);
+            queryTaobaoName.contains('taobaoName',searchCustomerName);
+            query = new AV.Query.or(queryName,queryTaobaoName);
         }
         
         if(searchAddress) {

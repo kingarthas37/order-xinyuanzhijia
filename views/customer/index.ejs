@@ -35,22 +35,18 @@
             <table class="am-table">
                 <thead>
                 <tr>
-                    <th>用户名</th>
-                    <th>淘宝用户名</th>
-                    <th>创建时间</th>
-                    <th class="small-screen-hide">更新时间</th>
+                    <th width="240">用户名</th>
+                    <th width="240">淘宝用户名</th>
+                    <th width="240">微信号</th>
+                    <th width="240" class="small-screen-hide">更新时间</th>
                 </tr>
                 </thead>
                 <tbody>
                 <% for(var i=0; i < customer.length; i++) {%>
                 <tr>
                     <td><a href="/customer/edit/<%= customer[i].get('customerId') %>"><%= customer[i].get('name') %></a> </td>
-                    <td>
-                        <% if (customer[i].get('taobao')) { %>
-                        <a target="_blank" href="http://amos.alicdn.com/msg.aw?v=2&uid=<%= customer[i].get('taobao') %>&site=cnalichn&s=10&charset=UTF-8" ><img border="0" src="http://amos.alicdn.com/online.aw?v=2&uid=<%= customer[i].get('taobao') %>&site=cnalichn&s=10&charset=UTF-8" alt="点击这里给我发消息" /></a>
-                        <% } %>
-                    </td>
-                    <td><%=customer[i].createdAt.getFullYear()%>-<%=(customer[i].createdAt.getMonth()+1)%>-<%=customer[i].createdAt.getDate()%></td>
+                    <td><%= customer[i].get('taobao') %></td>
+                    <td><%= customer[i].get('weixin') %></td>
                     <td class="small-screen-hide"><%=customer[i].updatedAt.getFullYear()%>-<%=(customer[i].updatedAt.getMonth()+1)%>-<%=customer[i].updatedAt.getDate()%></td>
                 </tr>
                 <% } %>

@@ -26,7 +26,6 @@ router.get('/:customerId', function (req, res, next) {
     }
     
     var customerId = parseInt(req.params.customerId);
-    var parentCustomerId = parseInt(req.body['parent-customer-id']);
  
     data = extend(data,{
         flash: { success:req.flash('success'), error:req.flash('error') },
@@ -59,30 +58,12 @@ router.get('/:customerId', function (req, res, next) {
             query.first().then(function(results) {
 
                 data = extend(data, {
-                    customer: results,
-                    parentCustomerName:''
+                    customer: results
                 });
 
-
-                var parentCustomerId = results.get('parentCustomerId');
-                if(parentCustomerId) {
-                    return cb(null,query,parentCustomerId);
-                }
-
                 res.render('customer/edit', data);
             
             });
-        },
-        
-        function(query,parentCustomerId) {
-        
-            query.equalTo('customerId',parentCustomerId);
-            query.first().then(function(result) {
-            
-                data.parentCustomerName = result.get('name');
-                res.render('customer/edit', data);
-            });
-            
         }
     
     ]);
@@ -97,11 +78,9 @@ router.post('/', function (req, res, next) {
     }
 
     var name = req.body['name'] || '';
-    var nickName = req.body['nickname'] || '';
     var taobao = req.body['taobao'] || '';
     var weixin = req.body['weixin'] || '';
     var address = req.body['address'] || '';
-    var parentCustomerId = req.body['parent-customer-id'] || '';
     
     var customerId = req.body['customer-id'];
     
@@ -134,11 +113,9 @@ router.post('/', function (req, res, next) {
             query.get(objectId, {
                 success: function (customer) {
                     customer.set('name',name);
-                    customer.set('nickName',nickName);
                     customer.set('taobao',taobao);
                     customer.set('weixin',weixin);
                     customer.set('address',address);
-                    customer.set('parentCustomerId',parseInt(parentCustomerId));
                     customer.save(null, {
                         success: function (results) {
                             data = extend(data, {

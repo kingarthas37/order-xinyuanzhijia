@@ -31,15 +31,6 @@
 
             <hr/>
 
-            <!-- nickname start -->
-            <div id="content-nickname" class="am-form-group">
-                <label>昵称：</label>
-                <input id="nickname" name="nickname" type="text" placeholder="输入昵称" value="<%= customer.get('nickName') %>" />
-            </div>
-            <!-- nickname end -->
-
-            <hr/>
-
             <!-- taobaoname start -->
             <div id="content-taobao" class="am-form-group">
                 <label>淘宝用户名：</label>
@@ -55,16 +46,6 @@
                 <input id="weixin" name="weixin" type="text" placeholder="输入微信用户名" value="<%= customer.get('weixin') %>" />
             </div>
             <!-- weixinname end -->
-
-            <hr/>
-
-            <!-- parent-customer start -->
-            <div id="content-parent-customer" class="am-form-group typeahead-content">
-                <label>父客户名(自动查找)：</label>
-                <input id="parent-customer" name="parent-customer" type="text" placeholder="输入微信用户名" value="<%= parentCustomerName %>" />
-                <input id="parent-customer-id" name="parent-customer-id" type="hidden" value="<%= customer.get('parentCustomerId') %>" />
-            </div>
-            <!-- parent-customer end -->
 
             <hr/>
 
