@@ -38,7 +38,8 @@
                     <th width="240">用户名</th>
                     <th width="240">淘宝用户名</th>
                     <th width="240">微信号</th>
-                    <th width="240" class="small-screen-hide">更新时间</th>
+                    <th width="240" class="t-c small-screen-hide">更新时间</th>
+                    <th width="50">删除</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -47,7 +48,8 @@
                     <td><a href="/customer/edit/<%= customer[i].get('customerId') %>"><%= customer[i].get('name') %></a> </td>
                     <td><%= customer[i].get('taobao') %></td>
                     <td><%= customer[i].get('weixin') %></td>
-                    <td class="small-screen-hide"><%=customer[i].updatedAt.getFullYear()%>-<%=(customer[i].updatedAt.getMonth()+1)%>-<%=customer[i].updatedAt.getDate()%></td>
+                    <td class="small-screen-hide t-c"><%=customer[i].updatedAt.getFullYear()%>-<%=(customer[i].updatedAt.getMonth()+1)%>-<%=customer[i].updatedAt.getDate()%></td>
+                    <td><a href="javascript:;" class="remove-customer" data-id="<%= customer[i].get('customerId') %>">删除</a></td>
                 </tr>
                 <% } %>
                 </tbody>
@@ -81,6 +83,17 @@
         <div class="am-modal-footer">
             <span class="am-modal-btn" data-am-modal-confirm>确定</span>
             <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+        </div>
+    </div>
+</div>
+
+
+<div class="am-modal am-modal-confirm" tabindex="-1" id="modal-alert">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">提示</div>
+        <div class="am-modal-bd"></div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn" data-am-modal-confirm>确认</span>
         </div>
     </div>
 </div>

@@ -34,26 +34,28 @@ router.get('/', function (req, res, next) {
     var limit = req.query.limit ? parseInt(req.query.limit) : config.page.LIMIT;
     var order = req.query.order || 'desc';
     
-    var searchOrdername = req.query['search-order-name'];
+    var searchOrderName = req.query['search-order-name'];
     var searchCustomerName = req.query['search-customer-name'];
     let searchAddress = req.query['search-address'];
-
+    let searchCustomerId = req.query['search-customer-id'];
+    
     data = extend(data,{
         flash: {
             success:req.flash('success'),
             error:req.flash('error')
         },
         user:req.AV.user,
-        searchOrderName:searchOrdername,
+        searchOrderName:searchOrderName,
         searchCustomerName:searchCustomerName,
-        searchAddress:searchAddress
+        searchAddress:searchAddress,
+        searchCustomerId:searchCustomerId
     });
     
     
     let query = new AV.Query(OrderTrack);
     
-    if(searchOrdername) {
-        query.contains('orderName',searchOrdername);
+    if(searchOrderName) {
+        query.contains('orderName',searchOrderName);
     }
 
     if(searchCustomerName) {
@@ -62,6 +64,10 @@ router.get('/', function (req, res, next) {
         let queryTaobaoName = new AV.Query(OrderTrack);
         queryTaobaoName.contains('taobaoName',searchCustomerName);
         query = new AV.Query.or(queryName,queryTaobaoName);
+    }
+    
+    if(searchCustomerId) {
+        query.equalTo('customerId',parseInt(searchCustomerId));
     }
     
     if(searchAddress) {
@@ -84,8 +90,8 @@ router.get('/', function (req, res, next) {
             query.descending('orderId');
         }
 
-        if(searchOrdername) {
-            query.contains('orderName',searchOrdername);
+        if(searchOrderName) {
+            query.contains('orderName',searchOrderName);
         }
 
         if(searchCustomerName) {
@@ -94,6 +100,10 @@ router.get('/', function (req, res, next) {
             let queryTaobaoName = new AV.Query(OrderTrack);
             queryTaobaoName.contains('taobaoName',searchCustomerName);
             query = new AV.Query.or(queryName,queryTaobaoName);
+        }
+
+        if(searchCustomerId) {
+            query.equalTo('customerId',parseInt(searchCustomerId));
         }
         
         if(searchAddress) {

@@ -12,6 +12,7 @@ var config = require('../../lib/config');
 
 //class
 var Customer = AV.Object.extend('Customer');
+var Order = AV.Object.extend('OrderTrack');
 
 //lib
 var pager = require('../../lib/pager');
@@ -108,38 +109,45 @@ router.get('/', function (req, res, next) {
 });
 
 
-router.get('/remove/:customerId', function (req, res, next) {
+router.post('/remove/:customerId', function (req, res, next) {
 
     if(!req.AV.user) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
 
-    var customerId = req.params.customerId;
+    let customerId = parseInt(req.params.customerId);
+    let query = new AV.Query(Order);
+    query.equalTo('customerId',customerId);
+    query.select('orderId');
+    query.find().then(orders => {
 
-    async.waterfall([
-
-        function (cb) {
-            var query = new AV.Query(Customer);
-            query.equalTo('customerId', parseInt(customerId));
-            query.first({
-                success: function (object) {
-                    cb(null, object);
-                },
-                error: function (err) {
-                    next(err);
-                }
+        if(orders.length) {
+            
+            res.send({
+                success:0
             });
-        },
-        function (object, cb) {
-            object.destroy({
-                success: function () {
-                    req.flash('success', '删除成功!');
-                    res.redirect('/customer');
-                }
+            
+        } else {
+            
+            let query = new AV.Query(Customer);
+            query.equalTo('customerId',customerId);
+            query.first().then(customer => {
+                customer.destroy({
+                    success: function () {
+                        res.send({
+                            success:1
+                        });
+                    }
+                });
             });
+            
         }
+        
+    });
+    
+    
 
-    ]);
+    
 });
 
 module.exports = router;

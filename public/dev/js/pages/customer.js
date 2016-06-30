@@ -7,14 +7,27 @@ module.exports = {
 
     indexFun:function() {
 
+        let alert = $('#modal-alert');
         $('.remove-customer').click(function() {
-
-            var $this = $(this);
             
             $('#confirm-remove-customer').modal({
                 relatedTarget: this,
                 onConfirm: function(options) {
-                    location.href = $this.attr('href');
+                    let item = $(this.relatedTarget);
+                    $.ajax({
+                        type:'post',
+                        url:`/customer/remove/${item.data('id')}`,
+                        success:data => {
+                            if(data.success) {
+                                location.reload();
+                            } else {
+                                alert.modal({
+                                    relatedTarget: this
+                                }).find('.am-modal-bd').html(`无法删除,请先删除该用户所有<a href="/order?search-customer-id=${item.data('id')}" target="_blank">发货订单</a>后再进行删除`);
+                            }
+                            
+                        }
+                    });
                 },
                 onCancel: function() {
                     return false;
