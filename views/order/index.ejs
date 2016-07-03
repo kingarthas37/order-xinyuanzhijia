@@ -57,7 +57,7 @@
                 <tr>
                     <td><a href="/order/edit/<%= order[i].get('orderId') %>"><%= order[i].get('orderName') %></a> </td>
                     <td class="t-c"><a title="<%= order[i].get('shippingAddress') %>" href="/customer/edit/<%= order[i].get('customerId') %>"><%= order[i].get('customerName') %></a> </td>
-                    <td class="t-c"><%= customer[i].get('taobao') %></td>
+                    <td class="t-c"></td>
                     <td class="t-c">
                         <a href="http://www.kuaidi100.com/auto.shtml?nu=<%= order[i].get('trackingNumber') %>" target="_blank"><% if(order[i].get('shippingCompany') == 'tiantian') {%>天天<%}%>
                             <% if(order[i].get('shippingCompany') == 'shunfeng') {%>顺丰<%}%>
