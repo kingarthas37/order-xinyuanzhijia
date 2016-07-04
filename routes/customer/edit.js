@@ -67,7 +67,6 @@ router.get('/:customerId', function (req, res, next) {
         }
     
     ]);
-  
     
 });
 
@@ -77,10 +76,10 @@ router.post('/', function (req, res, next) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
 
-    var name = req.body['name'] || '';
-    var taobao = req.body['taobao'] || '';
-    var weixin = req.body['weixin'] || '';
-    var address = req.body['address'] || '';
+    var name = req.body['name'];
+    var taobao = req.body['taobao'];
+    var weixin = req.body['weixin'];
+    var address = typeof(req.body['address']) === 'object' ? req.body['address'] : [req.body['address']];
     
     var customerId = req.body['customer-id'];
     

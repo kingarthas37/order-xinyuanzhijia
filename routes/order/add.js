@@ -69,9 +69,10 @@ router.post('/', function (req, res, next) {
             
             //如果是新用户，注册customer
             if(newCustomer && !customerId) {
+                
                 customer.set('name',customerName);
                 customer.set('taobao',taobao);
-                customer.set('address',shippingAddress);
+                customer.set('address',[shippingAddress]);
                 
                 customer.save().then(function(customer) {
                     
@@ -98,7 +99,7 @@ router.post('/', function (req, res, next) {
                     query.equalTo('customerId',customerId);
                     query.first()
                         .then(function(customer) {
-                            customer.set('address',customer.get('address') + '|' + shippingAddress);
+                            customer.add('address',shippingAddress);
                             return customer.save();
                         })
                         .then(function() {

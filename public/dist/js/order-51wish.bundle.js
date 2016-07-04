@@ -1465,7 +1465,7 @@ module.exports = {
             $('#confirm-remove-customer').modal({
                 relatedTarget: this,
                 onConfirm: function onConfirm(options) {
-                    var _this2 = this;
+                    var _this = this;
 
                     var item = $(this.relatedTarget);
                     $.ajax({
@@ -1476,7 +1476,7 @@ module.exports = {
                                 location.reload();
                             } else {
                                 alert.modal({
-                                    relatedTarget: _this2
+                                    relatedTarget: _this
                                 }).find('.am-modal-bd').html('无法删除,请先删除该用户所有<a href="/order?search-customer-id=' + item.data('id') + '" target="_blank">发货订单</a>后再进行删除');
                             }
                         }
@@ -1491,28 +1491,10 @@ module.exports = {
     },
     addFun: function addFun() {
 
-        var _this = this;
-
-        $('#form-add-customer').validate({
-            submitHandler: function submitHandler(form) {
-                _this.updateAddress();
-                form.submit();
-            }
-        });
-
         this.addAddress();
         this.customerTypeAhead();
     },
     editFun: function editFun() {
-
-        var _this = this;
-
-        $('#form-edit-customer').validate({
-            submitHandler: function submitHandler(form) {
-                _this.updateAddress();
-                form.submit();
-            }
-        });
 
         this.addAddress();
         this.customerTypeAhead();
@@ -1534,19 +1516,6 @@ module.exports = {
         remove.click(function () {
             $(this).parents('.address-field').detach();
         });
-    },
-    updateAddress: function updateAddress() {
-
-        var input = $('input[name=address]');
-        var address = '';
-
-        $('.address').filter(function () {
-            return $.trim(this.value) !== '';
-        }).each(function (i, n) {
-            address += n.value + '|';
-        });
-
-        input.val(address.substr(0, address.length - 1));
     },
 
     customerTypeAhead: function customerTypeAhead() {
@@ -1903,7 +1872,6 @@ module.exports = {
                             }
                         });
                     });
-                    console.info(data);
                 });
             })();
         }
@@ -1954,7 +1922,7 @@ module.exports = {
             'typeahead:select': function typeaheadSelect(event, item) {
                 customerNameIdInput.val(item.customerId);
                 taobao.val(item.taobao);
-                var address = item.address.split('|');
+                var address = item.address;
                 addressList.empty();
 
                 if (address.length === 1) {
@@ -1999,9 +1967,9 @@ module.exports = {
             'typeahead:select': function typeaheadSelect(event, item) {
                 customerNameIdInput.val(item.customerId);
                 taobao.val(item.taobao);
-                var address = item.address.split('|');
-                addressList.empty();
 
+                addressList.empty();
+                var address = item.address;
                 if (address.length === 1) {
                     shippingAddress.val(address[0]);
                 } else {

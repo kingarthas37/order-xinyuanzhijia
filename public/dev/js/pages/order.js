@@ -102,7 +102,7 @@ module.exports = {
             'typeahead:select': function (event, item) {
                 customerNameIdInput.val(item.customerId);
                 taobao.val(item.taobao);
-                var address = item.address.split('|');
+                var address = item.address;
                 addressList.empty();
 
                 if (address.length === 1) {
@@ -148,9 +148,9 @@ module.exports = {
             'typeahead:select': function (event, item) {
                 customerNameIdInput.val(item.customerId);
                 taobao.val(item.taobao);
-                var address = item.address.split('|');
+                
                 addressList.empty();
-
+                var address = item.address;
                 if (address.length === 1) {
                     shippingAddress.val(address[0]);
                 } else {

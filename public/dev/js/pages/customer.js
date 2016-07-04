@@ -39,30 +39,12 @@ module.exports = {
     },
     addFun:function() {
         
-        var _this = this;
-        
-        $('#form-add-customer').validate({
-            submitHandler:function(form){
-                _this.updateAddress();
-                form.submit();
-            }
-        });
-        
         this.addAddress();
         this.customerTypeAhead();
         
     },
     editFun:function() {
         
-        var _this = this;
-
-        $('#form-edit-customer').validate({
-            submitHandler:function(form){
-                _this.updateAddress();
-                form.submit();
-            }
-        });
-
         this.addAddress();
         this.customerTypeAhead();
     },
@@ -84,19 +66,6 @@ module.exports = {
             $(this).parents('.address-field').detach();
         });
     
-    },
-    updateAddress:function() {
-
-        var input = $('input[name=address]');
-        var address = '';
-        
-        $('.address').filter(function() {
-            return $.trim(this.value) !== '';
-        }).each(function(i,n) {
-            address += n.value + '|';
-        });
-        
-        input.val(address.substr(0,address.length-1));
     },
 
     customerTypeAhead:function() {

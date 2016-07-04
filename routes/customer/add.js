@@ -41,8 +41,7 @@ router.post('/', function (req, res, next) {
     var name = req.body['name'] || '';
     var taobao = req.body['taobao'] || '';
     var weixin = req.body['weixin'] || '';
-    var address = req.body['address'] || '';
-    
+    var address = typeof(req.body['address']) === 'object' ? req.body['address'] : [req.body['address']];
     var customer = new Customer();
 
     customer.set('name',name);
