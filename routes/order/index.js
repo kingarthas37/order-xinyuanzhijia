@@ -112,31 +112,9 @@ router.get('/', function (req, res, next) {
         
         return query.find();
         
-    }).then((results)=> {
-        
+    }).then(results => {
         data = extend(data, {
             order: results
-        });
-        
-        let customerQuery = new AV.Query(Customer);
-        
-        //数组查询,用于关联列表查询
-        customerQuery.containedIn('customerId',results.map(x=>x.get('customerId')));
-        return customerQuery.find();
-        
-    }).then((results)=> {
-        
-        //对关联查询结果进行重新排序
-        let _results = data.order.map((item)=>{
-            for(let i=0;i< results.length;i++) {
-                if(item.get('customerId') === results[i].get('customerId')) {
-                    return results[i];
-                }
-            }
-        });
-        
-        data = extend(data,{
-            customer:_results
         });
         res.render('order', data);
     });
@@ -176,6 +154,25 @@ router.get('/remove/:orderId', function (req, res, next) {
         }
 
     ]);
+});
+
+
+router.get('/get-customer',(req,res) => {
+    
+    let customerListId = req.query['customerListId'];
+    
+    customerListId = customerListId.map(item => parseInt(item));
+
+    let query = new AV.Query(Customer);
+    query.containedIn('customerId',customerListId);
+    query.select('customerId','weixin','taobao');
+    query.find().then(customers => {
+        res.send({
+            success:1,
+            customers
+        });
+    });
+    
 });
 
 module.exports = router;

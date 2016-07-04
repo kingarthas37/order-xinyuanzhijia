@@ -28,6 +28,11 @@ footer p {
 .r {
   float: right; }
 
+.loading-elem.on {
+  background: url("../images/loading.gif") no-repeat center;
+  padding: 0 8px;
+  background-size: contain; }
+
 label.normal {
   font-weight: normal; }
 

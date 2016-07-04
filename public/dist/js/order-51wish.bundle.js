@@ -1874,6 +1874,39 @@ module.exports = {
             });
             return false;
         });
+
+        //加载customer data
+        {
+            (function () {
+                var customerListId = [];
+                var customerList = $('.am-table').find('tr[data-customer-id]');
+
+                customerList.each(function (i, n) {
+                    if ($(n).data('customer-id')) {
+                        customerListId.push($(n).data('customer-id'));
+                    }
+                });
+
+                $.ajax({
+                    url: '/order/get-customer',
+                    data: { customerListId: customerListId }
+                }).then(function (data) {
+
+                    if (!data.success) {
+                        return;
+                    }
+                    $.each(customerList, function (i, n) {
+                        var customerId = parseInt($(n).data('customer-id'));
+                        $.each(data.customers, function (_i, _n) {
+                            if (_n.customerId === customerId) {
+                                $(n).find('.taobao-name').removeClass('on').text(_n.taobao);
+                            }
+                        });
+                    });
+                    console.info(data);
+                });
+            })();
+        }
     },
     addFun: function addFun() {
         $('#form-add-order').validate();

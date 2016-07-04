@@ -45,7 +45,7 @@
                 <tr>
                     <th>订单名称</th>
                     <th class="t-c">收件人</th>
-                    <th class="t-c">淘宝名</th>
+                    <th class="t-c" width="200">淘宝名</th>
                     <th class="t-c">快递</th>
                     <th class="t-c">状态</th>
                     <th class="t-c small-screen-hide">更新时间</th>
@@ -54,10 +54,10 @@
                 </thead>
                 <tbody>
                 <% for(var i=0; i < order.length; i++) {%>
-                <tr>
+                <tr data-customer-id="<%= order[i].get('customerId') %>">
                     <td><a href="/order/edit/<%= order[i].get('orderId') %>"><%= order[i].get('orderName') %></a> </td>
                     <td class="t-c"><a title="<%= order[i].get('shippingAddress') %>" href="/customer/edit/<%= order[i].get('customerId') %>"><%= order[i].get('customerName') %></a> </td>
-                    <td class="t-c"></td>
+                    <td class="t-c"> <span class="taobao-name loading-elem on"></span> </td>
                     <td class="t-c">
                         <a href="http://www.kuaidi100.com/auto.shtml?nu=<%= order[i].get('trackingNumber') %>" target="_blank"><% if(order[i].get('shippingCompany') == 'tiantian') {%>天天<%}%>
                             <% if(order[i].get('shippingCompany') == 'shunfeng') {%>顺丰<%}%>
