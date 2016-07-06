@@ -2023,37 +2023,29 @@ var Bloodhound = require('bloodhound');
 
 module.exports = {
 
-    indexFun: function indexFun() {
-
-        $('.ckb-is-complete').click(function () {
-            var $this = $(this);
-            $.ajax({
-                url: '/product-book/complete',
-                data: {
-                    productBookId: $this.attr('data-id'),
-                    checked: $this.prop('checked')
-                },
-                success: function success(data) {
-                    console.info(data);
-                }
-            });
-        });
-
-        $('.remove-product-book').click(function () {
-            var $this = $(this);
-            $('#confirm-remove-product-book').modal({
-                relatedTarget: this,
-                onConfirm: function onConfirm(options) {
-                    location.href = $this.attr('href');
-                },
-                onCancel: function onCancel() {
-                    return false;
-                }
-            });
-            return false;
-        });
-    },
+    indexFun: function indexFun() {},
     addFun: function addFun() {
+
+        $('.product-name').get(0).focus();
+
+        {
+            (function () {
+                var productList = $('.product-list');
+                var productListGroup = productList.find('.am-form-group').eq(0);
+                $('.product-add').click(function () {
+                    var clone = productListGroup.clone(true);
+                    productList.append(clone);
+                    clone.find('.product-count').val(1);
+                    clone.find('.product-state').data('checked', false);
+                    clone.find('.product-name').val('').get(0).focus();
+                });
+
+                productList.on('click', '.remove', function () {
+                    $(this).parents('.am-form-group').detach();
+                });
+            })();
+        }
+
         $('#form-add-product-book').validate();
         this.customerTypeAhead();
     },

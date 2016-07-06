@@ -34,7 +34,8 @@ router.get('/', function (req, res, next) {
     var limit = req.query.limit ? parseInt(req.query.limit) : config.page.LIMIT;
     var order = req.query.order || 'desc';
     
-    var searchProductBookTitle = req.query['search-product-book-title'];
+    var searchProduct = req.query['search-product'];
+    var searchName = req.query['search-name'];
 
     data = extend(data,{
         flash: {
@@ -42,16 +43,28 @@ router.get('/', function (req, res, next) {
             error:req.flash('error')
         },
         user:req.AV.user,
-        searchProductBookTitle:searchProductBookTitle
+        searchProduct,
+        searchName
     });
     
     var query = new AV.Query(ProductBook);
+    
     async.series([
 
         function(cb) {
             
-            if(searchProductBookTitle) {
-                query.contains('title',searchProductBookTitle);
+            if(searchProduct) {
+                query.contains('productTitle',searchProduct);
+            }
+
+            if(searchName) {
+                let query1 = new AV.Query(ProductBook);
+                query1.contains('name',searchName);
+                let query2 = new AV.Query(ProductBook);
+                query2.contains('taobao',searchName);
+                let query3 = new AV.Query(ProductBook);
+                query3.contains('weixin',searchName);
+                query = new AV.Query.or(query1,query2,query3);
             }
             
             query.count({
@@ -79,8 +92,18 @@ router.get('/', function (req, res, next) {
                 query.descending('id');
             }
 
-            if(searchProductBookTitle) {
-                query.contains('title',searchProductBookTitle);
+            if(searchProduct) {
+                query.contains('productTitle',searchProduct);
+            }
+
+            if(searchName) {
+                let query1 = new AV.Query(ProductBook);
+                query1.contains('name',searchName);
+                let query2 = new AV.Query(ProductBook);
+                query2.contains('taobao',searchName);
+                let query3 = new AV.Query(ProductBook);
+                query3.contains('weixin',searchName);
+                query = new AV.Query.or(query1,query2,query3);
             }
 
             query.find({

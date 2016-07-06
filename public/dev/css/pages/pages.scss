@@ -135,3 +135,26 @@
         }
     }
 }
+
+/* product book page */
+.product-book-page {
+    .am-form-horizontal {
+        margin-bottom: 20px;
+        margin-left:-15px;
+        margin-right: -15px;
+        .am-form-label {
+            text-align: center;
+            label {
+                font-weight: normal;
+            }
+        }
+        .am-form-group {
+            margin-bottom: 5px;
+            &:first-child {
+                .remove {
+                    display: none;
+                }
+            }
+        }
+    }
+}

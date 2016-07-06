@@ -338,4 +338,18 @@ iframe.upload-title {
   border: 1px solid #ddd;
   padding: 4px; }
 
+/* product book page */
+.product-book-page .am-form-horizontal {
+  margin-bottom: 20px;
+  margin-left: -15px;
+  margin-right: -15px; }
+  .product-book-page .am-form-horizontal .am-form-label {
+    text-align: center; }
+    .product-book-page .am-form-horizontal .am-form-label label {
+      font-weight: normal; }
+  .product-book-page .am-form-horizontal .am-form-group {
+    margin-bottom: 5px; }
+    .product-book-page .am-form-horizontal .am-form-group:first-child .remove {
+      display: none; }
+
 /*# sourceMappingURL=order-51wish.pages.css.map */

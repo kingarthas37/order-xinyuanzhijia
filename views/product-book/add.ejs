@@ -11,49 +11,56 @@
 
 <% include ../partials/header %>
 
-<div class="am-container common-page">
-    
+<div class="am-container common-page product-book-page">
+
     <form id="form-add-product-book" class="am-form" action="/product-book/add" method="post">
 
         <fieldset>
 
-            <legend><a href="/product-book/add">添加新预定记录信息</a></legend>
+            <legend><a href="/product-book/add">添加客户预定信息</a></legend>
 
-            <input type="hidden" id="customer-id" name="customer-id">
-            
+
+            <div class="am-form-horizontal">
+                
+                <div class="am-form-group">
+                    <div class="am-u-sm-12">
+                        <label>预定产品：<i>*</i> </label>
+                    </div>
+                </div>
+                
+                <div class="product-list">
+                    <div class="am-form-group">
+                        <div class="am-u-sm-9"><input class="product-name" required name="product-name" type="text" placeholder="输入产品名"></div>
+                        <div class="am-u-sm-1"><input class="product-count" name="product-count" type="text" placeholder="数量" value="1"></div>
+                        <div class="am-u-sm-1 am-form-label"><label> <input type="checkbox" class="product-state" name="product-state"> 已发货</label></div>
+                        <div class="am-u-sm-1 am-form-label"><a href="javascript:;" class="remove">删除</a></div>
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <div class="am-u-sm-12">
+                        <a class="product-add" href="javascript:;"><i class="am-icon-plus"></i> 添加产品名</a>
+                    </div>
+                </div>
+            </div>
+
+
+
             <!-- product-book customer name start -->
             <div class="am-form-group typeahead-content">
                 <label>客户姓名(自动填充)：<i>*</i> </label>
-                <input id="customer-name" required name="customer-name" type="text" placeholder="输入客户名" />
+                <input type="hidden" id="customer-id" name="customer-id">
+                <input id="customer-name" required name="customer-name" type="text" placeholder="输入姓名"/>
             </div>
             <!-- product-book customer name end -->
-
-            <hr>
-
-            <!-- product-book title start -->
-            <div id="content-name" class="am-form-group">
-                <label>标题：<i>*</i> </label>
-                <input id="title" required name="title" type="text" placeholder="输入标题" />
-            </div>
-            <!-- product-book title end -->
-
+            
             <hr/>
 
             <!-- comment start -->
-            <div id="content-comment" class="am-form-group">
-                <label>预定内容说明：</label>
-                <textarea name="comment" id="comment" placeholder="输入预定内容说明" rows="5"></textarea>
+            <div class="am-form-group">
+                <label>预定备注：</label>
+                <textarea name="comment" id="comment" placeholder="备注" rows="5"></textarea>
             </div>
             <!-- comment end -->
-
-            <hr/>
-            
-            <!-- status start -->
-            <div id="content-is-complete" class="am-form-group">
-                <label>是否完结：</label>
-                <div><label class="normal"><input id="is-complete" name="is-complete" type="checkbox"> 已完成</label></div>
-            </div>
-            <!-- status end -->
 
             <hr/>
 
@@ -65,14 +72,14 @@
         </fieldset>
 
     </form>
-    
+
 </div>
 
 <% include ../partials/footer %>
 <% include ../partials/js %>
 
 <script type="text/javascript">
-    $(function() {
+    $(function () {
         var productBook = require('product-book');
         productBook.addFun();
     });
