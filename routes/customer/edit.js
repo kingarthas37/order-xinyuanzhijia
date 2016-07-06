@@ -40,6 +40,7 @@ router.get('/:customerId', function (req, res, next) {
           
             let query = new AV.Query(OrderTrack);
             query.equalTo('customerId',customerId);
+            query.descending('orderId');
             query.find().then(function(results) {
                 if(results) {
                     data = extend(data, {

@@ -32,7 +32,10 @@
                     <div class="am-form-group">
                         <div class="am-u-sm-9"><input class="product-name" required name="product-name" type="text" placeholder="输入产品名"></div>
                         <div class="am-u-sm-1"><input class="product-count" name="product-count" type="text" placeholder="数量" value="1"></div>
-                        <div class="am-u-sm-1 am-form-label"><label> <input type="checkbox" class="product-state" name="product-state"> 已发货</label></div>
+                        <div class="am-u-sm-1 am-form-label">
+                            <label><input type="checkbox" class="ckb-product-state"> 已发货</label>
+                            <input type="hidden" name="product-state" class="product-state">
+                        </div>
                         <div class="am-u-sm-1 am-form-label"><a href="javascript:;" class="remove">删除</a></div>
                     </div>
                 </div>
@@ -48,8 +51,11 @@
             <!-- product-book customer name start -->
             <div class="am-form-group typeahead-content">
                 <label>客户姓名(自动填充)：<i>*</i> </label>
-                <input type="hidden" id="customer-id" name="customer-id">
                 <input id="customer-name" required name="customer-name" type="text" placeholder="输入姓名"/>
+                <input type="text" id="customer-id" required name="customer-id">
+            </div>
+            <div class="am-form-group customer-info">
+                用户信息: 姓名:- | 淘宝号:- | 微信号:- | 地址:-
             </div>
             <!-- product-book customer name end -->
             

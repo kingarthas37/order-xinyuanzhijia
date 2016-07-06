@@ -12,51 +12,64 @@
 <% include ../partials/header %>
 
 
-<div class="am-container common-page">
+<div class="am-container common-page product-book-page">
 
-    <form id="form-edit-product-book" class="am-form" action="/product-book/edit" method="post">
+    <form id="form-edit-product-book" class="am-form" action="/product-book/edit/<%= productBook.get('productBookId') %>" method="post">
 
-        <input type="hidden" name="product-book-id" value="<%= productBookId %>"/>
-        
         <fieldset>
 
-            <legend>编辑新预定记录信息</legend>
+            <legend><a href="/product-book/edit/<%=productBook.get('productBookId')%>">编辑客户预定信息</a></legend>
 
-            <input type="hidden" id="customer-id" name="customer-id" value="<%= productBook.get('customerId') %>">
+
+            <div class="am-form-horizontal">
+
+                <div class="am-form-group">
+                    <div class="am-u-sm-12">
+                        <label>预定产品：<i>*</i> </label>
+                    </div>
+                </div>
+
+                <div class="product-list">
+                    <% for(var i=0;i<productBook.get('productName').length;i++) { %>
+                    <div class="am-form-group">
+                        <div class="am-u-sm-9"><input value="<%= productBook.get('productName')[i] %>" class="product-name" required name="product-name" type="text" placeholder="输入产品名"></div>
+                        <div class="am-u-sm-1"><input value="<%= productBook.get('productCount')[i] %>" class="product-count" name="product-count" type="text" placeholder="数量"></div>
+                        <div class="am-u-sm-1 am-form-label">
+                            <label><input <% if(productBook.get('productState')[i]) {%>checked="checked"<%}%> type="checkbox" class="ckb-product-state"> 已发货</label>
+                            <input type="hidden" name="product-state" class="product-state" <% if(productBook.get('productState')[i]) {%>value="on"<%}%>>
+                        </div>
+                        <div class="am-u-sm-1 am-form-label"><a href="javascript:;" class="remove">删除</a></div>
+                    </div>
+                    <% }%>
+                </div>
+                <div class="am-form-group">
+                    <div class="am-u-sm-12">
+                        <a class="product-add" href="javascript:;"><i class="am-icon-plus"></i> 添加产品名</a>
+                    </div>
+                </div>
+            </div>
+
+
 
             <!-- product-book customer name start -->
             <div class="am-form-group typeahead-content">
                 <label>客户姓名(自动填充)：<i>*</i> </label>
-                <input id="customer-name" required name="customer-name" type="text" placeholder="输入客户名" value="<%= productBook.get('customerName') %>" />
+                <input id="customer-name" value="<%= productBook.get('customerName') %>" required name="customer-name" type="text" placeholder="输入姓名"/>
+                <input type="text" id="customer-id" required name="customer-id" value="<%= customer.get('customerId')%>">
+            </div>
+            <div class="am-form-group customer-info">
+                用户信息: 姓名:<a href="/customer/edit/<%= customer.get('customerId')%>"><%= customer.get('name')%></a> | 淘宝号:<% if(customer.get('taobao')) {%><%=customer.get('taobao')%><%} else{ %>-<%}%> | 微信号:<% if(customer.get('weixin')) {%><%=customer.get('weixin')%><%} else{ %>-<%}%> | 地址:<% if(customer.get('address')) {%><%=customer.get('address')%><%} else{ %>-<%}%>
             </div>
             <!-- product-book customer name end -->
-
-            <hr>
-            
-            <!-- product-book title start -->
-            <div id="content-name" class="am-form-group">
-                <label>标题：<i>*</i> </label>
-                <input id="title" required name="title" type="text" value="<%= productBook.get('title') %>" placeholder="输入标题" />
-            </div>
-            <!-- product-book title end -->
 
             <hr/>
 
             <!-- comment start -->
-            <div id="content-comment" class="am-form-group">
-                <label>预定内容说明：</label>
-                <textarea name="comment" id="comment" placeholder="输入预定内容说明" rows="5"><%= productBook.get('comment') %></textarea>
+            <div class="am-form-group">
+                <label>预定备注：</label>
+                <textarea name="comment" id="comment" placeholder="备注" rows="5"><%= productBook.get('comment') %></textarea>
             </div>
             <!-- comment end -->
-
-            <hr/>
-
-            <!-- status start -->
-            <div id="content-is-complete" class="am-form-group">
-                <label>是否完结：</label>
-                <div><label><input id="is-complete" name="is-complete" type="checkbox" <% if(productBook.get('isComplete')) { %>checked="checked"<% } %> > 已完成</label></div>
-            </div>
-            <!-- status end -->
 
             <hr/>
 
@@ -68,7 +81,6 @@
         </fieldset>
 
     </form>
-
 
 </div>
 

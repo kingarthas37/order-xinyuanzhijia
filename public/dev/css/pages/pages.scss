@@ -138,6 +138,13 @@
 
 /* product book page */
 .product-book-page {
+    #customer-id {
+        height: 1px;
+        overflow: hidden;
+        display: block;
+        font-size: 0;
+        border:none;
+    }
     .am-form-horizontal {
         margin-bottom: 20px;
         margin-left:-15px;
@@ -156,5 +163,8 @@
                 }
             }
         }
+    }
+    .customer-info {
+        color: #666;
     }
 }

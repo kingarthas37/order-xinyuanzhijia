@@ -14,7 +14,7 @@ var flash = require('connect-flash');
 var ProductBook = AV.Object.extend('ProductBook');
 
 var data = extend(config.data, {
-    title: '客户预定记录-编辑',
+    title: '产品预订记录-编辑',
     currentPage: 'product-book'
 });
 
@@ -40,21 +40,25 @@ router.post('/', function (req, res, next) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
 
-    var title = req.body['title'];
     var customerId = parseInt(req.body['customer-id']);
     var customerName = req.body['customer-name'];
     var comment = req.body['comment'];
-    var isComplete = req.body['is-complete'] ? true : false;
+    let productName = typeof req.body['product-name'] === 'object' ? req.body['product-name'] : [req.body['product-name']] ;
+    let productCount = typeof req.body['product-count'] === 'object' ? req.body['product-count'] : [req.body['product-count']];
+    let productState = typeof req.body['product-state'] === 'object' ? req.body['product-state'] : [req.body['product-state']];
 
+    console.info(productState);
+    
     var productBook = new ProductBook();
 
-    productBook.set('title', title);
-    productBook.set('customerId',customerId);
-    productBook.set('customerName',customerName);
-    productBook.set('comment', comment);
-    productBook.set('isComplete', isComplete);
-
-    productBook.save().then(function () {
+    productBook.save({
+        customerId,
+        customerName,
+        comment,
+        productName,
+        productCount,
+        productState
+    }).then(()=> {
         req.flash('success', '添加预定记录成功!');
         res.redirect('/product-book');
     });

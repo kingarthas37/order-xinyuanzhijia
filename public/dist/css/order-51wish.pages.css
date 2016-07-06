@@ -339,6 +339,13 @@ iframe.upload-title {
   padding: 4px; }
 
 /* product book page */
+.product-book-page #customer-id {
+  height: 1px;
+  overflow: hidden;
+  display: block;
+  font-size: 0;
+  border: none; }
+
 .product-book-page .am-form-horizontal {
   margin-bottom: 20px;
   margin-left: -15px;
@@ -351,5 +358,8 @@ iframe.upload-title {
     margin-bottom: 5px; }
     .product-book-page .am-form-horizontal .am-form-group:first-child .remove {
       display: none; }
+
+.product-book-page .customer-info {
+  color: #666; }
 
 /*# sourceMappingURL=order-51wish.pages.css.map */

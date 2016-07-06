@@ -87,9 +87,9 @@ router.get('/', function (req, res, next) {
             query.limit(limit);
             
             if(order === 'asc') {
-                query.ascending('id');
+                query.ascending('productBookId');
             } else {
-                query.descending('id');
+                query.descending('productBookId');
             }
 
             if(searchProduct) {
@@ -137,7 +137,7 @@ router.get('/remove/:id', function (req, res, next) {
 
         function (cb) {
             var query = new AV.Query(ProductBook);
-            query.equalTo('id', parseInt(id));
+            query.equalTo('productBookId', parseInt(id));
             query.first({
                 success: function (object) {
                     cb(null, object);
@@ -151,7 +151,7 @@ router.get('/remove/:id', function (req, res, next) {
             object.destroy({
                 success: function () {
                     req.flash('success', '删除成功!');
-                    res.redirect('/producb-book');
+                    res.redirect('/product-book');
                 }
             });
         }
@@ -160,34 +160,6 @@ router.get('/remove/:id', function (req, res, next) {
 });
 
 
-router.get('/complete',function(req,res) {
-
-    if(!req.AV.user) {
-        return res.json({
-            error:1,
-            msg:config.error.NOT_SUCCESS
-        });
-    }
-    
-    var productBookId = parseInt(req.query.productBookId);
-    var checked = req.query.checked;
-    
-    var query = new AV.Query(ProductBook);
-    
-    query.equalTo('productBookId',productBookId);
-    query.first().then(function(result) {
-        
-        result.set('isComplete',(checked === 'true' ? true : false));
-        return result.save();
-        
-    }).then(function(result) {
-        res.json({
-            success:1,
-            result:result
-        });
-    });
-    
-});
 
 
 router.get('/get-customer-name',(req,res)=> {
@@ -219,9 +191,11 @@ router.get('/get-customer-name',(req,res)=> {
         for(let i=0;i<results.length;i++) {
             let obj = {
                 "value":results[i].get('name'),
-                "taobao":results[i].get('taobao'),
-                "weixin":results[i].get('weixin'),
-                "customerId":results[i].get('customerId')
+                "customerName":results[i].get('customerName'),
+                "customerId":results[i].get('customerId'),
+                "taobao":results[i].get('taobao') || '-',
+                "weixin":results[i].get('weixin') || '-',
+                "address":results[i].get('address')[0] || '-'
             };
             jsonData.push(obj);
         }
