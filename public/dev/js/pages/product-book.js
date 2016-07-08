@@ -20,6 +20,14 @@ module.exports = {
             });
             return false;
         });
+        
+        $('.ckb-search-state').click(function() {
+            if(this.checked) {
+                location.href = '/product-book?search-state=on';
+            }else {
+                location.href = '/product-book';
+            }
+        });
 
     },
     addFun: function () {

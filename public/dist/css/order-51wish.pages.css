@@ -361,6 +361,15 @@ iframe.upload-title {
     .product-book-page .am-form-horizontal .am-form-group:first-child .remove {
       display: none; }
 
+.product-book-page .am-form-inline .am-form-group {
+  margin-right: 10px; }
+
+.product-book-page .am-form-inline .am-form-field {
+  width: 160px; }
+
+.product-book-page .am-form-inline label {
+  font-weight: normal; }
+
 .product-book-page .customer-info {
   color: #666; }
 

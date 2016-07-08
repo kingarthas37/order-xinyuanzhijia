@@ -163,7 +163,21 @@
                 }
             }
         }
+        
     }
+    
+    .am-form-inline {
+        .am-form-group {
+            margin-right: 10px;
+        }
+        .am-form-field {
+            width: 160px;
+        }
+        label {
+            font-weight: normal;
+        }
+    }
+    
     .customer-info {
         color: #666;
     }

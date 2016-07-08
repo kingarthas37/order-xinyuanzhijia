@@ -32,10 +32,12 @@ router.get('/', function (req, res, next) {
     
     var page = req.query.page ? parseInt(req.query.page) : 1;
     var limit = req.query.limit ? parseInt(req.query.limit) : config.page.LIMIT;
+    let skip = (page - 1) * limit;
     var order = req.query.order || 'desc';
     
     var searchProduct = req.query['search-product'];
     var searchName = req.query['search-name'];
+    let searchState = req.query['search-state'];
 
     data = extend(data,{
         flash: {
@@ -44,95 +46,81 @@ router.get('/', function (req, res, next) {
         },
         user:req.AV.user,
         searchProduct,
-        searchName
+        searchName,
+        searchState
     });
-    
-    var query = new AV.Query(ProductBook);
-    
+
+
     async.series([
-
+        
         function(cb) {
+
+            let cqlWhere = '';
             
-            if(searchProduct) {
-                query.containsAll('productName',[searchProduct]);
+            if(searchState) {
+                cqlWhere = `where productState = ''`;
             }
 
-            if(searchName) {
-                let query1 = new AV.Query(ProductBook);
-                query1.contains('name',searchName);
-                let query2 = new AV.Query(ProductBook);
-                query2.contains('taobao',searchName);
-                let query3 = new AV.Query(ProductBook);
-                query3.contains('weixin',searchName);
-                query = new AV.Query.or(query1,query2,query3);
+            if(searchProduct) {
+                cqlWhere = `where productName like '%${searchProduct}%'`;
+            } else if(searchName) {
+                cqlWhere = `where customerName like '%${searchName}%'`;
             }
             
-            query.count({
-                success: function(count) {
-                    data = extend(data,{
-                        productBookPager:pager(page,limit,count),
-                        productBookCount:count
-                    });
-                    cb();
-                },
-                error: function(error) {
-                    next(error);
-                }
+            let cql = `select count(*) from ProductBook ${cqlWhere}`;
+            
+            AV.Query.doCloudQuery(cql).then(function (results) {
+                data = extend(data,{
+                    productBookPager:pager(page,limit,results.count),
+                    productBookCount:results.count
+                });
+                cb();
             });
+            
         },
+        
+        function() {
+            
+            let cqlWhere = '';
 
-        function (cb) {
-            
-            query.skip((page - 1) * limit);
-            query.limit(limit);
-            
-            if(order === 'asc') {
-                query.ascending('productBookId');
-            } else {
-                query.descending('productBookId');
+            if(searchState) {
+                cqlWhere = `where productState = ''`;
             }
-
+            
             if(searchProduct) {
-                query.contains('productName',searchProduct);
+                cqlWhere = `where productName like '%${searchProduct}%'`;
+            } else if(searchName) {
+                cqlWhere = `where customerName like '%${searchName}%'`;
             }
+            
+            let cql = `select * from ProductBook ${cqlWhere} limit ${skip},${limit} order by productBookId ${order}`;
+            AV.Query.doCloudQuery(cql).then(function (results) {
+                data = extend(data, {
+                    productBook: results.results
+                });
 
-            if(searchName) {
-                let query1 = new AV.Query(ProductBook);
-                query1.contains('name',searchName);
-                let query2 = new AV.Query(ProductBook);
-                query2.contains('taobao',searchName);
-                let query3 = new AV.Query(ProductBook);
-                query3.contains('weixin',searchName);
-                query = new AV.Query.or(query1,query2,query3);
-            }
-
-            query.find({
-                success: function (results) {
-                    data = extend(data, {
-                        productBook: results
+                let states = [];
+                results.results.forEach((result,i)=> {
+                    states[i] = 'off';
+                    result.get('productState').forEach((n,j)=> {
+                        if(!n) {
+                            states[i] = '';
+                        }
                     });
-                    
-                    let states = [];
-                    results.forEach((result,i)=> {
-                        states[i] = 'off';
-                        result.get('productState').forEach((n,j)=> {
-                            if(!n) {
-                                states[i] = '';
-                            }
-                        });
-                    });
-                    data = extend(data,{states});
-                    
-                    res.render('product-book', data);
-                },
-                error: function (err) {
-                    next(err);
-                }
+                });
+                data = extend(data,{states});
+                
+                res.render('product-book', data);
             });
             
         }
-
+        
     ]);
+
+    
+
+  
+    
 
 });
 
