@@ -368,7 +368,10 @@ iframe.upload-title {
   width: 160px; }
 
 .product-book-page .am-form-inline label {
-  font-weight: normal; }
+  height: 38px;
+  line-height: 38px;
+  font-weight: normal;
+  margin: 0; }
 
 .product-book-page .customer-info {
   color: #666; }
