@@ -46,8 +46,6 @@ router.post('/', function (req, res, next) {
     let productName = typeof req.body['product-name'] === 'object' ? req.body['product-name'] : [req.body['product-name']] ;
     let productCount = typeof req.body['product-count'] === 'object' ? req.body['product-count'] : [req.body['product-count']];
     let productState = typeof req.body['product-state'] === 'object' ? req.body['product-state'] : [req.body['product-state']];
-
-    console.info(productState);
     
     var productBook = new ProductBook();
 

@@ -54,7 +54,7 @@ router.get('/', function (req, res, next) {
         function(cb) {
             
             if(searchProduct) {
-                query.contains('productTitle',searchProduct);
+                query.containsAll('productName',[searchProduct]);
             }
 
             if(searchName) {
@@ -93,7 +93,7 @@ router.get('/', function (req, res, next) {
             }
 
             if(searchProduct) {
-                query.contains('productTitle',searchProduct);
+                query.contains('productName',searchProduct);
             }
 
             if(searchName) {
@@ -111,6 +111,18 @@ router.get('/', function (req, res, next) {
                     data = extend(data, {
                         productBook: results
                     });
+                    
+                    let states = [];
+                    results.forEach((result,i)=> {
+                        states[i] = 'off';
+                        result.get('productState').forEach((n,j)=> {
+                            if(!n) {
+                                states[i] = '';
+                            }
+                        });
+                    });
+                    data = extend(data,{states});
+                    
                     res.render('product-book', data);
                 },
                 error: function (err) {

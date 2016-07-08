@@ -27,6 +27,7 @@
                 <div class="am-form-group">
                   产品名称：<input type="text" name="search-product" class="am-form-field" placeholder="搜索产品名称">
                 </div>
+                <span class="split"></span>
                 <div class="am-form-group">
                     用户名：<input type="text" name="search-name" class="am-form-field" placeholder="搜索姓名">
                 </div>
@@ -39,18 +40,26 @@
                 <thead>
                 <tr>
                     <th>产品名</th>
-                    <th class="t-c">客户姓名</th>
-                    <th class="small-screen-hide">更新时间</th>
-                    <th class="small-screen-hide">删除</th>
+                    <th width="120" class="t-c">客户姓名</th>
+                    <th width="120" class="t-c">预定日期</th>
+                    <th width="120" class="small-screen-hide t-c">更新日期</th>
+                    <th width="50" class="small-screen-hide t-c">删除</th>
                 </tr>
                 </thead>
                 <tbody>
                 <% for(var i=0; i < productBook.length; i++) {%>
-                <tr>
-                    <td><a href="/product-book/edit/<%= productBook[i].get('productBookId') %>"><%= productBook[i].get('productName')[0] %>等<%= productBook[i].get('productName').length %>件</a></td>
+                <tr class="<%= states[i]%>">
+                    <td>
+                        <a href="/product-book/edit/<%= productBook[i].get('productBookId') %>">
+                            <% for(var j=0;j < productBook[i].get('productName').length;j++) { %>
+                                <%= productBook[i].get('productName')[j] %>
+                                <% if(j < productBook[i].get('productName').length-1) { %>|<%}%>
+                            <%}%>
+                        </a></td>
                     <td class="t-c"><a href="/customer/edit/<%= productBook[i].get('customerId') %>"><%= productBook[i].get('customerName') %></a></td>
-                    <td class="small-screen-hide"><%=productBook[i].updatedAt.getFullYear()%>/<%=(productBook[i].updatedAt.getMonth()+1)%>/<%=productBook[i].updatedAt.getDate()%></td>
-                    <td class="small-screen-hide"><a href="/product-book/remove/<%= productBook[i].get('productBookId') %>" class="remove-product-book">删除</a></td>
+                    <td class="t-c"><%=productBook[i].createdAt.getFullYear()%>/<%=(productBook[i].createdAt.getMonth()+1)%>/<%=productBook[i].createdAt.getDate()%></td>
+                    <td class="small-screen-hide t-c"><%=productBook[i].updatedAt.getFullYear()%>/<%=(productBook[i].updatedAt.getMonth()+1)%>/<%=productBook[i].updatedAt.getDate()%></td>
+                    <td class="small-screen-hide t-c"><a href="/product-book/remove/<%= productBook[i].get('productBookId') %>" class="remove-product-book">删除</a></td>
                 </tr>
                 <% } %>
                 </tbody>
