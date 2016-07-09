@@ -65,9 +65,9 @@
             
             <ul class="am-pagination">
                 <% if (remarkPager.prev) { %> <li>
-                    <a href="/remark?page=<%= remarkPager.prev %><% if(searchremarkName) {%>&search-remark-name=<%=searchremarkName%> <%}%><% if(searchCustomerName) {%>&search-customer-name=<%=searchCustomerName%> <%}%>">上一页</a></li> <% } %>
+                    <a href="/remark?page=<%= remarkPager.prev %><% if(searchRemarkTitle) {%>&search-remark-name=<%=searchRemarkTitle%> <%}%>">上一页</a></li> <% } %>
                 <% if (remarkPager.next) { %> <li>
-                    <a href="/remark?page=<%= remarkPager.next %><% if(searchremarkName) {%>&search-remark-name=<%=searchremarkName%> <%}%><% if(searchCustomerName) {%>&search-customer-name=<%=searchCustomerName%> <%}%>">下一页</a></li> <% } %>
+                    <a href="/remark?page=<%= remarkPager.next %><% if(searchRemarkTitle) {%>&search-remark-name=<%=searchRemarkTitle%> <%}%>">下一页</a></li> <% } %>
                 <li class="count">第<%=remarkPager.page%>页 共<%= remarkCount %>条</li>
             </ul>
             
