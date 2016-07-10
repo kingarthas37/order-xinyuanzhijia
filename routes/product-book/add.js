@@ -43,9 +43,12 @@ router.post('/', function (req, res, next) {
     var customerId = parseInt(req.body['customer-id']);
     var customerName = req.body['customer-name'];
     var comment = req.body['comment'];
+    let pay = req.body['pay'];
     let productName = typeof req.body['product-name'] === 'object' ? req.body['product-name'] : [req.body['product-name']] ;
     let productCount = typeof req.body['product-count'] === 'object' ? req.body['product-count'] : [req.body['product-count']];
     let productState = typeof req.body['product-state'] === 'object' ? req.body['product-state'] : [req.body['product-state']];
+    let productAmount = typeof req.body['product-amount'] === 'object' ? req.body['product-amount'] : [req.body['product-amount']];
+    
     
     var productBook = new ProductBook();
 
@@ -53,9 +56,11 @@ router.post('/', function (req, res, next) {
         customerId,
         customerName,
         comment,
+        pay,
         productName,
         productCount,
-        productState
+        productState,
+        productAmount
     }).then(()=> {
         req.flash('success', '添加预定记录成功!');
         res.redirect('/product-book');

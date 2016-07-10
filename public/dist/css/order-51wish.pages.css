@@ -349,9 +349,9 @@ iframe.upload-title {
   border: none; }
 
 .product-book-page .am-form-horizontal {
-  margin-bottom: 20px;
-  margin-left: -15px;
-  margin-right: -15px; }
+  margin-bottom: 2.5rem;
+  margin-left: -1.5rem;
+  margin-right: -1.5rem; }
   .product-book-page .am-form-horizontal .am-form-label {
     text-align: center; }
     .product-book-page .am-form-horizontal .am-form-label label {
@@ -360,6 +360,15 @@ iframe.upload-title {
     margin-bottom: 5px; }
     .product-book-page .am-form-horizontal .am-form-group:first-child .remove {
       display: none; }
+  .product-book-page .am-form-horizontal [class*=am-u-] {
+    padding-left: 1.5rem;
+    padding-right: 0rem; }
+  .product-book-page .am-form-horizontal .am-form-label {
+    padding-left: 0;
+    padding-right: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; }
 
 .product-book-page .am-form-inline .am-form-group {
   margin-right: 10px; }

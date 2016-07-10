@@ -146,9 +146,9 @@
         border:none;
     }
     .am-form-horizontal {
-        margin-bottom: 20px;
-        margin-left:-15px;
-        margin-right: -15px;
+        margin-bottom: 2.5rem;
+        margin-left:-1.5rem;
+        margin-right: -1.5rem;
         .am-form-label {
             text-align: center;
             label {
@@ -162,6 +162,19 @@
                     display: none;
                 }
             }
+        }
+        
+        [class*=am-u-] {
+            padding-left: 1.5rem;
+            padding-right: 0rem;
+        }
+        
+        .am-form-label {
+            padding-left: 0;
+            padding-right: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
         
     }

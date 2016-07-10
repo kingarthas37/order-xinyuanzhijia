@@ -34,11 +34,13 @@
                     <div class="am-form-group">
                         <div class="am-u-sm-6"><input value="<%= productBook.get('productName')[i] %>" class="product-name" required name="product-name" type="text" placeholder="输入产品名"></div>
                         <div class="am-u-sm-1"><input value="<%= productBook.get('productCount')[i] %>" class="product-count" name="product-count" type="text" placeholder="数量"></div>
-                        <div class="am-u-sm-3 am-form-label">
+                        <di1v class="am-u-sm-2"><input value="<%= productBook.get('productAmount')[i] %>" class="product-amount" name="product-amount" type="text" placeholder="金额"></di1v>
+                        <div class="am-u-sm-1 am-form-label">
                             <label><input <% if(productBook.get('productState')[i]) {%>checked="checked"<%}%> type="checkbox" class="ckb-product-state"> 已发货</label>
                             <input type="hidden" name="product-state" class="product-state" <% if(productBook.get('productState')[i]) {%>value="on"<%}%>>
                         </div>
-                        <div class="am-u-sm-2 am-form-label"><a href="javascript:;" class="remove">删除</a></div>
+                        <div class="am-u-sm-1 am-form-label"><a href="javascript:;" class="remove">删除</a></div>
+                        <div class="am-u-sm-1"></div>
                     </div>
                     <% }%>
                 </div>
@@ -63,6 +65,19 @@
             <!-- product-book customer name end -->
 
             <hr/>
+
+            <!-- product-book customer name start -->
+            <div class="am-form-group typeahead-content">
+                <label>支付方式：</label>
+                <select name="pay" class="pay">
+                    <option value="" <% if(productBook.get('pay')===''){%>checked="checked"<%}%> >选择支付方式</option>
+                    <option value="weixin" <% if(productBook.get('pay')==='weixin'){%>selected="selected"<%}%>>微信</option>
+                    <option value="alipay" <% if(productBook.get('pay')==='alipay'){%>selected="selected"<%}%>>支付宝</option>
+                    <option value="weidian" <% if(productBook.get('pay')==='weidian'){%>selected="selected"<%}%>>微店</option>
+                    <option value="taobao" <% if(productBook.get('pay')==='taobao'){%>selected="selected"<%}%>>淘宝</option>
+                    <option value="other" <% if(productBook.get('pay')==='other'){%>selected="selected"<%}%>>其他</option>
+                </select>
+            </div>
 
             <!-- comment start -->
             <div class="am-form-group">
