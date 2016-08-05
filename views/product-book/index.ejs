@@ -74,9 +74,9 @@
             
             <ul class="am-pagination">
                 <% if (productBookPager.prev) { %> <li>
-                    <a href="/product-book?page=<%= productBookPager.prev %><% if(searchProductBookTitle) {%>&search-product-book-title=<%=searchProductBookTitle%> <%}%>">上一页</a></li> <% } %>
+                    <a href="/product-book?page=<%= productBookPager.prev %><% if(searchProduct) {%>&search-product-book-title=<%=searchProduct%> <%}%>">上一页</a></li> <% } %>
                 <% if (productBookPager.next) { %> <li>
-                    <a href="/product-book?page=<%= productBookPager.next %><% if(searchProductBookTitle) {%>&search-product-book-title=<%=searchProductBookTitle%> <%}%>">下一页</a></li> <% } %>
+                    <a href="/product-book?page=<%= productBookPager.next %><% if(searchProduct) {%>&search-product-book-title=<%=searchProduct%> <%}%>">下一页</a></li> <% } %>
                 <li class="count">第<%=productBookPager.page%>页 共<%= productBookCount %>条</li>
             </ul>
             
