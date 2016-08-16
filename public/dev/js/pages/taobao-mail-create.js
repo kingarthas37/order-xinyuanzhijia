@@ -167,6 +167,16 @@ module.exports = function () {
                 copyInfo.show().text('复制好评回复内容成功!');
             }
         });
+
+        $('.copy-howmail').show().zclip({
+            path: '/assets/swf/ZeroClipboard.swf',
+            copy: function () {
+                return '亲,请问邮箱是多少,我这边可以给亲发货哦';
+            },
+            afterCopy: function () {
+                copyInfo.show().text('复制询问邮箱成功!');
+            }
+        });
     }
 
 };

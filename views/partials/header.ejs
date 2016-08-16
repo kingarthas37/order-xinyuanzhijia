@@ -2,7 +2,7 @@
     <div class="am-container">
         
         <h1 class="am-topbar-brand">
-            <a href="/">51WISH<b>订单管理系统</b></a>
+            <a href="/">51WISH<b>管理系统</b></a>
         </h1>
 
         <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-secondary am-show-sm-only"
@@ -12,16 +12,6 @@
         <div class="am-collapse am-topbar-collapse" id="collapse-head">
           
             <ul class="am-nav am-nav-pills am-topbar-nav">
-                <!-- <li <% if (currentPage === 'index') { %> class="am-active" <% } %> ><a href="/">首页</a></li> -->
-                <li class="am-dropdown" data-am-dropdown>
-                    <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">产品管理 <span class="am-icon-caret-down"></span></a>
-                    <ul class="am-dropdown-content">
-                      <li <% if (currentPage === 'product') { %> class="am-active" <% } %>  ><a href="/product">产品管理</a></li>
-                      <li <% if (currentPage === 'product-category') { %> class="am-active" <% } %>  ><a href="/product-category">产品分类管理</a></li>
-                      <li <% if (currentPage === 'product-brand') { %> class="am-active" <% } %>  ><a href="/product-brand">产品品牌管理</a></li>
-                    </ul>
-                </li>
-
 
                 <li class="am-dropdown" data-am-dropdown>
                     <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">产品收录管理 <span class="am-icon-caret-down"></span></a>
@@ -41,6 +31,13 @@
                 </ul>
                 </li>
 
+                <li class="am-dropdown" data-am-dropdown>
+                    <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">电子书管理 <span class="am-icon-caret-down"></span></a>
+                    <ul class="am-dropdown-content">
+                        <li <% if (currentPage === 'book') { %> class="am-active" <% } %>  ><a href="/book">电子书管理</a></li>
+                        <li <% if (currentPage === 'music') { %> class="am-active" <% } %> ><a href="/music">音乐管理</a></li>
+                    </ul>
+                </li>
             
             <li class="am-dropdown" data-am-dropdown>
                 <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">订单管理 <span class="am-icon-caret-down"></span></a>
@@ -50,17 +47,19 @@
                     <li <% if (currentPage === 'product-book') { %> class="am-active" <% } %> ><a href="/product-book">订货管理</a></li>
             </ul>
             </li>
+                
                 <li class="am-dropdown" data-am-dropdown>
-                    <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">其他 <span class="am-icon-caret-down"></span></a>
+                    <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">工具 <span class="am-icon-caret-down"></span></a>
                     <ul class="am-dropdown-content">
-                        <li <% if (currentPage === 'remark') { %> class="am-active" <% } %> ><a href="/remark">备忘录</a></li>
-                        <li <% if (currentPage === 'resources-download') { %> class="am-active" <% } %>  ><a href="/resources-download">资源下载管理</a></li>
                         <li <% if (currentPage === 'taobao-mail-create') { %> class="am-active" <% } %> ><a href="/mail/taobao-mail-create">淘宝发货邮件代码生成</a></li>
+                        <li <% if (currentPage === 'resources-download') { %> class="am-active" <% } %>  ><a href="/resources-download">资源下载管理</a></li>
                         <li <% if (currentPage === 'identity') { %> class="am-active" <% } %> ><a href="/identity">身份证管理</a></li>
-                        <li <% if (currentPage === 'book') { %> class="am-active" <% } %>  ><a href="/book">电子书管理</a></li>
-                        <li <% if (currentPage === 'music') { %> class="am-active" <% } %> ><a href="/music">音乐管理</a></li>
+                        <li <% if (currentPage === 'file-manage') { %> class="am-active" <% } %> ><a href="/file-manage">文件上传管理</a></li>
+                        <li <% if (currentPage === 'tools') { %> class="am-active" <% } %> ><a href="/tools">工具库</a></li>
+                        <li <% if (currentPage === 'remark') { %> class="am-active" <% } %> ><a href="/remark">备忘录</a></li>
                     </ul>
                 </li>
+                
             </ul>
 
             <% if (user) { %>

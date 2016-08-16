@@ -17,3 +17,4 @@ require('./product-brand');
 require('./record');
 require('./record-category');
 require('./identity');
+require('./file-manage');

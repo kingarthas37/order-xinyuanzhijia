@@ -385,4 +385,13 @@ iframe.upload-title {
 .product-book-page .customer-info {
   color: #666; }
 
+/* file manage page */
+.file-manage-page .file-type-tag {
+  background: #21b2d1;
+  display: inline-block;
+  width: 60px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff; }
+
 /*# sourceMappingURL=order-51wish.pages.css.map */

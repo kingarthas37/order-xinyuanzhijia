@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <link rel="icon" type="image/png" href="/assets/i/favicon.png">
+    <title><%= title %></title>
+    <% include ../partials/css %>
+</head>
+<body>
+
+<% include ../partials/header %>
+
+<div class="am-container common-page product-book-page">
+
+    <% if (flash.success != '') { %>
+    <div class="am-alert am-alert-success">
+        <p><%= flash.success %></p>
+    </div>
+    <% } %>
+    
+        <fieldset>
+
+            <legend><a href="/tools">工具库</a></legend>
+            
+            <div class="am-form-group">
+                
+                
+            </div>
+            
+        </fieldset>
+
+
+</div>
+
+
+<div class="am-modal am-modal-confirm" tabindex="-1" id="confirm-remove-product-book">
+    <div class="am-modal-dialog">
+        <div class="am-modal-bd">
+            确定要删除这条记录吗？
+        </div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+            <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+        </div>
+    </div>
+</div>
+
+
+<% include ../partials/footer %>
+<% include ../partials/js %>
+
+<script type="text/javascript">
+    $(function() {
+        var productBook = require('product-book');
+        productBook.indexFun();
+    });
+</script>
+</body>
+</html>

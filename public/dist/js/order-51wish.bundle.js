@@ -1624,7 +1624,65 @@ module.exports = {
     }
 };
 
-},{"jquery-validate":13}],"identity":[function(require,module,exports){
+},{"jquery-validate":13}],"file-manage":[function(require,module,exports){
+
+'use strict';
+
+require('jquery-validate');
+require('jquery-form');
+
+module.exports = {
+
+    indexFun: function indexFun() {
+
+        $('.remove-file-manage').click(function () {
+            var $this = $(this);
+            $('#confirm-remove-file-manage').modal({
+                relatedTarget: this,
+                onConfirm: function onConfirm(options) {
+                    location.href = $this.attr('href');
+                },
+                onCancel: function onCancel() {
+                    return false;
+                }
+            });
+            return false;
+        });
+    },
+    addFun: function addFun() {
+        $('#form-add-file-manage').validate();
+    },
+
+    editFun: function editFun() {
+        $('#form-edit-file-manage').validate();
+    },
+
+    uploadImg: function uploadImg(callbackName) {
+
+        var formUploadImg = $('#form-upload-img');
+        var iconImage = $('#icon-image');
+        var uploadLoading = $('.upload-loading');
+
+        formUploadImg.submit(function () {
+            uploadLoading.addClass('on');
+            $(this).ajaxSubmit({
+                success: function success(data) {
+                    uploadLoading.removeClass('on');
+                    if (data.success) {
+                        window.parent[callbackName](data.url);
+                    }
+                }
+            });
+            return false;
+        });
+
+        iconImage.change(function () {
+            formUploadImg.submit();
+        });
+    }
+};
+
+},{"jquery-form":9,"jquery-validate":13}],"identity":[function(require,module,exports){
 
 'use strict';
 
@@ -2903,6 +2961,16 @@ module.exports = function () {
             },
             afterCopy: function afterCopy() {
                 copyInfo.show().text('复制好评回复内容成功!');
+            }
+        });
+
+        $('.copy-howmail').show().zclip({
+            path: '/assets/swf/ZeroClipboard.swf',
+            copy: function copy() {
+                return '亲,请问邮箱是多少,我这边可以给亲发货哦';
+            },
+            afterCopy: function afterCopy() {
+                copyInfo.show().text('复制询问邮箱成功!');
             }
         });
     }

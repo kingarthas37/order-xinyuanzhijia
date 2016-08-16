@@ -62,7 +62,7 @@ router.post('/', function (req, res, next) {
         cardImageAll:cardImageAll,
         isOften:isOften
     }).then(()=> {
-        req.flash('success', '添加产品分类成功!');
+        req.flash('success', '添加身份证成功!');
         res.redirect('/identity');
     });
 

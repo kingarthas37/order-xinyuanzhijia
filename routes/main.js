@@ -99,6 +99,15 @@ module.exports = {
     '/identity':require('./identity'),
     '/identity/add':require('./identity/add'),
     '/identity/edit':require('./identity/edit'),
-    '/identity/upload':require('./identity/upload')
+    '/identity/upload':require('./identity/upload'),
+
+    //tools
+    '/tools':require('./tools'),
+
+    //file-manage
+    '/file-manage':require('./file-manage'),
+    '/file-manage/add':require('./file-manage/add'),
+    '/file-manage/edit':require('./file-manage/edit'),
+    '/file-manage/upload':require('./file-manage/upload')
     
 };

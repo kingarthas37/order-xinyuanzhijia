@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <link rel="icon" type="image/png" href="/assets/i/favicon.png">
+    <title><%= title %></title>
+    <% include ../partials/css %>
+</head>
+<body>
+
+<% include ../partials/header %>
+
+
+<div class="am-container common-page file-manage-page">
+
+    <form id="form-add-file-manage" class="am-form" action="/file-manage/edit/<%=fileManage.get('fileManageId')%>" method="post">
+
+        <fieldset>
+
+            <legend><a href="/file-manage/edit/<%=fileManage.get('fileManageId')%>">编辑上传文件</a></legend>
+
+            <!-- name start -->
+            <div class="am-form-group">
+                <label>文件名：<i>*</i> </label>
+                <input id="name" required name="name" value="<%=fileManage.get('name')%>" type="text" placeholder="输入文件名" />
+            </div>
+            <!-- name end -->
+
+            <!-- file-upload start -->
+            <div class="am-form-group">
+                <label>上传文件： </label>
+                <div>
+                    <iframe class="upload-title" src="/file-manage/upload" frameborder="0"></iframe>
+                </div>
+                <input id="file" name="file" type="text" value="<%=fileManage.get('file')%>"/>
+            </div>
+            <!-- file-upload end -->
+
+            <hr/>
+
+            <div class="am-form-group">
+                <button type="submit" class="am-btn am-btn-primary">保存</button>
+                <button type="button" class="am-btn am-btn-primary" onclick="history.back(-1);">返回</button>
+            </div>
+
+        </fieldset>
+
+    </form>
+
+</div>
+
+
+<% include ../partials/footer %>
+<% include ../partials/js %>
+
+<script type="text/javascript">
+
+    $(function() {
+        var fileManage = require('file-manage');
+        fileManage.editFun();
+    });
+
+    //iframe upload callback
+    function uploadSuccess(url) {
+        $('#file').val(url);
+    }
+
+</script>
+</body>
+</html>
