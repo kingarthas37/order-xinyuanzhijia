@@ -113,8 +113,21 @@ router.get('/', function (req, res, next) {
         return query.find();
         
     }).then(results => {
+        
+        //对orderName拆分,进行stock管理
+        let orderNames = [];
+        {
+            results.forEach(result => {
+                let name = result.get('orderName');
+                name = name.replace(/，/g,',');
+                let names = name.split(',');
+                orderNames.push(names);
+            });
+        }
+        
         data = extend(data, {
-            order: results
+            order: results,
+            orderNames
         });
         res.render('order', data);
     });

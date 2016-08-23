@@ -55,7 +55,13 @@
                 <tbody>
                 <% for(var i=0; i < order.length; i++) {%>
                 <tr data-customer-id="<%= order[i].get('customerId') %>">
-                    <td><a href="/order/edit/<%= order[i].get('orderId') %>"><%= order[i].get('orderName') %></a> </td>
+                    <td>
+                        <% for(var j=0;j< orderNames[i].length;j++) {%>
+                         <a href="/order/edit/<%= order[i].get('orderId') %>"><%= j+1 %>. <%= orderNames[i][j] %></a>
+                        <a title="库存设置" target="_blank" href="http://51wish.cn/admin/product?search=<%= orderNames[i][j] %>"><i class="am-icon-level-down"></i></a>
+                         <%if(j< orderNames[i].length-1) {%><br/><%}%>
+                        <% }%>
+                    </td>
                     <td class="t-c"><a title="<%= order[i].get('shippingAddress') %>" href="/customer/edit/<%= order[i].get('customerId') %>"><%= order[i].get('customerName') %></a> </td>
                     <td class="t-c"> <span class="taobao-name loading-elem on"></span> </td>
                     <td class="t-c">

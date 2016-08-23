@@ -58,7 +58,11 @@
                     <td>
                         <a href="/product-book/edit/<%= productBook[i].get('productBookId') %>">
                             <% for(var j=0;j < productBook[i].get('productName').length;j++) { %>
-                            <%= productBook[i].get('productName')[j] %>
+                            <% if(productBook[i].get('productState')[j] =='on') { %>
+                                <strong><%= productBook[i].get('productName')[j] %></strong>
+                            <% } else { %>
+                                <%= productBook[i].get('productName')[j] %>
+                            <% } %>
                             <% if(j < productBook[i].get('productName').length-1) { %>|<%}%>
                             <%}%>
                         </a>
