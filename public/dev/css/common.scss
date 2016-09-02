@@ -41,10 +41,28 @@ footer p {
 }
 
 .loading-elem {
+    vertical-align: middle;
+    display: inline-block;
+    height: 24px;
+    &.image {
+        width: 24px;
+        img {
+            display: block;
+        }
+    } 
     &.on {
-        background: url('../images/loading.gif') no-repeat center;
-        padding: 0 8px;
-        background-size:contain;
+        width: 24px;
+        position: relative;
+        &:after {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            top:4px;
+            left:4px;
+            content: '';
+            background: url('../images/loading.gif') no-repeat center;
+            background-size:contain;
+        }
     }
 }
 
@@ -115,6 +133,12 @@ p.normal {
     }
 
     label {
+        em {
+            font-style: normal;
+            color: #999;
+            font-size: 14px;
+            font-weight: normal;
+        }
         i {
             font-weight: bold;
             color: red;
@@ -170,7 +194,10 @@ p.normal {
             padding-left: 0;
             padding-right: 0;
         }
-        .address-field:first-child {
+        .am-form-label {
+            text-align: center;
+        }
+        .list-group-field:first-child {
             .remove {
                 display: none;
             }
@@ -302,16 +329,12 @@ iframe.upload-title {
     }
 
     .tt-menu {
-        width: 422px;
+        max-width: 600px;
         margin: 12px 0;
         padding: 8px 0;
         background-color: #fff;
         border: 1px solid #ccc;
-        -webkit-border-radius: 8px;
-        -moz-border-radius: 8px;
         border-radius: 8px;
-        -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
-        -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
         box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
     }
     
@@ -331,8 +354,23 @@ iframe.upload-title {
 
     .tt-suggestion {
         padding: 3px 20px;
-        font-size: 18px;
+        font-size: 14px;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
         line-height: 24px;
+        img {
+            border:1px solid #ddd;
+            border-radius: 2px;
+            margin-right: 4px;
+            max-height: 32px;
+            max-width:32px;
+        }
+        em {
+            font-size: 12px;
+            font-style: normal;
+            color: #666;
+        }
     }
 
     .tt-suggestion:hover {

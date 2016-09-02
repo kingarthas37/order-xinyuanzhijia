@@ -28,10 +28,26 @@ footer p {
 .r {
   float: right; }
 
-.loading-elem.on {
-  background: url("../images/loading.gif") no-repeat center;
-  padding: 0 8px;
-  background-size: contain; }
+.loading-elem {
+  vertical-align: middle;
+  display: inline-block;
+  height: 24px; }
+  .loading-elem.image {
+    width: 24px; }
+    .loading-elem.image img {
+      display: block; }
+  .loading-elem.on {
+    width: 24px;
+    position: relative; }
+    .loading-elem.on:after {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      top: 4px;
+      left: 4px;
+      content: '';
+      background: url("../images/loading.gif") no-repeat center;
+      background-size: contain; }
 
 label.normal {
   font-weight: normal; }
@@ -77,6 +93,12 @@ p.normal {
 .common-page .product-title img {
   width: 400px; }
 
+.common-page label em {
+  font-style: normal;
+  color: #999;
+  font-size: 14px;
+  font-weight: normal; }
+
 .common-page label i {
   font-weight: bold;
   color: red;
@@ -116,7 +138,10 @@ p.normal {
   padding-left: 0;
   padding-right: 0; }
 
-.common-page .am-form-horizontal .address-field:first-child .remove {
+.common-page .am-form-horizontal .am-form-label {
+  text-align: center; }
+
+.common-page .am-form-horizontal .list-group-field:first-child .remove {
   display: none; }
 
 .common-page .am-pagination .count {
@@ -202,7 +227,7 @@ iframe.upload-title {
   color: #999; }
 
 .twitter-typeahead .tt-menu {
-  width: 422px;
+  max-width: 600px;
   margin: 12px 0;
   padding: 8px 0;
   background-color: #fff;
@@ -224,8 +249,21 @@ iframe.upload-title {
 
 .twitter-typeahead .tt-suggestion {
   padding: 3px 20px;
-  font-size: 18px;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   line-height: 24px; }
+  .twitter-typeahead .tt-suggestion img {
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    margin-right: 4px;
+    max-height: 32px;
+    max-width: 32px; }
+  .twitter-typeahead .tt-suggestion em {
+    font-size: 12px;
+    font-style: normal;
+    color: #666; }
 
 .twitter-typeahead .tt-suggestion:hover {
   cursor: pointer;
@@ -312,6 +350,12 @@ iframe.upload-title {
 .order-page .am-form-inline .am-form-field {
   width: 160px; }
 
+.order-page .am-icon.on {
+  color: #5eb95e; }
+
+.order-page .am-icon.off {
+  color: #ccc; }
+
 /* purchase page */
 .purchase-page table tr.off {
   background: #feffed; }
@@ -393,5 +437,10 @@ iframe.upload-title {
   font-size: 14px;
   font-weight: bold;
   color: #fff; }
+
+/* order page */
+.order-page .order-name-content {
+  min-height: 30px;
+  line-height: 30px; }
 
 /*# sourceMappingURL=order-51wish.pages.css.map */

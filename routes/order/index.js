@@ -13,6 +13,7 @@ var config = require('../../lib/config');
 //class
 var OrderTrack = AV.Object.extend('OrderTrack');
 var Customer = AV.Object.extend('Customer');
+let Product = AV.Object.extend('Product');
 
 //lib
 var pager = require('../../lib/pager');
@@ -50,7 +51,6 @@ router.get('/', function (req, res, next) {
         searchAddress:searchAddress,
         searchCustomerId:searchCustomerId
     });
-    
     
     let query = new AV.Query(OrderTrack);
     
@@ -113,21 +113,8 @@ router.get('/', function (req, res, next) {
         return query.find();
         
     }).then(results => {
-        
-        //对orderName拆分,进行stock管理
-        let orderNames = [];
-        {
-            results.forEach(result => {
-                let name = result.get('orderName');
-                name = name.replace(/，/g,',');
-                let names = name.split(',');
-                orderNames.push(names);
-            });
-        }
-        
         data = extend(data, {
-            order: results,
-            orderNames
+            order:results
         });
         res.render('order', data);
     });
@@ -170,6 +157,7 @@ router.get('/remove/:orderId', function (req, res, next) {
 });
 
 
+//ajax返回用户信,淘宝名
 router.get('/get-customer',(req,res) => {
     
     let customerListId = req.query['customerListId'];
@@ -185,6 +173,122 @@ router.get('/get-customer',(req,res) => {
             customers
         });
     });
+    
+});
+
+//ajax返回产品图片
+router.get('/get-image',(req,res)=> {
+    
+    let productId = req.query['productId'];
+    if(productId) {
+        productId = productId.map(item => parseInt(item));
+    }
+    let query = new AV.Query(Product);
+    query.containedIn('productId',productId);
+    query.select('productId','mainImage');
+    query.find().then(images => {
+
+        let data = {};
+        images.forEach((image,i) => {
+
+            let imgArr = [];
+            for(let i in image.get('mainImage')) {
+                imgArr.push(image.get('mainImage')[i]);
+            }
+            data[image.get('productId')] = imgArr[0].url;
+        });
+        
+        res.send({
+            success:1,
+            images:data
+        });
+    });
+    
+});
+
+
+router.get('/set-stock',(req,res)=> {
+
+    let orderId = parseInt(req.query['order-id']);
+    let productId = req.query['product-id'];
+    let isSet = req.query['is-set'] === 'true' ? true : false;
+
+    let query = new AV.Query(OrderTrack);
+    query.equalTo('orderId',orderId);
+    query.select('isShipping','productId');
+    query.first().then(result => {
+        
+        let isShippingCell = result.get('isShipping');
+        let productIdCell = result.get('productId');
+        for(let i=0;i<isShippingCell.length;i++) {
+            if(productIdCell[i] === productId) {
+                isShippingCell[i] = !isSet;
+            }
+        }
+        
+        result.set('isShipping',isShippingCell);
+        return result.save();
+        
+    }).then(result => {
+        res.json({success:1});
+    });
+    
+
+});
+
+
+/* insert demo 
+router.get('/insert',(req,res)=> {
+    let OrderTrack = AV.Object.extend('OrderTrack');
+    let query = new AV.Query(OrderTrack);
+    query.descending('orderId');
+    query.limit(200);
+    query.find(function(results){
+        let count = 0;
+        async.forEachSeries(results,function(item,callback) {
+            count ++;
+            item.addUnique('name', item.get('orderName'));
+            item.save().then(function() {
+                console.info(item.get('orderName') + ' insert ok' + ' ' + count);
+                callback();
+            });
+            
+        }, function(err) {
+            res.send({
+                success:'ok'
+            });
+        });
+    });
+});
+*/
+
+//typeahead查询产品名称,用于order add/edit页面
+router.get('/product',(req,res) => {
+
+    let name = req.query['name'];
+    let query = new AV.Query(Product);
+    query.contains('name',name);
+    query.select('name','productId','mainImage');
+    
+    query.find().then(results => {
+
+        let jsonData = [];
+        
+        for(let i=0;i < results.length ;i++) {
+            let imageArr = [];
+            for(let key in results[i].get('mainImage')) {
+                imageArr.push(results[i].get('mainImage')[key].url);
+            }
+            let obj = {
+                'value':`${results[i].get('name')} {id:${results[i].get('productId')}}`,
+                'productId':results[i].get('productId'),
+                'image':imageArr[0] || 'http://ac-JoaBcRTt.clouddn.com/b7f0d580ef9a4ae8e19b.png'
+            };
+            jsonData.push(obj);
+        }
+        return res.json(jsonData);
+        
+    },()=> res.json({success:0}));
     
 });
 

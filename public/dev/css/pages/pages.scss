@@ -92,6 +92,14 @@
             width: 160px;
         }
     }
+    .am-icon {
+        &.on {
+            color: #5eb95e;
+        }
+        &.off {
+            color: #ccc;
+        }
+    }
 }
 
 /* purchase page */
@@ -208,5 +216,13 @@
         font-size: 14px;
         font-weight: bold;
         color: #fff;
+    }
+}
+
+/* order page */
+.order-page {
+    .order-name-content {
+        min-height: 30px;
+        line-height: 30px;
     }
 }

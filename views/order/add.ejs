@@ -11,7 +11,7 @@
 
 <% include ../partials/header %>
 
-<div class="am-container common-page">
+<div class="am-container common-page order-page">
     
     <form id="form-add-order" class="am-form" action="/order/add" method="post">
 
@@ -20,9 +20,28 @@
             <legend><a href="/order/add">添加新发货订单</a></legend>
             
             <!-- order name start -->
-            <div id="content-name" class="am-form-group">
-                <label>订单内容：<i>*</i> </label>
-                <input id="order-name" required name="order-name" type="text" placeholder="输入订单内容" />
+            <div id="content-name" class="am-form-group typeahead-content">
+                <label>订单内容：<i>*</i> <em>(自动填充)</em></label>
+                <div class="content-name-group am-form-horizontal">
+                    <div class="list-group-field am-form-group">
+                        <div class="am-u-sm-10">
+                            <input class="name" name="name" type="text" placeholder="输入订单内容" autocomplete="off">
+                        </div>
+                        <div class="am-u-sm-1">
+                            <select name="shipping-count">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <label class="am-u-sm-1 am-form-label">
+                            <a href="javascript:;" class="remove">- 删除</a>
+                        </label>
+                    </div>
+                </div>
+                <div><a class="order-add" href="javascript:;">+ 添加订单内容</a></div>
             </div>
             <!-- order name end -->
 
@@ -39,7 +58,7 @@
             
             <!-- customer name start -->
             <div id="content-customer-name" class="am-form-group typeahead-content">
-                <label>收货人/客户姓名(自动填充)：<i>*</i> </label>
+                <label>收货人/客户姓名：<i>*</i> <em>(自动填充)</em> </label>
                 <input type="hidden" id="customer-name-id" name="customer-name-id"/>
             <div class="am-form-horizontal">
                 <div class="am-form-group">
@@ -126,7 +145,7 @@
             <!-- shipping tracking number -->
             <div id="content-tracking-number" class="am-form-group">
                 <label>快递单号：</label>
-                <input type="text" name="tracking-number" id="tracking-number" placeholder="快递单号" autocomplete="off" value="560"/>
+                <input type="text" name="tracking-number" id="tracking-number" placeholder="快递单号" autocomplete="off"/>
             </div>
             <!-- shipping tracking number -->
 

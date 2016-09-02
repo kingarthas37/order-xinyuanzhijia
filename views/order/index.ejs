@@ -56,11 +56,18 @@
                 <% for(var i=0; i < order.length; i++) {%>
                 <tr data-customer-id="<%= order[i].get('customerId') %>">
                     <td>
-                        <% for(var j=0;j< orderNames[i].length;j++) {%>
-                         <a href="/order/edit/<%= order[i].get('orderId') %>"><%= j+1 %>. <%= orderNames[i][j] %></a>
-                        <a title="库存设置" target="_blank" href="http://51wish.cn/admin/product?search=<%= orderNames[i][j] %>"><i class="am-icon-level-down"></i></a>
-                         <%if(j< orderNames[i].length-1) {%><br/><%}%>
-                        <% }%>
+                        <%for(var j=0; j<order[i].get('name').length;j++) {%>
+                            <div>
+                                <span class="image loading-elem on" data-id="<% if(/\{id\:\d+\}/.test(order[i].get('name')[j])){%><%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(\})/,'$2') %><%}%>"></span>
+                                <a href="/order/edit/<%= order[i].get('orderId') %>">
+                                    <%= order[i].get('shippingCount')[j] %>*<%= order[i].get('name')[j].replace(/\{id\:\d+\}/,'') %>
+                                </a>
+                                <% if(/\{id\:\d+\}/.test(order[i].get('name')[j])) {%>
+                                    <a class="set-stock" title="设置库存" href="javascript:;"><i class="am-icon am-icon-external-link"></i></a>
+                                    <a class="update-stock" data-order-id="<%= order[i].get('orderId') %>" data-product-id="<%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(\})/,'$2') %>" title="是否已设置库存" href="javascript:;"><i class="am-icon am-icon-check-circle <%if(order[i].get('isShipping')[j]){%>on<%}else{%>off<%}%>"></i></a>
+                                <%}%>
+                            </div>
+                        <%}%>
                     </td>
                     <td class="t-c"><a title="<%= order[i].get('shippingAddress') %>" href="/customer/edit/<%= order[i].get('customerId') %>"><%= order[i].get('customerName') %></a> </td>
                     <td class="t-c"> <span class="taobao-name loading-elem on"></span> </td>
@@ -72,7 +79,7 @@
                         </a>
                     </td>
                     <td class="t-c"><% if (order[i].get('shippingStatus') === 'shipped' ) { %>已发货<% } else { %><strong>未发货</strong><% } %></td>
-                    <td class="t-c small-screen-hide"><%=order[i].updatedAt.getFullYear()%>-<%=(order[i].updatedAt.getMonth()+1)%>-<%=order[i].updatedAt.getDate()%></td>
+                    <td class="t-c small-screen-hide"><%=order[i].get('shippingDate').getFullYear()%>/<%=(order[i].get('shippingDate').getMonth()+1)%>/<%=order[i].get('shippingDate').getDate()%></td>
                     <td class="t-c small-screen-hide"><a href="/order/remove/<%= order[i].get('orderId') %>" class="remove-order">删除</a> </td>
                 </tr>
                 <% } %>

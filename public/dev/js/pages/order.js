@@ -7,22 +7,22 @@ module.exports = {
 
     indexFun: function () {
 
-        $('.remove-order').click(function () {
-
-            var $this = $(this);
-
-            $('#confirm-remove-order').modal({
-                relatedTarget: this,
-                onConfirm: function (options) {
-                    location.href = $this.attr('href');
-                },
-                onCancel: function () {
-                    return false;
-                }
+        //删除订单
+        {
+            $('.remove-order').click(function () {
+                var $this = $(this);
+                $('#confirm-remove-order').modal({
+                    relatedTarget: this,
+                    onConfirm: function (options) {
+                        location.href = $this.attr('href');
+                    },
+                    onCancel: function () {
+                        return false;
+                    }
+                });
+                return false;
             });
-            return false;
-        });
-
+        }
 
         //加载customer data
         {
@@ -54,26 +54,141 @@ module.exports = {
                 });
             });
         }
+        
+        //加载图片
+        {
+            
+            let productId = [];
+            let imageList = $('.image');
+
+            imageList.each(function (i, n) {
+                if($(n).data('id')) {
+                    productId.push($(n).data('id'));
+                }
+            });
+
+            $.ajax({
+                url: '/order/get-image',
+                data: {productId}
+            }).then(data => {
+
+                if (!data.success) {
+                    return;
+                }
+                
+                $.each(imageList, function (i, n) {
+                    let id = parseInt($(n).data('id'));
+                    if(!$.isEmptyObject(data.images)) {
+                        for(let i in data.images) {
+                            if(parseInt(i) === id) {
+                                $(n).removeClass('on').html(`<a href="${data.images[i]}" target="_blank"><img src="${data.images[i]}?imageMogr2/thumbnail/24"/></a>`);
+                            }else if(!id) {
+                                $(n).removeClass('on').html(`<img src="${window.assets['no-image-src']}?imageMogr2/thumbnail/24"/>`);
+                            }
+                        } 
+                    } else {
+                        $(n).removeClass('on').html(`<img src="${window.assets['no-image-src']}?imageMogr2/thumbnail/24"/>`);
+                    }
+                    
+                });
+            });
+        }
+        
+        //设置库存状态
+        {
+            $('.update-stock').click(function() {
+                let $this = $(this);
+                if($this.data('state')) {
+                    return false;
+                }
+                $this.data('state',true);
+                
+                let isSet = $this.find('.am-icon').hasClass('on');
+                let productId = $this.data('product-id');
+                let orderId = $this.data('order-id');
+                $.ajax({
+                    url:'/order/set-stock',
+                    data:{
+                        'is-set':isSet,
+                        'product-id':productId,
+                        'order-id':orderId
+                    },
+                    success:(data)=>{
+                        $this.data('state',false);
+                        if(data.success) {
+                            if(isSet) {
+                                $this.find('.am-icon').removeClass('on').addClass('off');
+                            } else {
+                                $this.find('.am-icon').removeClass('off').addClass('on');
+                            }
+                        }
+                    }
+                });
+                
+            });
+        }
 
     },
     addFun: function () {
         $('#form-add-order').validate();
-        this.typeAhead();
+        this.customerNameTypeAhead();
         this.orderTypeAheadAdd();
         this.domUpdate();
+        this.orderNameTypeAhead();
     },
     editFun: function () {
         $('#form-edit-order').validate();
-        this.typeAhead();
+        this.customerNameTypeAhead();
         this.orderTypeAheadUpdate();
         this.domUpdate();
+        this.orderNameTypeAhead();
     },
     domUpdate: function () {
+        
+        let _this = this;
         var shippingCompany = $('#shipping-company');
         var trackingNumber = $('#tracking-number');
         shippingCompany.change(function () {
             trackingNumber.val('').get(0).focus();
         });
+        
+        //添加删除订单内容
+        {
+            
+            let group = $('.content-name-group');
+            let template = `
+                    <div class="list-group-field am-form-group">
+                        <div class="am-u-sm-10">
+                            <input class="name" name="name" type="text" placeholder="输入订单内容" autocomplete="off">
+                        </div>
+                        <div class="am-u-sm-1">
+                            <select name="shipping-count">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <label class="am-u-sm-1 am-form-label">
+                            <a href="javascript:;" class="remove">- 删除</a>
+                        </label>
+                    </div>
+            `;
+            
+            $('.order-add').click(function() {
+                let $template = $(template);
+                group.append($template);
+                _this.bindOrderNameTypeAhead($template.find('.name'));
+                $template.find('input[name=name]').get(0).focus();
+            });
+
+            group.on('click','.remove', function () {
+                $(this).parents('.list-group-field').detach();
+            });
+        }
+        
+        
     },
     orderTypeAheadAdd: function () {
 
@@ -167,7 +282,7 @@ module.exports = {
         });
 
     },
-    typeAhead: function () {
+    customerNameTypeAhead: function () {
 
         var customerNameInput = $('#customer-name');
         customerNameInput.typeahead(null, {
@@ -194,5 +309,38 @@ module.exports = {
                 }
             })
         });
+    },
+    orderNameTypeAhead() {
+        $('.name').each((i,n) => {
+            this.bindOrderNameTypeAhead($(n));
+        });
+    },
+    bindOrderNameTypeAhead(element) {
+
+        element.typeahead(null, {
+            display: function (item) {
+                return item.value;
+            },
+            templates: {
+                suggestion: function (item) {
+                    return `<div><img src="${item.image}?imageMogr2/thumbnail/32" />${item.value} </div>`;
+                }
+            },
+            highlight: true,
+            source: new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: '/order/product',
+                    prepare: function (query,settings) {
+                        settings.data = {
+                            name: element.val()
+                        };
+                        return settings;
+                    }
+                }
+            })
+        });
+        
     }
 };

@@ -45,7 +45,8 @@ router.post('/', function (req, res, next) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
     
-    var orderName = req.body['order-name'];
+    var name = typeof req.body['name'] === 'object' ? req.body['name'] : [req.body['name']];
+    var shippingCount = typeof req.body['shipping-count'] === 'object' ? req.body['shipping-count'] : [req.body['shipping-count']];
     var customerId = parseInt(req.body['customer-name-id']);
     var description = req.body['description'];
     var shippingDate = req.body['shipping-date'];
@@ -115,7 +116,25 @@ router.post('/', function (req, res, next) {
         //取到新的customerId,如果有customerId,则保存到order，否则保存已有的customerId
         function() {
 
-            orderTrack.set('orderName',orderName);
+            //productId shipping
+            let productId = [];
+            let isShipping = [];
+            for(let i=0;i<name.length;i++) {
+                if(/\{id\:\d+\}$/.test(name[i])) {
+                    productId.push(/\{id\:(\d+)\}$/.exec(name[i])[1]);
+                }else {
+                    productId.push("");
+                }
+                isShipping.push(false);
+            }
+            
+            //shipping count
+            shippingCount = shippingCount.map(item => {return parseInt(item);});
+            
+            orderTrack.set('name',name);
+            orderTrack.set('productId',productId);
+            orderTrack.set('isShipping',isShipping);
+            orderTrack.set('shippingCount',shippingCount);
             orderTrack.set('description',description);
             orderTrack.set('customerId',customerId);
             orderTrack.set('customerName',customerName);
