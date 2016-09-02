@@ -286,6 +286,27 @@ iframe.upload-title {
   .small-screen-hide {
     display: none; } }
 
+/* modal iframe viewport */
+.iframe-viewport {
+  width: 100%;
+  height: 480px; }
+
+#modal-viewport .am-modal-dialog {
+  background: #fff; }
+
+#modal-viewport .am-modal-hd {
+  padding: 0;
+  height: 30px; }
+
+#modal-viewport .am-modal-bd {
+  height: 490px;
+  padding: 0;
+  border: none;
+  border-radius: 0; }
+
+body.viewport-window header, body.viewport-window .admin-sidebar, body.viewport-window footer, body.viewport-window .product-crumb {
+  display: none; }
+
 /* index page */
 .index-page #chart-earning {
   height: 250px; }
@@ -355,6 +376,26 @@ iframe.upload-title {
 
 .order-page .am-icon.off {
   color: #ccc; }
+
+#modal-set-stock .am-modal-dialog {
+  background: #fff; }
+
+#modal-set-stock .am-form-inline {
+  margin-bottom: 10px; }
+  #modal-set-stock .am-form-inline select {
+    width: 100px; }
+
+#modal-set-stock .am-form {
+  text-align: left; }
+  #modal-set-stock .am-form label {
+    font-size: 16px;
+    display: block;
+    font-weight: normal; }
+    #modal-set-stock .am-form label em {
+      font-style: normal;
+      font-size: 12px;
+      font-weight: normal;
+      color: #999; }
 
 /* purchase page */
 .purchase-page table tr.off {

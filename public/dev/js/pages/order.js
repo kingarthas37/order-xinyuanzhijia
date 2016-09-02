@@ -107,7 +107,7 @@ module.exports = {
                 let productId = $this.data('product-id');
                 let orderId = $this.data('order-id');
                 $.ajax({
-                    url:'/order/set-stock',
+                    url:'/order/update-stock',
                     data:{
                         'is-set':isSet,
                         'product-id':productId,
@@ -126,6 +126,110 @@ module.exports = {
                 });
                 
             });
+        }
+
+
+        //设置库存
+        {
+            let modalSetStock = $('#modal-set-stock');
+            let stock = modalSetStock.find('select[name=stock]');
+            let sales = modalSetStock.find('select[name=sales]');
+
+            let stockMinus = modalSetStock.find('.stock-minus');
+            let stockPlus = modalSetStock.find('.stock-plus');
+            
+            let save = $('.stock-save');
+            let reset = $('.stock-reset');
+            
+            $('.set-stock').click(function() {
+                modalSetStock.modal({
+                    relatedTarget: this,
+                    onCancel: function () {
+                        return false;
+                    }
+                });
+                return false;
+            });
+            
+            modalSetStock.on('open.modal.amui', function(event){
+                let target = $(event.relatedTarget);
+                target.addClass('current');
+                let productId = target.data('product-id');
+                $.ajax({
+                    type:'get',
+                    url:'/order/set-stock',
+                    data:{
+                        'product-id':productId
+                    },
+                    success:function(data) {
+                        if(!data.success) {
+                            return false;
+                        }
+                        stock.val(data.stock);
+                        stock.attr('data-stock',data.stock);
+                        sales.val(data.sales);
+                        sales.attr('data-sales',data.sales);
+                        
+                        save.attr('data-product-id',productId);
+
+                        stockPlus.removeAttr('disabled').removeClass('am-btn-default').addClass('am-btn-primary');
+                        stockMinus.removeAttr('disabled').removeClass('am-btn-default').addClass('am-btn-primary');
+                    }
+                });
+            });
+
+            modalSetStock.on('close.modal.amui', function(){
+                $('.set-stock.current').removeClass('current');
+                stock.val(0);
+                stock.attr('data-stock',0);
+                sales.val(0);
+                sales.attr('data-sales',0);
+                save.removeAttr('data-product-id');
+                stockPlus.attr('disabled','disabled').addClass('am-btn-default').removeClass('am-btn-primary');
+                stockMinus.attr('disabled','disabled').addClass('am-btn-default').removeClass('am-btn-primary');
+            });
+
+            stockMinus.click(function() {
+                let stockValue = parseInt(stock.val());
+                let salesValue = parseInt(sales.val());
+                if(stockValue > 0) {
+                    stock.find(`option[value=${stockValue - 1}]`)[0].selected = true;
+                    sales.find(`option[value=${salesValue + 1}]`)[0].selected = true;
+                }
+            });
+
+            stockPlus.click(function() {
+                let stockValue = parseInt(stock.val());
+                stock.find(`option[value=${stockValue + 1}]`)[0].selected = true;
+            });
+            
+            save.click(function() {
+                let $this = $(this);
+                $.ajax({
+                    type:'post',
+                    url:'/order/set-stock',
+                    data:{
+                        'product-id':$this.data('product-id'),
+                        'stock':stock.val(),
+                        'sales':sales.val()
+                    },
+                    success:function(data) {
+                        if(data.success) {
+                            let updateStock = $('.set-stock.current').parents('.order-split').find('.update-stock');
+                            if(updateStock.find('.am-icon').hasClass('off')) {
+                                updateStock.trigger('click');
+                            }
+                            modalSetStock.modal('close');
+                        }
+                    }
+                });
+            });
+
+            reset.click(function() {
+                stock.find(`option[value=${stock.data('stock')}]`)[0].selected = true;
+                sales.find(`option[value=${sales.data('sales')}]`)[0].selected = true;
+            });
+        
         }
 
     },

@@ -14,6 +14,7 @@ var config = require('../../lib/config');
 var OrderTrack = AV.Object.extend('OrderTrack');
 var Customer = AV.Object.extend('Customer');
 let Product = AV.Object.extend('Product');
+let ProductProperty = AV.Object.extend('ProductProperty');
 
 //lib
 var pager = require('../../lib/pager');
@@ -207,7 +208,8 @@ router.get('/get-image',(req,res)=> {
 });
 
 
-router.get('/set-stock',(req,res)=> {
+//ajax设置库存状态
+router.get('/update-stock',(req,res)=> {
 
     let orderId = parseInt(req.query['order-id']);
     let productId = req.query['product-id'];
@@ -233,9 +235,43 @@ router.get('/set-stock',(req,res)=> {
         res.json({success:1});
     });
     
-
 });
 
+//ajax设置库存
+router.get('/set-stock',(req,res)=> {
+    let productId = parseInt(req.query['product-id']);
+    let query = new AV.Query(ProductProperty);
+    query.equalTo('productId',productId);
+    query.select('stock','sales');
+    query.first().then(result=> {
+        res.json({
+            success:1,
+            stock:result.get('stock'),
+            sales:result.get('sales'),
+            productId:productId
+        });
+    });
+});
+
+router.post('/set-stock',(req,res)=> {
+    let productId = parseInt(req.body['product-id']);
+    let stock = parseInt(req.body['stock']);
+    let sales = parseInt(req.body['sales']);
+    
+    let query = new AV.Query(ProductProperty);
+    query.equalTo('productId',productId);
+    query.first().then(result=> {
+        return result.save({
+            stock,
+            sales
+        });
+        
+    }).then(result => {
+        res.json({
+            success:1
+        });
+    });
+});
 
 /* insert demo 
 router.get('/insert',(req,res)=> {

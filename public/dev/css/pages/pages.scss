@@ -102,6 +102,34 @@
     }
 }
 
+//order
+#modal-set-stock {
+    .am-modal-dialog {
+        background: #fff;
+    }
+    .am-form-inline {
+        margin-bottom: 10px;
+        select {
+            width: 100px;
+        }
+    }
+    .am-form {
+        text-align: left;
+        label {
+            font-size: 16px;
+            display: block;
+            font-weight: normal;
+            em {
+                font-style: normal;
+                font-size: 12px;
+                font-weight: normal;
+                color: #999;
+            }
+        }
+    }
+}
+
+
 /* purchase page */
 .purchase-page {
     

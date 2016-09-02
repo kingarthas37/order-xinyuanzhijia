@@ -129,7 +129,7 @@ router.post('/', function (req, res, next) {
             }
             
             //shipping count
-            shippingCount = shippingCount.map(item => {return parseInt(item);});
+            shippingCount = shippingCount.map(item => parseInt(item));
             
             orderTrack.set('name',name);
             orderTrack.set('productId',productId);

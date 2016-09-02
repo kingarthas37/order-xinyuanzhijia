@@ -402,3 +402,32 @@ iframe.upload-title {
         display: none;
     }
 }
+
+
+
+/* modal iframe viewport */
+.iframe-viewport {
+    width: 100%;
+    height: 480px;
+}
+#modal-viewport {
+    .am-modal-dialog {
+        background: #fff;
+    }
+    .am-modal-hd {
+        padding: 0;
+        height: 30px;
+    }
+    .am-modal-bd {
+        height: 490px;
+        padding: 0;
+        border:none;
+        border-radius: 0;
+    }
+}
+
+body.viewport-window {
+    header,.admin-sidebar,footer,.product-crumb {
+        display: none;
+    }
+}

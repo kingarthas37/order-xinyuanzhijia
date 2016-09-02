@@ -23,9 +23,30 @@
             <legend>编辑新发货订单</legend>
 
             <!-- order name start -->
-            <div id="content-name" class="am-form-group">
-                <label>订单内容：<i>*</i> </label>
-                <input id="order-name" required name="order-name" type="text" placeholder="输入订单内容" value="<%= order.get('orderName') %>" />
+            <div id="content-name" class="am-form-group typeahead-content">
+                <label>订单内容：<i>*</i> <em>(自动填充)</em></label>
+                <div class="content-name-group am-form-horizontal">
+                    <%for(var i=0;i<order.get('name').length;i++) {%>
+                    <div class="list-group-field am-form-group">
+                        <div class="am-u-sm-10">
+                            <input class="name" name="name" type="text" placeholder="输入订单内容" autocomplete="off" value="<%= order.get('name')[i] %>">
+                        </div>
+                        <div class="am-u-sm-1">
+                            <select name="shipping-count">
+                                <option value="1" <%if(order.get('shippingCount')[i] === 1){%>selected="selected"<%}%> >1</option>
+                                <option value="2" <%if(order.get('shippingCount')[i] === 2){%>selected="selected"<%}%> >2</option>
+                                <option value="3" <%if(order.get('shippingCount')[i] === 3){%>selected="selected"<%}%> >3</option>
+                                <option value="4" <%if(order.get('shippingCount')[i] === 4){%>selected="selected"<%}%> >4</option>
+                                <option value="5" <%if(order.get('shippingCount')[i] === 5){%>selected="selected"<%}%> >5</option>
+                            </select>
+                        </div>
+                        <label class="am-u-sm-1 am-form-label">
+                            <a href="javascript:;" class="remove">- 删除</a>
+                        </label>
+                    </div>
+                    <%}%>
+                </div>
+                <div><a class="order-add" href="javascript:;">+ 添加订单内容</a></div>
             </div>
             <!-- order name end -->
 
