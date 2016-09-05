@@ -17,6 +17,8 @@ module.exports = function () {
     var userName = ''; //生成数据的用户名
     var finalDataArray = [];  //最终生成的内容
 
+    textarea[0].focus();
+
     //初始加载数据
     $.ajax({
         url: '/mail/taobao-mail-create/get-content',
@@ -144,7 +146,7 @@ module.exports = function () {
                 return $('.mail-title').text();
             },
             afterCopy: function () {
-                copyInfo.show().text('复制邮件标题成功!');
+                showText('复制邮件标题成功');
             }
         });
 
@@ -154,7 +156,7 @@ module.exports = function () {
                 return '亲,商品已发送至您此邮箱,请注意查收! ps:如果您是手机端阅读(尤其是iPhone/iPad),请花30秒时间点击下邮件里的在手机中阅读的链接说明,希望本店商品能对亲有帮助哦,并祝亲能收获满满,心想事成,加油!!';
             },
             afterCopy: function () {
-                copyInfo.show().text('复制旺旺回复内容成功!');
+                showText('复制旺旺回复内容成功!');
                 setTimeout(function () {
                     location.reload();
                 }, 1000);
@@ -166,7 +168,7 @@ module.exports = function () {
                 return '亲,我们已收到您的好评,感谢您对本店的支持,本店会一如既往地为您服务并会持续上架您喜欢的商品,请继续关注我们哦!以下是店主作为答谢赠送您的"天使音乐":[身体工房馆-天使疗愈花园-召唤天使] 下载链接: http://pan.baidu.com/s/1i31U9VJ 密码: 6882';
             },
             afterCopy: function () {
-                copyInfo.show().text('复制好评回复内容成功!');
+                showText('复制好评回复内容成功');
             }
         });
 
@@ -176,19 +178,35 @@ module.exports = function () {
                 return '亲,请问邮箱是多少,我这边可以给亲发货哦';
             },
             afterCopy: function () {
-                copyInfo.show().text('复制询问邮箱成功!');
+                showText('复制询问邮箱成功!');
             }
         });
 
         $('.copy-howread').show().zclip({
             path: swf,
             copy: function () {
-                return '亲拍时请留言备注自己的邮箱号,我会把百度云的下载链接发到亲的邮箱里,亲可以保存到自己的百度云或直接下载';
+                return '亲此商品为电子版,拍时请留言备注自己的邮箱号,我会把百度云的下载链接发到亲的邮箱里,亲可以保存到自己的百度云或直接下载';
             },
             afterCopy: function () {
-                copyInfo.show().text('复制如何阅读成功!');
+                showText('复制如何阅读成功!');
             }
         });
+
+        $('.copy-sendremind').show().zclip({
+            path: swf,
+            copy: function () {
+                return '亲你这边一直没有回复我邮箱,我先把下载链接发给亲,如果亲有问题可以再跟我确认哦';
+            },
+            afterCopy: function () {
+                showText('复制发货提醒成功!');
+            }
+        });
+        
+    }
+
+    function showText(text) {
+        copyInfo.show().text(text);
+        setTimeout(()=> copyInfo.hide(),3000);
     }
 
 };
