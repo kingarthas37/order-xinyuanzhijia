@@ -104,8 +104,8 @@ module.exports = {
                 $this.data('state',true);
                 
                 let isSet = $this.find('.am-icon').hasClass('on');
-                let productId = $this.data('product-id');
-                let orderId = $this.data('order-id');
+                let productId = $this.attr('product-id');
+                let orderId = $this.attr('order-id');
                 $.ajax({
                     url:'/order/update-stock',
                     data:{
@@ -154,7 +154,9 @@ module.exports = {
             modalSetStock.on('open.modal.amui', function(event){
                 let target = $(event.relatedTarget);
                 target.addClass('current');
-                let productId = target.data('product-id');
+                let productId = target.attr('product-id');
+                save.attr('product-id',productId);
+                
                 $.ajax({
                     type:'get',
                     url:'/order/set-stock',
@@ -170,7 +172,7 @@ module.exports = {
                         sales.val(data.sales);
                         sales.attr('data-sales',data.sales);
                         
-                        save.attr('data-product-id',productId);
+                        save.attr('product-id',productId);
 
                         stockPlus.removeAttr('disabled').removeClass('am-btn-default').addClass('am-btn-primary');
                         stockMinus.removeAttr('disabled').removeClass('am-btn-default').addClass('am-btn-primary');
@@ -184,7 +186,7 @@ module.exports = {
                 stock.attr('data-stock',0);
                 sales.val(0);
                 sales.attr('data-sales',0);
-                save.removeAttr('data-product-id');
+                save.removeAttr('product-id');
                 stockPlus.attr('disabled','disabled').addClass('am-btn-default').removeClass('am-btn-primary');
                 stockMinus.attr('disabled','disabled').addClass('am-btn-default').removeClass('am-btn-primary');
             });
@@ -209,7 +211,7 @@ module.exports = {
                     type:'post',
                     url:'/order/set-stock',
                     data:{
-                        'product-id':$this.data('product-id'),
+                        'product-id':$this.attr('product-id'),
                         'stock':stock.val(),
                         'sales':sales.val()
                     },
@@ -226,8 +228,8 @@ module.exports = {
             });
 
             reset.click(function() {
-                stock.find(`option[value=${stock.data('stock')}]`)[0].selected = true;
-                sales.find(`option[value=${sales.data('sales')}]`)[0].selected = true;
+                stock.find(`option[value=${stock.attr('stock')}]`)[0].selected = true;
+                sales.find(`option[value=${sales.attr('sales')}]`)[0].selected = true;
             });
         
         }
