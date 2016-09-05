@@ -234,6 +234,16 @@ module.exports = {
         
         }
         
+        //查询未发货
+        {
+            $('.ckb-notshipped').click(function() {
+                if(this.checked) {
+                    location.href = '/order?search-notshipped=on';
+                }else {
+                    location.href = '/order';
+                }
+            });
+        }
         
         //发货状态
         {

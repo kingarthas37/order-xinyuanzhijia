@@ -36,6 +36,11 @@
                     地址：<input type="text" name="search-address" class="am-form-field" placeholder="搜索">
                 </div>
                 <button type="submit" class="am-btn am-btn-primary">搜索</button>
+
+                <span class="split"></span>
+                <div class="am-form-group">
+                    <label class="normal">未发货：<input type="checkbox" class="ckb-notshipped" name="notshipped" <%if(searchNotShipped){%>checked="checked"<%}%> /></label>
+                </div>
             </form>
 
             <hr/>
@@ -91,9 +96,9 @@
             
             <ul class="am-pagination">
                 <% if (orderPager.prev) { %> <li>
-                    <a href="/order?page=<%= orderPager.prev %><% if(searchOrderName) {%>&search-order-name=<%=searchOrderName%> <%}%><% if(searchCustomerName) {%>&search-customer-name=<%=searchCustomerName%> <%}%><% if(searchAddress) {%>&search-address=<%=searchAddress%> <%}%>">上一页</a></li> <% } %>
+                    <a href="/order?page=<%= orderPager.prev %><% if(searchOrderName) {%>&search-order-name=<%=searchOrderName%> <%}%><% if(searchCustomerName) {%>&search-customer-name=<%=searchCustomerName%> <%}%><% if(searchAddress) {%>&search-address=<%=searchAddress%> <%}%><% if(searchNotShipped) {%>&search-notshipped=<%=searchNotShipped%><%}%>">上一页</a></li> <% } %>
                 <% if (orderPager.next) { %> <li>
-                    <a href="/order?page=<%= orderPager.next %><% if(searchOrderName) {%>&search-order-name=<%=searchOrderName%> <%}%><% if(searchCustomerName) {%>&search-customer-name=<%=searchCustomerName%> <%}%><% if(searchAddress) {%>&search-address=<%=searchAddress%> <%}%>">下一页</a></li> <% } %>
+                    <a href="/order?page=<%= orderPager.next %><% if(searchOrderName) {%>&search-order-name=<%=searchOrderName%> <%}%><% if(searchCustomerName) {%>&search-customer-name=<%=searchCustomerName%> <%}%><% if(searchAddress) {%>&search-address=<%=searchAddress%> <%}%><% if(searchNotShipped) {%>&search-notshipped=<%=searchNotShipped%><%}%>">下一页</a></li> <% } %>
                 <li class="count">第<%=orderPager.page%>页 共<%= orderCount %>条</li>
             </ul>
             

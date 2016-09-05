@@ -34,12 +34,13 @@ router.get('/', function (req, res, next) {
     
     var page = req.query.page ? parseInt(req.query.page) : 1;
     var limit = req.query.limit ? parseInt(req.query.limit) : config.page.LIMIT;
+    let skip = (page - 1) * limit;
     var order = req.query.order || 'desc';
     
     var searchOrderName = req.query['search-order-name'];
     var searchCustomerName = req.query['search-customer-name'];
     let searchAddress = req.query['search-address'];
-    let searchCustomerId = req.query['search-customer-id'];
+    let searchNotShipped = req.query['search-notshipped'];
     
     data = extend(data,{
         flash: {
@@ -47,79 +48,68 @@ router.get('/', function (req, res, next) {
             error:req.flash('error')
         },
         user:req.AV.user,
-        searchOrderName:searchOrderName,
-        searchCustomerName:searchCustomerName,
-        searchAddress:searchAddress,
-        searchCustomerId:searchCustomerId
-    });
-    
-    let query = new AV.Query(OrderTrack);
-    
-    if(searchOrderName) {
-        query.contains('orderName',searchOrderName);
-    }
-
-    if(searchCustomerName) {
-        let queryName = new AV.Query(OrderTrack);
-        queryName.contains('customerName',searchCustomerName);
-        let queryTaobaoName = new AV.Query(OrderTrack);
-        queryTaobaoName.contains('taobaoName',searchCustomerName);
-        query = new AV.Query.or(queryName,queryTaobaoName);
-    }
-    
-    if(searchCustomerId) {
-        query.equalTo('customerId',parseInt(searchCustomerId));
-    }
-    
-    if(searchAddress) {
-        query.contains('shippingAddress',searchAddress);
-    }
-    
-    query.count().then((count) => {
-        
-        data = extend(data,{
-            orderPager:pager(page,limit,count),
-            orderCount:count
-        });
-        
-        query.skip((page - 1) * limit);
-        query.limit(limit);
-
-        if(order === 'asc') {
-            query.ascending("orderId");
-        } else {
-            query.descending('orderId');
-        }
-
-        if(searchOrderName) {
-            query.contains('orderName',searchOrderName);
-        }
-
-        if(searchCustomerName) {
-            let queryName = new AV.Query(OrderTrack);
-            queryName.contains('customerName',searchCustomerName);
-            let queryTaobaoName = new AV.Query(OrderTrack);
-            queryTaobaoName.contains('taobaoName',searchCustomerName);
-            query = new AV.Query.or(queryName,queryTaobaoName);
-        }
-
-        if(searchCustomerId) {
-            query.equalTo('customerId',parseInt(searchCustomerId));
-        }
-        
-        if(searchAddress) {
-            query.contains('shippingAddress',searchAddress);
-        }
-        
-        return query.find();
-        
-    }).then(results => {
-        data = extend(data, {
-            order:results
-        });
-        res.render('order', data);
+        searchOrderName,
+        searchCustomerName,
+        searchAddress,
+        searchNotShipped
     });
 
+
+    async.series([
+
+        function(cb) {
+
+            let cqlWhere = '';
+
+            if(searchOrderName) {
+                cqlWhere = `where name like '%${searchOrderName}%'`;
+            } else if(searchCustomerName) {
+                cqlWhere = `where customerName like '%${searchCustomerName}%' or taobaoName like '%${searchCustomerName}%'`;
+            } else if(searchAddress) {
+                cqlWhere = `where shippingAddress like '%${searchAddress}%'`;
+            } else if(searchNotShipped) {
+                cqlWhere = `where shippingStatus = 'notshipped'`;
+            }
+
+            let cql = `select count(*) from OrderTrack ${cqlWhere}`;
+
+            AV.Query.doCloudQuery(cql).then(function (results) {
+                data = extend(data,{
+                    orderPager:pager(page,limit,results.count),
+                    orderCount:results.count
+                });
+                cb();
+            });
+
+        },
+
+        function() {
+
+            let cqlWhere = '';
+
+            if(searchOrderName) {
+                cqlWhere = `where name like '%${searchOrderName}%'`;
+            } else if(searchCustomerName) {
+                cqlWhere = `where customerName like '%${searchCustomerName}%' or taobaoName like '%${searchCustomerName}%'`;
+            } else if(searchAddress) {
+                cqlWhere = `where shippingAddress like '%${searchAddress}%'`;
+            } else if(searchNotShipped) {
+                cqlWhere = `where shippingStatus = 'notshipped'`;
+            }
+
+            let cql = `select * from OrderTrack ${cqlWhere} limit ${skip},${limit} order by orderId ${order}`;
+            
+            AV.Query.doCloudQuery(cql).then(function (results) {
+                data = extend(data, {
+                    order: results.results
+                });
+                res.render('order', data);
+            });
+
+        }
+
+    ]);
+    
 });
 
 

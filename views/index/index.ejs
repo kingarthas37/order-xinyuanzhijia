@@ -66,22 +66,17 @@
                         <table class="am-table">
                             <thead>
                             <tr>
-                                <th>订单名称</th>
                                 <th>收件人</th>
+                                <th>状态</th>
                                 <th>创建时间</th>
                             </tr>
                             </thead>
                             <tbody>
                             <% for(var i=0; i < order.length; i++) {%>
                             <tr>
-                                <td><a href="/order/edit/<%= order[i].get('orderId') %>"><%= order[i].get('orderName')
-                                    %></a></td>
-                                <td><a title="<%= order[i].get('shippingAddress') %>"
-                                       href="/customer/edit/<%= order[i].get('customerId') %>"><%=
-                                    order[i].get('customerName') %></a></td>
-                                <td>
-                                    <%=order[i].createdAt.getFullYear()%>/<%=(order[i].createdAt.getMonth()+1)%>/<%=order[i].createdAt.getDate()%>
-                                </td>
+                                <td><a title="<%= order[i].get('shippingAddress') %>" href="/customer/edit/<%= order[i].get('customerId') %>"><%=order[i].get('customerName') %></a></td>
+                                <td><%if (order[i].get('shippingStatus')==='shipped'){%>已发货<% } else {%>未发货<%}%></td>
+                                <td><%=order[i].createdAt.getFullYear()%>/<%=(order[i].createdAt.getMonth()+1)%>/<%=order[i].createdAt.getDate()%></td>
                             </tr>
                             <% } %>
                             </tbody>

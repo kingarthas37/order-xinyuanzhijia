@@ -50,7 +50,6 @@ router.get('/', function (req, res, next) {
         searchState
     });
 
-
     async.series([
         
         function(cb) {

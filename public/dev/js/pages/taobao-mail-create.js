@@ -136,8 +136,10 @@ module.exports = function () {
     //复制功能
     if (FlashDetect.installed) {
 
+        let swf = '/assets/swf/ZeroClipboard.swf';
+        
         $('.copy-title').show().zclip({
-            path: '/assets/swf/ZeroClipboard.swf',
+            path: swf,
             copy: function () {
                 return $('.mail-title').text();
             },
@@ -147,7 +149,7 @@ module.exports = function () {
         });
 
         $('.copy-wangwang').show().zclip({
-            path: '/assets/swf/ZeroClipboard.swf',
+            path: swf,
             copy: function () {
                 return '亲,商品已发送至您此邮箱,请注意查收! ps:如果您是手机端阅读(尤其是iPhone/iPad),请花30秒时间点击下邮件里的在手机中阅读的链接说明,希望本店商品能对亲有帮助哦,并祝亲能收获满满,心想事成,加油!!';
             },
@@ -159,7 +161,7 @@ module.exports = function () {
             }
         });
         $('.copy-haoping').show().zclip({
-            path: '/assets/swf/ZeroClipboard.swf',
+            path: swf,
             copy: function () {
                 return '亲,我们已收到您的好评,感谢您对本店的支持,本店会一如既往地为您服务并会持续上架您喜欢的商品,请继续关注我们哦!以下是店主作为答谢赠送您的"天使音乐":[身体工房馆-天使疗愈花园-召唤天使] 下载链接: http://pan.baidu.com/s/1i31U9VJ 密码: 6882';
             },
@@ -169,12 +171,22 @@ module.exports = function () {
         });
 
         $('.copy-howmail').show().zclip({
-            path: '/assets/swf/ZeroClipboard.swf',
+            path: swf,
             copy: function () {
                 return '亲,请问邮箱是多少,我这边可以给亲发货哦';
             },
             afterCopy: function () {
                 copyInfo.show().text('复制询问邮箱成功!');
+            }
+        });
+
+        $('.copy-howread').show().zclip({
+            path: swf,
+            copy: function () {
+                return '亲拍时请留言备注自己的邮箱号,我会把百度云的下载链接发到亲的邮箱里,亲可以保存到自己的百度云或直接下载';
+            },
+            afterCopy: function () {
+                copyInfo.show().text('复制如何阅读成功!');
             }
         });
     }
