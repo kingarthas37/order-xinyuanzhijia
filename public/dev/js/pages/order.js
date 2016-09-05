@@ -233,6 +233,37 @@ module.exports = {
             });
         
         }
+        
+        
+        //发货状态
+        {
+            $('.ckb-shipped').click(function() {
+                
+                let $this = $(this);
+                let orderId = $(this).attr('order-id');
+                let shipping = this.checked;
+
+                $.ajax({
+                    type:'post',
+                    url:'/order/shipping',
+                    data:{
+                        'order-id':orderId,
+                        'shipping':shipping
+                    },
+                    success:function(data) {
+                        if(data.success) {
+                            if($this[0].checked) {
+                                $this.parents('tr').removeClass('off');
+                            } else {
+                                $this.parents('tr').addClass('off');
+                            }
+                        }
+                    }
+                });
+
+            });
+        }
+        
 
     },
     addFun: function () {

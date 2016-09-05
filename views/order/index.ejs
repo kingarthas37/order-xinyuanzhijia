@@ -43,18 +43,21 @@
             <table class="am-table">
                 <thead>
                 <tr>
+                    <th></th>
                     <th>订单名称</th>
                     <th class="t-c">收件人</th>
                     <th class="t-c" width="200">淘宝名</th>
                     <th class="t-c">快递</th>
-                    <th class="t-c">状态</th>
-                    <th class="t-c small-screen-hide">更新时间</th>
+                    <th class="t-c small-screen-hide">时间</th>
                     <th class="t-c small-screen-hide">删除</th>
                 </tr>
                 </thead>
                 <tbody>
                 <% for(var i=0; i < order.length; i++) {%>
-                <tr data-customer-id="<%= order[i].get('customerId') %>">
+                <tr data-customer-id="<%= order[i].get('customerId') %>" <% if (order[i].get('shippingStatus') !== 'shipped' ) { %>class="off"<%}%>>
+                    <td class="t-c">
+                        <input order-id="<%= order[i].get('orderId') %>" class="ckb-shipped" type="checkbox" <% if (order[i].get('shippingStatus') === 'shipped' ) { %>checked="checked"<%}%>/>
+                    </td>
                     <td>
                         <%for(var j=0; j<order[i].get('name').length;j++) {%>
                             <div class="order-split">
@@ -72,14 +75,14 @@
                     <td class="t-c"><a title="<%= order[i].get('shippingAddress') %>" href="/customer/edit/<%= order[i].get('customerId') %>"><%= order[i].get('customerName') %></a> </td>
                     <td class="t-c"> <span class="taobao-name loading-elem on"></span> </td>
                     <td class="t-c">
-                        <a href="http://www.kuaidi100.com/auto.shtml?nu=<%= order[i].get('trackingNumber') %>" target="_blank"><% if(order[i].get('shippingCompany') == 'tiantian') {%>天天<%}%>
+                            <%if (order[i].get('trackingNumber')){ %><a href="http://www.kuaidi100.com/auto.shtml?nu=<%=order[i].get('trackingNumber')%>" target="_blank"><%}%>
+                            <% if(order[i].get('shippingCompany') == 'tiantian') {%>天天<%}%>
                             <% if(order[i].get('shippingCompany') == 'shunfeng') {%>顺丰<%}%>
                             <% if(order[i].get('shippingCompany') == 'baishi') {%>百世汇通<%}%>
                             <% if(order[i].get('shippingCompany') == 'other') {%>其他<%}%>
-                        </a>
+                            <%if (order[i].get('trackingNumber')){ %></a><%}%>
                     </td>
-                    <td class="t-c"><% if (order[i].get('shippingStatus') === 'shipped' ) { %>已发货<% } else { %><strong>未发货</strong><% } %></td>
-                    <td class="t-c small-screen-hide"><%=order[i].get('shippingDate').getFullYear()%>/<%=(order[i].get('shippingDate').getMonth()+1)%>/<%=order[i].get('shippingDate').getDate()%></td>
+                    <td class="t-c small-screen-hide"><%=(order[i].get('shippingDate').getMonth()+1)%>/<%=order[i].get('shippingDate').getDate()%></td>
                     <td class="t-c small-screen-hide"><a href="/order/remove/<%= order[i].get('orderId') %>" class="remove-order">删除</a> </td>
                 </tr>
                 <% } %>

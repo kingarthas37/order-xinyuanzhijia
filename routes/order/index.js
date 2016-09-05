@@ -273,6 +273,27 @@ router.post('/set-stock',(req,res)=> {
     });
 });
 
+router.post('/shipping',(req,res) => {
+    
+    let orderId = parseInt(req.body['order-id']);
+    let shippingStatus = req.body['shipping'] === 'true' ? 'shipped' : 'notshipped';
+    let query = new AV.Query(OrderTrack);
+    query.equalTo('orderId',orderId);
+    query.first().then(result => {
+        
+        result.set('shippingStatus',shippingStatus);
+        return result.save();
+        
+    }).then(()=> {
+        
+        res.send({
+            success:1
+        });
+        
+    });
+    
+});
+
 /* insert demo 
 router.get('/insert',(req,res)=> {
     let OrderTrack = AV.Object.extend('OrderTrack');
