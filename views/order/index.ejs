@@ -63,8 +63,8 @@
                                     <%= order[i].get('shippingCount')[j] %>*<%= order[i].get('name')[j].replace(/\{id\:\d+\}/,'') %>
                                 </a>
                                 <% if(/\{id\:\d+\}/.test(order[i].get('name')[j])) {%>
-                                    <a class="set-stock" data-product-id="<%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(\})/,'$2') %>" title="设置库存" href="javascript:;"><i class="am-icon am-icon-inbox"></i></a>
-                                    <a class="update-stock" data-order-id="<%= order[i].get('orderId') %>" data-product-id="<%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(\})/,'$2') %>" title="是否已设置库存" href="javascript:;"><i class="am-icon am-icon-check-circle <%if(order[i].get('isShipping')[j]){%>on<%}else{%>off<%}%>"></i></a>
+                                    <a class="set-stock" product-id="<%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(\})/,'$2') %>" title="设置库存" href="javascript:;"><i class="am-icon am-icon-inbox"></i></a>
+                                    <a class="update-stock" order-id="<%= order[i].get('orderId') %>" product-id="<%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(\})/,'$2') %>" title="是否已设置库存" href="javascript:;"><i class="am-icon am-icon-check-circle <%if(order[i].get('isShipping')[j]){%>on<%}else{%>off<%}%>"></i></a>
                                 <%}%>
                             </div>
                         <%}%>
@@ -131,7 +131,7 @@
                 <label>库存:</label>
                 <div class="am-form-inline">
                     <div class="am-form-group">
-                        <select name="stock" data-stock>
+                        <select name="stock" stock>
                             <% for(var i=0;i<100;i++) { %>
                             <option value="<%=i%>"><%=i%></option>
                             <% }%>
@@ -146,7 +146,7 @@
                 <label>总销量:</label>
                 <div class="am-form-inline">
                     <div class="am-form-group">
-                        <select name="sales" data-sales>
+                        <select name="sales" sales>
                             <% for(var i=0;i<100;i++) { %>
                             <option value="<%=i%>"><%=i%></option>
                             <% }%>
