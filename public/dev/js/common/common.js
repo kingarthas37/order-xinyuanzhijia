@@ -45,6 +45,15 @@ $(function () {
         max: jQuery.validator.format("请输入一个最大为{0} 的值"),
         min: jQuery.validator.format("请输入一个最小为{0} 的值")
     });
+    
+    //提示flash隐藏
+    {
+        if($('.am-alert.am-alert-success').length) {
+            setTimeout(()=> {
+                $('.am-alert.am-alert-success').hide();
+            },3000);
+        }
+    };
 
 
 });
