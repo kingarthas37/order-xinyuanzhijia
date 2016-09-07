@@ -192,9 +192,9 @@ router.get('/get-customer-name',(req,res)=> {
                 "value":results[i].get('name'),
                 "customerName":results[i].get('customerName'),
                 "customerId":results[i].get('customerId'),
-                "taobao":results[i].get('taobao') || '-',
-                "weixin":results[i].get('weixin') || '-',
-                "address":results[i].get('address')[0] || '-'
+                "taobao":results[i].get('taobao') || '',
+                "weixin":results[i].get('weixin') || '',
+                "address":results[i].get('address')[0] || ''
             };
             jsonData.push(obj);
         }

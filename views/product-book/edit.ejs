@@ -32,9 +32,8 @@
                 <div class="product-list">
                     <% for(var i=0;i<productBook.get('productName').length;i++) { %>
                     <div class="am-form-group">
-                        <div class="am-u-sm-6"><input value="<%= productBook.get('productName')[i] %>" class="product-name" required name="product-name" type="text" placeholder="输入产品名"></div>
+                        <div class="am-u-sm-8"><input value="<%= productBook.get('productName')[i] %>" class="product-name" required name="product-name" type="text" placeholder="输入产品名"></div>
                         <div class="am-u-sm-1"><input value="<%= productBook.get('productCount')[i] %>" class="product-count" name="product-count" type="text" placeholder="数量"></div>
-                        <di1v class="am-u-sm-2"><input value="<%= productBook.get('productAmount')[i] %>" class="product-amount" name="product-amount" type="text" placeholder="金额"></di1v>
                         <div class="am-u-sm-1 am-form-label">
                             <label><input <% if(productBook.get('productState')[i]) {%>checked="checked"<%}%> type="checkbox" class="ckb-product-state"> 已发货</label>
                             <input type="hidden" name="product-state" class="product-state" <% if(productBook.get('productState')[i]) {%>value="on"<%}%>>

@@ -83,7 +83,7 @@ module.exports = {
             },
             templates: {
                 suggestion: function (item) {
-                    return '<div><span class="tt-value">' + item.value + '</span><span class="tt-footer">' + (item.taobao ? ('淘宝名:' + item.taobao + ' ') : ' ') + (item.weixin ? ('微信号:' + item.weixin) : '') + '</span></div>';
+                    return '<div><span class="tt-value">' + item.value + '</span><span class="tt-footer">' + item.address + ' ' + (item.taobao ? ('淘宝名:' + item.taobao + ' ') : ' ') + (item.weixin ? ('微信号:' + item.weixin) : '') + '</span></div>';
                 }
             },
             highlight: true,
@@ -104,14 +104,10 @@ module.exports = {
 
         customerName.on({
             'typeahead:select': function (event, item) {
+                console.info(111);
                 customerId.val(item.customerId).focus();
                 customerInfo.html(`用户信息: 姓名:<a href="/customer/edit/${item.customerId}">${item.value}</a> | 淘宝号:${item.taobao} | 微信号:${item.weixin} | 地址:${item.address}`);
             }
-        });
-
-        customerName.on('change', function () {
-            customerId.val('');
-            customerInfo.html('用户信息: 姓名:- | 淘宝号:- | 微信号:- | 地址:-');
         });
 
     }
