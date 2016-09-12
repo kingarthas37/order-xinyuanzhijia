@@ -68,11 +68,14 @@ module.exports = {
     //taobao-mail-create
     '/mail/taobao-mail-create':require('./mail/taobao-mail-create'),
     '/mail/taobao-read':require('./mail/taobao-read'),
-    
+
     //product-category
     '/product-category':require('./product-category'),
-    '/product-category/add':require('./product-category/add'),
-    '/product-category/edit':require('./product-category/edit'),
+
+    //product-method
+    '/product-method':require('./product-method'),
+    '/product-method/add':require('./product-method/add'),
+    '/product-method/edit':require('./product-method/edit'),
     
     //product-book
     '/product-book':require('./product-book'),

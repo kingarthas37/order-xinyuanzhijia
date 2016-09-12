@@ -10,6 +10,7 @@ require('./customer');
 require('./order');
 require('./earning');
 require('./remark');
+require('./product-method');
 require('./product-category');
 require('./taobao-mail-create');
 require('./product-book');

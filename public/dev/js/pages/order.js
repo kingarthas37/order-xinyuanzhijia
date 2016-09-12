@@ -282,6 +282,7 @@ module.exports = {
         this.orderTypeAheadAdd();
         this.domUpdate();
         this.orderNameTypeAhead();
+        $('input[name]').get(0).focus();
     },
     editFun: function () {
         $('#form-edit-order').validate();

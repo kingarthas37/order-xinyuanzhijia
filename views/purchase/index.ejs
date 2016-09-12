@@ -76,11 +76,13 @@
                     </td>
                     <td class="t-c"><%= purchase[i].get('amount') %></td>
                     <td class="t-c">
+                        <a href="/purchase?shipping=<%=purchase[i].get('shippingType')%>">
                         <% if(purchase[i].get('shippingType') === 'tianji') { %>天际<%  } %>
                         <% if(purchase[i].get('shippingType') === 'zhuanyunbang') { %>转运帮<%  } %>
                         <% if(purchase[i].get('shippingType') === '8dexpress') { %>八达<%  } %>
                         <% if(purchase[i].get('shippingType') === 'direct') { %>直邮<%  } %>
                         <% if(purchase[i].get('shippingType') === 'other') { %>其他<%  } %>
+                        </a>
                     </td>
                     
                     <td><%=(purchase[i].createdAt.getMonth()+1)%>/<%=purchase[i].createdAt.getDate()%></td>
@@ -92,9 +94,9 @@
             
             <ul class="am-pagination">
                 <% if (purchasePager.prev) { %> <li>
-                    <a href="/purchase?page=<%= purchasePager.prev %><% if (search) {%>&purchase-search=<%=search%> <%}%><% if (siteType) {%>&site-type=<%=siteType%> <%}%>">上一页</a></li> <% } %>
+                    <a href="/purchase?page=<%= purchasePager.prev %><% if (search) {%>&purchase-search=<%=search%> <%}%><% if (siteType) {%>&site-type=<%=siteType%> <%}%><% if (shippingType) {%>&shipping=<%=shippingType%> <%}%>">上一页</a></li> <% } %>
                 <% if (purchasePager.next) { %> <li>
-                    <a href="/purchase?page=<%= purchasePager.next %><% if (search) {%>&purchase-search=<%=search%> <%}%><% if (siteType) {%>&site-type=<%=siteType%> <%}%>">下一页</a></li> <% } %>
+                    <a href="/purchase?page=<%= purchasePager.next %><% if (search) {%>&purchase-search=<%=search%> <%}%><% if (siteType) {%>&site-type=<%=siteType%> <%}%><% if (shippingType) {%>&shipping=<%=shippingType%> <%}%>">下一页</a></li> <% } %>
                 <li class="count">第<%=purchasePager.page%>页 共<%=purchaseCount%>条</li>
             </ul>
             

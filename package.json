@@ -59,6 +59,7 @@
     "imagemin-pngquant": "~4.2.0",
     "leanengine": "^0.2.0",
     "markdown": "^0.5.0",
+    "md5": "^2.2.1",
     "merge-stream": "^1.0.0",
     "minimist": "~1.2.0",
     "multiparty": "^4.1.2",
