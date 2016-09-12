@@ -46,7 +46,7 @@
             <tbody>
             <% for(var i=0; i < productMethod.length; i++) {%>
             <tr>
-                <td><a href="/admin/product-method/edit/<%= productMethod[i].get('productMethodId') %>"><%= productMethod[i].get('name') %></a></td>
+                <td><a href="/product-method/edit/<%= productMethod[i].get('productMethodId') %>"><%= productMethod[i].get('name') %></a></td>
                 <td><%= productMethod[i].get('label') %></td>
                 <td class="t-c small-screen-hide"><%=productMethod[i].updatedDate%></td>
                 <td class="t-c small-screen-hide"><a href="javascript:;" data-id="<%= productMethod[i].get('productMethodId') %>" class="remove-product-method">删除</a></td>
@@ -65,7 +65,7 @@
         </div>
 
         <div class="am-form-group">
-            <a href="/admin/product-method/add" class="am-btn am-btn-primary" role="button">添加新产品类型</a>
+            <a href="/product-method/add" class="am-btn am-btn-primary" role="button">添加新产品类型</a>
         </div>
         
     </fieldset>

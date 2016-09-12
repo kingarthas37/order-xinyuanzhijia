@@ -15,7 +15,7 @@ var Record = AV.Object.extend('Record');
 var RecordCategory = AV.Object.extend('RecordCategory');
 
 //lib
-var pager = require('../../lib/pager');
+var pager = require('../../lib/component/pager-str');
 
 var data =  extend(config.data,{
     title: '收录分类管理-首页',

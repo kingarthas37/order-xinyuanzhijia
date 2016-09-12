@@ -11,7 +11,7 @@ var markdown = require("markdown").markdown;
 var config = require('../../lib/config');
 
 //libs
-var shot = require('../../lib/shot');
+var shot = require('../../lib/component/shot');
 
 //class
 var Book = AV.Object.extend('Book');

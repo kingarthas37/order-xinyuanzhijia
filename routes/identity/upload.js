@@ -5,7 +5,7 @@ var AV = require('leanengine');
 
 var extend = require('xtend');
 var config = require('../../lib/config');
-var imgUpload = require('../../lib/img-upload');
+var imgUpload = require('../../lib/component/img-upload');
 
 var data =  extend(config.data,{
     title:'身份证管理-上传图片',

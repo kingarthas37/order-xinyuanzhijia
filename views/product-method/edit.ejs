@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <% include ../partials/meta %>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <link rel="icon" type="image/png" href="/assets/i/favicon.png">
     <title><%= title %></title>
     <% include ../partials/css %>
 </head>
@@ -9,55 +11,45 @@
 
 <% include ../partials/header %>
 
-<div class="am-cf admin-main">
 
-    <!-- sidebar start -->
-    <% include ../partials/sidebar %>
-    <!-- sidebar end -->
+<div class="am-container common-page product-method-page">
+    <fieldset>
 
-    <!-- content start -->
-    <div class="admin-content admin-product-method-page">
+        <legend><a href="/product-method/edit/<%= productMethod.get('productMethodId') %>">编辑产品类型</a></legend>
 
-        <div class="am-cf am-padding">
-            <div class="am-fl am-cf"><strong><a href="/admin/product-method">产品类型编辑</a></strong> / <a href="/admin/product-method/edit/<%= productMethod.get('productMethodId') %>">编辑产品类型</a></div>
-        </div>
+        <form id="form-add-product" class="am-form" action="/product-method/edit/<%= productMethod.get('productMethodId') %>" method="post">
 
-        <div class="am-g">
-            <div class="am-u-sm-12">
-
-                <form id="form-add-product" class="am-form" action="/admin/product-method/edit/<%= productMethod.get('productMethodId') %>" method="post">
-
-                    <!-- name start -->
-                    <div class="am-form-group">
-                        <label for="name">产品类型名称<i>*</i>:</label>
-                        <input id="name" required name="name" type="text" value="<%= productMethod.get('name') %>" placeholder="输入产品类型名称[必填]" />
-                    </div>
-                    <!-- name end -->
-
-                    <!-- label start -->
-                    <div class="am-form-group">
-                        <label for="label">产品类型标签(英文)<i>*</i>:</label>
-                        <input id="label" required name="label" type="text" value="<%= productMethod.get('label') %>" placeholder="输入产品类型标签[必填]" />
-                    </div>
-                    <!-- label end -->
-
-                    <hr/>
-
-                    <div class="am-form-group">
-                        <button id="submit" type="submit" class="am-btn am-btn-primary">保存</button>
-                        <button type="button" class="am-btn am-btn-primary" onclick="history.back(-1);">返回</button>
-                    </div>
-
-                </form>
-
+            <!-- name start -->
+            <div class="am-form-group">
+                <label for="name">产品类型名称<i>*</i>:</label>
+                <input id="name" required name="name" type="text" value="<%= productMethod.get('name') %>" placeholder="输入产品类型名称[必填]" />
             </div>
-        </div>
+            <!-- name end -->
 
-    </div>
-    <!-- content end -->
+            <!-- label start -->
+            <div class="am-form-group">
+                <label for="label">产品类型标签(英文)<i>*</i>:</label>
+                <input id="label" required name="label" type="text" value="<%= productMethod.get('label') %>" placeholder="输入产品类型标签[必填]" />
+            </div>
+            <!-- label end -->
+
+            <hr/>
+
+            <div class="am-form-group">
+                <button id="submit" type="submit" class="am-btn am-btn-primary">保存</button>
+                <button type="button" class="am-btn am-btn-primary" onclick="history.back(-1);">返回</button>
+            </div>
+
+        </form>
+        
+
+    </fieldset>
 
 </div>
 
+
+
+ 
 <% include ../partials/footer %>
 <% include ../partials/js %>
 

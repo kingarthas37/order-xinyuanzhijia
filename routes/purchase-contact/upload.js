@@ -6,7 +6,7 @@ var AV = require('leanengine');
 var extend = require('xtend');
 var config = require('../../lib/config');
 
-var imgUpload = require('../../lib/img-upload');
+var imgUpload = require('../../lib/component/img-upload');
 
 //class
 var PurchaseContact = AV.Object.extend('PurchaseContact');

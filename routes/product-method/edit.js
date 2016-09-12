@@ -18,7 +18,6 @@ let config = require('../../lib/config');
 
 var data = extend(config.data, {
     title: '编辑产品类型',
-    currentTag: 'product',
     currentPage: 'product-method'
 });
 

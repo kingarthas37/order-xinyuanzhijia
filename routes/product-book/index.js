@@ -15,7 +15,7 @@ var ProductBook = AV.Object.extend('ProductBook');
 var Customer = AV.Object.extend('Customer');
 
 //lib
-var pager = require('../../lib/pager');
+var pager = require('../../lib/component/pager-str');
 
 var data =  extend(config.data,{
     title: '客户预定-首页',

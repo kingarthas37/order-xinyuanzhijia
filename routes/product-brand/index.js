@@ -14,7 +14,7 @@ var Product = AV.Object.extend('Product');
 var ProductBrand = AV.Object.extend('ProductBrand');
 
 //lib
-var pager = require('../../lib/pager');
+var pager = require('../../lib/component/pager-str');
 
 var data =  extend(config.data,{
     title: '品牌管理-首页',

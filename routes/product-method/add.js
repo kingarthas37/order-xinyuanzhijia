@@ -17,6 +17,7 @@ let data = extend(config.data, {
     currentPage: 'product-method'
 });
 
+
 router.get('/', (req, res) => {
 
     if(!req.AV.user) {

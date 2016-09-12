@@ -14,7 +14,7 @@ var config = require('../../lib/config');
 var Remark = AV.Object.extend('Remark');
 
 //lib
-var pager = require('../../lib/pager');
+var pager = require('../../lib/component/pager-str');
 
 var data =  extend(config.data,{
     title: '备忘录-首页',

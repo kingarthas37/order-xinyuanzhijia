@@ -13,7 +13,7 @@ var config = require('../../lib/config');
 var Book = AV.Object.extend('Book');
 
 //lib
-var pager = require('../../lib/pager');
+var pager = require('../../lib/component/pager-str');
 
 var data = extend(config.data,{
     title:'电子书编辑-首页',

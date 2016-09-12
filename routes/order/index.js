@@ -17,7 +17,7 @@ let Product = AV.Object.extend('Product');
 let ProductProperty = AV.Object.extend('ProductProperty');
 
 //lib
-var pager = require('../../lib/pager');
+var pager = require('../../lib/component/pager-str');
 
 var data =  extend(config.data,{
     title: '发货订单编辑-首页',

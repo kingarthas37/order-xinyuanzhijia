@@ -14,7 +14,7 @@ let config = require('../../lib/config');
 let Identity = AV.Object.extend('Identity');
 
 //lib
-let pager = require('../../lib/pager');
+let pager = require('../../lib/component/pager-str');
 
 let data =  extend(config.data,{
     title: '身份证管理',

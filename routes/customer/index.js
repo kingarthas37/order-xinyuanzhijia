@@ -15,7 +15,7 @@ var Customer = AV.Object.extend('Customer');
 var Order = AV.Object.extend('OrderTrack');
 
 //lib
-var pager = require('../../lib/pager');
+var pager = require('../../lib/component/pager-str');
 
 var data =  extend(config.data,{
     title: '收货人管理-首页',

@@ -10,7 +10,7 @@ var extend = require("xtend");
 var markdown = require("markdown").markdown;
 
 //libs
-var shot = require('../../lib/shot');
+var shot = require('../../lib/component/shot');
 var config = require('../../lib/config');
 
 //class

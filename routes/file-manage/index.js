@@ -14,7 +14,7 @@ let config = require('../../lib/config');
 let FileManage = AV.Object.extend('FileManage');
 
 //lib
-let pager = require('../../lib/pager');
+let pager = require('../../lib/component/pager-str');
 
 let data =  extend(config.data,{
     title: '文件上传管理',

@@ -13,7 +13,7 @@ var config = require('../../lib/config');
 var Music = AV.Object.extend('Music');
 
 //lib
-var pager = require('../../lib/pager');
+var pager = require('../../lib/component/pager-str');
 
 var data = extend(config.data,{
     title:'音乐编辑-首页',

@@ -14,7 +14,7 @@ var config = require('../../lib/config');
 var PurchaseTrack = AV.Object.extend('PurchaseTrack');
 
 //lib
-var pager = require('../../lib/pager');
+var pager = require('../../lib/component/pager-str');
 
 var data =  extend(config.data,{
     title: '订单跟踪编辑-首页',

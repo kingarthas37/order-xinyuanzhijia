@@ -14,7 +14,7 @@ var config = require('../../lib/config');
 var PurchaseContact = AV.Object.extend('PurchaseContact');
 
 //lib
-var pager = require('../../lib/pager');
+var pager = require('../../lib/component/pager-str');
 
 var data =  extend(config.data,{
     title:'添加网站联系方式-首页',

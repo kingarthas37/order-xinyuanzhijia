@@ -14,7 +14,7 @@ var Product = AV.Object.extend('Product');
 var Category = AV.Object.extend('ProductCategory');
 
 //lib
-var pager = require('../../lib/pager');
+var pager = require('../../lib/component/pager-str');
 
 var data = extend(config.data,{
     title: '产品编辑-首页',
