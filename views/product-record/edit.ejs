@@ -127,7 +127,7 @@
                     <input id="image" name="image" type="text" placeholder="输入产品图片链接" value="<%= productRecord.get('image') %>"/>
                 </p>
                 <div class="product-record-image">
-                    <img src="<%= productRecord.get('image') %>"/>
+                    <a target="_blank" href="<%= productRecord.get('image') %>"><img src="<%= productRecord.get('image') %>"/></a>
                 </div>
             </div>
             <!-- images end -->

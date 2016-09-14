@@ -110,6 +110,8 @@
                     <% } %>
                 </td>
                 <td class="t-c">
+                    <a href="/product-record/add?product-method-id=<%= productRecord[i].get('productMethod')[0] %>&category1-id=<%= productRecord[i].get('category1')[0] %>&category2-id=<%= productRecord[i].get('category2')[0] %>">复制</a>
+                    <span class="split"></span>
                     <a href="javascript:;" class="remove-product-record" data-product-record-id="<%= productRecord[i].get('productRecordId')%>">删除</a>
                 </td>
             </tr>

@@ -226,6 +226,7 @@ module.exports = {
             let image = $('#image');
             let productRecordImage = $('.product-record-image');
             image.change(function() {
+                productRecordImage.find('a').attr('href',image.val());
                 productRecordImage.find('img').attr('src',image.val());
             });
         }

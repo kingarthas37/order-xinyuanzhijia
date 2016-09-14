@@ -312,16 +312,7 @@
     }
     .product-record-image {
         border:1px solid #ddd;
-        height: 100px;
-        width: 100px;
-        text-align: center;
-        display: inline-block;
-        line-height: 100px;
-        img {
-            max-width: 98px;
-            max-height: 98px;
-            display: inline-block;
-        }
+        @include align-img(100px,100px);
     }
     .image-view-center {
         @include align-img(40px,40px);
