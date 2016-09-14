@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <link rel="icon" type="image/png" href="/assets/i/favicon.png">
+    <title><%= title %></title>
+    <% include ../partials/css %>
+</head>
+<body>
+
+<% include ../partials/header %>
+
+<% if (flash.success != '') { %>
+<div class="am-alert am-alert-success"><p><%= flash.success %></p></div>
+<% } %>
+
+
+<div class="am-container common-page product-record-page">
+    <fieldset>
+
+        <legend><a href="/product-record">产品收录管理</a></legend>
+
+        <div class="am-form-inline clearfix">
+
+            <div class="am-form-group">
+                <form action="/product-record" method="get">
+                    <input type="text" name="search" value="<%=search%>" class="search am-form-field"
+                           placeholder="搜索产品收录名">
+                    <button class="am-btn am-btn-primary" type="submit">搜索</button>
+                </form>
+            </div>
+
+            <div class="am-form-group">
+                <span class="split"></span>选择分类:
+            </div>
+            <div class="am-form-group am-form">
+                <select class="select-product-method">
+                    <option value="">产品类型</option>
+                    <% for (var i=0;i < productMethod.length; i++) { %>
+                    <option
+                    <% if(productMethod[i].get('productMethodId') === productMethodId ) { %> selected="selected" <% } %>
+                    value="<%= productMethod[i].get('productMethodId'); %>"> <%=
+                    productMethod[i].get('name');%></option><%
+                    } %>
+                </select>
+            </div>
+
+            <div class="am-form-group am-form">
+                <select class="select-category-1">
+                    <option value="">商品一级分类</option>
+                    <% for (var i=0;i < category1.length; i++) { %>
+                    <option
+                    <% if(category1[i].get('category1Id') === category1Id ) { %> selected="selected" <% } %>value="<%=
+                    category1[i].get('category1Id') %>"> <%= category1[i].get('name');%></option><% }%>
+                </select>
+            </div>
+
+            <div class="am-form-group am-form-select am-form">
+                <select class="select-category-2">
+                    <option value="">商品二级分类</option>
+                    <% for (var i=0;i < category2.length; i++) { %>
+                    <option
+                    <% if(category2[i].get('category2Id') === category2Id ) { %> selected="selected" <% } %>
+                    value="<%= category2[i].get('category2Id') %>"> <%= category2[i].get('name');%></option><% }
+                    %>
+                </select>
+            </div>
+
+        </div>
+
+        <hr/>
+
+        <table class="am-table am-table-striped">
+            <thead>
+            <tr>
+                <th></th>
+                <th>产品名称</th>
+                <th class="t-c">产品链接</th>
+                <th class="t-c">官网链接</th>
+                <th class="t-c">网店链接</th>
+                <th class="t-c">选项</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% for(var i=0; i < productRecord.length; i++) {%>
+            <tr>
+                <td class="t-c"><%= productRecord[i].get('image') %></td>
+                <td>
+                    <%= productRecord[i].get('name') %>
+                </td>
+                <td class="t-c">
+                </td>
+                <td class="t-c">
+                </td>
+                <td class="t-c">
+                </td>
+                <td class="t-c">
+                    <a href="javascript:;" class="remove-product-record" data-product-record-id="<%= productRecord[i].get('productRecordId')%>">删除</a>
+                </td>
+            </tr>
+            <% } %>
+            </tbody>
+        </table>
+
+        <div class="am-pager am-cf">
+            <div class="am-fl">
+                <ul class="am-pagination">
+                    <%- pagerHtml %>
+                </ul>
+            </div>
+            <div class="am-fr">
+                第<%=pager.page%>页 共<%=pager.count%>条
+            </div>
+        </div>
+
+        <div class="am-form-group">
+            <a href="/product-record/add" class="am-btn am-btn-primary" role="button">添加新产品收录</a>
+        </div>
+
+    </fieldset>
+</div>
+
+
+<!-- modal alert -->
+<div class="am-modal am-modal-confirm" tabindex="-1" id="modal-alert">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">提示</div>
+        <div class="am-modal-bd"></div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn" data-am-modal-confirm>确认</span>
+        </div>
+    </div>
+</div>
+<!-- modal alert -->
+
+<!-- modal 删除产品 -->
+<div class="am-modal am-modal-confirm" tabindex="-1" id="confirm-remove-product-record">
+    <div class="am-modal-dialog">
+        <div class="am-modal-bd">
+            确定要删除这条记录吗？
+        </div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+            <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+        </div>
+    </div>
+</div>
+<!-- modal 删除产品 -->
+
+<% include ../partials/footer %>
+<% include ../partials/js %>
+
+<script type="text/javascript">
+    $(function () {
+        var productRecord = require('product-record');
+        productRecord.indexFun();
+    });
+</script>
+</body>
+</html>

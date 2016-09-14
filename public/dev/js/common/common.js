@@ -1,3 +1,7 @@
+'use strict';
+
+var AMUI = require('amazeui');
+
 $(function () {
 
     // Avoid `console` errors in browsers that lack a console.
@@ -45,6 +49,12 @@ $(function () {
         max: jQuery.validator.format("请输入一个最大为{0} 的值"),
         min: jQuery.validator.format("请输入一个最小为{0} 的值")
     });
+
+    //am selected与jquery.form冲突解决:
+    {
+        AMUI.plugin('amuiSelected', AMUI.selected);
+        $('[data-am-selected]').amuiSelected();
+    }
     
     //提示flash隐藏
     {

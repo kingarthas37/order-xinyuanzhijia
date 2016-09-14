@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <link rel="icon" type="image/png" href="/assets/i/favicon.png">
+    <title><%= title %></title>
+    <% include ../partials/css %>
+</head>
+<body>
+
+<% include ../partials/header %>
+
+
+<div class="am-container common-page product-record-page">
+    <fieldset>
+        <legend><a href="/product-record/add">添加产品收录管理</a></legend>
+
+        <form id="form-add-product-record" class="am-form" method="post" action="/product-record/add">
+
+            <!-- name start -->
+            <div class="am-form-group">
+                <label for="name">产品名称<i>*</i>:</label>
+                <input id="name" required name="name" type="text" placeholder="输入产品名称[必填]"/>
+            </div>
+
+            <div class="am-form-group">
+                <label for="name-en">产品名称英文:</label>
+                <input id="name-en" name="name-en" type="text" placeholder="输入产品名称英文"/>
+            </div>
+            <!-- name end -->
+
+            <hr>
+
+            <div class="category-group">
+
+                <div class="group am-g">
+                    <div class="am-u-sm-12 am-u-md-3">
+                        <!-- select productMethod start -->
+                        <div class="am-form-group">
+                            <label>请选择产品类型<i>*</i>:</label>
+                            <div>
+                                <select class="select-product-method" name="select-product-method" required
+                                        data-am-selected>
+                                    <option value="">请选择产品类型</option>
+                                    <% for (var i=0;i < productMethod.length; i++) { %>
+                                    <option <% if(productMethod[i].get('productMethodId') === productMethodId){ %>selected<%}%> value="<%= productMethod[i].get('productMethodId'); %>"><%=
+                                        productMethod[i].get('name'); %>
+                                    </option>
+                                    <% } %>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- select productMethod end -->
+                    </div>
+                    <div class="am-u-sm-12 am-u-md-3">
+                        <!-- select category1 start -->
+                        <div class="am-form-group">
+                            <label>选择商品一级分类<i>*</i>:</label>
+                            <div>
+                                <select class="select-category-1" name="select-category-1" required
+                                        data-am-selected>
+                                    <option value="">请选择商品一级分类</option>
+                                    <% for (var i=0;i < category1.length; i++) { %>
+                                    <option <% if(category1[i].get('category1Id') === category1Id){ %>selected<%}%> value="<%= category1[i].get('category1Id'); %>"><%=
+                                        category1[i].get('name'); %>
+                                    </option>
+                                    <% } %>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- select category1 end -->
+                    </div>
+                    <div class="am-u-sm-12 am-u-md-3">
+                        <!-- select category2 start -->
+                        <div class="am-form-group">
+                            <label>选择商品二级分类<i>*</i>:</label>
+                            <div>
+                                <select class="select-category-2" name="select-category-2" required
+                                        data-am-selected>
+                                    <option value="">请选择商品二级分类</option>
+                                    <% for (var i=0;i < category2.length; i++) { %>
+                                    <option <% if(category2[i].get('category2Id') === category2Id){ %>selected<%}%> value="<%= category2[i].get('category2Id'); %>"><%=
+                                        category2[i].get('name'); %>
+                                    </option>
+                                    <% } %>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- select category2 end -->
+
+                    </div>
+                    <div class="am-u-sm-12 am-u-md-3">
+                        <div class="am-form-group">
+                            <label>&nbsp;</label>
+                            <div>
+                                <button type="button" class="btn-add-category am-btn am-btn-primary">添加新分类
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <hr/>
+
+            <!-- url start -->
+            <div id="content-url" class="am-form-group">
+                <label>产品链接:</label>
+                <div class="content-name-group am-form-horizontal">
+                    <div class="list-group-field am-form-group">
+                        <div class="am-u-sm-11">
+                            <input class="url" name="url" type="text" placeholder="输入产品链接" autocomplete="off">
+                        </div>
+                        <label class="am-u-sm-1 am-form-label">
+                            <a href="javascript:;" class="remove">- 删除</a>
+                        </label>
+                    </div>
+                </div>
+                <div><a class="url-add" href="javascript:;">+ 添加产品链接</a></div>
+            </div>
+            <!-- url end -->
+
+            <hr/>
+
+            <!-- images start -->
+            <div class="am-form-group">
+                <label for="image">产品图片链接 <small>(可直接复制图片链接或上传图片)</small> ：</label>
+                <div>
+                    <iframe class="upload-title" src="/file-manage/upload" frameborder="0"></iframe>
+                </div>
+                <input id="image" name="image" type="text" placeholder="输入产品图片链接"/>
+            </div>
+            <!-- images end -->
+
+            <hr/>
+
+            <!-- detail start -->
+            <div class="am-form-group">
+                <label for="detail">输入产品详情:</label>
+                <textarea id="detail" name="detail" rows="5" placeholder="输入产品详情"></textarea>
+            </div>
+            <!-- detail end -->
+
+            <hr/>
+
+            <!-- property start -->
+            <div class="am-form-group">
+                <label for="property">产品属性/使用说明:</label>
+                <textarea id="property" name="property" rows="3" placeholder="输入产品属性"></textarea>
+            </div>
+            <!-- property end -->
+
+            <hr/>
+
+            <!-- property start -->
+            <div class="am-form-group">
+                <label for="property">产地/国家:</label>
+                <select id="country" name="country">
+                    <option value="">请选择</option>
+                    <option value="us">美国</option>
+                    <option value="in">印度</option>
+                    <option value="tw">台湾</option>
+                    <option value="eu">欧洲</option>
+                    <option value="uk">英国</option>
+                    <option value="au">澳洲</option>
+                    <option value="fr">法国</option>
+                    <option value="de">德国</option>
+                    <option value="ca">加拿大</option>
+                    <option value="cn">中国</option>
+                    <option value="other">其他</option>
+                </select>
+                <span class="am-form-caret"></span>
+            </div>
+            <!-- property end -->
+
+            <hr/>
+
+            <!-- price start -->
+            <div>
+                <label for="price">产品价格 ：</label>
+            </div>
+            <div class="am-form-inline">
+                <div class="am-form-group">
+                    <input id="price" name="price" type="text" placeholder="输入产品价格"/>
+                </div>
+                <div class="am-form-group">
+                    <select name="price-type" id="price-type">
+                        <option value="">选择币种</option>
+                        <option value="usd">美元</option>
+                        <option value="gbp">英镑</option>
+                        <option value="eur">欧元</option>
+                        <option value="aud">澳元</option>
+                        <option value="hkd">港元</option>
+                        <option value="cad">加元</option>
+                        <option value="cny">人民币</option>
+                        <option value="twd">新台币</option>
+                        <option value="inr">印度卢比</option>
+                        <option value="other">其他</option>
+                    </select>
+                </div>
+            </div>
+
+            <hr/>
+
+            <!-- price end -->
+
+            <!-- comment start -->
+            <div class="am-form-group">
+                <label for="property">备注信息:</label>
+                <textarea id="comment" name="comment" rows="3" placeholder="输入备注信息"></textarea>
+            </div>
+            <!-- cmmment end -->
+
+            <hr/>
+
+            <div class="am-form-group">
+                <button id="submit" type="submit" class="am-btn am-btn-primary">保存</button>
+                <button type="button" class="am-btn am-btn-primary" onclick="history.back(-1);">返回</button>
+            </div>
+
+        </form>
+
+    </fieldset>
+</div>
+
+
+<% include ../partials/footer %>
+<% include ../partials/js %>
+
+<script type="text/javascript">
+
+    var product;
+    $(function () {
+        product = require('product-record');
+        product.addFun();
+    });
+
+    //iframe upload callback
+    function uploadSuccess(url) {
+        $('#image').val(url);
+    }
+
+</script>
+</body>
+</html>

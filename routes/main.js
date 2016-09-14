@@ -12,12 +12,6 @@ module.exports = {
     '/login':require('./sign/login'),
     '/logout':require('./sign/logout'),
     
-    //product
-    '/product':require('./product'),
-    '/product/add':require('./product/add'),
-    '/product/edit':require('./product/edit'),
-    '/product/preview':require('./product/preview'),
-
     //book
     '/book':require('./book'),
     '/book/add':require('./book/add'),
@@ -71,6 +65,11 @@ module.exports = {
 
     //product-category
     '/product-category':require('./product-category'),
+    
+    //product-record
+    '/product-record':require('./product-record'),
+    '/product-record/add':require('./product-record/add'),
+    '/product-record/edit':require('./product-record/edit'),
 
     //product-method
     '/product-method':require('./product-method'),
@@ -86,17 +85,6 @@ module.exports = {
     '/product-brand':require('./product-brand'),
     '/product-brand/add':require('./product-brand/add'),
     '/product-brand/edit':require('./product-brand/edit'),
-    
-    //record
-    '/record':require('./record'),
-    '/record/add':require('./record/add'),
-    '/record/edit':require('./record/edit'),
-    '/record/upload':require('./record/upload'),
-    
-    //record-category
-    '/record-category':require('./record-category'),
-    '/record-category/add':require('./record-category/add'),
-    '/record-category/edit':require('./record-category/edit'),
     
     //identity-manage
     '/identity':require('./identity'),

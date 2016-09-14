@@ -294,3 +294,20 @@
         }
     }
 }
+
+/* product-record-page */
+.product-record-page {
+    .am-form-group {
+        select {
+            width: 175px;
+        }
+    }
+    .category-group {
+        .am-u-md-3 {
+            padding-left: 0;
+        }
+    }
+    #price {
+        width: 150px;
+    }
+}

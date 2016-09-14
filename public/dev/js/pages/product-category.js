@@ -349,7 +349,10 @@ module.exports = {
                 
                 content.find('.category-2-list').append(`
                         <li data-id="${data.id}">
-                            <strong><a href="/product?product-method-id=${productMethodId}&category1-id=${category1Id}&category2-id=${data.id}" target="_blank">${data.name}</a></strong>
+                            <strong>
+                                <a href="/product-record?product-method-id=${productMethodId}&category1-id=${category1Id}&category2-id=${data.id}" target="_blank">${data.name}</a>
+                                <a href="/product-record/add?product-method-id=${productMethodId}&category1-id=${category1Id}&category2-id=${data.id}" target="_blank">[新建]</a>
+                            </strong>
                             <span class="options">
                                 <a class="edit-category-2" href="javascript:;">编辑</a>
                                 <a class="moveup-category-2" href="javascript:;">上移</a>
