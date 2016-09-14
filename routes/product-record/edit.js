@@ -7,31 +7,27 @@ var flash = require('connect-flash');
 
 var async = require('async');
 var extend = require('xtend');
-var markdown = require("markdown").markdown;
+
+var URL = require('url-parse');
+
+let config = require('../../lib/config');
+let utils = require('../../lib/utils');
 
 //class
-let Product = AV.Object.extend('Product');
-let ProductHistory = AV.Object.extend('ProductHistory');
-
+let ProductRecord = AV.Object.extend('ProductRecord');
 let ProductMethod = AV.Object.extend('ProductMethod');
 let ProductCategory1 = AV.Object.extend('ProductCategory1');
 let ProductCategory2 = AV.Object.extend('ProductCategory2');
 
-let Banner = AV.Object.extend('ProductBanner');
-
-//lib
-let config = require('../../lib/config');
 
 var data = extend(config.data, {
-    title: `${config.data.titleAdmin} - 编辑产品`,
-    currentTag: 'product',
-    currentPage: 'product-edit',
-    watermark:config.watermark
+    title: `编辑产品收录`,
+    currentPage: 'product-record'
 });
 
 
 //编辑产品页
-router.get('/:productId', function (req, res, next) {
+router.get('/:productRecordId', function (req, res, next) {
 
     if(!req.AV.user) {
         return res.redirect(`/admin/login?return=${encodeURIComponent(req.originalUrl)}`);
@@ -40,7 +36,7 @@ router.get('/:productId', function (req, res, next) {
     res.cookie('x_lc_sign',data.x_lc_sign);
     res.cookie('x_lc_session',req.AV.user._sessionToken);
 
-    var productId = parseInt(req.params.productId);
+    var productRecordId = parseInt(req.params.productRecordId);
 
     data = extend(data, {
         user: req.AV.user
@@ -48,20 +44,11 @@ router.get('/:productId', function (req, res, next) {
     
     async.auto({
         
-        getProduct(resolve) {
-            let query = new AV.Query(Product);
-            query.equalTo('productId', productId);
-            query.first().done(product => {
-                data = extend(data, {product});
-                resolve();
-            });
-        },
-        getBanner(resolve) {
-            let query = new AV.Query(Banner);
-            query.find().then(items => {
-                data = extend(data, {
-                    banner: items
-                });
+        getProductRecord(resolve) {
+            let query = new AV.Query(ProductRecord);
+            query.equalTo('productRecordId', productRecordId);
+            query.first().done(productRecord => {
+                data = extend(data, {productRecord});
                 resolve();
             });
         },
@@ -72,29 +59,10 @@ router.get('/:productId', function (req, res, next) {
             });
             resolve();
         },
-        
-        //处理main images
-        getMainImage:['getProduct',function(resolve) {
-            
-            if(data.product.get('mainImage')) {
-                let mainImages = [];
-                let images = data.product.get('mainImage');
-                for(let i in images) {
-                    mainImages.push({id:i, url:images[i].url , isMainImage: images[i].isMainImage });
-                }
-                data = extend(data, {
-                    mainImage:mainImages
-                });
-            } else {
-                data = extend(data, {mainImage:[]});
-            }
-            resolve();
-        }],
-        
-        getCategory1:['getProduct',function(resolve) {
+        getCategory1:['getProductRecord',function(resolve) {
             
             let category1 = [];
-            async.forEachSeries(data.product.get('productMethod'), function(productMethodId,cb) {
+            async.forEachSeries(data.productRecord.get('productMethod'), function(productMethodId,cb) {
                 let query = new AV.Query(ProductCategory1);
                 query.equalTo('productMethodId',productMethodId);
                 query.find().then(results => {
@@ -106,10 +74,9 @@ router.get('/:productId', function (req, res, next) {
                 resolve();
             });
         }],
-
-        getCategory2:['getProduct',function(resolve) {
+        getCategory2:['getProductRecord',function(resolve) {
             let category2 = [];
-            async.forEachSeries(data.product.get('category1'), function(category1Id,cb) {
+            async.forEachSeries(data.productRecord.get('category1'), function(category1Id,cb) {
                 let query = new AV.Query(ProductCategory2);
                 query.equalTo('category1Id',category1Id);
                 query.find().then(results => {
@@ -122,63 +89,60 @@ router.get('/:productId', function (req, res, next) {
             });
         }]
         
-    },(err,results) => res.render('admin/product/edit', data));
-    
-   
+    },(err,results) => res.render('product-record/edit', data));
 
 });
 
-router.post('/:productId', (req, res) => {
+router.post('/:productRecordId', (req, res) => {
 
     if(!req.AV.user) {
-        return res.redirect(`/admin/login?return=${encodeURIComponent(req.originalUrl)}`);
+        return res.redirect(`/login?return=${encodeURIComponent(req.originalUrl)}`);
     }
+    
+    let productRecordId = parseInt(req.params.productRecordId);
+
+    let query = new AV.Query(ProductRecord);
+    query.equalTo('productRecordId',productRecordId);
 
     let name = req.body['name'];
     let nameEn = req.body['name-en'];
-    let mainImage = req.body['main-image'] ? JSON.parse(req.body['main-image']) : null;
-    
     let productMethod = getQueryData(req.body['select-product-method']);
     let category1 = getQueryData(req.body['select-category-1']);
     let category2 = getQueryData(req.body['select-category-2']);
     updateQueryData(productMethod,category1,category2);
-    
-    let bannerId = parseInt(req.body['select-banner']);
+
+    let url = typeof req.body['url'] === 'object' ? req.body['url'] : [req.body['url']];
+    let siteType = [];
+    let siteName = [];
+    url = url.map(uri => {
+        let parse = new URL(uri);
+        siteName.push(utils.urlCompleting(parse.hostname));
+
+        if(/([^\.]+)\.\w+$/.test(parse.hostname)) {
+            siteType.push(/([^\.]+)\.\w+$/.exec(parse.hostname)[1]);
+        } else {
+            siteType.push("");
+        }
+        return utils.urlCompleting(uri);
+    });
+
+    let image = req.body['image'];
     let detail = req.body['detail'];
-    let detailEn = req.body['detail-en'];
-    let description = req.body['description'];
-    let review = req.body['review'];
     let property = req.body['property'];
-    let propertyEn = req.body['property-en'];
-    let instruction = req.body['instruction'];
-    let instructionEn = req.body['instruction-en'];
-    let use = req.body['use'];
-    let useEn = req.body['use-en'];
-    let detailImage = req.body['detail-image'];
-    let video = req.body['video'];
+    let country = req.body['country'];
+    let price = req.body['price'];
+    let priceType = req.body['price-type'];
+    let comment = req.body['comment'];
 
-    let productId = parseInt(req.params.productId);
+    let productRecordData = {name,nameEn,productMethod,category1,category2,url,siteType,siteName,image,detail,property,country,price,priceType,comment};
 
-    let query = new AV.Query(Product);
-    query.equalTo('productId',productId);
-
-    let productData = {name,nameEn,mainImage,productMethod,category1,category2,bannerId,detail,detailEn,description,review,property,propertyEn,instruction,instructionEn,use,useEn,detailImage,video};
-    
-    query.first().then(product => {
+    query.first().then(productRecord => {
         
-        return product.save(productData);
-        
-    }).then(() =>{
-
-        productData = extend(productData, {productId});
-        let productHistory = new ProductHistory();
-        return productHistory.save(productData);
-        
-    }).then(product => {
-        req.flash('success', '编辑商品成功!');
-        res.redirect(`/admin/product?product-method-id=${product.get('productMethod')[0]}&category1-id=${product.get('category1')[0]}&category2-id=${product.get('category2')[0]}`);
-        
-    },err => console.info(err));
+        return productRecord.save(productRecordData);
+    }).then(result => {
+        req.flash('success', '编辑产品收录成功!');
+        res.redirect(`/product-record?product-method-id=${productMethod[0]}&category1-id=${category1[0]}&category2-id=${category2[0]}`);
+    });
 
 });
 

@@ -94,7 +94,7 @@ router.get('/', (req, res) => {
             query.skip((page - 1) * limit);
             query.limit(limit);
 
-            query[order === 'asc' ? 'ascending' : 'descending']('productId');
+            query[order === 'asc' ? 'ascending' : 'descending']('productRecordId');
 
             if(category2Id) {
                 query.equalTo('category2', category2Id);

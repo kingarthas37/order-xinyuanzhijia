@@ -130,7 +130,12 @@
                 <div>
                     <iframe class="upload-title" src="/file-manage/upload" frameborder="0"></iframe>
                 </div>
-                <input id="image" name="image" type="text" placeholder="输入产品图片链接"/>
+                <p>
+                    <input id="image" name="image" type="text" placeholder="输入产品图片链接"/>
+                </p>
+                <div class="product-record-image">
+                    <img src=""/>
+                </div>
             </div>
             <!-- images end -->
 
@@ -231,15 +236,14 @@
 
 <script type="text/javascript">
 
-    var product;
     $(function () {
-        product = require('product-record');
-        product.addFun();
+        var productRecord = require('product-record');
+        productRecord.addFun();
     });
 
     //iframe upload callback
     function uploadSuccess(url) {
-        $('#image').val(url);
+        $('#image').val(url).trigger('change');
     }
 
 </script>

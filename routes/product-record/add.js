@@ -112,7 +112,6 @@ router.post('/', (req, res) => {
     let siteType = [];
     let siteName = [];
     url = url.map(uri => {
-
         let parse = new URL(uri);
         siteName.push(utils.urlCompleting(parse.hostname));
         
@@ -121,7 +120,6 @@ router.post('/', (req, res) => {
         } else {
             siteType.push("");
         }
-        
         return utils.urlCompleting(uri);
     });
     

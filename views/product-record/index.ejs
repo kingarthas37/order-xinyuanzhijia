@@ -74,26 +74,40 @@
         <table class="am-table am-table-striped">
             <thead>
             <tr>
-                <th></th>
+                <th width="50"></th>
                 <th>产品名称</th>
                 <th class="t-c">产品链接</th>
-                <th class="t-c">官网链接</th>
-                <th class="t-c">网店链接</th>
+                <th class="t-c">网站链接</th>
                 <th class="t-c">选项</th>
             </tr>
             </thead>
             <tbody>
             <% for(var i=0; i < productRecord.length; i++) {%>
             <tr>
-                <td class="t-c"><%= productRecord[i].get('image') %></td>
+                <td class="t-c">
+                    <% if(productRecord[i].get('image')) { %>
+                    <div class="image-view-center">
+                        <a href="<%= productRecord[i].get('image') %>" target="_blank"><img src="<%= productRecord[i].get('image') %>" alt=""/></a>
+                    </div>
+                    <% } else { %>
+                    <img src="http://ac-JoaBcRTt.clouddn.com/b7f0d580ef9a4ae8e19b.png?imageMogr2/thumbnail/40" alt="">
+                    <% } %>
+                </td>
                 <td>
-                    <%= productRecord[i].get('name') %>
+                    <a href="/product-record/edit/<%= productRecord[i].get('productRecordId') %>"><%= productRecord[i].get('name') %></a>
                 </td>
                 <td class="t-c">
+                    <% for(var j=0;j< productRecord[i].get('url').length;j++) { %>
+                        <a href="<%= productRecord[i].get('url')[j] %>" target="_blank"><i class="am-icon-link"></i></a> 
+                        <span class="logo-site <%= productRecord[i].get('siteType')[j] %>"></span>
+                        <% if(j< productRecord[i].get('url').length-1) { %><span class="split"></span><% } %>
+                    <% } %>
                 </td>
                 <td class="t-c">
-                </td>
-                <td class="t-c">
+                    <% for(var j=0;j< productRecord[i].get('siteName').length;j++) { %>
+                        <a href="<%= productRecord[i].get('siteName')[j] %>" target="_blank"><i class="am-icon-link"></i></a>
+                        <% if(j< productRecord[i].get('url').length-1) { %><span class="split"></span><% } %>
+                    <% } %>
                 </td>
                 <td class="t-c">
                     <a href="javascript:;" class="remove-product-record" data-product-record-id="<%= productRecord[i].get('productRecordId')%>">删除</a>

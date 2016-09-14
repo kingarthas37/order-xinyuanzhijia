@@ -221,6 +221,16 @@ module.exports = {
             });
         }
         
+        //图片展示
+        {
+            let image = $('#image');
+            let productRecordImage = $('.product-record-image');
+            image.change(function() {
+                productRecordImage.find('img').attr('src',image.val());
+            });
+        }
+        
+        
     },
 
     submitControl:function() {

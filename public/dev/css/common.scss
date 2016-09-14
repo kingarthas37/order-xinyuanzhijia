@@ -124,6 +124,10 @@ p.normal {
 //公共基础样式
 .common-page {
 
+    p {
+        margin:0 0 15px 0;
+    }
+    
     fieldset {
         padding: 0;
     }

@@ -310,4 +310,49 @@
     #price {
         width: 150px;
     }
+    .product-record-image {
+        border:1px solid #ddd;
+        height: 100px;
+        width: 100px;
+        text-align: center;
+        display: inline-block;
+        line-height: 100px;
+        img {
+            max-width: 98px;
+            max-height: 98px;
+            display: inline-block;
+        }
+    }
+    .image-view-center {
+        @include align-img(40px,40px);
+    }
+    
+    
+    .logo-site {
+        color: #fff;
+        font-size: 14px;
+        border-radius:2px;
+        &:after {
+            padding: 0 4px;
+        }
+        &.etsy {
+            background: #f56400;
+            &:after {
+                content: "Etsy";
+            }
+        }
+        &.amazon {
+            background: #232f3e;
+            &:after {
+                content: "Amazon";
+            }
+        }
+        &.ebay {
+            background: #85b716;
+            &:after {
+                content: "Ebay";
+            }
+        }
+    }
+    
 }
