@@ -42,8 +42,8 @@
                     <% for (var i=0;i<category.length;i++) { %>
                     <dl class="am-accordion-item" data-id="<%= category[i].get('category1Id') %>">
                         <dt class="am-accordion-title am-cf">
-                            <strong><a href="/product-record?product-method-id=<%= category[i].get('productMethodId') %>&category1-id=<%= category[i].get('category1Id') %>" target="_blank"><%= category[i].get('name') %></a>
-                                <a href="/product-record/add?product-method-id=<%= category[i].get('productMethodId') %>&category1-id=<%= category[i].get('category1Id') %>" target="_blank">[新建]</a></strong>
+                            <strong><a href="/product-record?product-method-id=<%= category[i].get('productMethodId') %>&category1-id=<%= category[i].get('category1Id') %>" target="_blank"><%= category[i].get('name') %></a></strong>
+                            <a href="/product-record/add?product-method-id=<%= category[i].get('productMethodId') %>&category1-id=<%= category[i].get('category1Id') %>" target="_blank">[新建]</a>
                             <span class="options">
                                 <a class="edit-category-1" href="javascript:;">编辑</a>
                                 <a class="moveup-category-1" href="javascript:;">上移</a>
@@ -58,8 +58,8 @@
                                     <li data-id="<%= category[i].contents[j].get('category2Id') %>">
                                         <strong>
                                             <a href="/product-record?product-method-id=<%= category[i].get('productMethodId') %>&category1-id=<%= category[i].get('category1Id') %>&category2-id=<%= category[i].contents[j].get('category2Id') %>" target="_blank"><%= category[i].contents[j].get('name') %></a>
-                                            <a href="/product-record/add?product-method-id=<%= category[i].get('productMethodId') %>&category1-id=<%= category[i].get('category1Id') %>&category2-id=<%= category[i].contents[j].get('category2Id') %>" target="_blank">[新建]</a>
                                         </strong>
+                                        <a href="/product-record/add?product-method-id=<%= category[i].get('productMethodId') %>&category1-id=<%= category[i].get('category1Id') %>&category2-id=<%= category[i].contents[j].get('category2Id') %>" target="_blank">[新建]</a>
                                         <span class="options">
                                             <a class="edit-category-2" href="javascript:;">编辑</a>
                                             <a class="moveup-category-2" href="javascript:;">上移</a>
