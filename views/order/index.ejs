@@ -77,7 +77,9 @@
                             </div>
                         <%}%>
                     </td>
-                    <td class="t-c"><a title="<%= order[i].get('shippingAddress') %>" href="/customer/edit/<%= order[i].get('customerId') %>"><%= order[i].get('customerName') %></a> </td>
+                    <td class="t-c">
+                        <a class="customer-name" title="<%= order[i].get('shippingAddress') %>" href="/customer/edit/<%= order[i].get('customerId') %>"><%= order[i].get('customerName') %></a>
+                    </td>
                     <td class="t-c"> <span class="taobao-name loading-elem on"></span> </td>
                     <td class="t-c">
                             <%if (order[i].get('trackingNumber')){ %><a href="http://www.kuaidi100.com/auto.shtml?nu=<%=order[i].get('trackingNumber')%>" target="_blank"><%}%>

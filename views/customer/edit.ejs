@@ -70,7 +70,19 @@
             <h3>该用户购买记录:</h3>
             <ul>
                 <% for (var i=0;i <order.length ;i++) { %>
-                    <li><a href="/order/edit/<%= order[i].get('orderId') %>"><%= order[i].get('orderName') %></a> <span>|</span> 快递公司:<%= order[i].get('shippingCompany') %> <span>|</span> 快递单号:<%= order[i].get('trackingNumber') %> <span>|</span> 日期:<%=order[i].updatedAt.getFullYear()%>-<%=(order[i].updatedAt.getMonth()+1)%>-<%=order[i].updatedAt.getDate()%></li>
+                    <li>
+                        <%=order[i].get('shippingDate').getFullYear()%>/<%=(order[i].get('shippingDate').getMonth()+1)%>/<%=order[i].updatedAt.getDate()%>
+                        <% for(var j=0;j< order[i].get('name').length;j++) { %>
+                            <a href="/order/edit/<%= order[i].get('orderId') %>"><%= order[i].get('name')[j] %></a>
+                            <% if(j < order[i].get('name').length - 1){ %>,<%}%>
+                        <% } %>
+                        <span class="split"></span> 快递公司:
+                        <% if(order[i].get('shippingCompany') == 'tiantian') {%>天天<%}%>
+                        <% if(order[i].get('shippingCompany') == 'shunfeng') {%>顺丰<%}%>
+                        <% if(order[i].get('shippingCompany') == 'baishi') {%>百世汇通<%}%>
+                        <% if(order[i].get('shippingCompany') == 'other') {%>其他<%}%>
+                        <span class="split"></span> 快递单号: <a href="http://www.kuaidi100.com/auto.shtml?nu=<%= order[i].get('trackingNumber') %>" target="_blank"><%= order[i].get('trackingNumber') %></a>
+                    </li>
                 <% } %>
             </ul>
 

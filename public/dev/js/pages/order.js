@@ -43,6 +43,7 @@ module.exports = {
                 if (!data.success) {
                     return;
                 }
+                
                 $.each(customerList, function (i, n) {
                     let customerId = parseInt($(n).data('customer-id'));
                     $.each(data.customers,function(_i,_n) {
@@ -50,7 +51,11 @@ module.exports = {
                             $(n).find('.taobao-name').removeClass('on').text(_n.taobao);
                         }
                     });
-
+                    $.each(data.shippings,function(_i,_n) {
+                        if(_n.customerId === customerId) {
+                            $(n).find('.customer-name').addClass('shunfeng');
+                        }
+                    });
                 });
             });
         }

@@ -100,6 +100,24 @@
             color: #ccc;
         }
     }
+    .customer-name {
+        position: relative;
+        &.shunfeng {
+            &:after {
+                content: "s";
+                line-height: 0.7;
+                position: absolute;
+                right:-18px;
+                top:-7px;
+                width: 15px;
+                height: 15px;
+                background: #fff;
+                border:1px solid #000;
+                border-radius: 2px;
+                color: #000;
+            }
+        }
+    }
 }
 
 //order

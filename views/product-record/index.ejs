@@ -95,6 +95,7 @@
                 </td>
                 <td>
                     <a href="/product-record/edit/<%= productRecord[i].get('productRecordId') %>"><%= productRecord[i].get('name') %></a>
+                    <a href="/product-record?product-method-id=<%= productRecord[i].get('productMethod')[0] %>&category1-id=<%= productRecord[i].get('category1')[0] %>&category2-id=<%= productRecord[i].get('category2')[0] %>"><i class="am-icon-tag"></i></a>
                 </td>
                 <td class="t-c">
                     <% for(var j=0;j< productRecord[i].get('url').length;j++) { %>
