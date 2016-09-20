@@ -12,3 +12,4 @@ require('jquery-form');
 require('flash-detect');
 require('swfobject');
 require('typeahead');
+require('clipboard');

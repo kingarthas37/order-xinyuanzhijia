@@ -81,7 +81,13 @@
                 <ul class="address-list"></ul>
                 <div class="am-form-horizontal">
                     <div class="am-form-group">
-                        <textarea id="shipping-address" required name="shipping-address" rows="5" placeholder="输入收货人/客户地址"><%= order.get('shippingAddress')%></textarea>
+                        <input type="text" id="shipping-address" value="<%= order.get('shippingAddress')%>" required name="shipping-address" placeholder="输入收货人/客户地址">
+                    </div>
+                    <div>
+                        <button type="button" class="btn-copy-name am-btn am-btn-primary" data-clipboard-text="<%= order.get('customerName') %>">复制姓名</button>
+                        <button type="button" class="btn-copy-phone am-btn am-btn-primary">复制手机号</button>
+                        <button type="button" class="btn-copy-address am-btn am-btn-primary">复制地址</button>
+                        <button type="button" class="btn-copy-thumb-address am-btn am-btn-primary">复制缩略地址</button>
                     </div>
                 </div>
             </div>
@@ -97,7 +103,6 @@
             <!-- taobaoname end -->
 
             <hr/>
-
 
             <!-- shipping shipping company -->
             <div id="content-payment-type" class="am-form-group">

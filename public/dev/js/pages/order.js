@@ -295,6 +295,7 @@ module.exports = {
         this.orderTypeAheadUpdate();
         this.domUpdate();
         this.orderNameTypeAhead();
+        this.clipboard();
     },
     domUpdate: function () {
         
@@ -377,8 +378,8 @@ module.exports = {
                     shippingAddress.val(address[0]);
                     newAddress.prop('checked', false);
                 } else {
-                    for (var i = 0; i < address.length; i++) {
-                        addressList.append('<li><span>' + address[i] + '</span> <a href="javascript:;">使用此地址</a> </li>');
+                    for (var i = address.length - 1; i >= 0; i--) {
+                        addressList.append('<li><span>' + address[i] + '</span> <a href="javascript:;">使用此地址'+ (i===address.length-1 ? '(最近更新)' : '') + '</a> </li>');
                     }
                 }
                 newCustomer.prop('checked', false);
@@ -422,8 +423,8 @@ module.exports = {
                 if (address.length === 1) {
                     shippingAddress.val(address[0]);
                 } else {
-                    for (var i = 0; i < address.length; i++) {
-                        addressList.append('<li><span>' + address[i] + '</span> <a href="javascript:;">使用此地址</a> </li>');
+                    for (var i = address.length - 1; i >=0 ; i--) {
+                        addressList.append('<li><span>' + address[i] + '</span> <a href="javascript:;">使用此地址' + (i===address.length-1 ? '(最近更新)' : '') + '</a> </li>');
                     }
                 }
             }
@@ -493,6 +494,74 @@ module.exports = {
                     }
                 }
             })
+        });
+        
+    },
+    clipboard() {
+        
+        let shippingAddress = $('#shipping-address');
+        
+        let btnName = $('.btn-copy-name');
+        let btnPhone = $('.btn-copy-phone');
+        let btnAddress = $('.btn-copy-address');
+        let btnThumbAddress = $('.btn-copy-thumb-address')
+        
+        //复制姓名
+        let name = new Clipboard(btnName[0]);
+        name.on('success',function() {
+            btnName.removeClass('am-btn-primary').addClass('am-btn-success');
+        });
+        
+        //复制手机号
+        let phone = new Clipboard(btnPhone[0], {
+            text: function() {
+                let text = shippingAddress.val();
+                let reg = /\d{11}/;
+                if(reg.test(text)) {
+                    return reg.exec(text)[0];
+                }
+                return '复制手机号出错';
+            }
+        });
+        phone.on('success',function() {
+            btnPhone.removeClass('am-btn-primary').addClass('am-btn-success');
+        });
+
+        //复制地址
+        let address = new Clipboard(btnAddress[0], {
+            text: function() {
+                let text = shippingAddress.val();
+                let reg = /\d{11}/;
+                if(reg.test(text)) {
+                    text = $.trim(text.replace(/\d{11}/,''));
+                    return text;
+                }
+                return '复制地址出错';
+            }
+        });
+        address.on('success',function() {
+            btnAddress.removeClass('am-btn-primary').addClass('am-btn-success');
+        });
+        
+        //复制缩略地址
+        let thumbAddress = new Clipboard(btnThumbAddress[0],{
+            text: function() {
+                let text = shippingAddress.val();
+                if(/\d{11}/.test(text)) {
+                    text = $.trim(text.replace(/\d{11}/,''));
+                }
+                if(/区/.test(text)) {
+                    text = $.trim(text.replace(/([\s\S]*?区)/,'')); //非贪婪匹配
+                }
+                if(/街道/.test(text)) {
+                    text = $.trim(text.replace(/([\s\S]*?街道)/,''));
+                }
+                text = $.trim(text.replace(/(^,|，|\.|。|;|；)|(,|，|\.|。|;|；$)/g,''));
+                return text;
+            }
+        });
+        thumbAddress.on('success',function() {
+            btnThumbAddress.removeClass('am-btn-primary').addClass('am-btn-success');
         });
         
     }

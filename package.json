@@ -92,7 +92,8 @@
     "flash-detect": "./public/js/flash.detect.min.js",
     "bloodhound": "./public/js/bloodhound.min.js",
     "typeahead": "./public/js/typeahead.jquery.min.js",
-    "swfobject": "./public/js/swfobject.js"
+    "swfobject": "./public/js/swfobject.js",
+    "clipboard":"./public/js/clipboard.min.js"
   },
   "browserify": {
     "transform": "browserify-shim"
@@ -100,7 +101,8 @@
   "browserify-shim": {
     "jquery": "$",
     "swfobject": "swfobject",
-    "flash-detect": "FlashDetect"
+    "flash-detect": "FlashDetect",
+    "clipboard":"clipboard"
   },
   "css-common": [
     "public/css/amazeui.min.css",
