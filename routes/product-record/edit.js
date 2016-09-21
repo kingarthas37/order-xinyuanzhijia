@@ -112,6 +112,8 @@ router.post('/:productRecordId', (req, res) => {
     updateQueryData(productMethod,category1,category2);
 
     let url = typeof req.body['url'] === 'object' ? req.body['url'] : [req.body['url']];
+    let linkType = req.body['link-type'];
+    let isOrder = req.body['is-order'] === 'on' ? true : false;
     let siteType = [];
     let siteName = [];
     url = url.map(uri => {
@@ -134,7 +136,7 @@ router.post('/:productRecordId', (req, res) => {
     let priceType = req.body['price-type'];
     let comment = req.body['comment'];
 
-    let productRecordData = {name,nameEn,productMethod,category1,category2,url,siteType,siteName,image,detail,property,country,price,priceType,comment};
+    let productRecordData = {name,nameEn,productMethod,category1,category2,url,linkType,isOrder,siteType,siteName,image,detail,property,country,price,priceType,comment};
 
     query.first().then(productRecord => {
         
