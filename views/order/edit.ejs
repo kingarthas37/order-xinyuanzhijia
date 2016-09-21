@@ -12,7 +12,7 @@
 <% include ../partials/header %>
 
 
-<div class="am-container common-page">
+<div class="am-container common-page order-page">
 
     <form id="form-edit-order" class="am-form" action="/order/edit" method="post">
 
@@ -52,6 +52,17 @@
 
             <hr/>
 
+            <!-- client name start -->
+            <div class="am-form-group typeahead-content">
+                <label>代发人： <em>(自动填充)</em></label>
+                <div class="am-form-group">
+                    <input id="client" name="client" type="text" placeholder="输入代发人" value="<%= order.get('client') %>" autocomplete="off">
+                </div>
+            </div>
+            <!-- client name end -->
+
+            <hr/>
+
             <!-- order description start -->
             <div id="content-description" class="am-form-group">
                 <label>订单描述：</label>
@@ -70,6 +81,9 @@
                         <input id="customer-name" required name="customer-name" type="text" placeholder="输入收货人/客户姓名" autocomplete="off" value="<%= order.get('customerName') %>" />
                     </div>
                 </div>
+                <label class="normal">移动端快捷复制:</label>
+                <div class="am-form-group"><input type="text" class="copy-field copy-phone"/></div>
+                <div class="am-form-group"><input type="text" class="copy-field copy-thumb-address"/></div>
             </div>
             <!-- customer name end -->
 
@@ -78,19 +92,11 @@
             <!-- shipping address start -->
             <div id="content-shipping-address" class="am-form-group">
                 <label>收货地址：<i>*</i> </label>
-                <ul class="address-list"></ul>
                 <div class="am-form-horizontal">
                     <div class="am-form-group">
-                        <input type="text" id="shipping-address" value="<%= order.get('shippingAddress')%>" required name="shipping-address" placeholder="输入收货人/客户地址">
+                        <textarea rows="3" id="shipping-address" required name="shipping-address" placeholder="输入收货人/客户地址"><%= order.get('shippingAddress')%></textarea>
                     </div>
                 </div>
-
-                <hr/>
-                
-                <label>复制地址(移动端使用)：</label>
-                <div class="am-form-group"><input type="text" class="copy-field copy-phone"></div>
-                <div class="am-form-group"><input type="text" class="copy-field copy-thumb-address"></div>
-                <div class="am-form-group"><input type="text" class="copy-field copy-address"></div>
             </div>
             <!-- shipping address end -->
 

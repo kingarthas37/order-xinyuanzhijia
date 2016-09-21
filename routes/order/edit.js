@@ -76,6 +76,7 @@ router.post('/', function (req, res, next) {
     var name = typeof req.body['name'] === 'object' ? req.body['name'] : [req.body['name']];
     var shippingCount = typeof req.body['shipping-count'] === 'object' ? req.body['shipping-count'] : [req.body['shipping-count']];
     var customerId = parseInt(req.body['customer-name-id']);
+    var client = req.body['client'];
     var description = req.body['description'];
     var shippingDate = req.body['shipping-date'];
     var shippingCompany = req.body['shipping-company'];
@@ -101,8 +102,8 @@ router.post('/', function (req, res, next) {
                 let productId = [];
                 let isShipping = [];
                 for(let i=0;i<name.length;i++) {
-                    if(/\{id\:\d+\}$/.test(name[i])) {
-                        productId.push(/\{id\:(\d+)\}$/.exec(name[i])[1]);
+                    if(/\{id\:\d+\}/.test(name[i])) {
+                        productId.push(/\{id\:(\d+)\}/.exec(name[i])[1]);
                     }else {
                         productId.push("");
                     }
@@ -116,6 +117,7 @@ router.post('/', function (req, res, next) {
                 orderTrack.set('productId',productId);
                 orderTrack.set('isShipping',isShipping);
                 orderTrack.set('shippingCount',shippingCount);
+                orderTrack.set('client',client);
                 orderTrack.set('description',description);
                 orderTrack.set('customerId',customerId);
                 orderTrack.set('customerName',customerName);

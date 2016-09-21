@@ -287,6 +287,7 @@ module.exports = {
         this.orderTypeAheadAdd();
         this.domUpdate();
         this.orderNameTypeAhead();
+        this.clientNameTypeAhead();
         $('input[name]').get(0).focus();
     },
     editFun: function () {
@@ -295,6 +296,7 @@ module.exports = {
         this.orderTypeAheadUpdate();
         this.domUpdate();
         this.orderNameTypeAhead();
+        this.clientNameTypeAhead();
         this.clipboard();
     },
     domUpdate: function () {
@@ -361,7 +363,6 @@ module.exports = {
                 if (!$(this).data('typeselect')) {
                     newCustomer.prop('checked', true);
                     newAddress.prop('checked', true);
-                    //    customerNameIdInput.val('');
                     addressList.empty();
                 }
             },
@@ -497,6 +498,35 @@ module.exports = {
         });
         
     },
+    clientNameTypeAhead() {
+        let clientNameInput = $('#client');
+        clientNameInput.typeahead(null, {
+            display: function (item) {
+                return `${item.value},${item.address[0]}`;
+            },
+            templates: {
+                suggestion: function (item) {
+                    return '<div><span class="tt-value">' + item.value + '</span><span class="tt-footer">' + (item.taobao ? ('(淘宝名:' + item.taobao + ') ') : '') + item.address + '</span></div>';
+                }
+            },
+            highlight: true,
+            source: new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: '/order/add/search-customer',
+                    prepare: function (query, settings) {
+                        settings.data = {
+                            name: clientNameInput.val()
+                        };
+                        return settings;
+                    }
+                }
+            })
+        });
+
+        
+    },
     clipboard() {
         
         let shippingAddress = $('#shipping-address');
@@ -521,8 +551,9 @@ module.exports = {
             let reg = /\d{11}/;
             if(reg.test(text)) {
                 text = $.trim(text.replace(/\d{11}/,''));
-                copyAddress.val(text);
             }
+            text = $.trim(text.replace(/(^,|，|\.|。|;|；)|(,|，|\.|。|;|；$)/g,''));
+            copyAddress.val(text);
         }
         
         
