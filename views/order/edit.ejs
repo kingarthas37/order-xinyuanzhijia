@@ -83,13 +83,14 @@
                     <div class="am-form-group">
                         <input type="text" id="shipping-address" value="<%= order.get('shippingAddress')%>" required name="shipping-address" placeholder="输入收货人/客户地址">
                     </div>
-                    <div>
-                        <button type="button" class="btn-copy-name am-btn am-btn-primary" data-clipboard-text="<%= order.get('customerName') %>">复制姓名</button>
-                        <button type="button" class="btn-copy-phone am-btn am-btn-primary">复制手机号</button>
-                        <button type="button" class="btn-copy-address am-btn am-btn-primary">复制地址</button>
-                        <button type="button" class="btn-copy-thumb-address am-btn am-btn-primary">复制缩略地址</button>
-                    </div>
                 </div>
+
+                <hr/>
+                
+                <label>复制地址(移动端使用)：</label>
+                <div class="am-form-group"><input type="text" class="copy-field copy-phone"></div>
+                <div class="am-form-group"><input type="text" class="copy-field copy-thumb-address"></div>
+                <div class="am-form-group"><input type="text" class="copy-field copy-address"></div>
             </div>
             <!-- shipping address end -->
 
