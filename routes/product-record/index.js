@@ -38,9 +38,11 @@ router.get('/', (req, res) => {
     let category1Id = req.query['category1-id'] ? parseInt(req.query['category1-id']) : 0;
     let category2Id = req.query['category2-id'] ? parseInt(req.query['category2-id']) : 0;
     let search = req.query['search'] ? req.query['search'].trim() : '';
+    let searchIsOrder = req.query['search-is-order'] ? true : false;
 
     data = extend(data, {
         search,
+        searchIsOrder,
         flash: {success: req.flash('success'), error: req.flash('error')},
         user: req.AV.user,
         productMethodId,
@@ -63,6 +65,10 @@ router.get('/', (req, res) => {
             } else if(productMethodId) {
                 query.equalTo('productMethod',productMethodId);
             }
+            
+            if(searchIsOrder) {
+                query.equalTo('isOrder',true);
+            }
 
             if (search.length) {
                 query.contains('name', search);
@@ -76,6 +82,7 @@ router.get('/', (req, res) => {
                         url: '/product-record',
                         serialize: {
                             page,search,
+                            'search-is-order':searchIsOrder,
                             'product-method-id':productMethodId,
                             'category1-id':category1Id,
                             'category2-id':category2Id
@@ -102,6 +109,10 @@ router.get('/', (req, res) => {
                 query.equalTo('category1', category1Id);
             } else if(productMethodId) {
                 query.equalTo('productMethod',productMethodId);
+            }
+
+            if(searchIsOrder) {
+                query.equalTo('isOrder',true);
             }
 
             if (search.length) {

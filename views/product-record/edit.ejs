@@ -117,6 +117,20 @@
 
             <hr/>
 
+            <!-- link type start -->
+            <div class="am-form-group">
+                <label for="name">链接类型:</label>
+                <select id="link-type" name="link-type">
+                    <option value="product" <% if(productRecord.get('linkType') === 'product') { %>selected="selected"<%}%> >产品</option>
+                    <option value="list" <% if(productRecord.get('linkType') === 'list') { %>selected="selected"<%}%> >列表</option>
+                    <option value="site" <% if(productRecord.get('linkType') === 'site') { %>selected="selected"<%}%> >网站</option>
+                    <option value="other" <% if(productRecord.get('linkType') === 'other') { %>selected="selected"<%}%> >其他</option>
+                </select>
+            </div>
+            <!-- link type end -->
+
+            <hr/>
+
             <!-- images start -->
             <div class="am-form-group">
                 <label for="image">产品图片链接 <small>(可直接复制图片链接或上传图片)</small> ：</label>
@@ -152,7 +166,18 @@
 
             <hr/>
 
-            <!-- property start -->
+            <!-- is order start -->
+            <div class="am-form-group">
+                <label for="is-order">是否已购买:</label>
+                <div>
+                    <label class="normal"><input type="checkbox" name="is-order" id="is-order" <%if(productRecord.get('isOrder')){ %>checked="checked"<%}%>> 是否已购买</label>
+                </div>
+            </div>
+            <!-- is order end -->
+
+            <hr/>
+
+            <!-- country start -->
             <div class="am-form-group">
                 <label for="property">产地/国家:</label>
                 <select id="country" name="country">
@@ -171,7 +196,7 @@
                 </select>
                 <span class="am-form-caret"></span>
             </div>
-            <!-- property end -->
+            <!-- country end -->
 
             <hr/>
 

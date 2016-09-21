@@ -89,6 +89,17 @@ module.exports = {
             });
         }
         
+        //查询已购买
+        {
+            $('#search-is-order').click(function() {
+                if(this.checked) {
+                    location.href = '/product-record?search-is-order=true';
+                } else {
+                    location.href = '/product-record';
+                }
+            });
+        }
+        
     },
 
     addFun:function() {

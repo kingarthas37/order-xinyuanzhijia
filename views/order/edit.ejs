@@ -51,17 +51,7 @@
             <!-- order name end -->
 
             <hr/>
-
-            <!-- client name start -->
-            <div class="am-form-group typeahead-content">
-                <label>代发人： <em>(自动填充)</em></label>
-                <div class="am-form-group">
-                    <input id="client" name="client" type="text" placeholder="输入代发人" value="<%= order.get('client') %>" autocomplete="off">
-                </div>
-            </div>
-            <!-- client name end -->
-
-            <hr/>
+            
 
             <!-- order description start -->
             <div id="content-description" class="am-form-group">
@@ -108,6 +98,17 @@
                 <input id="taobao" name="taobao" type="text" placeholder="输入淘宝用户名" value="<%= order.get('taobaoName') %>" />
             </div>
             <!-- taobaoname end -->
+
+            <hr/>
+
+            <!-- client name start -->
+            <div class="am-form-group typeahead-content">
+                <label>代发人： <em>(自动填充)</em></label>
+                <div class="am-form-group">
+                    <input id="client" name="client" type="text" placeholder="输入代发人" value="<%= order.get('client') %>" autocomplete="off">
+                </div>
+            </div>
+            <!-- client name end -->
 
             <hr/>
 

@@ -32,8 +32,9 @@
             </div>
 
             <div class="am-form-group">
-                <span class="split"></span>选择分类:
+                <span class="split"></span>分类:
             </div>
+            
             <div class="am-form-group am-form">
                 <select class="select-product-method">
                     <option value="">产品类型</option>
@@ -67,6 +68,13 @@
                 </select>
             </div>
 
+            <div class="am-form-group">
+                <span class="split"></span>
+                <label class="normal">
+                    <input type="checkbox" id="search-is-order" name="search-is-order" <%if(searchIsOrder){%>checked="checked"<%}%> /> 已购买
+                </label>
+            </div>
+
         </div>
 
         <hr/>
@@ -83,7 +91,7 @@
             </thead>
             <tbody>
             <% for(var i=0; i < productRecord.length; i++) {%>
-            <tr>
+            <tr <% if(productRecord[i].get('isOrder')) { %>class="is-order"<%}%>>
                 <td class="t-c">
                     <% if(productRecord[i].get('image')) { %>
                     <div class="image-view-center">
@@ -94,7 +102,9 @@
                     <% } %>
                 </td>
                 <td>
-                    <a href="/product-record/edit/<%= productRecord[i].get('productRecordId') %>"><%= productRecord[i].get('name') %></a>
+                    <a href="/product-record/edit/<%= productRecord[i].get('productRecordId') %>">
+                        [<%if(productRecord[i].get('linkType')==='product') {%>产品<%}%><%if(productRecord[i].get('linkType')==='list') {%>列表<%}%><%if(productRecord[i].get('linkType')==='site') {%>网站<%}%><%if(productRecord[i].get('linkType')==='other') {%>其他<%}%>]<%= productRecord[i].get('name') %>
+                    </a>
                     <a href="/product-record?product-method-id=<%= productRecord[i].get('productMethod')[0] %>&category1-id=<%= productRecord[i].get('category1')[0] %>&category2-id=<%= productRecord[i].get('category2')[0] %>"><i class="am-icon-tag"></i></a>
                 </td>
                 <td class="t-c">

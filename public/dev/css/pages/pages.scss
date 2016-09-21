@@ -318,9 +318,16 @@
 
 /* product-record-page */
 .product-record-page {
+    table {
+        tr.is-order {
+            td {
+                background: #feffed;
+            }
+        }
+    }
     .am-form-group {
         select {
-            width: 175px;
+            width: 150px;
         }
     }
     .category-group {

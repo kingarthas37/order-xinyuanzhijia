@@ -109,6 +109,8 @@ router.post('/', (req, res) => {
     updateQueryData(productMethod,category1,category2);
 
     let url = typeof req.body['url'] === 'object' ? req.body['url'] : [req.body['url']];
+    let linkType = req.body['link-type'];
+    let isOrder = req.body['is-order'] === 'on' ? true : false;
     let siteType = [];
     let siteName = [];
     url = url.map(uri => {
@@ -133,7 +135,7 @@ router.post('/', (req, res) => {
     
     let productRecord = new ProductRecord();
     
-    let productRecordData = {name,nameEn,productMethod,category1,category2,url,siteType,siteName,image,detail,property,country,price,priceType,comment};
+    let productRecordData = {name,nameEn,productMethod,category1,category2,url,linkType,isOrder,siteType,siteName,image,detail,property,country,price,priceType,comment};
     
     productRecord.save(productRecordData).then(result => {
         req.flash('success', '添加产品收录成功!');
