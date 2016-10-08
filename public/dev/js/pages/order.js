@@ -25,13 +25,13 @@ module.exports = {
         }
 
         //加载customer data
-        { 
-            
+        {
+
             let queryData = {
-                customerId:[],
-                orderId:[]
+                customerId: [],
+                orderId: []
             };
-            
+
             let list = $('.am-table').find('tr[data-customer-id]');
 
             list.each(function (i, n) {
@@ -49,31 +49,31 @@ module.exports = {
                 if (!data.success) {
                     return;
                 }
-                
+
                 $.each(list, function (i, n) {
                     let customerId = parseInt($(n).data('customer-id'));
-                    $.each(data.customers,function(_i,_n) {
-                        if(_n.customerId === customerId) {
+                    $.each(data.customers, function (_i, _n) {
+                        if (_n.customerId === customerId) {
                             $(n).find('.taobao-name').removeClass('on').text(_n.taobao);
                         }
                     });
-                    $.each(data.shippings,function(_i,_n) {
-                        if(_n.customerId === customerId) {
+                    $.each(data.shippings, function (_i, _n) {
+                        if (_n.customerId === customerId) {
                             $(n).find('.customer-name').addClass('shunfeng');
                         }
                     });
                 });
             });
         }
-        
+
         //加载图片
         {
-            
+
             let productId = [];
             let imageList = $('.image');
 
             imageList.each(function (i, n) {
-                if($(n).data('id')) {
+                if ($(n).data('id')) {
                     productId.push($(n).data('id'));
                 }
             });
@@ -86,48 +86,48 @@ module.exports = {
                 if (!data.success) {
                     return;
                 }
-                
+
                 $.each(imageList, function (i, n) {
                     let id = parseInt($(n).data('id'));
-                    if(!$.isEmptyObject(data.images)) {
-                        for(let i in data.images) {
-                            if(parseInt(i) === id) {
+                    if (!$.isEmptyObject(data.images)) {
+                        for (let i in data.images) {
+                            if (parseInt(i) === id) {
                                 $(n).removeClass('on').html(`<a href="${data.images[i]}" target="_blank"><img src="${data.images[i]}?imageMogr2/thumbnail/24"/></a>`);
-                            }else if(!id) {
+                            } else if (!id) {
                                 $(n).removeClass('on').html(`<img src="${window.assets['no-image-src']}?imageMogr2/thumbnail/24"/>`);
                             }
-                        } 
+                        }
                     } else {
                         $(n).removeClass('on').html(`<img src="${window.assets['no-image-src']}?imageMogr2/thumbnail/24"/>`);
                     }
-                    
+
                 });
             });
         }
-        
+
         //设置库存状态
         {
-            $('.update-stock').click(function() {
+            $('.update-stock').click(function () {
                 let $this = $(this);
-                if($this.data('state')) {
+                if ($this.data('state')) {
                     return false;
                 }
-                $this.data('state',true);
-                
+                $this.data('state', true);
+
                 let isSet = $this.find('.am-icon').hasClass('on');
                 let productId = $this.attr('product-id');
                 let orderId = $this.attr('order-id');
                 $.ajax({
-                    url:'/order/update-stock',
-                    data:{
-                        'is-set':isSet,
-                        'product-id':productId,
-                        'order-id':orderId
+                    url: '/order/update-stock',
+                    data: {
+                        'is-set': isSet,
+                        'product-id': productId,
+                        'order-id': orderId
                     },
-                    success:(data)=>{
-                        $this.data('state',false);
-                        if(data.success) {
-                            if(isSet) {
+                    success: (data)=> {
+                        $this.data('state', false);
+                        if (data.success) {
+                            if (isSet) {
                                 $this.find('.am-icon').removeClass('on').addClass('off');
                             } else {
                                 $this.find('.am-icon').removeClass('off').addClass('on');
@@ -135,7 +135,7 @@ module.exports = {
                         }
                     }
                 });
-                
+
             });
         }
 
@@ -148,11 +148,11 @@ module.exports = {
 
             let stockMinus = modalSetStock.find('.stock-minus');
             let stockPlus = modalSetStock.find('.stock-plus');
-            
+
             let save = $('.stock-save');
             let reset = $('.stock-reset');
-            
-            $('.set-stock').click(function() {
+
+            $('.set-stock').click(function () {
                 modalSetStock.modal({
                     relatedTarget: this,
                     onCancel: function () {
@@ -161,29 +161,29 @@ module.exports = {
                 });
                 return false;
             });
-            
-            modalSetStock.on('open.modal.amui', function(event){
+
+            modalSetStock.on('open.modal.amui', function (event) {
                 let target = $(event.relatedTarget);
                 target.addClass('current');
                 let productId = target.attr('product-id');
-                save.attr('product-id',productId);
-                
+                save.attr('product-id', productId);
+
                 $.ajax({
-                    type:'get',
-                    url:'/order/set-stock',
-                    data:{
-                        'product-id':productId
+                    type: 'get',
+                    url: '/order/set-stock',
+                    data: {
+                        'product-id': productId
                     },
-                    success:function(data) {
-                        if(!data.success) {
+                    success: function (data) {
+                        if (!data.success) {
                             return false;
                         }
                         stock.val(data.stock);
-                        stock.attr('data-stock',data.stock);
+                        stock.attr('data-stock', data.stock);
                         sales.val(data.sales);
-                        sales.attr('data-sales',data.sales);
-                        
-                        save.attr('product-id',productId);
+                        sales.attr('data-sales', data.sales);
+
+                        save.attr('product-id', productId);
 
                         stockPlus.removeAttr('disabled').removeClass('am-btn-default').addClass('am-btn-primary');
                         stockMinus.removeAttr('disabled').removeClass('am-btn-default').addClass('am-btn-primary');
@@ -191,45 +191,45 @@ module.exports = {
                 });
             });
 
-            modalSetStock.on('close.modal.amui', function(){
+            modalSetStock.on('close.modal.amui', function () {
                 $('.set-stock.current').removeClass('current');
                 stock.val(0);
-                stock.attr('data-stock',0);
+                stock.attr('data-stock', 0);
                 sales.val(0);
-                sales.attr('data-sales',0);
+                sales.attr('data-sales', 0);
                 save.removeAttr('product-id');
-                stockPlus.attr('disabled','disabled').addClass('am-btn-default').removeClass('am-btn-primary');
-                stockMinus.attr('disabled','disabled').addClass('am-btn-default').removeClass('am-btn-primary');
+                stockPlus.attr('disabled', 'disabled').addClass('am-btn-default').removeClass('am-btn-primary');
+                stockMinus.attr('disabled', 'disabled').addClass('am-btn-default').removeClass('am-btn-primary');
             });
 
-            stockMinus.click(function() {
+            stockMinus.click(function () {
                 let stockValue = parseInt(stock.val());
                 let salesValue = parseInt(sales.val());
-                if(stockValue > 0) {
+                if (stockValue > 0) {
                     stock.find(`option[value=${stockValue - 1}]`)[0].selected = true;
                     sales.find(`option[value=${salesValue + 1}]`)[0].selected = true;
                 }
             });
 
-            stockPlus.click(function() {
+            stockPlus.click(function () {
                 let stockValue = parseInt(stock.val());
                 stock.find(`option[value=${stockValue + 1}]`)[0].selected = true;
             });
-            
-            save.click(function() {
+
+            save.click(function () {
                 let $this = $(this);
                 $.ajax({
-                    type:'post',
-                    url:'/order/set-stock',
-                    data:{
-                        'product-id':$this.attr('product-id'),
-                        'stock':stock.val(),
-                        'sales':sales.val()
+                    type: 'post',
+                    url: '/order/set-stock',
+                    data: {
+                        'product-id': $this.attr('product-id'),
+                        'stock': stock.val(),
+                        'sales': sales.val()
                     },
-                    success:function(data) {
-                        if(data.success) {
+                    success: function (data) {
+                        if (data.success) {
                             let updateStock = $('.set-stock.current').parents('.order-split').find('.update-stock');
-                            if(updateStock.find('.am-icon').hasClass('off')) {
+                            if (updateStock.find('.am-icon').hasClass('off')) {
                                 updateStock.trigger('click');
                             }
                             modalSetStock.modal('close');
@@ -238,42 +238,42 @@ module.exports = {
                 });
             });
 
-            reset.click(function() {
+            reset.click(function () {
                 stock.find(`option[value=${stock.attr('stock')}]`)[0].selected = true;
                 sales.find(`option[value=${sales.attr('sales')}]`)[0].selected = true;
             });
-        
+
         }
-        
+
         //查询未发货
         {
-            $('.ckb-notshipped').click(function() {
-                if(this.checked) {
+            $('.ckb-notshipped').click(function () {
+                if (this.checked) {
                     location.href = '/order?search-notshipped=on';
-                }else {
+                } else {
                     location.href = '/order';
                 }
             });
         }
-        
+
         //发货状态
         {
-            $('.ckb-shipped').click(function() {
-                
+            $('.ckb-shipped').click(function () {
+
                 let $this = $(this);
                 let orderId = $(this).attr('order-id');
                 let shipping = this.checked;
 
                 $.ajax({
-                    type:'post',
-                    url:'/order/shipping',
-                    data:{
-                        'order-id':orderId,
-                        'shipping':shipping
+                    type: 'post',
+                    url: '/order/shipping',
+                    data: {
+                        'order-id': orderId,
+                        'shipping': shipping
                     },
-                    success:function(data) {
-                        if(data.success) {
-                            if($this[0].checked) {
+                    success: function (data) {
+                        if (data.success) {
+                            if ($this[0].checked) {
                                 $this.parents('tr').removeClass('off');
                             } else {
                                 $this.parents('tr').addClass('off');
@@ -284,7 +284,7 @@ module.exports = {
 
             });
         }
-        
+
 
     },
     addFun: function () {
@@ -292,10 +292,34 @@ module.exports = {
         this.customerNameTypeAhead();
         this.orderTypeAheadAdd();
         this.domUpdate();
-        this.orderNameTypeAhead();
         this.clientNameTypeAhead();
-        $('input[name]').get(0).focus();
+
+        //复制新order
+        if (location.search.indexOf('name') !== -1) {
+            this.copyNewOrder();
+            this.orderNameTypeAhead();
+        } else {
+            this.orderNameTypeAhead();
+            $('input[name]').get(0).focus();
+        }
+
     },
+
+    copyNewOrder() {
+        let url = location.search;
+        let names = /name=([^\&]*)\&/.exec(url)[1];
+        
+        let trackingNumber = /tracking-number=(\d+)/.test(url);
+        
+        names = names.split(',');
+        $('input[name=name]').eq(0).val(decodeURIComponent(names[0]));
+
+        if(trackingNumber) {
+            $('#tracking-number').val(/tracking-number=(\d+)/.exec(url)[1]);
+        }
+        
+    },
+    
     editFun: function () {
         $('#form-edit-order').validate();
         this.customerNameTypeAhead();
@@ -306,17 +330,17 @@ module.exports = {
         this.clipboard();
     },
     domUpdate: function () {
-        
+
         let _this = this;
         var shippingCompany = $('#shipping-company');
         var trackingNumber = $('#tracking-number');
         shippingCompany.change(function () {
             trackingNumber.val('').get(0).focus();
         });
-        
-        //添加删除订单内容
+
+        //添加删除订单名
         {
-            
+
             let group = $('.content-name-group');
             let template = `
                     <div class="list-group-field am-form-group">
@@ -337,20 +361,20 @@ module.exports = {
                         </label>
                     </div>
             `;
-            
-            $('.order-add').click(function() {
+
+            $('.order-add').click(function () {
                 let $template = $(template);
                 group.append($template);
                 _this.bindOrderNameTypeAhead($template.find('.name'));
                 $template.find('input[name=name]').get(0).focus();
             });
 
-            group.on('click','.remove', function () {
+            group.on('click', '.remove', function () {
                 $(this).parents('.list-group-field').detach();
             });
         }
-        
-        
+
+
     },
     orderTypeAheadAdd: function () {
 
@@ -386,7 +410,7 @@ module.exports = {
                     newAddress.prop('checked', false);
                 } else {
                     for (var i = address.length - 1; i >= 0; i--) {
-                        addressList.append('<li><span>' + address[i] + '</span> <a href="javascript:;">使用此地址'+ (i===address.length-1 ? '(最近更新)' : '') + '</a> </li>');
+                        addressList.append('<li><span>' + address[i] + '</span> <a href="javascript:;">使用此地址' + (i === address.length - 1 ? '(最近更新)' : '') + '</a> </li>');
                     }
                 }
                 newCustomer.prop('checked', false);
@@ -424,14 +448,14 @@ module.exports = {
             'typeahead:select': function (event, item) {
                 customerNameIdInput.val(item.customerId);
                 taobao.val(item.taobao);
-                
+
                 addressList.empty();
                 var address = item.address;
                 if (address.length === 1) {
                     shippingAddress.val(address[0]);
                 } else {
-                    for (var i = address.length - 1; i >=0 ; i--) {
-                        addressList.append('<li><span>' + address[i] + '</span> <a href="javascript:;">使用此地址' + (i===address.length-1 ? '(最近更新)' : '') + '</a> </li>');
+                    for (var i = address.length - 1; i >= 0; i--) {
+                        addressList.append('<li><span>' + address[i] + '</span> <a href="javascript:;">使用此地址' + (i === address.length - 1 ? '(最近更新)' : '') + '</a> </li>');
                     }
                 }
             }
@@ -472,7 +496,7 @@ module.exports = {
         });
     },
     orderNameTypeAhead() {
-        $('.name').each((i,n) => {
+        $('.name').each((i, n) => {
             this.bindOrderNameTypeAhead($(n));
         });
     },
@@ -493,7 +517,7 @@ module.exports = {
                 queryTokenizer: Bloodhound.tokenizers.whitespace,
                 remote: {
                     url: '/order/product',
-                    prepare: function (query,settings) {
+                    prepare: function (query, settings) {
                         settings.data = {
                             name: element.val()
                         };
@@ -502,7 +526,7 @@ module.exports = {
                 }
             })
         });
-        
+
     },
     clientNameTypeAhead() {
         let clientNameInput = $('#client');
@@ -531,22 +555,22 @@ module.exports = {
             })
         });
 
-        
+
     },
     clipboard() {
-        
+
         let shippingAddress = $('#shipping-address');
-        
+
         let copyPhone = $('.copy-phone');
         let copyAddress = $('.copy-address');
         let copyThumbAddress = $('.copy-thumb-address')
-       
-        
+
+
         //复制手机号
         {
             let text = shippingAddress.val();
             let reg = /\d{11}/;
-            if(reg.test(text)) {
+            if (reg.test(text)) {
                 copyPhone.val(reg.exec(text)[0]);
             }
         }
@@ -555,29 +579,29 @@ module.exports = {
         {
             let text = shippingAddress.val();
             let reg = /\d{11}/;
-            if(reg.test(text)) {
-                text = $.trim(text.replace(/\d{11}/,''));
+            if (reg.test(text)) {
+                text = $.trim(text.replace(/\d{11}/, ''));
             }
-            text = $.trim(text.replace(/(^,|，|\.|。|;|；)|(,|，|\.|。|;|；$)/g,''));
+            text = $.trim(text.replace(/(^,|，|\.|。|;|；)|(,|，|\.|。|;|；$)/g, ''));
             copyAddress.val(text);
         }
-        
-        
+
+
         //复制缩略地址
         {
             let text = shippingAddress.val();
-            if(/\d{11}/.test(text)) {
-                text = $.trim(text.replace(/\d{11}/,''));
+            if (/\d{11}/.test(text)) {
+                text = $.trim(text.replace(/\d{11}/, ''));
             }
-            if(/区/.test(text)) {
-                text = $.trim(text.replace(/([\s\S]*?区)/,'')); //非贪婪匹配
+            if (/区/.test(text)) {
+                text = $.trim(text.replace(/([\s\S]*?区)/, '')); //非贪婪匹配
             }
-            if(/街道/.test(text)) {
-                text = $.trim(text.replace(/([\s\S]*?街道)/,''));
+            if (/街道/.test(text)) {
+                text = $.trim(text.replace(/([\s\S]*?街道)/, ''));
             }
-            text = $.trim(text.replace(/(^,|，|\.|。|;|；)|(,|，|\.|。|;|；$)/g,''));
+            text = $.trim(text.replace(/(^,|，|\.|。|;|；)|(,|，|\.|。|;|；$)/g, ''));
             copyThumbAddress.val(text);
         }
-        
+
     }
 };

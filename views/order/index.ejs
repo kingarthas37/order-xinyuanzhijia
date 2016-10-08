@@ -91,7 +91,16 @@
                             <%if (order[i].get('trackingNumber')){ %></a><%}%>
                     </td>
                     <td class="t-c small-screen-hide"><%=(order[i].get('shippingDate').getMonth()+1)%>/<%=order[i].get('shippingDate').getDate()%></td>
-                    <td class="t-c small-screen-hide"><a href="/order/remove/<%= order[i].get('orderId') %>" class="remove-order">删除</a> </td>
+                    <td class="t-c small-screen-hide">
+                        
+                        <div class="am-dropdown" data-am-dropdown>
+                            <button class="am-btn am-btn-primary am-dropdown-toggle" data-am-dropdown-toggle>选项 <span class="am-icon-caret-down"></span></button>
+                            <ul class="am-dropdown-content">
+                                <li><a href="/order/add?name=<%= order[i].get('name') %>&tracking-number=<%= order[i].get('trackingNumber')%>">复制</a></li>
+                                <li><a href="/order/remove/<%= order[i].get('orderId') %>" class="remove-order">删除</a></li>
+                            </ul>
+                        </div>
+                    </td>
                 </tr>
                 <% } %>
                 </tbody>
