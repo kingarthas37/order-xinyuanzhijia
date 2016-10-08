@@ -421,7 +421,11 @@ iframe.upload-title {
     }
 }
 
-
+@include breakpoint(large-up) {
+    .large-screen-hide {
+        display: none;
+    }
+}
 
 /* modal iframe viewport */
 .iframe-viewport {

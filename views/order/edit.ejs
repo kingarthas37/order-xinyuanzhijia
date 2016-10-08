@@ -71,9 +71,11 @@
                         <input id="customer-name" required name="customer-name" type="text" placeholder="输入收货人/客户姓名" autocomplete="off" value="<%= order.get('customerName') %>" />
                     </div>
                 </div>
-                <label class="normal">移动端快捷复制:</label>
-                <div class="am-form-group"><input type="text" class="copy-field copy-phone"/></div>
-                <div class="am-form-group"><input type="text" class="copy-field copy-thumb-address"/></div>
+                <div class="large-screen-hide">
+                    <label class="normal">移动端快捷复制:</label>
+                    <div class="am-form-group"><input type="text" class="copy-field copy-phone"/></div>
+                    <div class="am-form-group"><input type="text" class="copy-field copy-thumb-address"/></div>
+                </div>
             </div>
             <!-- customer name end -->
 

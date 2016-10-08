@@ -25,26 +25,32 @@ module.exports = {
         }
 
         //加载customer data
-        {
-            let customerListId = [];
-            let customerList = $('.am-table').find('tr[data-customer-id]');
+        { 
+            
+            let queryData = {
+                customerId:[],
+                orderId:[]
+            };
+            
+            let list = $('.am-table').find('tr[data-customer-id]');
 
-            customerList.each(function (i, n) {
+            list.each(function (i, n) {
                 if ($(n).data('customer-id')) {
-                    customerListId.push($(n).data('customer-id'));
+                    queryData.customerId.push($(n).data('customer-id'));
+                    queryData.orderId.push($(n).data('order-id'));
                 }
             });
 
             $.ajax({
                 url: '/order/get-customer',
-                data: {customerListId}
+                data: {queryData}
             }).then(data => {
 
                 if (!data.success) {
                     return;
                 }
                 
-                $.each(customerList, function (i, n) {
+                $.each(list, function (i, n) {
                     let customerId = parseInt($(n).data('customer-id'));
                     $.each(data.customers,function(_i,_n) {
                         if(_n.customerId === customerId) {

@@ -162,7 +162,7 @@ $breakpoint-xxl-max:          $breakpoint-xxl;
 // NOTE '~' in the beginning - media query must be escaped
 // -----------------------------------------------------------------------------
 
-$screen:        "only screen";
+$screen:"only screen";
 
 @mixin breakpoint($point) {
   @if $point == landscape {

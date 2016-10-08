@@ -59,7 +59,7 @@
                 </thead>
                 <tbody>
                 <% for(var i=0; i < order.length; i++) {%>
-                <tr data-customer-id="<%= order[i].get('customerId') %>" <% if (order[i].get('shippingStatus') !== 'shipped' ) { %>class="off"<%}%>>
+                <tr data-order-id="<%= order[i].get('orderId') %>" data-customer-id="<%= order[i].get('customerId') %>" <% if (order[i].get('shippingStatus') !== 'shipped' ) { %>class="off"<%}%>>
                     <td class="t-c">
                         <input order-id="<%= order[i].get('orderId') %>" class="ckb-shipped" type="checkbox" <% if (order[i].get('shippingStatus') === 'shipped' ) { %>checked="checked"<%}%>/>
                     </td>

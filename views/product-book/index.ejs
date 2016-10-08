@@ -46,7 +46,7 @@
                 <thead>
                 <tr>
                     <th>产品名</th>
-                    <th width="100">客户姓名</th>
+                    <th width="100" class="t-c">客户姓名</th>
                     <th width="120" class="t-c">预定日期</th>
                     <th width="120" class="small-screen-hide t-c">更新日期</th>
                     <th width="50" class="small-screen-hide t-c">删除</th>
@@ -67,7 +67,7 @@
                             <%}%>
                         </a>
                     </td>
-                    <td><a href="/customer/edit/<%= productBook[i].get('customerId') %>"><%= productBook[i].get('customerName') %></a></td>
+                    <td class="t-c"><a href="/customer/edit/<%= productBook[i].get('customerId') %>"><%= productBook[i].get('customerName') %></a></td>
                     <td class="t-c"><%=productBook[i].createdAt.getFullYear()%>/<%=(productBook[i].createdAt.getMonth()+1)%>/<%=productBook[i].createdAt.getDate()%></td>
                     <td class="small-screen-hide t-c"><%=productBook[i].updatedAt.getFullYear()%>/<%=(productBook[i].updatedAt.getMonth()+1)%>/<%=productBook[i].updatedAt.getDate()%></td>
                     <td class="small-screen-hide t-c"><a href="/product-book/remove/<%= productBook[i].get('productBookId') %>" class="remove-product-book">删除</a></td>

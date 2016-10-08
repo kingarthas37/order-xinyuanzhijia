@@ -151,12 +151,15 @@ router.get('/remove/:orderId', function (req, res, next) {
 //ajax返回用户信,淘宝名
 router.get('/get-customer', (req, res) => {
 
-    let customerListId = req.query['customerListId'];
+    let queryData = req.query['queryData'];
+    
+    let customerListId = queryData.customerId;
+    let orderListId = queryData.orderId;
 
     customerListId = customerListId.map(item => parseInt(item));
+    orderListId = orderListId.map(item => parseInt(item));
 
-    let data = {};
-
+    
     async.parallel([
         function(cb) {
             let query = new AV.Query(Customer);
@@ -170,6 +173,7 @@ router.get('/get-customer', (req, res) => {
         function(cb) {
             let query = new AV.Query(OrderTrack);
             query.containedIn('customerId', customerListId);
+            query.notContainedIn('orderId',orderListId);
             query.equalTo('shippingCompany','shunfeng');
             query.select('customerId','shippingCompany');
             query.find().then(shippings => {
@@ -181,7 +185,6 @@ router.get('/get-customer', (req, res) => {
         data.success = 1;
         res.send(data);
     });
-   
 
 });
 
