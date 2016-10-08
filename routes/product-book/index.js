@@ -38,6 +38,7 @@ router.get('/', function (req, res, next) {
     var searchProduct = req.query['search-product'];
     var searchName = req.query['search-name'];
     let searchState = req.query['search-state'];
+    let searchCustomer = req.query['search-customer'];
 
     data = extend(data,{
         flash: {
@@ -47,7 +48,8 @@ router.get('/', function (req, res, next) {
         user:req.AV.user,
         searchProduct,
         searchName,
-        searchState
+        searchState,
+        searchCustomer
     });
 
     async.series([
@@ -56,8 +58,12 @@ router.get('/', function (req, res, next) {
 
             let cqlWhere = '';
             
-            if(searchState) {
+            if(!searchState) {
                 cqlWhere = `where productState = ''`;
+            }
+            
+            if(searchCustomer) {
+                cqlWhere = `where customerId = ${searchCustomer}`;
             }
 
             if(searchProduct) {
@@ -82,8 +88,12 @@ router.get('/', function (req, res, next) {
             
             let cqlWhere = '';
 
-            if(searchState) {
+            if(!searchState) {
                 cqlWhere = `where productState = ''`;
+            }
+
+            if(searchCustomer) {
+                cqlWhere = `where customerId = ${searchCustomer}`;
             }
             
             if(searchProduct) {

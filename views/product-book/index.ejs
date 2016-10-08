@@ -35,7 +35,7 @@
                 <span class="split small-screen-hide"></span>
                 
                 <div class="am-form-group">
-                    <label><input type="checkbox" class="ckb-search-state" name="search-state" <%if(searchState){%>checked="checked"<%}%>> 查看未完成订单</label>
+                    <label><input type="checkbox" class="ckb-search-state" name="search-state" <%if(searchState){%>checked="checked"<%}%>> 查看所有订单</label>
                 </div>
                 
             </form>
@@ -67,7 +67,7 @@
                             <%}%>
                         </a>
                     </td>
-                    <td class="t-c"><a href="/customer/edit/<%= productBook[i].get('customerId') %>"><%= productBook[i].get('customerName') %></a></td>
+                    <td class="t-c"><a href="/product-book?search-customer=<%= productBook[i].get('customerId') %>"><%= productBook[i].get('customerName') %></a></td>
                     <td class="t-c"><%=productBook[i].createdAt.getFullYear()%>/<%=(productBook[i].createdAt.getMonth()+1)%>/<%=productBook[i].createdAt.getDate()%></td>
                     <td class="small-screen-hide t-c"><%=productBook[i].updatedAt.getFullYear()%>/<%=(productBook[i].updatedAt.getMonth()+1)%>/<%=productBook[i].updatedAt.getDate()%></td>
                     <td class="small-screen-hide t-c"><a href="/product-book/remove/<%= productBook[i].get('productBookId') %>" class="remove-product-book">删除</a></td>
@@ -78,9 +78,9 @@
             
             <ul class="am-pagination">
                 <% if (productBookPager.prev) { %> <li>
-                    <a href="/product-book?page=<%= productBookPager.prev %><% if(searchProduct) {%>&search-product-book-title=<%=searchProduct%> <%}%>">上一页</a></li> <% } %>
+                    <a href="/product-book?page=<%= productBookPager.prev %><% if(searchProduct) {%>&search-product-book-title=<%=searchProduct%> <%}%><% if(searchState) {%>&search-state=<%=searchState%> <%}%><% if(searchCustomer) {%>&search-customer=<%=searchCustomer%> <%}%>">上一页</a></li> <% } %>
                 <% if (productBookPager.next) { %> <li>
-                    <a href="/product-book?page=<%= productBookPager.next %><% if(searchProduct) {%>&search-product-book-title=<%=searchProduct%> <%}%>">下一页</a></li> <% } %>
+                    <a href="/product-book?page=<%= productBookPager.next %><% if(searchProduct) {%>&search-product-book-title=<%=searchProduct%> <%}%><% if(searchState) {%>&search-state=<%=searchState%> <%}%><% if(searchCustomer) {%>&search-customer=<%=searchCustomer%> <%}%>">下一页</a></li> <% } %>
                 <li class="count">第<%=productBookPager.page%>页 共<%= productBookCount %>条</li>
             </ul>
             
