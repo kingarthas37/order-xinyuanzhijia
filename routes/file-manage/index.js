@@ -31,7 +31,7 @@ router.get('/', (req, res) => {
     
     let page = req.query.page ? parseInt(req.query.page) : 1;
     let limit = req.query.limit ? parseInt(req.query.limit) : config.page.LIMIT;
-    let order = req.query.order || 'asc';
+    let order = req.query.order || 'desc';
 
     let searchName = req.query['search-name'];
     

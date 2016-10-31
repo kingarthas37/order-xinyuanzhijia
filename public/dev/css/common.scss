@@ -327,6 +327,19 @@ iframe.upload-title {
             margin: 0;
             padding: 0 15px 20px 15px;
         }
+        .img-mark {
+            display: block;
+            position: relative;
+            em {
+                width: 400px;
+                height: 64px;
+                position: absolute;
+                right:0;
+                bottom:50px;
+                display: block;
+                background: url('http://ac-joabcrtt.clouddn.com/59f1ae2bb138a5fade2d.png') no-repeat;
+            }
+        }
     }
 
 }

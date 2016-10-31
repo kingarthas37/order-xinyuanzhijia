@@ -23,6 +23,9 @@ module.exports = function() {
     var btnShot = $('.btn-shot');
     btnShot.button('loading');
     var progress = $.AMUI.progress;
+    
+    $('p img').wrap('<span class="img-mark"></span>');
+    $('.img-mark').append('<em></em>');
 
     window.onload = function() {
 
