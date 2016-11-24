@@ -42,6 +42,13 @@
                 </div>
 
                 <% if(siteType) { %><input type="hidden" name="site-type" value="<%= siteType %>"><% } %>
+
+                <span class="split small-screen-hide"></span>
+
+                <div class="am-form-group">
+                    <label class="normal">未到货：<input <% if(notArrived) { %>checked="checked"<%}%> type="checkbox" class="ckb-notarrived" name="notarrived"></label>
+                </div>
+                
             </form>
 
             <hr/>
@@ -94,9 +101,9 @@
             
             <ul class="am-pagination">
                 <% if (purchasePager.prev) { %> <li>
-                    <a href="/purchase?page=<%= purchasePager.prev %><% if (search) {%>&purchase-search=<%=search%> <%}%><% if (siteType) {%>&site-type=<%=siteType%> <%}%><% if (shippingType) {%>&shipping=<%=shippingType%> <%}%>">上一页</a></li> <% } %>
+                    <a href="/purchase?page=<%= purchasePager.prev %><% if (search) {%>&purchase-search=<%=search%> <%}%><% if (siteType) {%>&site-type=<%=siteType%> <%}%><% if (shippingType) {%>&shipping=<%=shippingType%> <%}%><% if(notArrived){%>&notarrived=true<%}%>">上一页</a></li> <% } %>
                 <% if (purchasePager.next) { %> <li>
-                    <a href="/purchase?page=<%= purchasePager.next %><% if (search) {%>&purchase-search=<%=search%> <%}%><% if (siteType) {%>&site-type=<%=siteType%> <%}%><% if (shippingType) {%>&shipping=<%=shippingType%> <%}%>">下一页</a></li> <% } %>
+                    <a href="/purchase?page=<%= purchasePager.next %><% if (search) {%>&purchase-search=<%=search%> <%}%><% if (siteType) {%>&site-type=<%=siteType%> <%}%><% if (shippingType) {%>&shipping=<%=shippingType%> <%}%><% if(notArrived){%>&notarrived=true<%}%>">下一页</a></li> <% } %>
                 <li class="count">第<%=purchasePager.page%>页 共<%=purchaseCount%>条</li>
             </ul>
             

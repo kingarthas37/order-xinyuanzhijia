@@ -157,7 +157,18 @@
             <!-- trackingNumber end -->
 
             <hr/>
-            
+
+            <!-- shipping status start -->
+            <div class="am-form-group">
+                <label>物流状态：</label>
+                <select name="shipping-status">
+                    <option value="notarrived"  <% if(purchase.get('shippingStatus') === 'notarrived'){ %>selected="selected"<% }%>>未到货</option>
+                    <option value="arrived" <% if(purchase.get('shippingStatus') === 'arrived'){ %>selected="selected"<% }%>>已到货</option>
+                </select>
+            </div>
+            <!-- shipping status end -->
+
+            <hr/>
 
             <!-- comment start -->
             <div id="content-comment" class="am-form-group">

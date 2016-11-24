@@ -58,6 +58,7 @@ router.post('/', function (req, res, next) {
     var purchaseComment = req.body['purchase-comment'];
     var purchaseImage = req.body['purchase-image'];
     var siteType = req.body['site-type'];
+    var shippingStatus = req.body['shipping-status'];
 
     var purchaseTrack = new PurchaseTrack();
 
@@ -76,6 +77,7 @@ router.post('/', function (req, res, next) {
     purchaseTrack.set('comment',purchaseComment);
     purchaseTrack.set('image',purchaseImage);
     purchaseTrack.set('siteType',siteType);
+    purchaseTrack.set('shippingStatus',shippingStatus);
 
     purchaseTrack.save(null, {
         success: function () {

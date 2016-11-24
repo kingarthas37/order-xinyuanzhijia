@@ -49,6 +49,14 @@ module.exports = {
             }
             location.href = '/purchase';
         });
+        
+        $('.ckb-notarrived').click(function() {
+           if(this.checked) {
+               location.href = '/purchase?notarrived=true';
+           }  else {
+               location.href = '/purchase';
+           }
+        });
 
     },
     addFun:function() {
