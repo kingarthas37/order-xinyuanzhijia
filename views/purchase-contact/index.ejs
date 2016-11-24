@@ -21,7 +21,7 @@
     
     <fieldset>
 
-    <legend><a href="/purchase-contact">网站联系方式列表(<% if(siteType==='etsy') { %>etsy.com<% } else { %>默认网站<%}%>)</a></legend>
+    <legend><a href="/purchase-contact">网站联系方式列表(<% if(siteType==='normal') { %>默认网站<% } else { %><%= siteType %><%}%>)</a></legend>
 
     <form class="am-form-inline" role="form" action="/purchase-contact">
         <div class="am-form-group">
@@ -69,7 +69,7 @@
     <hr/>
 
     <div class="am-form-group">
-        <a href="/purchase-contact/add<% if(siteType==='etsy') {%>?site-type=etsy<% } %>" class="am-btn am-btn-primary" role="button">添加网站联系方式</a>
+        <a href="/purchase-contact/add?site-type=<%= siteType %>" class="am-btn am-btn-primary" role="button">添加网站联系方式</a>
     </div>
 
 </fieldset>

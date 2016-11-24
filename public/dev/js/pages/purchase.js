@@ -75,7 +75,12 @@ module.exports = {
         var purchaseImage = $('#purchase-image');
         var purchaseImageView = $('.purchase-image');
 
-        var siteType = location.search.indexOf('etsy') > -1 ? 'etsy' : 'normal';
+        var siteType = (()=> {
+            if(/site-type=/.test(location.search)) {
+                return /site-type=(.+)$/.exec(location.search)[1];
+            }
+            return 'normal';
+        })();
         
         purchaseDescription.typeahead(null, {
             display: 'value',

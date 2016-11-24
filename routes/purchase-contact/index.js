@@ -37,7 +37,7 @@ router.get('/', function (req, res, next) {
     var search = req.query['purchase-contact-search'] ? req.query['purchase-contact-search'].trim() : '';
 
     data = extend(data,{
-        currentPage: siteType === 'etsy' ? 'purchase-contact-etsy' : 'purchase-contact'
+        currentPage: siteType === 'normal' ? 'purchase-contact' : 'purchase-contact-' + siteType
     });
 
     data = extend(data,{
