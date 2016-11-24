@@ -60,7 +60,7 @@ $(function () {
     {
         if($('.am-alert.am-alert-success').length) {
             setTimeout(()=> {
-                $('.am-alert.am-alert-success').hide();
+                $('.am-alert.am-alert-success').fadeOut();
             },3000);
         }
     }
