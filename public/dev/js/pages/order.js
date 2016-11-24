@@ -423,6 +423,14 @@ module.exports = {
             addressList.empty();
             newAddress.prop('checked', false);
         });
+        
+        newCustomer.click(function() {
+            if(this.checked) {
+                customerNameIdInput.val('');
+                newAddress.prop('checked',false).click();
+                taobao.val('');
+            }
+        });
 
         newAddress.click(function () {
             if (this.checked) {

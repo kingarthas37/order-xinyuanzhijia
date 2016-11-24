@@ -153,6 +153,10 @@ router.get('/get-customer', (req, res) => {
 
     let queryData = req.query['queryData'];
     
+    if(!queryData) {
+        return res.send({});
+    }
+    
     let customerListId = queryData.customerId;
     let orderListId = queryData.orderId;
 

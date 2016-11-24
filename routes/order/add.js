@@ -64,6 +64,8 @@ router.post('/', function (req, res, next) {
     
     var customer = new Customer();
     var orderTrack = new OrderTrack();
+
+    console.info(newCustomer , customerId);
     
     async.waterfall([
         
