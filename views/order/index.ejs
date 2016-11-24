@@ -96,7 +96,7 @@
                         <div class="am-dropdown" data-am-dropdown>
                             <button class="am-btn am-btn-primary am-dropdown-toggle" data-am-dropdown-toggle>选项 <span class="am-icon-caret-down"></span></button>
                             <ul class="am-dropdown-content">
-                                <li><a href="/order/add?name=<%= order[i].get('name') %>&tracking-number=<%= order[i].get('trackingNumber')%>">复制</a></li>
+                                <li><a href="/order/add?name=<%= encodeURIComponent(order[i].get('name')[0]) %>&tracking-number=<%= order[i].get('trackingNumber')%>">复制</a></li>
                                 <li><a href="/order/remove/<%= order[i].get('orderId') %>" class="remove-order">删除</a></li>
                             </ul>
                         </div>
