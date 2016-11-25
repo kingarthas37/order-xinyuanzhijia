@@ -63,6 +63,9 @@ module.exports = {
         });
 
         remove.click(function() {
+            if(addressContent.find('.remove').length ===1) {
+                return false;
+            }
             $(this).parents('.address-field').detach();
         });
     
