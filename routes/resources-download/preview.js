@@ -46,7 +46,7 @@ router.get('/:resourcesDownloadId', function (req, res, next) {
     query.first().then(function(result) {
         
         var html = markdown.toHTML(result.get('content'));
-        html = html.replace(/(http[^\s]+)/g,'<a target="_blank" href="$1">$1</a>');
+       // html = html.replace(/(http[^\s]+)/g,'<a target="_blank" href="$1">$1</a>');
         
         data = extend(data,{
             resourcesDownload:result,

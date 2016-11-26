@@ -37,6 +37,8 @@ router.get('/', function (req, res, next) {
     });
 
     var query = new AV.Query(ResourcesDownload);
+
+    query.ascending("resourcesDownloadId");
     
     query.find().then(function(results) {
         data = extend(data,{
