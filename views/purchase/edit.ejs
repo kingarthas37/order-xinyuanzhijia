@@ -111,6 +111,8 @@
                     <option value="tianji" <% if(purchase.get('shippingType')==='tianji') {%> selected="selected" <% } %>>转运-天际</option>
                     <option value="zhuanyunbang" <% if(purchase.get('shippingType')==='zhuanyunbang') {%> selected="selected" <% } %>>转运-转运帮</option>
                     <option value="8dexpress" <% if(purchase.get('shippingType')==='8dexpress') {%> selected="selected" <% } %>>转运-八达网</option>
+                    <option value="yuntao" <% if(purchase.get('shippingType')==='yuntao') {%> selected="selected" <% } %>>转运-运淘</option>
+                    <option value="shunfeng" <% if(purchase.get('shippingType')==='shunfeng') {%> selected="selected" <% } %>>转运-顺丰</option>
                     <option value="direct" <% if(purchase.get('shippingType')==='direct') {%> selected="selected" <% } %>>直邮</option>
                     <option value="other" <% if(purchase.get('shippingType')==='other') {%> selected="selected" <% } %>>其他</option>
                 </select>
@@ -119,28 +121,15 @@
 
             <hr/>
 
-            <!-- paymentType start -->
-            <div id="content-payment-type" class="am-form-group">
-                <label>支付方式：</label>
-                <select name="purchase-payment-type" id="purchase-payment-type">
-                    <option value="paypal" <% if(purchase.get('paymentType')==='paypal') {%> selected="selected" <% } %>  >paypal</option>
-                    <option value="creditcard" <% if(purchase.get('paymentType')==='creditcard') {%> selected="selected" <% } %>>信用卡</option>
-                    <option value="other" <% if(purchase.get('paymentType')==='other') {%> selected="selected" <% } %>>其他</option>
-                </select>
-            </div>
-            <!-- paymentType end -->
-
-            <hr/>
-
             <!-- shipping company start -->
             <div class="am-form-group">
                 <label>物流公司：</label>
                 <select id="purchase-shipping-company" name="purchase-shipping-company">
                     <option value="none" <% if(purchase.get('shippingCompany') === 'none'){ %>selected="selected"<% }%>>无</option>
-                    <option value="usps" <% if(purchase.get('shippingCompany') === 'usps'){ %>selected="selected"<% }%>>usps</option>
+                    <option value="usps" <% if(purchase.get('shippingCompany') === 'usps'){ %>selected="selected"<% }%>>USPS</option>
                     <option value="chinapost" <% if(purchase.get('shippingCompany') === 'chinapost'){ %>selected="selected"<% }%>>中国邮政</option>
-                    <option value="ems" <% if(purchase.get('shippingCompany') === 'ems'){ %>selected="selected"<% }%>>ems</option>
-                    <option value="ups" <% if(purchase.get('shippingCompany') === 'ups'){ %>selected="selected"<% }%>>ups</option>
+                    <option value="ems" <% if(purchase.get('shippingCompany') === 'ems'){ %>selected="selected"<% }%>>EMS</option>
+                    <option value="ups" <% if(purchase.get('shippingCompany') === 'ups'){ %>selected="selected"<% }%>>UPS</option>
                     <option value="fedex" <% if(purchase.get('shippingCompany') === 'fedex'){ %>selected="selected"<% }%>>Fedex</option>
                     <option value="dhl" <% if(purchase.get('shippingCompany') === 'dhl'){ %>selected="selected"<% }%>>DHL</option>
                     <option value="other" <% if(purchase.get('shippingCompany') === 'other'){ %>selected="selected"<% }%>>其他</option>
