@@ -92,13 +92,13 @@ module.exports = {
                     if (!$.isEmptyObject(data.images)) {
                         for (let i in data.images) {
                             if (parseInt(i) === id) {
-                                $(n).removeClass('on').html(`<a href="${data.images[i]}" target="_blank"><img src="${data.images[i]}?imageMogr2/thumbnail/24"/></a>`);
+                                $(n).removeClass('on').html(`<a href="${data.images[i]}" target="_blank"><img width="24" src="${data.images[i]}?imageMogr2/thumbnail/24"/></a>`);
                             } else if (!id) {
-                                $(n).removeClass('on').html(`<img src="${window.assets['no-image-src']}?imageMogr2/thumbnail/24"/>`);
+                                $(n).removeClass('on').html(`<img width="24" src="${window.assets['no-image-src']}?imageMogr2/thumbnail/24"/>`);
                             }
                         }
                     } else {
-                        $(n).removeClass('on').html(`<img src="${window.assets['no-image-src']}?imageMogr2/thumbnail/24"/>`);
+                        $(n).removeClass('on').html(`<img width="24" src="${window.assets['no-image-src']}?imageMogr2/thumbnail/24"/>`);
                     }
 
                 });
@@ -283,6 +283,66 @@ module.exports = {
                 });
 
             });
+        }
+        
+        
+        //动态输入快递单号
+        {
+            let actionShippingCompany = $('.action-shipping-company');
+            actionShippingCompany.popover({
+                content: '<input class="shipping-company-input"/>'
+            });
+
+            let shippingCompanyInput = $('.shipping-company-input');
+            
+            actionShippingCompany.each(function(i) {
+                $(this).on('open.popover.amui',function() {
+                    setTimeout(()=> shippingCompanyInput.get(i).focus(),0);
+                });
+            });
+
+            shippingCompanyInput.each(function(i) {
+                let actionItem = actionShippingCompany.eq(i); 
+                let orderId = actionItem.data('order-id');
+                $(this).change(function(){
+                    $.ajax({
+                        url:'/order/action-tracking-number',
+                        data:{
+                            orderId,
+                            trackingNumber:$(this).val()
+                        }
+                    }).then(data => {
+                        if(data.success) {
+                            actionItem.removeClass('disabled');
+                            actionItem.off().attr('href',`http://www.kuaidi100.com/auto.shtml?nu=${data.trackingNumber}`);
+                            actionItem.popover('close');
+                            let copy = actionItem.parent().find('.clipboard-tracking-number');
+                            let clipboard = new Clipboard(copy[0], {
+                                text: function() {
+                                    return data.trackingNumber;
+                                }
+                            });
+                            clipboard.on('success',() => {
+                                copy.addClass('active');
+                            });
+                        }
+                    });
+                });
+            });
+            
+        }
+        
+        //复制快递单号
+        {
+            $('.clipboard-tracking-number').each(function() {
+                if($(this).attr('data-clipboard-text')) {
+                    let clipboard = new Clipboard(this);
+                    clipboard.on('success',() => {
+                        $(this).addClass('active');
+                    });
+                }
+            });
+            
         }
 
 
@@ -571,7 +631,7 @@ module.exports = {
 
         let copyPhone = $('.copy-phone');
         let copyAddress = $('.copy-address');
-        let copyThumbAddress = $('.copy-thumb-address')
+        let copyThumbAddress = $('.copy-thumb-address');
 
 
         //复制手机号

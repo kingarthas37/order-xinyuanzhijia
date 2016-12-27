@@ -91,6 +91,14 @@
 
 /* order page */
 .order-page {
+    table {
+        .am-btn-link {
+            padding: 0;
+            &.disabled {
+                color: #666;
+            }
+        }
+    }
     .am-form-inline {
         .am-form-field {
             width: 160px;
@@ -133,6 +141,20 @@
             outline: none;
             border: none;
         }
+    }
+    .clipboard-tracking-number {
+        &.active {
+            color:#5eb95e;
+        }
+    }
+}
+
+.am-popover-inner {
+    .shipping-company-input {
+        background: #333;
+        border:none;
+        color: #fff;
+        outline: none;
     }
 }
 

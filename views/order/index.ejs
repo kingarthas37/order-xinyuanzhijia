@@ -49,10 +49,10 @@
                 <thead>
                 <tr>
                     <th width="20"></th>
-                    <th class="t-c" width="100">收件人</th>
-                    <th class="t-c" width="100">快递</th>
-                    <th class="t-c">订单链接</th>
                     <th class="t-c">订单名称</th>
+                    <th class="t-c" width="150">收件人</th>
+                    <th class="t-c" width="150">快递</th>
+                    <th class="t-c">订单链接</th>
                     <th class="t-c">淘宝名</th>
                     <th class="t-c small-screen-hide">时间</th>
                     <th class="t-c small-screen-hide">选项</th>
@@ -64,37 +64,52 @@
                     <td class="t-c">
                         <input order-id="<%= order[i].get('orderId') %>" class="ckb-shipped" type="checkbox" <% if (order[i].get('shippingStatus') === 'shipped' ) { %>checked="checked"<%}%>/>
                     </td>
+                <td>
+                    <%for(var j=0; j<order[i].get('name').length;j++) {%>
+                    <div class="order-split">
+                        <span class="image loading-elem on" data-id="<% if(/\{id\:\d+\}/.test(order[i].get('name')[j])){%><%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(\})/,'$2') %><%}%>"></span>
+                        <a href="/order/edit/<%= order[i].get('orderId') %>">
+                            <%= order[i].get('shippingCount')[j] %>*<%= order[i].get('name')[j].replace(/\{id\:\d+\}/,'') %>
+                            <% if(order[i].get('client')){%>(代)<%}%>
+                        </a>
+                        <% if(/\{id\:\d+\}/.test(order[i].get('name')[j])) {%>
+                        <a class="set-stock" product-id="<%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(\})/,'$2') %>" title="设置库存" href="javascript:;"><i class="am-icon am-icon-inbox"></i></a>
+                        <a class="update-stock" order-id="<%= order[i].get('orderId') %>" product-id="<%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(\})/,'$2') %>" title="是否已设置库存" href="javascript:;"><i class="am-icon am-icon-check-circle <%if(order[i].get('isShipping')[j]){%>on<%}else{%>off<%}%>"></i></a>
+                        <%}%>
+                    </div>
+                    <%}%>
+                </td>
                     <td class="t-c">
                         <a class="customer-name" title="<%= order[i].get('shippingAddress') %>" href="/customer/edit/<%= order[i].get('customerId') %>"><%= order[i].get('customerName') %></a>
                     </td>
                     <td class="t-c">
-                        <%if (order[i].get('trackingNumber')){ %><a href="http://www.kuaidi100.com/auto.shtml?nu=<%=order[i].get('trackingNumber')%>" target="_blank"><%}%>
-                        <% if(order[i].get('shippingCompany') == 'tiantian') {%>天天<%}%>
-                        <% if(order[i].get('shippingCompany') == 'shunfeng') {%>顺丰<%}%>
-                        <% if(order[i].get('shippingCompany') == 'baishi') {%>百世汇通<%}%>
-                        <% if(order[i].get('shippingCompany') == 'other') {%>其他<%}%>
-                        <% if(order[i].get('trackingNumber')){ %></a><%}%>
-
-                        <button class="am-btn am-btn-primary" data-am-popover="{content: '<input />'}">输入</button>
+                        
+                        <% var shippingCompany = '';
+                        if(order[i].get('shippingCompany') == 'tiantian') {
+                            shippingCompany = '天天';
+                        } else if (order[i].get('shippingCompany') == 'shunfeng') {
+                            shippingCompany = '顺丰';
+                        } else if (order[i].get('shippingCompany') == 'baishi') {
+                            shippingCompany = '百世汇通';
+                        } else if (order[i].get('shippingCompany') == 'other') {
+                            shippingCompany = '其他';
+                        }
+                        %>
+                        
+                        <% if(order[i].get('trackingNumber')){ %>
+                        <a href="http://www.kuaidi100.com/auto.shtml?nu=<%=order[i].get('trackingNumber')%>" target="_blank"><%= shippingCompany %></a>
+                        <%} else {%>
+                        <a target="_blank" class="action-shipping-company am-btn am-btn-link disabled" data-order-id="<%= order[i].get('orderId') %>"><%=shippingCompany%></a>
+                        <%}%>
+                        
+                        <span class="split"></span>
+                        <a href="javascript:;" title="复制单号" class="clipboard-tracking-number" data-clipboard-text="<%=order[i].get('trackingNumber')%>"><i class="am-icon am-icon-copy"></i></a>
+                        
                     </td>
                     <td class="t-c">
                         <%if (order[i].get('shopOrderLink')) { %><a target="_blank" href="<%=order[i].get('shopOrderLink')%>">链接</a><%}else {%>-<%}%>
                     </td>
-                    <td>
-                        <%for(var j=0; j<order[i].get('name').length;j++) {%>
-                            <div class="order-split">
-                                <span class="image loading-elem on" data-id="<% if(/\{id\:\d+\}/.test(order[i].get('name')[j])){%><%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(\})/,'$2') %><%}%>"></span>
-                                <a href="/order/edit/<%= order[i].get('orderId') %>">
-                                    <%= order[i].get('shippingCount')[j] %>*<%= order[i].get('name')[j].replace(/\{id\:\d+\}/,'') %>
-                                    <% if(order[i].get('client')){%>(代)<%}%>
-                                </a>
-                                <% if(/\{id\:\d+\}/.test(order[i].get('name')[j])) {%>
-                                    <a class="set-stock" product-id="<%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(\})/,'$2') %>" title="设置库存" href="javascript:;"><i class="am-icon am-icon-inbox"></i></a>
-                                    <a class="update-stock" order-id="<%= order[i].get('orderId') %>" product-id="<%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(\})/,'$2') %>" title="是否已设置库存" href="javascript:;"><i class="am-icon am-icon-check-circle <%if(order[i].get('isShipping')[j]){%>on<%}else{%>off<%}%>"></i></a>
-                                <%}%>
-                            </div>
-                        <%}%>
-                    </td>
+                    
                     <td class="t-c"> <span class="taobao-name loading-elem on"></span> </td>
                     
                     <td class="t-c small-screen-hide"><%=(order[i].get('shippingDate').getMonth()+1)%>/<%=order[i].get('shippingDate').getDate()%></td>

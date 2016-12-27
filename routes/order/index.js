@@ -364,4 +364,24 @@ router.get('/product', (req, res) => {
 
 });
 
+//ajax保存tracking number
+router.get('/action-tracking-number',(req,res)=> {
+    
+    let orderId = parseInt(req.query['orderId']);
+    let trackingNumber = req.query['trackingNumber'];
+
+    let query = new AV.Query(OrderTrack);
+    query.equalTo('orderId', orderId);
+    query.first().then(result => {
+        result.set('trackingNumber',trackingNumber);
+        return result.save();
+    }).then(()=> {
+        res.send({
+            success: 1,
+            trackingNumber
+        });
+    });
+    
+});
+
 module.exports = router;
