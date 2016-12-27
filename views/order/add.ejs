@@ -46,11 +46,20 @@
             <!-- order name end -->
 
             <hr/>
+
+            <!-- order shop order link start -->
+            <div class="am-form-group">
+                <label>店铺订单详情链接：</label>
+                <input type="text" name="shop-order-link" id="shop-order-link" placeholder="店铺订单详情链接">
+            </div>
+            <!-- order shop order link end -->
+
+            <hr/>
             
             <!-- order description start -->
             <div id="content-description" class="am-form-group">
                 <label>订单描述：</label>
-                <textarea name="description" id="description" rows="3" placeholder="填写订单描述"></textarea>
+                <textarea name="description" id="description" rows="2" placeholder="填写订单描述"></textarea>
             </div>
             <!-- order description end -->
 
@@ -118,29 +127,14 @@
 
             <hr/>
 
-            <!-- shipping shipping company -->
-            <div id="content-payment-type" class="am-form-group">
-                <label>支付方式：</label>
-                <select name="payment-type" id="payment-type">
-                    <option value="taobao">淘宝支付</option>
-                    <option value="weixin">微信支付</option>
-                    <option value="other">其他</option>
-                </select>
-            </div>
-            <!-- shipping shipping company -->
-
-            <hr/>
-
             <!-- shipping date start -->
-            <div id="content-shipping-date" class="am-form-group">
+            <div id="content-shipping-date" class="am-form-group off">
                 <label>发货日期：<i>*</i> </label>
                 <input type="text" name="shipping-date" id="shipping-date" placeholder="发货日期" value="<%= currentDate %>"
                        data-am-datepicker="{format:'yyyy-mm-dd'}" readonly required/>
             </div>
             <!-- shipping date end -->
-
-            <hr/>
-
+            
             <!-- shipping shipping company -->
             <div id="content-shipping-company" class="am-form-group">
                 <label>快递公司：</label>

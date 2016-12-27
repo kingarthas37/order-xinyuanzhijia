@@ -44,16 +44,23 @@ footer p {
     margin: 0;
 }
 
+
+
 .loading-elem {
+    
     vertical-align: middle;
     display: inline-block;
     height: 24px;
+     
     &.image {
-        width: 24px;
+        text-align: center;
         img {
-            display: block;
+            max-width: 24px;
+            max-height:24px;
+            display: inline-block;
+            margin-top:-4px;
         }
-    } 
+    }
     &.on {
         width: 24px;
         position: relative;
@@ -89,6 +96,9 @@ span.split {
 }
 
 .am-form-group {
+    &.off {
+        display: none;
+    }
     label {
         small {
             font-weight: normal;
@@ -233,6 +243,15 @@ p.normal {
         }
         tr.off {
             background:#feffed;
+        }
+        tbody {
+            tr {
+                &:hover {
+                    td {
+                        background: #feffed;
+                    }
+                }
+            }
         }
     }
     
@@ -432,6 +451,9 @@ iframe.upload-title {
 @include breakpoint(large-up) {
     .large-screen-hide {
         display: none;
+    }
+    .am-container {
+        max-width: 100%;
     }
 }
 

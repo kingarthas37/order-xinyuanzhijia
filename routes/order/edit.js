@@ -4,7 +4,7 @@ var router = require('express').Router();
 var AV = require('leanengine');
 
 var config = require('../../lib/config');
-
+var utils = require('../../lib/utils');
 var flash = require('connect-flash');
 
 var async = require('async');
@@ -77,13 +77,14 @@ router.post('/', function (req, res, next) {
     var shippingCount = typeof req.body['shipping-count'] === 'object' ? req.body['shipping-count'] : [req.body['shipping-count']];
     var customerId = parseInt(req.body['customer-name-id']);
     var client = req.body['client'];
+    var shopOrderLink = req.body['shop-order-link'];
+    shopOrderLink = utils.urlCompleting(shopOrderLink);
     var description = req.body['description'];
     var shippingDate = req.body['shipping-date'];
     var shippingCompany = req.body['shipping-company'];
     var trackingNumber = req.body['tracking-number'];
     var shippingStatus = req.body['shipping-status'];
     var comment = req.body['comment'];
-    var paymentType = req.body['payment-type'];
     var customerName = req.body['customer-name'];
     var shippingAddress = req.body['shipping-address'];
     var taobao = req.body['taobao'];
@@ -118,11 +119,11 @@ router.post('/', function (req, res, next) {
                 orderTrack.set('isShipping',isShipping);
                 orderTrack.set('shippingCount',shippingCount);
                 orderTrack.set('client',client);
+                orderTrack.set('shopOrderLink',shopOrderLink);
                 orderTrack.set('description',description);
                 orderTrack.set('customerId',customerId);
                 orderTrack.set('customerName',customerName);
                 orderTrack.set('taobaoName',taobao);
-                orderTrack.set('paymentType',paymentType);
                 orderTrack.set('shippingDate',new Date(shippingDate));
                 orderTrack.set('shippingAddress',shippingAddress);
                 orderTrack.set('shippingCompany',shippingCompany);
