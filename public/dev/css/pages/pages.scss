@@ -98,6 +98,12 @@
                 color: #666;
             }
         }
+        .taobao-name {
+            max-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
     }
     .am-form-inline {
         .am-form-field {
@@ -105,11 +111,12 @@
         }
     }
     .am-icon {
+        font-size: 18px;
         &.on {
-            color: #5eb95e;
+            color: #4aaa4a;
         }
         &.off {
-            color: #ccc;
+            color: #d7342e;
         }
     }
     .customer-name {
@@ -145,6 +152,11 @@
     .clipboard-tracking-number {
         &.active {
             color:#5eb95e;
+        }
+    }
+    .am-form-label {
+        label {
+            font-weight: normal;
         }
     }
 }

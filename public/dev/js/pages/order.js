@@ -353,6 +353,7 @@ module.exports = {
         this.orderTypeAheadAdd();
         this.domUpdate();
         this.clientNameTypeAhead();
+        this.updateIsShipping();
 
         //复制新order
         if (location.search.indexOf('name') !== -1) {
@@ -388,6 +389,18 @@ module.exports = {
         this.orderNameTypeAhead();
         this.clientNameTypeAhead();
         this.clipboard();
+
+        //更新设置checkbox数组isShipping,否则保存时数组无法存取空值
+        $('#content-name').on('click','.ckb-is-shipping',function() {
+            let i = $(this).parents('.list-group-field').index();
+            if(this.checked) {
+                $('.is-shipping').eq(i).val(1);
+            } else {
+                $('.is-shipping').eq(i).val(0);
+
+            }
+        });
+        
     },
     domUpdate: function () {
 
@@ -404,7 +417,7 @@ module.exports = {
             let group = $('.content-name-group');
             let template = `
                     <div class="list-group-field am-form-group">
-                        <div class="am-u-sm-10">
+                        <div class="am-u-sm-9">
                             <input class="name" name="name" type="text" placeholder="输入订单内容" autocomplete="off">
                         </div>
                         <div class="am-u-sm-1">
@@ -416,7 +429,10 @@ module.exports = {
                                 <option value="5">5</option>
                             </select>
                         </div>
-                        <label class="am-u-sm-1 am-form-label">
+                        <label class="am-u-sm-2 am-form-label">
+                            <input type="hidden" name="is-shipping" class="is-shipping" value="0">
+                            <label><input class="ckb-is-shipping" type="checkbox"> 已发货</label>
+                            <span class="split"></span>
                             <a href="javascript:;" class="remove">- 删除</a>
                         </label>
                     </div>
@@ -672,4 +688,7 @@ module.exports = {
         }
 
     }
+    
+    
+        
 };

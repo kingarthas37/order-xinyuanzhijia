@@ -28,7 +28,7 @@
                 <div class="content-name-group am-form-horizontal">
                     <%for(var i=0;i<order.get('name').length;i++) {%>
                     <div class="list-group-field am-form-group">
-                        <div class="am-u-sm-10">
+                        <div class="am-u-sm-9">
                             <input class="name" name="name" type="text" placeholder="输入订单内容" autocomplete="off" value="<%= order.get('name')[i] %>">
                         </div>
                         <div class="am-u-sm-1">
@@ -40,8 +40,11 @@
                                 <option value="5" <%if(order.get('shippingCount')[i] === 5){%>selected="selected"<%}%> >5</option>
                             </select>
                         </div>
-                        <label class="am-u-sm-1 am-form-label">
-                            <a href="javascript:;" class="remove">- 删除</a>
+                        <label class="am-u-sm-2 am-form-label">
+                            <input type="hidden" name="is-shipping" class="is-shipping" <%if(order.get('isShipping')[i]){ %>value="1"<%}else{%>value="0"<%}%>>
+                            <label><input class="ckb-is-shipping" type="checkbox" <%if(order.get('isShipping')[i]){ %>checked="checked"<%}%>> 已发货</label>
+                            <span class="split"></span>
+                            <a href="javascript:;" class="remove">删除</a>
                         </label>
                     </div>
                     <%}%>
