@@ -4,7 +4,8 @@
   "description": "my website admin",
   "main": "server.js",
   "scripts": {
-    "start": "node --harmony server.js"
+    "start": "node --harmony server.js",
+    "dev": "./node_modules/.bin/nodemon server.js"
   },
   "keywords": [
     "node",
@@ -57,13 +58,14 @@
     "gulp-watch": "~4.3.0",
     "gulp.spritesmith": "~4.2.0",
     "imagemin-pngquant": "~4.2.0",
-    "leanengine": "^0.2.0",
+    "leanengine": "^1.2.3",
     "markdown": "^0.5.0",
     "md5": "^2.2.1",
     "merge-stream": "^1.0.0",
     "minimist": "~1.2.0",
     "multiparty": "^4.1.2",
     "node-array": "0.0.7",
+    "nodemon": "^1.11.0",
     "phantomjs": "^1.9.18",
     "q": "~1.4.0",
     "through2": "^2.0.0",
@@ -93,7 +95,7 @@
     "bloodhound": "./public/js/bloodhound.min.js",
     "typeahead": "./public/js/typeahead.jquery.min.js",
     "swfobject": "./public/js/swfobject.js",
-    "clipboard":"./public/js/clipboard.min.js"
+    "clipboard": "./public/js/clipboard.min.js"
   },
   "browserify": {
     "transform": "browserify-shim"
@@ -102,7 +104,7 @@
     "jquery": "$",
     "swfobject": "swfobject",
     "flash-detect": "FlashDetect",
-    "clipboard":"clipboard"
+    "clipboard": "clipboard"
   },
   "css-common": [
     "public/css/amazeui.min.css",
