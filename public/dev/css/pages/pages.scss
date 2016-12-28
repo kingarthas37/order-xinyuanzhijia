@@ -111,12 +111,11 @@
         }
     }
     .am-icon {
-        font-size: 18px;
         &.on {
             color: #4aaa4a;
         }
         &.off {
-            color: #d7342e;
+            color: #F37B1D;
         }
     }
     .customer-name {
@@ -126,10 +125,11 @@
                 content: "s";
                 line-height: 0.7;
                 position: absolute;
-                right:-18px;
+                right:-12px;
+                font-size: 12px;
                 top:-7px;
-                width: 15px;
-                height: 15px;
+                width: 12px;
+                height: 12px;
                 background: #fff;
                 border:1px solid #000;
                 border-radius: 2px;
@@ -149,7 +149,7 @@
             border: none;
         }
     }
-    .clipboard-tracking-number {
+    a[data-clipboard-text] {
         &.active {
             color:#5eb95e;
         }

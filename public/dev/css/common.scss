@@ -82,7 +82,7 @@ label.normal {
 }
 
 span.split {
-    padding: 0 5px;
+    padding: 0 3px;
     &:after {
         content: "|";
         color: #ddd;
@@ -213,7 +213,7 @@ p.normal {
     }
 
     .am-form-horizontal {
-        .am-u-sm-11, .am-u-sm-10 {
+        .am-u-sm-11, .am-u-sm-10,.am-u-sm-9 {
             padding-left: 0;
         }
         .am-u-sm-1, .am-u-sm-2 {

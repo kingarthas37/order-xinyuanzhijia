@@ -52,7 +52,7 @@
                     <th class="t-c">订单名称</th>
                     <th class="t-c" width="150">收件人</th>
                     <th class="t-c" width="150">快递</th>
-                    <th class="t-c">订单链接</th>
+                    <th class="t-c">链接</th>
                     <th class="t-c" width="150">淘宝名</th>
                     <th class="t-c small-screen-hide">时间</th>
                     <th class="t-c small-screen-hide">选项</th>
@@ -81,6 +81,13 @@
                 </td>
                     <td class="t-c">
                         <a class="customer-name" title="<%= order[i].get('shippingAddress') %>" href="/customer/edit/<%= order[i].get('customerId') %>"><%= order[i].get('customerName') %></a>
+
+                        <span class="split"></span>
+                        
+                        <a href="javascript:;" title="复制姓名" class="clipboard-customer-name" data-clipboard-text="<%=order[i].get('customerName')%>"><i class="am-icon am-icon-copy"></i></a>
+
+                        <a href="javascript:;" title="复制地址" class="clipboard-customer-address" data-clipboard-text="<%=order[i].get('shippingAddress')%>"><i class="am-icon am-icon-copy"></i></a>
+                        
                     </td>
                     <td class="t-c">
                         

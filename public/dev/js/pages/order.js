@@ -342,6 +342,13 @@ module.exports = {
                     });
                 }
             });
+
+            $('.clipboard-customer-name,.clipboard-customer-address').each(function() {
+                let clipboard = new Clipboard(this);
+                clipboard.on('success',() => {
+                    $(this).addClass('active');
+                });
+            });
             
         }
 
@@ -353,7 +360,6 @@ module.exports = {
         this.orderTypeAheadAdd();
         this.domUpdate();
         this.clientNameTypeAhead();
-        this.updateIsShipping();
 
         //复制新order
         if (location.search.indexOf('name') !== -1) {
@@ -389,18 +395,6 @@ module.exports = {
         this.orderNameTypeAhead();
         this.clientNameTypeAhead();
         this.clipboard();
-
-        //更新设置checkbox数组isShipping,否则保存时数组无法存取空值
-        $('#content-name').on('click','.ckb-is-shipping',function() {
-            let i = $(this).parents('.list-group-field').index();
-            if(this.checked) {
-                $('.is-shipping').eq(i).val(1);
-            } else {
-                $('.is-shipping').eq(i).val(0);
-
-            }
-        });
-        
     },
     domUpdate: function () {
 
@@ -433,7 +427,7 @@ module.exports = {
                             <input type="hidden" name="is-shipping" class="is-shipping" value="0">
                             <label><input class="ckb-is-shipping" type="checkbox"> 已发货</label>
                             <span class="split"></span>
-                            <a href="javascript:;" class="remove">- 删除</a>
+                            <a href="javascript:;" class="remove">删除</a>
                         </label>
                     </div>
             `;
@@ -450,6 +444,16 @@ module.exports = {
             });
         }
 
+        //更新设置checkbox数组isShipping,否则保存时数组无法存取空值
+        $('#content-name').on('click','.ckb-is-shipping',function() {
+            let i = $(this).parents('.list-group-field').index();
+            if(this.checked) {
+                $('.is-shipping').eq(i).val(1);
+            } else {
+                $('.is-shipping').eq(i).val(0);
+
+            }
+        });
 
     },
     orderTypeAheadAdd: function () {
