@@ -16,8 +16,8 @@ var data = extend(config.data,{
 
 
 router.get('/',function(req,res,next) {
-    
-    if(req.AV.user) {
+
+    if(req.currentUser) {
         return res.redirect('/');
     }
     
@@ -32,7 +32,7 @@ router.get('/',function(req,res,next) {
 
 router.post('/',function(req,res,next) {
 
-    if(req.AV.user) {
+    if(req.currentUser) {
         return res.redirect('/');
     }
 
@@ -42,6 +42,7 @@ router.post('/',function(req,res,next) {
     
     AV.User.logIn(username, password, {
         success: function(user) {
+            res.saveCurrentUser(user);
             res.redirect(returnUrl ? decodeURIComponent(returnUrl) : '/');
         },
         error: function(user, error) {

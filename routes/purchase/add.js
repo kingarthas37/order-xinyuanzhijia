@@ -21,7 +21,7 @@ var data =  extend(config.data,{
 //添加产品页
 router.get('/', function (req, res, next) {
 
-    if (!req.AV.user) {
+    if (!req.currentUser) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
     
@@ -39,7 +39,7 @@ router.get('/', function (req, res, next) {
 //添加产品页
 router.post('/', function (req, res, next) {
 
-    if (!req.AV.user) {
+    if (!req.currentUser) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
     
@@ -94,7 +94,7 @@ router.post('/', function (req, res, next) {
 
 router.get('/website-desc',function(req,res,next) {
 
-    if(!req.AV.user) {
+    if(!req.currentUser) {
         return res.json([{
             "error":config.error.NOT_SUCCESS
         }]);

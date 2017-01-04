@@ -18,7 +18,7 @@ var data =  extend(config.data,{
  
 router.get('/', function (req, res) {
 
-    if (!req.AV.user) {
+    if (!req.currentUser) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
     

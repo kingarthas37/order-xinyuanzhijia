@@ -26,7 +26,7 @@ var data = extend(config.data,{
 //预览产品页
 router.post('/', function (req, res, next) {
 
-    if(!req.AV.user) {
+    if(!req.currentUser) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
 
@@ -50,7 +50,7 @@ router.post('/', function (req, res, next) {
 //shot
 router.post('/shot', function (req, res, next) {
 
-    if(!req.AV.user) {
+    if(!req.currentUser) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
     

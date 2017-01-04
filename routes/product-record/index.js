@@ -26,7 +26,7 @@ let data = extend(config.data, {
 //首页
 router.get('/', (req, res) => {
 
-    if (!req.AV.user) {
+    if (!req.currentUser) {
         return res.redirect(`/login?return=${encodeURIComponent(req.originalUrl)}`);
     }
 
@@ -187,7 +187,7 @@ router.get('/', (req, res) => {
 //删除productRecord
 router.post('/remove/:productRecordId',(req,res)=> {
     
-    if (!req.AV.user) {
+    if (!req.currentUser) {
         return res.send({success:0,error:config.errors.UNAUTHORIZED});
     }
     

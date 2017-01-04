@@ -24,7 +24,7 @@ var data =  extend(config.data,{
 
 router.get('/:resourcesDownloadId', function (req, res, next) {
 
-    if (!req.AV.user) {
+    if (!req.currentUser) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
 
@@ -58,7 +58,7 @@ router.get('/:resourcesDownloadId', function (req, res, next) {
 
 router.post('/',function(req,res,next) {
 
-    if (!req.AV.user) {
+    if (!req.currentUser) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
 

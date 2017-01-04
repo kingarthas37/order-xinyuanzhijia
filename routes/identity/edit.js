@@ -22,7 +22,7 @@ var data =  extend(config.data,{
 //编辑产品页
 router.get('/:identityId', (req, res) => {
 
-    if(!req.AV.user) {
+    if(!req.currentUser) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
     
@@ -49,7 +49,7 @@ router.get('/:identityId', (req, res) => {
 
 router.post('/:identityId',(req,res) => {
 
-    if(!req.AV.user) {
+    if(!req.currentUser) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
     

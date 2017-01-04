@@ -22,7 +22,7 @@ var data =  extend(config.data,{
 //编辑产品页
 router.get('/:productBookId', function (req, res) {
 
-    if(!req.AV.user) {
+    if(!req.currentUser) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
     
@@ -55,7 +55,7 @@ router.get('/:productBookId', function (req, res) {
 
 router.post('/:productBookId', function (req, res, next) {
 
-    if(!req.AV.user) {
+    if(!req.currentUser) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
 

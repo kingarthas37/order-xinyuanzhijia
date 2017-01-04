@@ -29,7 +29,7 @@ var data = extend(config.data, {
 //编辑产品页
 router.get('/:productRecordId', function (req, res, next) {
 
-    if(!req.AV.user) {
+    if(!req.currentUser) {
         return res.redirect(`/admin/login?return=${encodeURIComponent(req.originalUrl)}`);
     }
 
@@ -95,7 +95,7 @@ router.get('/:productRecordId', function (req, res, next) {
 
 router.post('/:productRecordId', (req, res) => {
 
-    if(!req.AV.user) {
+    if(!req.currentUser) {
         return res.redirect(`/login?return=${encodeURIComponent(req.originalUrl)}`);
     }
     

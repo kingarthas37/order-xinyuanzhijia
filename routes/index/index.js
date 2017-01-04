@@ -20,14 +20,13 @@ var data = extend(config.data,{
 
 router.get('/',(req,res)=> {
     
-    if(!req.AV.user) {
+    if(!req.currentUser) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
 
     data = extend(data,{
-        user:req.AV.user
+        user:req.currentUser
     });
-
     
     AV.Promise.when(
         

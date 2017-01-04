@@ -23,7 +23,7 @@ var data = extend(config.data, {
 
 router.get('/:productMethodId', (req, res, next) => {
 
-    if(!req.AV.user) {
+    if(!req.currentUser) {
         return res.redirect(`/login?return=${encodeURIComponent(req.originalUrl)}`);
     }
 
@@ -46,7 +46,7 @@ router.get('/:productMethodId', (req, res, next) => {
 
 router.post('/:productMethodId', (req, res) => {
 
-    if(!req.AV.user) {
+    if(!req.currentUser) {
         return res.redirect(`/login?return=${encodeURIComponent(req.originalUrl)}`);
     }
 

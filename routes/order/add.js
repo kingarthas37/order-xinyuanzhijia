@@ -24,7 +24,7 @@ var data =  extend(config.data,{
 
 router.get('/', function (req, res, next) {
 
-    if (!req.AV.user) {
+    if (!req.currentUser) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
     
@@ -42,7 +42,7 @@ router.get('/', function (req, res, next) {
 
 router.post('/', function (req, res, next) {
 
-    if (!req.AV.user) {
+    if (!req.currentUser) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
     
@@ -173,7 +173,7 @@ router.post('/', function (req, res, next) {
 //查找收件人/客户名称
 router.get('/search-customer', function (req, res, next) {
 
-    if(!req.AV.user) {
+    if(!req.currentUser) {
         return res.json([{
             "error":config.error.NOT_SUCCESS
         }]);

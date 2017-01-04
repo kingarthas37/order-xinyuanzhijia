@@ -25,7 +25,7 @@ let data = extend(config.data, {
 
 router.get('/', (req, res) => {
 
-    if(!req.AV.user) {
+    if(!req.currentUser) {
         return res.redirect(`/login?return=${encodeURIComponent(req.originalUrl)}`);
     }
 
@@ -97,7 +97,7 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
 
-    if(!req.AV.user) {
+    if(!req.currentUser) {
         return res.redirect(`/login?return=${encodeURIComponent(req.originalUrl)}`);
     }
     

@@ -24,7 +24,7 @@ let data = extend(config.data, {
 //首页render
 router.get('/', (req, res) => {
 
-    if(!req.AV.user) {
+    if(!req.currentUser) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
 

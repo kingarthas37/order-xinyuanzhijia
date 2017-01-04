@@ -25,7 +25,7 @@ var data =  extend(config.data,{
 //首页
 router.get('/', function (req, res, next) {
 
-    if (!req.AV.user) {
+    if (!req.currentUser) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
     
@@ -103,7 +103,7 @@ router.get('/', function (req, res, next) {
 
 router.get('/remove/:remarkId', function (req, res, next) {
 
-    if(!req.AV.user) {
+    if(!req.currentUser) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
 
@@ -138,7 +138,7 @@ router.get('/remove/:remarkId', function (req, res, next) {
 
 router.get('/complete',function(req,res) {
 
-    if(!req.AV.user) {
+    if(!req.currentUser) {
         return res.json({
             error:1,
             msg:config.error.NOT_SUCCESS

@@ -7,11 +7,8 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var AV = require('leanengine');
 
-
 //routes
 var routes = require('./routes/main');
-
-var cloud = require('./cloud');
 
 var app = express();
 
@@ -19,9 +16,6 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname,'public')));
-
-// 加载云代码方法
-app.use(cloud);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));

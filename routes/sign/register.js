@@ -17,7 +17,7 @@ var data = extend(config.data,{
 router.get('/',function(req,res,next) {
 
     //注册不开放，跳转到登录
- //   return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
+    return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     
     data = extend(data,{
         flash:{error:req.flash('error')}
@@ -37,16 +37,16 @@ router.post('/',function(req,res,next) {
     user.set('username',username);
     user.set('password', password);
     
-    user.signUp(null, {
-        success: function(user) {
-            req.flash('success', '注册成功!');
-            res.redirect('/');
-        },
-        error: function(user, error) {
-            req.flash('error',error.message);
-            res.redirect('/register');
-        }
-    });
+    //user.signUp(null, {
+    //    success: function(user) {
+    //        req.flash('success', '注册成功!');
+    //        res.redirect('/');
+    //    },
+    //    error: function(user, error) {
+    //        req.flash('error',error.message);
+    //        res.redirect('/register');
+    //    }
+    //});
 
 });
 

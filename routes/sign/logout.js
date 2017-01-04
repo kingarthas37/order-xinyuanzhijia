@@ -4,7 +4,8 @@ var router = require('express').Router();
 var AV = require('leanengine');
 
 router.get('/', function(req, res) {
-    AV.User.logOut();
+    req.currentUser.logOut();
+    res.clearCurrentUser();
     res.redirect('/');
 });
 

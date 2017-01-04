@@ -25,7 +25,7 @@ let data =  extend(config.data,{
 //首页
 router.get('/', (req, res) => {
 
-    if (!req.AV.user) {
+    if (!req.currentUser) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
     
@@ -95,7 +95,7 @@ router.get('/', (req, res) => {
 
 router.get('/remove/:identityId', function (req,res) {
 
-    if(!req.AV.user) {
+    if(!req.currentUser) {
         return res.json({
             error:1,
             msg:config.error.NOT_SUCCESS

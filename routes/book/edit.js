@@ -22,7 +22,7 @@ var data = extend(config.data,{
 //编辑产品页
 router.get('/:bookId', function (req, res, next) {
 
-    if(!req.AV.user) {
+    if(!req.currentUser) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
     
@@ -68,7 +68,7 @@ router.get('/:bookId', function (req, res, next) {
 
 router.post('/', function (req, res, next) {
     
-    if(!req.AV.user) {
+    if(!req.currentUser) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
 
