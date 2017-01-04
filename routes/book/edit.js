@@ -30,7 +30,7 @@ router.get('/:bookId', function (req, res, next) {
 
     data = extend(data,{
         id: bookId,
-        user:req.AV.user,
+        user:req.currentUser,
         flash:{
             success:req.flash('success'),
             error:req.flash('error')
@@ -82,7 +82,7 @@ router.post('/', function (req, res, next) {
     var bookId = req.body['book-id'];
     
     data = extend(data,{
-        user:req.AV.user,
+        user:req.currentUser,
         flash:{
             success:req.flash('success'),
             error:req.flash('error')

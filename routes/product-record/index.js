@@ -44,7 +44,7 @@ router.get('/', (req, res) => {
         search,
         searchIsOrder,
         flash: {success: req.flash('success'), error: req.flash('error')},
-        user: req.AV.user,
+        user: req.currentUser,
         productMethodId,
         category1Id,
         category2Id,

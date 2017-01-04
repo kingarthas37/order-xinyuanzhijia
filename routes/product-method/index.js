@@ -36,7 +36,7 @@ router.get('/', (req, res) => {
     data = extend(data,{
         search: search,
         flash: {success: req.flash('success'), error: req.flash('error')},
-        user: req.AV.user
+        user: req.currentUser
     });
 
     AV.Promise.when(

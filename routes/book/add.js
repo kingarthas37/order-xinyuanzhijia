@@ -26,7 +26,7 @@ router.get('/', function (req, res, next) {
     }
     
     data = extend(data,{
-        user:req.AV.user,
+        user:req.currentUser,
         flash:{
             success:req.flash('success'),
             error:req.flash('error')

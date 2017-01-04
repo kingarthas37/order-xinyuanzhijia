@@ -33,7 +33,7 @@ router.get('/', function (req, res, next) {
             success:req.flash('success'),
             error:req.flash('error')
         },
-        user:req.AV.user
+        user:req.currentUser
     });
 
     var query = new AV.Query(ResourcesDownload);

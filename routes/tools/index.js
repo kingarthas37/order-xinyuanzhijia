@@ -27,7 +27,7 @@ router.get('/', function (req, res) {
             success:req.flash('success'),
             error:req.flash('error')
         },
-        user:req.AV.user
+        user:req.currentUser
     });
 
 

@@ -24,7 +24,7 @@ router.get('/', function (req, res, next) {
         return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
     }
     data = extend(data, {
-        user: req.AV.user
+        user: req.currentUser
     });
     res.render('product-brand/add', data);
 });

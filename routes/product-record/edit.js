@@ -34,12 +34,12 @@ router.get('/:productRecordId', function (req, res, next) {
     }
 
     res.cookie('x_lc_sign',data.x_lc_sign);
-    res.cookie('x_lc_session',req.AV.user._sessionToken);
+    res.cookie('x_lc_session',req.currentUser._sessionToken);
 
     var productRecordId = parseInt(req.params.productRecordId);
 
     data = extend(data, {
-        user: req.AV.user
+        user: req.currentUser
     });
     
     async.auto({

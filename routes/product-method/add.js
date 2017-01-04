@@ -25,7 +25,7 @@ router.get('/', (req, res) => {
     }
 
     data = extend(data, {
-        user:req.AV.user
+        user:req.currentUser
     });
 
     res.render('product-method/add', data);

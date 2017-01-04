@@ -30,7 +30,7 @@ router.get('/', function (req, res, next) {
     let siteType = req.query['site-type'] || 'normal';
     
     data = extend(data,{
-        user:req.AV.user,
+        user:req.currentUser,
         siteType
     });
     

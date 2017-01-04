@@ -30,7 +30,7 @@ router.get('/:productBookId', function (req, res) {
 
     data = extend(data,{
         flash: { success:req.flash('success'), error:req.flash('error') },
-        user:req.AV.user
+        user:req.currentUser
     });
 
     let query = new AV.Query(ProductBook);

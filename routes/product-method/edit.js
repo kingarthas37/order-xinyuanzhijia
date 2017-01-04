@@ -30,7 +30,7 @@ router.get('/:productMethodId', (req, res, next) => {
     var productMethodId = parseInt(req.params.productMethodId);
 
     data = extend(data, {
-        user: req.AV.user
+        user: req.currentUser
     });
     
     let query = new AV.Query(ProductMethod);

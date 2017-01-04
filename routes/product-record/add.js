@@ -30,14 +30,14 @@ router.get('/', (req, res) => {
     }
 
     res.cookie('x_lc_sign',data.x_lc_sign);
-    res.cookie('x_lc_session',req.AV.user._sessionToken);
+    res.cookie('x_lc_session',req.currentUser._sessionToken);
 
     let productMethodId = req.query['product-method-id'] ? parseInt(req.query['product-method-id']) : 0;
     let category1Id = req.query['category1-id'] ? parseInt(req.query['category1-id']) : 0;
     let category2Id = req.query['category2-id'] ? parseInt(req.query['category2-id']) : 0;
     
     data = extend(data, {
-        user:req.AV.user,
+        user:req.currentUser,
         productMethodId,
         category1Id,
         category2Id,

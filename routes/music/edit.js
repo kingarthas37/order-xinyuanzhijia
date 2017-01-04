@@ -29,7 +29,7 @@ router.get('/:musicId', function (req, res, next) {
 
     data = extend(data,{
         id: musicId,
-        user:req.AV.user,
+        user:req.currentUser,
         flash:{
             success:req.flash('success'),
             error:req.flash('error')
@@ -80,7 +80,7 @@ router.post('/', function (req, res, next) {
     var musicId = req.body['music-id'];
 
     data = extend(data,{
-        user:req.AV.user,
+        user:req.currentUser,
         flash:{
             success:req.flash('success'),
             error:req.flash('error')
