@@ -19,10 +19,11 @@ var data = extend(config.data,{
 });
 
 router.get('/',(req,res)=> {
-    
-    if(!req.currentUser) {
-        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
-    }
+
+    console.info(111);
+    //if(!req.currentUser) {
+    //    return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
+    //}
 
     data = extend(data,{
         user:req.currentUser
