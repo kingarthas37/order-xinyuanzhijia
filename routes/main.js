@@ -4,14 +4,14 @@ require('express').Router();
 
 module.exports = {
     
-    //index
-    '/index':require('./index/index'),
-    
     //sign
+    '/':require('./sign/login'),  //login 设为未登录首页
     '/register':require('./sign/register'),
-    '/':require('./sign/login'),
     '/logout':require('./sign/logout'),
-    
+
+    //index
+    '/index':require('./index/index'), // /index为已登录首页
+
     //book
     '/book':require('./book'),
     '/book/add':require('./book/add'),
