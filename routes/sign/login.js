@@ -18,7 +18,7 @@ var data = extend(config.data,{
 router.get('/',function(req,res,next) {
 
     if(req.currentUser) {
-        return res.redirect('/');
+        return res.redirect('/index');
     }
     
     data = extend(data,{
@@ -33,7 +33,7 @@ router.get('/',function(req,res,next) {
 router.post('/',function(req,res,next) {
 
     if(req.currentUser) {
-        return res.redirect('/');
+        return res.redirect('/index');
     }
 
     var returnUrl = req.query.return;
@@ -47,7 +47,7 @@ router.post('/',function(req,res,next) {
         },
         error: function(user, error) {
             req.flash('error',error.message);
-            res.redirect('/login');
+            res.redirect('/');
         }
     });
 

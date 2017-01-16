@@ -5,11 +5,11 @@ require('express').Router();
 module.exports = {
     
     //index
-    '/':require('./index/index'),
+    '/index':require('./index/index'),
     
     //sign
     '/register':require('./sign/register'),
-    '/login':require('./sign/login'),
+    '/':require('./sign/login'),
     '/logout':require('./sign/logout'),
     
     //book
