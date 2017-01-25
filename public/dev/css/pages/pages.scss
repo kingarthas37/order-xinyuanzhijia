@@ -328,6 +328,14 @@
         min-height: 30px;
         line-height: 30px;
     }
+    .order-split {
+        @include breakpoint(small-only) {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 80px;
+        }
+    }
 }
 
 /* product category page */

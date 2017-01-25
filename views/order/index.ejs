@@ -22,23 +22,26 @@
         <fieldset>
 
             <legend><a href="/order">发货订单列表</a></legend>
+            
+            <form role="form" action="/order" class="am-g">
+                
+                <div class="am-u-lg-2 am-u-sm-4">
+                    <input type="text" name="search-order-name" class="am-form-field" placeholder="搜索订单名">
+                </div>
+                
+                <div class="am-u-lg-2 am-u-sm-4">
+                    <input type="text" name="search-customer-name" class="am-form-field" placeholder="搜索用户名">
+                </div>
+                
+                <div class="am-u-lg-2 small-screen-hide">
+                    <input type="text" name="search-address" class="am-form-field" placeholder="搜索地址">
+                </div>
+                
+                <div class="am-u-lg-1 am-u-sm-4">
+                    <button type="submit" class="am-btn am-btn-primary">搜索</button>
+                </div>
 
-            <form class="am-form-inline" role="form" action="/order">
-                <div class="am-form-group">
-                    订单名：<input type="text" name="search-order-name" class="am-form-field" placeholder="搜索">
-                </div>
-                <span class="small-screen-hide"></span>
-                <div class="am-form-group small-screen-hide">
-                    用户名：<input type="text" name="search-customer-name" class="am-form-field" placeholder="搜索">
-                </div>
-                <span class="small-screen-hide"></span>
-                <div class="am-form-group small-screen-hide">
-                    地址：<input type="text" name="search-address" class="am-form-field" placeholder="搜索">
-                </div>
-                <button type="submit" class="am-btn am-btn-primary">搜索</button>
-
-                <span class="split small-screen-hide"></span>
-                <div class="am-form-group">
+                <div class="am-u-lg-2 am-u-end">
                     <label class="normal">未发货：<input type="checkbox" class="ckb-notshipped" name="notshipped" <%if(searchNotShipped){%>checked="checked"<%}%> /></label>
                 </div>
             </form>
@@ -52,8 +55,8 @@
                     <th class="t-c">订单名称</th>
                     <th class="t-c" width="150">收件人</th>
                     <th class="t-c" width="150">快递</th>
-                    <th class="t-c">链接</th>
-                    <th class="t-c" width="150">淘宝名</th>
+                    <th class="t-c small-screen-hide">链接</th>
+                    <th class="t-c small-screen-hide" width="150">淘宝名</th>
                     <th class="t-c small-screen-hide">时间</th>
                     <th class="t-c small-screen-hide">选项</th>
                 </tr>
@@ -69,6 +72,7 @@
                     <div class="order-split">
                         <span class="image loading-elem on" data-id="<% if(/\{id\:\d+\}/.test(order[i].get('name')[j])){%><%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(\})/,'$2') %><%}%>"></span>
                         <a href="/order/edit/<%= order[i].get('orderId') %>">
+                            <% if(order[i].get('isGift')[j]){%>(赠)<%}%>
                             <%= order[i].get('shippingCount')[j] %>*<%= order[i].get('name')[j].replace(/\{id\:\d+\}/,'') %>
                             <% if(order[i].get('client')){%>(代)<%}%>
                         </a>
@@ -81,13 +85,9 @@
                 </td>
                     <td class="t-c">
                         <a class="customer-name" title="<%= order[i].get('shippingAddress') %>" href="/customer/edit/<%= order[i].get('customerId') %>"><%= order[i].get('customerName') %></a>
-
                         <span class="split"></span>
-                        
                         <a href="javascript:;" title="复制姓名" class="clipboard-customer-name" data-clipboard-text="<%=order[i].get('customerName')%>"><i class="am-icon am-icon-copy"></i></a>
-
                         <a href="javascript:;" title="复制地址" class="clipboard-customer-address" data-clipboard-text="<%=order[i].get('shippingAddress')%>"><i class="am-icon am-icon-copy"></i></a>
-                        
                     </td>
                     <td class="t-c">
                         
@@ -113,11 +113,11 @@
                         <a href="javascript:;" title="复制单号" class="clipboard-tracking-number" data-clipboard-text="<%=order[i].get('trackingNumber')%>"><i class="am-icon am-icon-copy"></i></a>
                         
                     </td>
-                    <td class="t-c">
+                    <td class="t-c small-screen-hide">
                         <%if (order[i].get('shopOrderLink')) { %><a target="_blank" href="<%=order[i].get('shopOrderLink')%>">链接</a><%}else {%>-<%}%>
                     </td>
                     
-                    <td class="t-c"> <span class="taobao-name loading-elem on"></span> </td>
+                    <td class="t-c small-screen-hide"> <span class="taobao-name loading-elem on"></span> </td>
                     
                     <td class="t-c small-screen-hide"><%=(order[i].get('shippingDate').getMonth()+1)%>/<%=order[i].get('shippingDate').getDate()%></td>
                     <td class="t-c small-screen-hide">

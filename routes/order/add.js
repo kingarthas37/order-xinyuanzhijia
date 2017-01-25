@@ -48,6 +48,8 @@ router.post('/', function (req, res, next) {
     
     var name = typeof req.body['name'] === 'object' ? req.body['name'] : [req.body['name']];
     var shippingCount = typeof req.body['shipping-count'] === 'object' ? req.body['shipping-count'] : [req.body['shipping-count']];
+    let isGift = typeof req.body['is-gift'] === 'object' ? req.body['is-gift'] : [req.body['is-gift']];
+    isGift = isGift.map(item => parseInt(item) ? true : false);
     let isShipping = typeof req.body['is-shipping'] === 'object' ? req.body['is-shipping'] : [req.body['is-shipping']];
     isShipping = isShipping.map(item => parseInt(item) ? true : false);
     var customerId = parseInt(req.body['customer-name-id']);
@@ -136,6 +138,7 @@ router.post('/', function (req, res, next) {
             
             orderTrack.set('name',name);
             orderTrack.set('productId',productId);
+            orderTrack.set('isGift',isGift);
             orderTrack.set('isShipping',isShipping);
             orderTrack.set('shippingCount',shippingCount);
             orderTrack.set('client',client);

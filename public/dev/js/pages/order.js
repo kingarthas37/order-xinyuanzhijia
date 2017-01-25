@@ -411,7 +411,7 @@ module.exports = {
             let group = $('.content-name-group');
             let template = `
                     <div class="list-group-field am-form-group">
-                        <div class="am-u-sm-9">
+                        <div class="am-u-sm-8">
                             <input class="name" name="name" type="text" placeholder="输入订单内容" autocomplete="off">
                         </div>
                         <div class="am-u-sm-1">
@@ -421,10 +421,18 @@ module.exports = {
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                                 <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
                             </select>
                         </div>
-                        <label class="am-u-sm-2 am-form-label">
-                            <input type="hidden" name="is-shipping" class="is-shipping" value="0">
+                        <label class="am-u-sm-3 am-form-label">
+                            <input type="hidden" name="is-gift" class="is-gift">
+                            <input type="hidden" name="is-shipping" class="is-shipping">
+                            <label><input class="ckb-is-gift" type="checkbox"> 赠品</label>
+                            <span class="split"></span>
                             <label><input class="ckb-is-shipping" type="checkbox"> 已发货</label>
                             <span class="split"></span>
                             <a href="javascript:;" class="remove">删除</a>
@@ -445,15 +453,28 @@ module.exports = {
         }
 
         //更新设置checkbox数组isShipping,否则保存时数组无法存取空值
-        $('#content-name').on('click','.ckb-is-shipping',function() {
-            let i = $(this).parents('.list-group-field').index();
-            if(this.checked) {
-                $('.is-shipping').eq(i).val(1);
-            } else {
-                $('.is-shipping').eq(i).val(0);
+        {
+            let content = $('#content-name')
+            content.on('click','.ckb-is-shipping',function() {
+                let i = $(this).parents('.list-group-field').index();
+                if(this.checked) {
+                    $('.is-shipping').eq(i).val(1);
+                } else {
+                    $('.is-shipping').eq(i).val(0);
 
-            }
-        });
+                }
+            });
+
+            content.on('click','.ckb-is-gift',function() {
+                let i = $(this).parents('.list-group-field').index();
+                if(this.checked) {
+                    $('.is-gift').eq(i).val(1);
+                } else {
+                    $('.is-gift').eq(i).val(0);
+
+                }
+            });
+        }
 
     },
     orderTypeAheadAdd: function () {

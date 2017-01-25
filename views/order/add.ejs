@@ -24,7 +24,7 @@
                 <label>订单内容：<i>*</i> <em>(自动填充)</em></label>
                 <div class="content-name-group am-form-horizontal">
                     <div class="list-group-field am-form-group">
-                        <div class="am-u-sm-9">
+                        <div class="am-u-sm-8">
                             <input class="name" name="name" type="text" placeholder="输入订单内容" autocomplete="off">
                         </div>
                         <div class="am-u-sm-1">
@@ -34,10 +34,18 @@
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                                 <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
                             </select>
                         </div>
-                        <label class="am-u-sm-2 am-form-label">
+                        <label class="am-u-sm-3 am-form-label">
+                            <input type="hidden" name="is-gift" class="is-gift">
                             <input type="hidden" name="is-shipping" class="is-shipping">
+                            <label><input class="ckb-is-gift" type="checkbox"> 赠品</label>
+                            <span class="split"></span>
                             <label><input class="ckb-is-shipping" type="checkbox"> 已发货</label>
                             <span class="split"></span>
                             <a href="javascript:;" class="remove">删除</a>

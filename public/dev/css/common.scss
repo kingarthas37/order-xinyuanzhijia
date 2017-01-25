@@ -79,6 +79,9 @@ footer p {
 
 label.normal {
     font-weight: normal;
+    height: 37px;
+    line-height: 37px;
+    margin-bottom: 0;
 }
 
 span.split {
@@ -86,6 +89,12 @@ span.split {
     &:after {
         content: "|";
         color: #ddd;
+    }
+}
+
+form.am-g {
+    [class*=am-u-] {
+        margin-bottom: 10px;
     }
 }
 
@@ -213,7 +222,7 @@ p.normal {
     }
 
     .am-form-horizontal {
-        .am-u-sm-11, .am-u-sm-10,.am-u-sm-9 {
+        .am-u-sm-11, .am-u-sm-10,.am-u-sm-9,.am-u-sm-8 {
             padding-left: 0;
         }
         .am-u-sm-1, .am-u-sm-2 {
@@ -446,6 +455,7 @@ iframe.upload-title {
     .small-screen-hide {
         display: none;
     }
+    
 }
 
 @include breakpoint(large-up) {
