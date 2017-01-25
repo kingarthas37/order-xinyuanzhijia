@@ -22,7 +22,7 @@ var data = extend(config.data, {
 router.get('/', function (req, res, next) {
 
     if (!req.currentUser) {
-        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
+        return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));
     }
 
     data = extend(data, {
@@ -37,7 +37,7 @@ router.get('/', function (req, res, next) {
 router.post('/', function (req, res, next) {
 
     if (!req.currentUser) {
-        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
+        return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));
     }
 
     var title = req.body['title'];

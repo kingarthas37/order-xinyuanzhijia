@@ -23,7 +23,7 @@ var data =  extend(config.data,{
 router.get('/:identityId', (req, res) => {
 
     if(!req.currentUser) {
-        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
+        return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));
     }
     
     var identityId = parseInt(req.params.identityId);
@@ -50,7 +50,7 @@ router.get('/:identityId', (req, res) => {
 router.post('/:identityId',(req,res) => {
 
     if(!req.currentUser) {
-        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
+        return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));
     }
     
     let identityId = parseInt(req.params['identityId']);

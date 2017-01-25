@@ -23,7 +23,7 @@ var data = extend(config.data,{
 router.get('/:bookId', function (req, res, next) {
 
     if(!req.currentUser) {
-        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
+        return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));
     }
     
     var bookId = parseInt(req.params.bookId);
@@ -69,7 +69,7 @@ router.get('/:bookId', function (req, res, next) {
 router.post('/', function (req, res, next) {
     
     if(!req.currentUser) {
-        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
+        return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));
     }
 
     var mdCodeName = req.body['md-code-name'] || '';

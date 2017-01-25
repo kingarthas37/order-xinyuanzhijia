@@ -17,7 +17,7 @@ var data = extend(config.data,{
 router.get('/',function(req,res,next) {
 
     //注册不开放，跳转到登录
-    return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
+    return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));
     
     data = extend(data,{
         flash:{error:req.flash('error')}

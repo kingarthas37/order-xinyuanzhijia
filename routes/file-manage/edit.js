@@ -23,7 +23,7 @@ var data =  extend(config.data,{
 router.get('/:fileManageId', (req, res) => {
 
     if(!req.currentUser) {
-        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
+        return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));
     }
     
     var fileManageId = parseInt(req.params.fileManageId);
@@ -50,7 +50,7 @@ router.get('/:fileManageId', (req, res) => {
 router.post('/:fileManageId',(req,res) => {
 
     if(!req.currentUser) {
-        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
+        return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));
     }
     
     let fileManageId = parseInt(req.params['fileManageId']);

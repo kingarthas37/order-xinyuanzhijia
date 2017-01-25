@@ -26,7 +26,7 @@ var data =  extend(config.data,{
 router.get('/', function (req, res, next) {
 
     if (!req.currentUser) {
-        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
+        return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));
     }
     
     var siteType = req.query['site-type'] || 'normal';
@@ -122,7 +122,7 @@ router.get('/', function (req, res, next) {
 router.get('/remove/:purchaseContactId', function (req, res, next) {
 
     if(!req.currentUser) {
-        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
+        return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));
     }
 
     var purchaseContactId = req.params.purchaseContactId;

@@ -26,7 +26,7 @@ var data =  extend(config.data,{
 router.get('/:resourcesDownloadId', function (req, res, next) {
 
     if (!req.currentUser) {
-        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
+        return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));
     }
 
     var resourcesDownloadId = parseInt(req.params.resourcesDownloadId);

@@ -24,7 +24,7 @@ let data = extend(config.data, {
 router.get('/', (req, res) => {
 
     if(!req.currentUser) {
-        return res.redirect(`/login?return=${encodeURIComponent(req.originalUrl)}`);
+        return res.redirect(`/?return=${encodeURIComponent(req.originalUrl)}`);
     }
 
     let page = req.query.page ? parseInt(req.query.page) : 1;

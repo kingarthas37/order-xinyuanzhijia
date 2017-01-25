@@ -24,7 +24,7 @@ var data = extend(config.data, {
 router.get('/:productMethodId', (req, res, next) => {
 
     if(!req.currentUser) {
-        return res.redirect(`/login?return=${encodeURIComponent(req.originalUrl)}`);
+        return res.redirect(`/?return=${encodeURIComponent(req.originalUrl)}`);
     }
 
     var productMethodId = parseInt(req.params.productMethodId);
@@ -47,7 +47,7 @@ router.get('/:productMethodId', (req, res, next) => {
 router.post('/:productMethodId', (req, res) => {
 
     if(!req.currentUser) {
-        return res.redirect(`/login?return=${encodeURIComponent(req.originalUrl)}`);
+        return res.redirect(`/?return=${encodeURIComponent(req.originalUrl)}`);
     }
 
     let name = req.body['name'];

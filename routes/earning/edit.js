@@ -24,7 +24,7 @@ var data =  extend(config.data,{
 router.get('/', function (req, res, next) {
 
     if(!req.currentUser) {
-        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
+        return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));
     }
 
     var date = new Date(req.query.date + ' 00:00:00');
@@ -70,7 +70,7 @@ router.get('/', function (req, res, next) {
 router.post('/', function (req, res, next) {
 
     if(!req.currentUser) {
-        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
+        return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));
     }
 
     var income = parseInt(req.body['income']);
@@ -118,7 +118,7 @@ router.post('/', function (req, res, next) {
 router.get('/current-day-expenses',function(req,res,next) {
 
     if(!req.currentUser) {
-        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
+        return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));
     }
     
     //从客户端传的时间会有8小时时区差，所以需加00:00:00强制转换

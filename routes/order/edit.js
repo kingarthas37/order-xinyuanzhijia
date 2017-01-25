@@ -24,7 +24,7 @@ var data =  extend(config.data,{
 router.get('/:orderId', function (req, res, next) {
 
     if(!req.currentUser) {
-        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
+        return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));
     }
     
     var orderId = parseInt(req.params.orderId);
@@ -67,7 +67,7 @@ router.get('/:orderId', function (req, res, next) {
 router.post('/', function (req, res, next) {
 
     if(!req.currentUser) {
-        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
+        return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));
     }
     
     

@@ -30,7 +30,7 @@ var data = extend(config.data, {
 router.get('/:productRecordId', function (req, res, next) {
 
     if(!req.currentUser) {
-        return res.redirect(`/admin/login?return=${encodeURIComponent(req.originalUrl)}`);
+        return res.redirect(`/admin/?return=${encodeURIComponent(req.originalUrl)}`);
     }
 
     res.cookie('x_lc_sign',data.x_lc_sign);
@@ -96,7 +96,7 @@ router.get('/:productRecordId', function (req, res, next) {
 router.post('/:productRecordId', (req, res) => {
 
     if(!req.currentUser) {
-        return res.redirect(`/login?return=${encodeURIComponent(req.originalUrl)}`);
+        return res.redirect(`/?return=${encodeURIComponent(req.originalUrl)}`);
     }
     
     let productRecordId = parseInt(req.params.productRecordId);

@@ -21,7 +21,7 @@ let data = extend(config.data, {
 router.get('/', (req, res) => {
 
     if(!req.currentUser) {
-        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
+        return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));
     }
 
     data = extend(data, {
@@ -36,7 +36,7 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
 
     if(!req.currentUser) {
-        return res.redirect(`/login?return=${encodeURIComponent(req.originalUrl)}`);
+        return res.redirect(`/?return=${encodeURIComponent(req.originalUrl)}`);
     }
 
     let name = req.body['name'];

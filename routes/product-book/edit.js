@@ -23,7 +23,7 @@ var data =  extend(config.data,{
 router.get('/:productBookId', function (req, res) {
 
     if(!req.currentUser) {
-        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
+        return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));
     }
     
     var productBookId = parseInt(req.params.productBookId);
@@ -56,7 +56,7 @@ router.get('/:productBookId', function (req, res) {
 router.post('/:productBookId', function (req, res, next) {
 
     if(!req.currentUser) {
-        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
+        return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));
     }
 
     let productBookId = parseInt(req.params['productBookId']);

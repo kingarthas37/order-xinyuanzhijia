@@ -22,7 +22,7 @@ var data =  extend(config.data,{
 router.get('/:customerId', function (req, res, next) {
 
     if(!req.currentUser) {
-        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
+        return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));
     }
     
     var customerId = parseInt(req.params.customerId);
@@ -74,7 +74,7 @@ router.get('/:customerId', function (req, res, next) {
 router.post('/', function (req, res, next) {
 
     if(!req.currentUser) {
-        return res.redirect('/login?return=' + encodeURIComponent(req.originalUrl));
+        return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));
     }
 
     var name = req.body['name'];
