@@ -31,9 +31,7 @@ module.exports = {
 
     },
     addFun: function () {
-
         $('.product-name').get(0).focus();
-
         $('#form-add-product-book').validate();
         this.productEdit();
         this.customerTypeAhead();
@@ -53,6 +51,7 @@ module.exports = {
             productList.append(clone);
             clone.find('.product-count').val(1);
             clone.find('.product-state').data('checked', false);
+            clone.find('.product-image').val('');
             clone.find('.product-name').val('').get(0).focus();
         });
 

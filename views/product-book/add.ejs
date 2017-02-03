@@ -30,7 +30,12 @@
                 
                 <div class="product-list">
                     <div class="am-form-group">
-                        <div class="am-u-sm-8"><input class="product-name" required name="product-name" type="text" placeholder="输入产品名"></div>
+                        <div class="am-u-sm-7">
+                            <input class="product-name" required name="product-name" type="text" placeholder="输入产品名">
+                        </div>
+                        <div class="am-u-sm-2">
+                            <input class="product-image" name="product-image" type="text" placeholder="输入图片链接">
+                        </div>
                         <div class="am-u-sm-1">
                             <select class="product-count" name="product-count">
                                 <option value="1">1</option>
@@ -42,10 +47,9 @@
                         </div>
                         <div class="am-u-sm-1 am-form-label t-c">
                             <label><input type="checkbox" class="ckb-product-state"> <span class="small-screen-hide">已发货</span></label>
-                            <input type="hidden" name="product-state" class="product-state">
+                            <input type="hidden" name="product-state" class="product-state"/>
                         </div>
                         <div class="am-u-sm-1 am-form-label"><a href="javascript:;" class="remove">删除</a></div>
-                        <div class="am-u-sm-1"></div>
                     </div>
                 </div>
                 <div class="am-form-group">
@@ -54,6 +58,13 @@
                     </div>
                 </div>
             </div>
+
+            <!-- file-upload start -->
+            <div class="am-form-group">
+                <iframe class="upload-title" src="/file-manage/upload" frameborder="0"></iframe>
+            </div>
+            <!-- file-upload end -->
+
             
             <!-- product-book customer name start -->
             <div class="am-form-group typeahead-content">
@@ -115,6 +126,11 @@
         var productBook = require('product-book');
         productBook.addFun();
     });
+
+    //iframe upload callback
+    function uploadSuccess(url) {
+        $('.product-image:last').val(url);
+    }
 </script>
 </body>
 </html>

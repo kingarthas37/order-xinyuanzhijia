@@ -64,7 +64,8 @@ router.post('/:productBookId', function (req, res, next) {
     var customerName = req.body['customer-name'];
     var comment = req.body['comment'];
     let pay = req.body['pay'];
-    let productName = typeof req.body['product-name'] === 'object' ? req.body['product-name'] : [req.body['product-name']] ;
+    let productName = typeof req.body['product-name'] === 'object' ? req.body['product-name'] : [req.body['product-name']];
+    let productImage = typeof req.body['product-image'] === 'object' ? req.body['product-image'] : [req.body['product-image']];
     let productCount = typeof req.body['product-count'] === 'object' ? req.body['product-count'] : [req.body['product-count']];
     let productState = typeof req.body['product-state'] === 'object' ? req.body['product-state'] : [req.body['product-state']];
     
@@ -78,6 +79,7 @@ router.post('/:productBookId', function (req, res, next) {
             comment,
             pay,
             productName,
+            productImage,
             productCount,
             productState
         });
