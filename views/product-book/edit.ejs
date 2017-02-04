@@ -31,8 +31,13 @@
 
                 <div class="product-list">
                     <% for(var i=0;i<productBook.get('productName').length;i++) { %>
-                    <div class="am-form-group">
-                        <div class="am-u-sm-8"><input value="<%= productBook.get('productName')[i] %>" class="product-name" required name="product-name" type="text" placeholder="输入产品名"></div>
+                    <div class="am-form-group typeahead-content">
+                        <div class="am-u-sm-7">
+                            <input value="<%= productBook.get('productName')[i] %>" class="product-name" required name="product-name" type="text" placeholder="输入产品名">
+                        </div>
+                        <div class="am-u-sm-2">
+                            <input value="<%= productBook.get('productImage')[i] %>" class="product-image" name="product-image" type="text" placeholder="输入图片链接">
+                        </div>
                         <div class="am-u-sm-1">
                             <select class="product-count" name="product-count">
                                 <%for(var j=1;j<=5;j++) {%>

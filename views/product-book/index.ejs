@@ -56,16 +56,27 @@
                 <% for(var i=0; i < productBook.length; i++) {%>
                 <tr <%if (states[i] === 'off'){ %>class="off"<%}%>>
                     <td>
-                        <a href="/product-book/edit/<%= productBook[i].get('productBookId') %>">
-                            <% for(var j=0;j < productBook[i].get('productName').length;j++) { %>
-                            <% if(productBook[i].get('productState')[j] =='on') { %>
-                                <strong><%= productBook[i].get('productCount')[j] %>*<%= productBook[i].get('productName')[j] %></strong>
-                            <% } else { %>
-                                <%= productBook[i].get('productCount')[j] %>*<%= productBook[i].get('productName')[j] %>
-                            <% } %>
-                            <% if(j < productBook[i].get('productName').length-1) { %>|<%}%>
+                        <% for(var j=0;j < productBook[i].get('productName').length;j++) { %>
+                        <div>
+
+                            <% if(productBook[i].get('productImage')[j]) { %>
+                            <span class="image loading-elem">
+                                <a href="<%= productBook[i].get('productImage')[j] %>" target="_blank"><img src="<%= productBook[i].get('productImage')[j] %>?imageMogr2/thumbnail/32" alt=""></a>
+                            </span>
+                            <%}else {%>
+                            <span class="image loading-elem" data-id=""><img width="24" src="http://ac-JoaBcRTt.clouddn.com/b7f0d580ef9a4ae8e19b.png?imageMogr2/thumbnail/24"></span>
                             <%}%>
-                        </a>
+                            
+                            <a href="#"></a>
+                            <a href="/product-book/edit/<%= productBook[i].get('productBookId') %>">
+                                <% if(productBook[i].get('productState')[j] =='on') { %>
+                                <strong><%= productBook[i].get('productCount')[j] %>*<%= productBook[i].get('productName')[j] %></strong>
+                                <% } else { %>
+                                <%= productBook[i].get('productCount')[j] %>*<%= productBook[i].get('productName')[j] %>
+                                <% } %>
+                            </a>
+                        </div>
+                        <%}%>
                     </td>
                     <td class="t-c"><a href="/product-book?search-customer=<%= productBook[i].get('customerId') %>"><%= productBook[i].get('customerName') %></a></td>
                     <td class="t-c"><%=productBook[i].createdAt.getFullYear()%>/<%=(productBook[i].createdAt.getMonth()+1)%>/<%=productBook[i].createdAt.getDate()%></td>
