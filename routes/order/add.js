@@ -54,9 +54,9 @@ router.post('/', function (req, res, next) {
     isShipping = isShipping.map(item => parseInt(item) ? true : false);
     var customerId = parseInt(req.body['customer-name-id']);
     var client = req.body['client'];
+    let clientAddress = req.body['client-address'];
     let shopOrderLink = req.body['shop-order-link'];
     shopOrderLink = utils.urlCompleting(shopOrderLink);
-    var description = req.body['description'];
     var shippingDate = req.body['shipping-date'];
     var shippingCompany = req.body['shipping-company'];
     var trackingNumber = req.body['tracking-number'];
@@ -142,8 +142,8 @@ router.post('/', function (req, res, next) {
             orderTrack.set('isShipping',isShipping);
             orderTrack.set('shippingCount',shippingCount);
             orderTrack.set('client',client);
+            orderTrack.set('clientAddress',clientAddress);
             orderTrack.set('shopOrderLink',shopOrderLink);
-            orderTrack.set('description',description);
             orderTrack.set('customerId',customerId);
             orderTrack.set('customerName',customerName);
             orderTrack.set('taobaoName',taobao);

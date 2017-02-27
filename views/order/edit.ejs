@@ -65,23 +65,13 @@
 
             <!-- order shop order link start -->
             <div class="am-form-group">
-                <label>店铺订单详情链接：</label>
+                <label>店铺订单详情链接： <em>(多个使用|隔开)</em></label>
                 <input type="text" name="shop-order-link" id="shop-order-link" value="<%= order.get('shopOrderLink') %>" placeholder="店铺订单详情链接">
             </div>
             <!-- order shop order link end -->
 
             <hr/>
             
-
-            <!-- order description start -->
-            <div id="content-description" class="am-form-group">
-                <label>订单描述：</label>
-                <textarea name="description" id="description" rows="2" placeholder="填写订单描述"><%= order.get('description') %></textarea>
-            </div>
-            <!-- order description end -->
-
-            <hr/>
-
             <!-- customer name start -->
             <div id="content-customer-name" class="am-form-group typeahead-content">
                 <label>收货人/客户姓名(自动填充)：<i>*</i> </label>
@@ -124,10 +114,21 @@
             <hr/>
 
             <!-- client name start -->
-            <div class="am-form-group typeahead-content">
-                <label>代发人： <em>(自动填充)</em></label>
+            <div class="am-form-group">
+                <label>代发人姓名： </label>
                 <div class="am-form-group">
-                    <input id="client" name="client" type="text" placeholder="输入代发人" value="<%= order.get('client') %>" autocomplete="off">
+                    <input id="client" name="client" type="text" placeholder="输入代发人姓名" value="<%= order.get('client') %>" autocomplete="off">
+                </div>
+            </div>
+            <!-- client name end -->
+
+            <hr/>
+
+            <!-- client name start -->
+            <div class="am-form-group">
+                <label>代发人地址：</label>
+                <div class="am-form-group">
+                    <input id="client-address" name="client-address" type="text" placeholder="输入代发人地址" value="<%= order.get('clientAddress') %>" autocomplete="off">
                 </div>
             </div>
             <!-- client name end -->
@@ -176,6 +177,7 @@
             </div>
             <!-- shipping status end -->
 
+            <hr/>
 
             <!-- order comment start -->
             <div id="content-comment" class="am-form-group">

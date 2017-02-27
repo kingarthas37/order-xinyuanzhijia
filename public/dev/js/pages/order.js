@@ -359,7 +359,7 @@ module.exports = {
         this.customerNameTypeAhead();
         this.orderTypeAheadAdd();
         this.domUpdate();
-        this.clientNameTypeAhead();
+     //   this.clientNameTypeAhead();
 
         //复制新order
         if (location.search.indexOf('name') !== -1) {
@@ -393,7 +393,7 @@ module.exports = {
         this.orderTypeAheadUpdate();
         this.domUpdate();
         this.orderNameTypeAhead();
-        this.clientNameTypeAhead();
+     //   this.clientNameTypeAhead();
         this.clipboard();
     },
     domUpdate: function () {
