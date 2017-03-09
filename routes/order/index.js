@@ -14,7 +14,6 @@ var config = require('../../lib/config');
 var OrderTrack = AV.Object.extend('OrderTrack');
 var Customer = AV.Object.extend('Customer');
 let Product = AV.Object.extend('Product');
-let ProductProperty = AV.Object.extend('ProductProperty');
 
 //lib
 var pager = require('../../lib/component/pager-str');
@@ -255,7 +254,7 @@ router.get('/update-stock', (req, res)=> {
 //ajax设置库存
 router.get('/set-stock', (req, res)=> {
     let productId = parseInt(req.query['product-id']);
-    let query = new AV.Query(ProductProperty);
+    let query = new AV.Query(Product);
     query.equalTo('productId', productId);
     query.select('stock', 'sales');
     query.first().then(result=> {
@@ -273,7 +272,7 @@ router.post('/set-stock', (req, res)=> {
     let stock = parseInt(req.body['stock']);
     let sales = parseInt(req.body['sales']);
 
-    let query = new AV.Query(ProductProperty);
+    let query = new AV.Query(Product);
     query.equalTo('productId', productId);
     query.first().then(result=> {
         return result.save({
