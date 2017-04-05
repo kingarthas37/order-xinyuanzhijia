@@ -13,7 +13,7 @@
 
 <div class="am-container common-page order-page">
 
-    <form id="form-add-order" class="am-form" action="/order/add" method="post">
+    <form id="form-add-order" class="am-form" action="/order/add<% if(searchNotShipped){%>?search-notshipped=on<%}%>" method="post">
 
         <fieldset>
 
@@ -60,8 +60,8 @@
 
             <!-- order shop order link start -->
             <div class="am-form-group">
-                <label>店铺订单详情链接：<em>(多个使用|隔开)</em></label>
-                <input type="text" name="shop-order-link" id="shop-order-link" placeholder="店铺订单详情链接">
+                <label>店铺订单详情链接：<em>(多个使用回车隔开)</em></label>
+                <textarea name="shop-order-link" id="shop-order-link" rows="3" placeholder="店铺订单详情链接"></textarea>
             </div>
             <!-- order shop order link end -->
 

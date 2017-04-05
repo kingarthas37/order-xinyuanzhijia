@@ -28,13 +28,16 @@ router.get('/:orderId', function (req, res, next) {
     }
     
     var orderId = parseInt(req.params.orderId);
+    let searchNotShipped = req.query['search-notshipped'];
 
     data = extend(data,{
         flash: { success:req.flash('success'), error:req.flash('error') },
         user:req.currentUser,
-        id: orderId
+        id: orderId,
+        searchNotShipped
     });
 
+    
     async.series([
 
         function (cb) {
@@ -135,8 +138,9 @@ router.post('/', function (req, res, next) {
 
                 orderTrack.save(null, {
                     success: function () {
+                        let notshipped = req.query['search-notshipped'] === 'on' ? '?search-notshipped=on' : '';
                         req.flash('success', '编辑订单成功!');
-                        res.redirect('/order');
+                        res.redirect(`/order${notshipped}`);
                     },
                     error: function (err) {
                         next(err);

@@ -71,7 +71,7 @@
                     <%for(var j=0; j<order[i].get('name').length;j++) {%>
                     <div class="order-split">
                         <span class="image loading-elem on" data-id="<% if(/\{id\:\d+\}/.test(order[i].get('name')[j])){%><%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(\})/,'$2') %><%}%>"></span>
-                        <a href="/order/edit/<%= order[i].get('orderId') %>">
+                        <a href="/order/edit/<%= order[i].get('orderId') %><%if(searchNotShipped){ %>?search-notshipped=on<%}%>">
                             <% if(order[i].get('isGift')[j]){%>(赠)<%}%>
                             <%= order[i].get('shippingCount')[j] %>*<%= order[i].get('name')[j].replace(/\{id\:\d+\}/,'') %>
                         </a>
@@ -115,7 +115,7 @@
                     <td class="t-c small-screen-hide">
                         <%if (order[i].get('shopOrderLink')) { %>
                         
-                            <% var shopLinks = order[i].get('shopOrderLink').split('|'); %>
+                            <% var shopLinks = order[i].get('shopOrderLink').split('\n'); %>
                             <% for(var j=0;j<shopLinks.length;j++) {%>
                                 <a target="_blank" href="<%=shopLinks[j]%>"><i class="am-icon-external-link"></i></a>
                             <%}%>
@@ -152,7 +152,7 @@
             <hr/>
 
             <div class="am-form-group">
-                <a href="/order/add" class="am-btn am-btn-primary" role="button">添加新订单</a>
+                <a href="/order/add<% if(searchNotShipped){%>?search-notshipped=on<%}%>" class="am-btn am-btn-primary" role="button">添加新订单</a>
             </div>
 
         </fieldset>
@@ -201,11 +201,7 @@
                 <label>总销量:</label>
                 <div class="am-form-inline">
                     <div class="am-form-group">
-                        <select name="sales" sales>
-                            <% for(var i=0;i<100;i++) { %>
-                            <option value="<%=i%>"><%=i%></option>
-                            <% }%>
-                        </select>
+                        <input type="text" name="sales" readonly="readonly" value="">
                     </div>
                 </div>
 

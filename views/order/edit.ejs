@@ -14,7 +14,7 @@
 
 <div class="am-container common-page order-page">
 
-    <form id="form-edit-order" class="am-form" action="/order/edit" method="post">
+    <form id="form-edit-order" class="am-form" action="/order/edit<% if(searchNotShipped){%>?search-notshipped=on<%}%>" method="post">
 
         <input type="hidden" name="order-id" value="<%= order.get('orderId') %>"/>
         
@@ -65,8 +65,8 @@
 
             <!-- order shop order link start -->
             <div class="am-form-group">
-                <label>店铺订单详情链接： <em>(多个使用|隔开)</em></label>
-                <input type="text" name="shop-order-link" id="shop-order-link" value="<%= order.get('shopOrderLink') %>" placeholder="店铺订单详情链接">
+                <label>店铺订单详情链接： <em>(多个使用回车隔开)</em></label>
+                <textarea name="shop-order-link" id="shop-order-link" rows="3" placeholder="店铺订单详情链接"><%= order.get('shopOrderLink') %></textarea>
             </div>
             <!-- order shop order link end -->
 

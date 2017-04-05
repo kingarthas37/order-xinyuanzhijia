@@ -144,7 +144,7 @@ module.exports = {
         {
             let modalSetStock = $('#modal-set-stock');
             let stock = modalSetStock.find('select[name=stock]');
-            let sales = modalSetStock.find('select[name=sales]');
+            let sales = modalSetStock.find('[name=sales]');
 
             let stockMinus = modalSetStock.find('.stock-minus');
             let stockPlus = modalSetStock.find('.stock-plus');
@@ -207,7 +207,8 @@ module.exports = {
                 let salesValue = parseInt(sales.val());
                 if (stockValue > 0) {
                     stock.find(`option[value=${stockValue - 1}]`)[0].selected = true;
-                    sales.find(`option[value=${salesValue + 1}]`)[0].selected = true;
+                   // sales.find(`option[value=${salesValue + 1}]`)[0].selected = true;
+                    sales.val(salesValue + 1);
                 }
             });
 

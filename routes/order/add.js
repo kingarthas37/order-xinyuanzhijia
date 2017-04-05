@@ -27,10 +27,13 @@ router.get('/', function (req, res, next) {
     if (!req.currentUser) {
         return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));
     }
+
+    let searchNotShipped = req.query['search-notshipped'];
     
     data = extend(data,{
         user:req.currentUser,
-        currentDate:format('yyyy-MM-dd',new Date())
+        currentDate:format('yyyy-MM-dd',new Date()),
+        searchNotShipped
     });
     
     res.render('order/add', data);
@@ -156,8 +159,9 @@ router.post('/', function (req, res, next) {
             
             orderTrack.save(null, {
                 success: function () {
+                    let notshipped = req.query['search-notshipped'] === 'on' ? '?search-notshipped=on' : '';
                     req.flash('success', '添加订单成功!');
-                    res.redirect('/order');
+                    res.redirect(`/order${notshipped}`);
                 },
                 error: function (err) {
                     next(err);
