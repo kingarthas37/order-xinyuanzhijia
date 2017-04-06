@@ -174,7 +174,7 @@ module.exports = {
                     data: {
                         'product-id': productId
                     },
-                    success: function (data) {
+                    success: function (data) {``
                         if (!data.success) {
                             return false;
                         }
@@ -241,7 +241,7 @@ module.exports = {
 
             reset.click(function () {
                 stock.find(`option[value=${stock.attr('stock')}]`)[0].selected = true;
-                sales.find(`option[value=${sales.attr('sales')}]`)[0].selected = true;
+                sales.val(sales.attr('sales'));
             });
 
         }
