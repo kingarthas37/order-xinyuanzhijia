@@ -66,6 +66,15 @@ module.exports = {
     editFun:function() {
         $('#form-add-purchase').validate();
         this.purchaseTypeAhead();
+        
+        //purchase order link view
+        {
+            let purchaseOrderLinkView = $('.purchase-order-link-view');
+            let value = $('#purchase-order-link').val();
+            value = value.replace(/(http[^\s]+)/gi,'<br/><a target="_blank" href="$1">$1</a>').replace('<br/>','');
+            purchaseOrderLinkView.html(value);
+        }
+        
     },
     purchaseTypeAhead:function() {
 
