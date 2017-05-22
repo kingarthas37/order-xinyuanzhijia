@@ -195,9 +195,11 @@ router.get('/get-customer', (req, res) => {
 router.get('/get-image', (req, res)=> {
 
     let productId = req.query['productId'];
+    productId = productId.split(',');
     if (productId) {
         productId = productId.map(item => parseInt(item));
     }
+
     let query = new AV.Query(Product);
     query.containedIn('productId', productId);
     query.select('productId', 'mainImage');
@@ -207,12 +209,23 @@ router.get('/get-image', (req, res)=> {
         images.forEach((image, i) => {
 
             let imgArr = [];
-            for (let i in image.get('mainImage')) {
-                imgArr.push(image.get('mainImage')[i]);
+            
+            if(!image.get('mainImage')) {
+                imgArr.push({
+                    url:'//ac-joabcrtt.clouddn.com/b7f0d580ef9a4ae8e19b.png'
+                });
+            } else {
+                for (let i in image.get('mainImage')) {
+                    if(image.get('mainImage')[i].isMainImage) {
+                        imgArr.push(image.get('mainImage')[i]);
+                    }
+                }
             }
+            
             data[image.get('productId')] = imgArr[0].url;
+            
         });
-
+        
         res.send({
             success: 1,
             images: data

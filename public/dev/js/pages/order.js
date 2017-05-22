@@ -80,7 +80,9 @@ module.exports = {
 
             $.ajax({
                 url: '/order/get-image',
-                data: {productId}
+                data: {
+                    productId:productId.join()
+                }
             }).then(data => {
 
                 if (!data.success) {
