@@ -83,7 +83,7 @@
                     <%}%>
                 </td>
                     <td class="t-c">
-                        <a class="customer-name" title="<%= order[i].get('shippingAddress') %>" href="/customer/edit/<%= order[i].get('customerId') %>"><%= order[i].get('customerName') %><% if(order[i].get('client')){%>(代)<%}%></a>
+                        <a class="customer-name" title="<%= order[i].get('shippingAddress') %>" href="/customer/edit/<%= order[i].get('customerId') %>"><%= order[i].get('customerName') %><% if(order[i].get('client')){%>(代:<%= order[i].get('client') %>)<%}%></a>
                         <span class="split"></span>
                         <a href="javascript:;" title="复制姓名" class="clipboard-customer-name" data-clipboard-text="<% if(order[i].get('client')){%><%=order[i].get('client')%><%}else{%><%=order[i].get('customerName')%><%}%>"><i class="am-icon am-icon-copy"></i></a>
                         <a href="javascript:;" title="复制地址" class="clipboard-customer-address" data-clipboard-text="<% if(order[i].get('clientAddress')){%><%=order[i].get('clientAddress')%><%}else{%><%=order[i].get('shippingAddress')%><%}%>"><i class="am-icon am-icon-copy"></i></a>
