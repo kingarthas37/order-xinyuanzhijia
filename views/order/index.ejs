@@ -71,7 +71,7 @@
                     <%for(var j=0; j<order[i].get('name').length;j++) {%>
                     <div class="order-split">
                         <span class="image loading-elem on" data-id="<% if(/\{id\:\d+\}/.test(order[i].get('name')[j])){%><%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(\})/,'$2') %><%}%>"></span>
-                        <a href="/order/edit/<%= order[i].get('orderId') %><%if(searchNotShipped){ %>?search-notshipped=on<%}%>">
+                        <a href="/order/edit/<%= order[i].get('orderId') %><%if(searchNotShipped){ %>?search-notshipped=on<%}%>" <% if(/\{id\:\d+\}/.test(order[i].get('name')[j])){%>title="productId:<%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(\})/,'$2') %>"<%}%>>
                             <% if(order[i].get('isGift')[j]){%>(赠)<%}%>
                             <%= order[i].get('shippingCount')[j] %>*<%= order[i].get('name')[j].replace(/\{id\:\d+\}/,'') %>
                         </a>
