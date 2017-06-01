@@ -355,6 +355,18 @@ module.exports = {
             
         }
 
+        //订单跟踪
+        {
+            let modalTrackOrder = $('#modal-track-order');
+            let content = modalTrackOrder.find('.am-modal-bd');
+            $('.track-order').click(function() {
+                if(!$(this).attr('href')) {
+                    content.html(`请复制单号${$(this).data('track')}并<a href="//kuaidi100.com" target="_blank">打开此处</a>查询`);
+                    modalTrackOrder.modal();
+                    return false;
+                } 
+            });
+        }
 
     },
     addFun: function () {

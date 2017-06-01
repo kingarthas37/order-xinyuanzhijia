@@ -90,20 +90,23 @@
                     </td>
                     <td class="t-c">
                         
-                        <% var shippingCompany = '';
+                        <% var shippingCompany = ''; var express = '';
                         if(order[i].get('shippingCompany') == 'tiantian') {
                             shippingCompany = '天天';
+                            express = 'TTKDEX';
                         } else if (order[i].get('shippingCompany') == 'shunfeng') {
                             shippingCompany = '顺丰';
-                        } else if (order[i].get('shippingCompany') == 'baishi') {
-                            shippingCompany = '百世汇通';
+                            express = 'SFEXPRESS';
+                        } else if (order[i].get('shippingCompany') == 'kuaijie') {
+                            shippingCompany = '快捷';
+                            express = 'FASTEXPRESS';
                         } else if (order[i].get('shippingCompany') == 'other') {
                             shippingCompany = '其他';
                         }
                         %>
                         
-                        <% if(order[i].get('trackingNumber')){ %>
-                        <a href="http://www.kuaidi100.com/auto.shtml?nu=<%=order[i].get('trackingNumber')%>" target="_blank"><%= shippingCompany %></a>
+                        <% if(order[i].get('trackingNumber')){ %> 
+                        <a class="track-order" data-track="<%=order[i].get('trackingNumber')%>" href="<%if(express) { %>//51wish.cn/order/express/query/<%=order[i].get('trackingNumber')%>/<%=express%><%}%>" target="_blank"><%= shippingCompany %></a>
                         <%} else {%>
                         <a target="_blank" class="action-shipping-company am-btn am-btn-link disabled" data-order-id="<%= order[i].get('orderId') %>"><%=shippingCompany%></a>
                         <%}%>
@@ -112,14 +115,13 @@
                         <a href="javascript:;" title="复制单号" class="clipboard-tracking-number" data-clipboard-text="<%=order[i].get('trackingNumber')%>"><i class="am-icon am-icon-copy"></i></a>
                         
                     </td>
+                
                     <td class="t-c small-screen-hide">
                         <%if (order[i].get('shopOrderLink')) { %>
-                        
                             <% var shopLinks = order[i].get('shopOrderLink').split('\n'); %>
                             <% for(var j=0;j<shopLinks.length;j++) {%>
                                 <a target="_blank" href="<%=shopLinks[j]%>"><i class="am-icon-external-link"></i></a>
                             <%}%>
-                        
                         <%}else {%>-<%}%>
                     </td>
                     
@@ -161,7 +163,7 @@
 </div>
 
 
-
+<!-- modal 删除order -->
 <div class="am-modal am-modal-confirm" tabindex="-1" id="confirm-remove-order">
     <div class="am-modal-dialog">
         <div class="am-modal-bd">
@@ -175,7 +177,7 @@
 </div>
 
 
-<!-- modal alert -->
+<!-- modal 库存 -->
 <div class="am-modal am-modal-prompt" tabindex="-1" id="modal-set-stock">
     <div class="am-modal-dialog">
         <div class="am-modal-hd"><a href="javascript:;" class="am-close am-close-spin" data-am-modal-close="">×</a></div>
@@ -214,7 +216,19 @@
         </div>
     </div>
 </div>
-<!-- modal alert -->
+
+
+<!-- modal 快递单号查询 -->
+<div class="am-modal am-modal-no-btn" tabindex="-1" id="modal-track-order">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">快递单号查询
+            <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+        </div>
+        <div class="am-modal-bd">
+            asdfsf
+        </div>
+    </div>
+</div>
 
 
 <% include ../partials/footer %>
