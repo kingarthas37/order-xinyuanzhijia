@@ -34,18 +34,20 @@ module.exports = {
         var expensesComment = $('#expenses-comment');
         var date = /date=(.*)/.exec(location.search)[1];
         
-        $('.current-day-expenses').click(function() {
+        $('.current-day-expenses').click(function(e) {
             $.ajax({
                 url:'/earning/edit/current-day-expenses',
                 data:{
                     date:date
                 },
                 success:function(data) {
-                    expenses.val(data.value);
-                    expensesComment.val('采购金额:' + data.value);
+                    let val =expensesComment.val();
+                    val = val.replace(/采购金额\:\d+/,'采购金额:' + data.value);
+                    expensesComment.val(val).trigger('change');
+                    $(e.target).css('font-weight','bold').text('已更新当天采购金额');
                 }
             });
-        });
+        }).trigger('click');
         
         $('#expenses-comment,#income-comment').change(function() {
             
