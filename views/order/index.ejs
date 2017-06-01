@@ -106,7 +106,7 @@
                         %>
                         
                         <% if(order[i].get('trackingNumber')){ %> 
-                        <a class="track-order" data-track="<%=order[i].get('trackingNumber')%>" href="<%if(express) { %>//51wish.cn/order/express/query/<%=order[i].get('trackingNumber')%>/<%=express%><%}%>" target="_blank"><%= shippingCompany %></a>
+                        <a class="track-order" data-track="<%=order[i].get('trackingNumber')%>" href="<%if(express) { %>//51wish.leanapp.cn/order/express/query/<%=order[i].get('trackingNumber')%>/<%=express%><%}%>" target="_blank"><%= shippingCompany %></a>
                         <%} else {%>
                         <a target="_blank" class="action-shipping-company am-btn am-btn-link disabled" data-order-id="<%= order[i].get('orderId') %>"><%=shippingCompany%></a>
                         <%}%>
