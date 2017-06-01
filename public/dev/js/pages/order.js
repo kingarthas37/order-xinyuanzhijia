@@ -364,7 +364,13 @@ module.exports = {
                     content.html(`请复制单号${$(this).data('track')}并<a href="//kuaidi100.com" target="_blank">打开此处</a>查询`);
                     modalTrackOrder.modal();
                     return false;
-                } 
+                }
+                $.get($(this).attr('href')).then(data => {
+
+                    console.info(data);
+
+                });
+                content.html('');
             });
         }
 
