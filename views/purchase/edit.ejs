@@ -109,13 +109,17 @@
             <div id="content-shipping-type" class="am-form-group">
                 <label>物流方式：</label>
                 <select name="purchase-shipping-type" id="purchase-shipping-type">
-                    <option value="tianji" <% if(purchase.get('shippingType')==='tianji') {%> selected="selected" <% } %>>转运-天际</option>
-                    <option value="zhuanyunbang" <% if(purchase.get('shippingType')==='zhuanyunbang') {%> selected="selected" <% } %>>转运-转运帮</option>
-                    <option value="8dexpress" <% if(purchase.get('shippingType')==='8dexpress') {%> selected="selected" <% } %>>转运-八达网</option>
-                    <option value="yuntao" <% if(purchase.get('shippingType')==='yuntao') {%> selected="selected" <% } %>>转运-运淘</option>
-                    <option value="shunfeng" <% if(purchase.get('shippingType')==='shunfeng') {%> selected="selected" <% } %>>转运-顺丰</option>
-                    <option value="direct" <% if(purchase.get('shippingType')==='direct') {%> selected="selected" <% } %>>直邮</option>
-                    <option value="other" <% if(purchase.get('shippingType')==='other') {%> selected="selected" <% } %>>其他</option>
+
+                    <option value="yuntao" <% if(purchase.get('shippingType')==='yuntao') {%> selected="selected" <% } %> >运淘</option>
+                    <option value="direct" <% if(purchase.get('shippingType')==='direct') {%> selected="selected" <% } %> >直邮</option>
+                    <option value="tianji" <% if(purchase.get('shippingType')==='tianji') {%> selected="selected" <% } %> >天际</option>
+                    <option value="zhuanyunsifang" <% if(purchase.get('shippingType')==='zhuanyunsifang') {%> selected="selected" <% } %> >转运四方</option>
+                    <option value="haidaibao" <% if(purchase.get('shippingType')==='haidaibao') {%> selected="selected" <% } %> >海带宝</option>
+                    <option value="zhuanyunbang" <% if(purchase.get('shippingType')==='zhuanyunbang') {%> selected="selected" <% } %> >转运帮</option>
+                    <option value="8dexpress" <% if(purchase.get('shippingType')==='8dexpress') {%> selected="selected" <% } %> >八达网</option>
+                    <option value="shunfeng" <% if(purchase.get('shippingType')==='shunfeng') {%> selected="selected" <% } %> >顺丰</option>
+                    <option value="other" <% if(purchase.get('shippingType')==='other') {%> selected="selected" <% } %> >其他</option>
+                    
                 </select>
             </div>
             <!-- shippingType end -->
