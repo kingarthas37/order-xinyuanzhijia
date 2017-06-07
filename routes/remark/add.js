@@ -14,7 +14,7 @@ var flash = require('connect-flash');
 var Remark = AV.Object.extend('Remark');
 
 var data = extend(config.data, {
-    title: '备忘录-编辑备忘录',
+    title: '产品预订-添加',
     currentPage: 'remark'
 });
 
@@ -41,6 +41,7 @@ router.post('/', function (req, res, next) {
     }
 
     var title = req.body['title'];
+    var name = req.body['name'];
     var content = req.body['content'];
     var isComplete = req.body['is-complete'] ? true : false;
     var type = req.body['type'];
@@ -52,6 +53,7 @@ router.post('/', function (req, res, next) {
         function (cb) {
 
             remark.set('title', title);
+            remark.set('name', name);
             remark.set('content', content);
             remark.set('isComplete', isComplete);
             remark.set('type',type);

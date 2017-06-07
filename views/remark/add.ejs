@@ -17,24 +17,32 @@
 
         <fieldset>
 
-            <legend><a href="/remark/add">添加新备忘录信息</a></legend>
+            <legend><a href="/remark/add">添加新产品预订信息</a></legend>
             
             <!-- remark title start -->
-            <div id="content-name" class="am-form-group">
-                <label>备忘录标题：<i>*</i> </label>
-                <input id="title" required name="title" type="text" placeholder="输入备忘录标题" />
+            <div id="content-title" class="am-form-group">
+                <label>产品预订标题:<i>*</i> </label>
+                <input id="title" required name="title" type="text" placeholder="输入产品预订标题" />
             </div>
             <!-- remark title end -->
 
             <hr/>
+
+            <!-- remark name start -->
+            <div id="content-name" class="am-form-group">
+                <label>用户名:</label>
+                <input id="name" name="name" type="text" placeholder="输入用户名" />
+            </div>
+            <!-- remark name end -->
             
             <!-- type start -->
             <div id="content-type" class="am-form-group">
-                <label>备忘录类型：</label>
+                <label>用户类型：</label>
                 <select name="type" id="type">
-                    <option value="order">客户订货记录</option>
-                    <option value="purchase">采购信息记录</option>
-                    <option value="user">用户信息记录</option>
+                    <option value="taobao">淘宝用户名</option>
+                    <option value="name">真实姓名</option>
+                    <option value="weixin">微信用户名</option>
+                    <option value="web">网站用户</option>
                     <option value="other">其他</option>
                 </select>
             </div>
@@ -44,8 +52,8 @@
 
             <!-- content start -->
             <div id="content-content" class="am-form-group">
-                <label>备忘录内容：</label>
-                <textarea name="content" id="content" placeholder="输入备忘录内容" rows="5"></textarea>
+                <label>产品预订备注：</label>
+                <textarea name="content" id="content" placeholder="输入产品预订备注" rows="5"></textarea>
             </div>
             <!-- content end -->
 

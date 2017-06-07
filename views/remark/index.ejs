@@ -21,14 +21,27 @@
     
         <fieldset>
 
-            <legend><a href="/remark">备忘录列表</a></legend>
+            <legend><a href="/remark">预订管理</a></legend>
 
-            <form class="am-form-inline" role="form" action="/remark">
+            <form class="am-g" role="form" action="/remark">
               
-                <div class="am-form-group">
-                  搜索备忘录标题：<input type="text" name="search-remark-title" class="am-form-field" placeholder="搜索">
+                <div class="am-u-lg-2 am-u-sm-8">
+                    <input type="text" name="search-remark-title" class="am-form-field" placeholder="搜索标题">
                 </div>
-                <button type="submit" class="am-btn am-btn-primary">搜索</button>
+
+                <div class="am-u-lg-2 am-u-sm-8">
+                    <input type="text" name="search-remark-name" class="am-form-field" placeholder="搜索姓名">
+                </div>
+
+
+                <div class="am-u-lg-1 am-u-sm-4">
+                    <button type="submit" class="am-btn am-btn-primary">搜索</button>
+                </div>
+
+                <div class="am-u-lg-2 am-u-end">
+                    <label class="normal"><input type="checkbox" class="ckb-all-remark" <% if(viewAll) { %>checked="checked"<%}%> name="all-remark"> 查看所有记录</label>
+                </div>
+                
             </form>
 
             <hr/>
@@ -36,8 +49,9 @@
             <table class="am-table">
                 <thead>
                 <tr>
-                    <th>备忘录标题</th>
-                    <th class="t-c">类型</th>
+                    <th>产品预订标题</th>
+                    <th class="t-c">用户名</th>
+                    <th class="t-c">用户来源</th>
                     <th class="t-c">是否完成</th>
                     <th>创建时间</th>
                     <th class="small-screen-hide">更新时间</th>
@@ -48,10 +62,12 @@
                 <% for(var i=0; i < remark.length; i++) {%>
                 <tr>
                     <td><a href="/remark/edit/<%= remark[i].get('remarkId') %>"><%= remark[i].get('title') %></a> </td>
+                    <td class="t-c"><%= remark[i].get('name') %></td>
                     <td class="t-c">
-                        <% if (remark[i].get('type') === 'order') { %>客户订货记录<% } %> 
-                        <% if (remark[i].get('type') === 'purchase') { %>采购信息记录<% } %> 
-                        <% if (remark[i].get('type') === 'user') { %>用户信息记录<% } %> 
+                        <% if (remark[i].get('type') === 'taobao') { %>淘宝用户名<% } %> 
+                        <% if (remark[i].get('type') === 'name') { %>真实姓名<% } %> 
+                        <% if (remark[i].get('type') === 'weixin') { %>微信用户名<% } %> 
+                        <% if (remark[i].get('type') === 'web') { %>网站用户<% } %> 
                         <% if (remark[i].get('type') === 'other') { %>其他<% } %> 
                     </td>
                     <td class="t-c"><input data-id="<%= remark[i].get('remarkId') %>" class="ckb-is-complete" type="checkbox" <% if(remark[i].get('isComplete')) { %>checked="checked"<% } %> ></td>
@@ -65,16 +81,16 @@
             
             <ul class="am-pagination">
                 <% if (remarkPager.prev) { %> <li>
-                    <a href="/remark?page=<%= remarkPager.prev %><% if(searchRemarkTitle) {%>&search-remark-name=<%=searchRemarkTitle%> <%}%>">上一页</a></li> <% } %>
+                    <a href="/remark?page=<%= remarkPager.prev %><% if(searchRemarkTitle) {%>&search-remark-name=<%=searchRemarkTitle%> <%}%><% if(viewAll) {%>&view=all<%}%>">上一页</a></li> <% } %>
                 <% if (remarkPager.next) { %> <li>
-                    <a href="/remark?page=<%= remarkPager.next %><% if(searchRemarkTitle) {%>&search-remark-name=<%=searchRemarkTitle%> <%}%>">下一页</a></li> <% } %>
+                    <a href="/remark?page=<%= remarkPager.next %><% if(searchRemarkTitle) {%>&search-remark-name=<%=searchRemarkTitle%> <%}%><% if(viewAll) {%>&view=all<%}%>">下一页</a></li> <% } %>
                 <li class="count">第<%=remarkPager.page%>页 共<%= remarkCount %>条</li>
             </ul>
             
             <hr/>
 
             <div class="am-form-group">
-                <a href="/remark/add" class="am-btn am-btn-primary" role="button">添加新备忘录</a>
+                <a href="/remark/add" class="am-btn am-btn-primary" role="button">添加新产品预订</a>
             </div>
 
         </fieldset>

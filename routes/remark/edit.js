@@ -14,7 +14,7 @@ var extend = require("xtend");
 var Remark = AV.Object.extend('Remark');
 
 var data =  extend(config.data,{
-    title:'备忘录-编辑备忘录',
+    title:'产品预订-编辑',
     currentPage:'remark'
 });
 
@@ -72,6 +72,7 @@ router.post('/', function (req, res, next) {
     var remarkId = parseInt(req.body['remark-id']);
 
     var title = req.body['title'];
+    var name = req.body['name'];
     var content = req.body['content'];
     var isComplete = req.body['is-complete'] ? true : false;
     var type = req.body['type'];
@@ -82,6 +83,7 @@ router.post('/', function (req, res, next) {
     query.equalTo('remarkId',remarkId);
     query.first().then(function(result) {
         result.set('title',title);
+        result.set('name',name);
         result.set('content',content);
         result.set('type',type);
         result.set('isComplete',isComplete);

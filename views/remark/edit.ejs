@@ -20,24 +20,34 @@
         
         <fieldset>
 
-            <legend>编辑备忘录信息</legend>
+            <legend>编辑产品预订信息</legend>
 
             <!-- remark title start -->
-            <div id="content-name" class="am-form-group">
-                <label>备忘录标题：<i>*</i> </label>
-                <input id="title" required name="title" type="text" placeholder="输入备忘录标题" value="<%= remark.get('title')%>" />
+            <div id="content-title" class="am-form-group">
+                <label>产品预订标题：<i>*</i> </label>
+                <input id="title" required name="title" type="text" placeholder="输入产品预订标题" value="<%= remark.get('title')%>" />
             </div>
             <!-- remark title end -->
 
             <hr/>
 
+            <!-- remark name start -->
+            <div id="content-name" class="am-form-group">
+                <label>用户名:</label>
+                <input id="name" name="name" type="text" placeholder="输入用户名" />
+            </div>
+            <!-- remark name end -->
+
+            <hr/>
+
             <!-- type start -->
             <div id="content-type" class="am-form-group">
-                <label>备忘录类型：</label>
+                <label>产品预订类型：</label>
                 <select name="type" id="type">
-                    <option value="order" <% if (remark.get('type') === 'order') {%>selected="selected"<% } %> >发货信息</option>
-                    <option value="user" <% if (remark.get('type') === 'user') {%>selected="selected"<% } %> >用户信息</option>
-                    <option value="purchase" <% if (remark.get('type') === 'purchase') {%>selected="selected"<% } %> >采购信息</option>
+                    <option value="taobao" <% if (remark.get('type') === 'taobao') {%>selected="selected"<% } %> >淘宝用户名</option>
+                    <option value="name" <% if (remark.get('type') === 'name') {%>selected="selected"<% } %> >真实姓名</option>
+                    <option value="weixin" <% if (remark.get('type') === 'weixin') {%>selected="selected"<% } %> >微信用户名</option>
+                    <option value="web" <% if (remark.get('type') === 'web') {%>selected="selected"<% } %> >网站用户</option>
                     <option value="other" <% if (remark.get('type') === 'other') {%>selected="selected"<% } %> >其他</option>
                 </select>
             </div>
@@ -47,8 +57,8 @@
 
             <!-- content start -->
             <div id="content-content" class="am-form-group">
-                <label>备忘录内容：</label>
-                <textarea name="content" id="content" placeholder="输入备忘录内容" rows="5"><%= remark.get('content')%></textarea>
+                <label>产品预订备注：</label>
+                <textarea name="content" id="content" placeholder="输入产品预订备注" rows="5"><%= remark.get('content')%></textarea>
             </div>
             <!-- content end -->
 

@@ -34,6 +34,14 @@ module.exports = {
             return false;
         });
         
+        $('.ckb-all-remark').click(function() {
+            if(!this.checked) {
+                location.href = '/remark';
+            } else {
+                location.href = '/remark?view=all';
+            }
+        });
+        
     },
     addFun:function() {
         $('#form-add-remark').validate();

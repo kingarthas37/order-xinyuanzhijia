@@ -32,8 +32,11 @@ router.get('/', function (req, res, next) {
     var page = req.query.page ? parseInt(req.query.page) : 1;
     var limit = req.query.limit ? parseInt(req.query.limit) : config.page.LIMIT;
     var order = req.query.order || 'desc';
+    var viewAll = req.query.view ? true : false;
     
     var searchRemarkTitle = req.query['search-remark-title'];
+    var searchRemarkName = req.query['search-remark-name'];
+
 
     data = extend(data,{
         flash: {
@@ -41,16 +44,27 @@ router.get('/', function (req, res, next) {
             error:req.flash('error')
         },
         user:req.currentUser,
-        searchRemarkTitle:searchRemarkTitle
+        searchRemarkTitle:searchRemarkTitle,
+        searchRemarkName:searchRemarkName,
+        viewAll:viewAll
     });
     
     var query = new AV.Query(Remark);
+    
+    if(!viewAll) {
+        query.equalTo('isComplete',false);
+    }
+    
     async.series([
 
         function(cb) {
             
             if(searchRemarkTitle) {
                 query.contains('title',searchRemarkTitle);
+            }
+
+            if(searchRemarkName) {
+                query.contains('name',searchRemarkName);
             }
             
             query.count({
@@ -80,6 +94,10 @@ router.get('/', function (req, res, next) {
 
             if(searchRemarkTitle) {
                 query.contains('title',searchRemarkTitle);
+            }
+
+            if(searchRemarkName) {
+                query.contains('name',searchRemarkName);
             }
 
             query.find({
