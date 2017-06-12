@@ -39,7 +39,8 @@ router.get('/', function (req, res, next) {
     var searchOrderName = req.query['search-order-name'];
     var searchCustomerName = req.query['search-customer-name'];
     let searchAddress = req.query['search-address'];
-    let searchNotShipped = req.query['search-notshipped'];
+    let searchNotShipped = req.query['search-not-shipped'];
+    let searchShipping = req.query['search-shipping'];
 
     data = extend(data, {
         flash: {
@@ -47,12 +48,13 @@ router.get('/', function (req, res, next) {
             error: req.flash('error')
         },
         user: req.currentUser,
+        limit,
         searchOrderName,
         searchCustomerName,
         searchAddress,
-        searchNotShipped
+        searchNotShipped,
+        searchShipping
     });
-
 
     async.series([
 
@@ -66,10 +68,16 @@ router.get('/', function (req, res, next) {
                 cqlWhere = `where customerName like '%${searchCustomerName}%' or taobaoName like '%${searchCustomerName}%'`;
             } else if (searchAddress) {
                 cqlWhere = `where shippingAddress like '%${searchAddress}%'`;
-            } else if (searchNotShipped) {
-                cqlWhere = `where shippingStatus = 'notshipped'`;
             }
-
+            
+            if(searchNotShipped && searchShipping) {
+                cqlWhere = `where shippingStatus = 'notshipped' and shippingCompany like '%${searchShipping}%'`;
+            } else if(searchNotShipped) {
+                cqlWhere = `where shippingStatus = 'notshipped'`;
+            } else if(searchShipping) {
+                cqlWhere = `where shippingCompany like '%${searchShipping}%'`;
+            }
+            
             let cql = `select count(*) from OrderTrack ${cqlWhere}`;
 
             AV.Query.doCloudQuery(cql).then(function (results) {
@@ -92,12 +100,17 @@ router.get('/', function (req, res, next) {
                 cqlWhere = `where customerName like '%${searchCustomerName}%' or taobaoName like '%${searchCustomerName}%'`;
             } else if (searchAddress) {
                 cqlWhere = `where shippingAddress like '%${searchAddress}%'`;
-            } else if (searchNotShipped) {
+            }
+
+            if(searchNotShipped && searchShipping) {
+                cqlWhere = `where shippingStatus = 'notshipped' and shippingCompany like '%${searchShipping}%'`;
+            } else if(searchNotShipped) {
                 cqlWhere = `where shippingStatus = 'notshipped'`;
+            } else if(searchShipping) {
+                cqlWhere = `where shippingCompany like '%${searchShipping}%'`;
             }
 
             let cql = `select * from OrderTrack ${cqlWhere} limit ${skip},${limit} order by orderId ${order}`;
-
             AV.Query.doCloudQuery(cql).then(function (results) {
                 data = extend(data, {
                     order: results.results

@@ -1,7 +1,8 @@
 'use strict';
 
 require('jquery-validate');
-var Bloodhound = require('bloodhound');
+let Bloodhound = require('bloodhound');
+let utils = require('../common/utils');
 
 module.exports = {
 
@@ -250,12 +251,33 @@ module.exports = {
 
         //查询未发货
         {
-            $('.ckb-notshipped').click(function () {
-                if (this.checked) {
-                    location.href = '/order?search-notshipped=on';
-                } else {
-                    location.href = '/order';
-                }
+            $('.ckb-not-shipped').click(function () {
+                $('#search-not-shipped').val(this.checked ? 'on' :'');
+                searchOrder();
+            });
+        }
+        
+        //快递方式
+        {
+            $('.select-shipping').change(function() {
+                $('#search-shipping').val(this.value ? this.value : '');
+                searchOrder();
+            });
+        }
+        
+        //limit
+        {
+            $('.select-limit').change(function() {
+                $('#limit').val(this.value ? this.value : '');
+                searchOrder();
+            });
+        }
+        
+        function searchOrder() {
+            location.href = utils.urlParamsComponent('/order',{
+                'limit':$('#limit').val(),
+                'search-not-shipped':$('#search-not-shipped').val(),
+                'search-shipping':$('#search-shipping').val()
             });
         }
 

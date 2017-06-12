@@ -44,7 +44,9 @@ footer p {
     margin: 0;
 }
 
-
+em,i {
+    font-style: normal;
+}
 
 .loading-elem {
     
@@ -240,6 +242,10 @@ p.normal {
     .am-pagination {
         .count {
             float: right;
+            select {
+                color: #333;
+                margin-left:6px;
+            }
         }
     }
     
