@@ -62,21 +62,24 @@ router.get('/', function (req, res, next) {
 
             let cqlWhere = '';
 
-            if (searchOrderName) {
-                cqlWhere = `where name like '%${searchOrderName}%'`;
-            } else if (searchCustomerName) {
-                cqlWhere = `where customerName like '%${searchCustomerName}%' or taobaoName like '%${searchCustomerName}%'`;
-            } else if (searchAddress) {
-                cqlWhere = `where shippingAddress like '%${searchAddress}%'`;
+            if(searchOrderName || searchCustomerName || searchAddress) {
+                if (searchOrderName) {
+                    cqlWhere = `where name like '%${searchOrderName}%'`;
+                } else if (searchCustomerName) {
+                    cqlWhere = `where customerName like '%${searchCustomerName}%' or taobaoName like '%${searchCustomerName}%'`;
+                } else if (searchAddress) {
+                    cqlWhere = `where shippingAddress like '%${searchAddress}%'`;
+                }
+            } else {
+                if(searchNotShipped && searchShipping) {
+                    cqlWhere = `where shippingStatus = 'notshipped' and shippingCompany like '%${searchShipping}%'`;
+                } else if(searchNotShipped) {
+                    cqlWhere = `where shippingStatus = 'notshipped'`;
+                } else if(searchShipping) {
+                    cqlWhere = `where shippingCompany like '%${searchShipping}%'`;
+                }
             }
             
-            if(searchNotShipped && searchShipping) {
-                cqlWhere = `where shippingStatus = 'notshipped' and shippingCompany like '%${searchShipping}%'`;
-            } else if(searchNotShipped) {
-                cqlWhere = `where shippingStatus = 'notshipped'`;
-            } else if(searchShipping) {
-                cqlWhere = `where shippingCompany like '%${searchShipping}%'`;
-            }
             
             let cql = `select count(*) from OrderTrack ${cqlWhere}`;
 
@@ -94,20 +97,28 @@ router.get('/', function (req, res, next) {
 
             let cqlWhere = '';
 
-            if (searchOrderName) {
-                cqlWhere = `where name like '%${searchOrderName}%'`;
-            } else if (searchCustomerName) {
-                cqlWhere = `where customerName like '%${searchCustomerName}%' or taobaoName like '%${searchCustomerName}%'`;
-            } else if (searchAddress) {
-                cqlWhere = `where shippingAddress like '%${searchAddress}%'`;
-            }
+            if(searchOrderName || searchCustomerName || searchAddress) {
+                if (searchOrderName) {
+                    cqlWhere = `where name like '%${searchOrderName}%'`;
+                } else if (searchCustomerName) {
+                    cqlWhere = `where customerName like '%${searchCustomerName}%' or taobaoName like '%${searchCustomerName}%'`;
+                } else if (searchAddress) {
+                    cqlWhere = `where shippingAddress like '%${searchAddress}%'`;
+                }
 
-            if(searchNotShipped && searchShipping) {
-                cqlWhere = `where shippingStatus = 'notshipped' and shippingCompany like '%${searchShipping}%'`;
-            } else if(searchNotShipped) {
-                cqlWhere = `where shippingStatus = 'notshipped'`;
-            } else if(searchShipping) {
-                cqlWhere = `where shippingCompany like '%${searchShipping}%'`;
+                data = extend(data, {
+                    searchNotShipped:'',
+                    searchShipping:''
+                });
+                
+            } else {
+                if(searchNotShipped && searchShipping) {
+                    cqlWhere = `where shippingStatus = 'notshipped' and shippingCompany like '%${searchShipping}%'`;
+                } else if(searchNotShipped) {
+                    cqlWhere = `where shippingStatus = 'notshipped'`;
+                } else if(searchShipping) {
+                    cqlWhere = `where shippingCompany like '%${searchShipping}%'`;
+                }
             }
 
             let cql = `select * from OrderTrack ${cqlWhere} limit ${skip},${limit} order by orderId ${order}`;
