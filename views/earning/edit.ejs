@@ -33,7 +33,7 @@
 
             <!-- expenses comment start -->
             <div id="content-expenses-comment" class="am-form-group">
-                <label>支出说明：(每笔支出请换行)</label>
+                <label>支出说明：(每笔支出请换行,可用逗号隔开个比金额)</label>
                 <textarea id="expenses-comment" name="expenses-comment" rows="8" placeholder="输入支出说明"><% if (!earning.get('expensesComment')) { %>采购金额:0
 顺丰:
 快递:
@@ -60,7 +60,7 @@ Andrea:
 
             <!-- income comment start -->
             <div id="content-income-comment" class="am-form-group">
-                <label>收入说明：(每笔收入请换行)</label>
+                <label>收入说明：(每笔收入请换行,可用逗号隔开个比金额)</label>
                 <textarea id="income-comment" name="income-comment" rows="5" placeholder="输入收入说明"><% if (!earning.get('incomeComment')) { %>淘宝:
 支付宝:
 微信:

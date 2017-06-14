@@ -53,7 +53,8 @@ module.exports = {
             
             var amount = 0;
             var input = $(this).parent().prev().prev().find('input[type=text]');
-            var amounts = this.value.match(/(\d+).*\b/g);
+            
+            var amounts = this.value.match(/(\d+)/g);
             
             if(!amounts) {
                 input.val(0);
