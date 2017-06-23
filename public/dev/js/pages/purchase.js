@@ -24,7 +24,40 @@ module.exports = {
             return false;
         });
 
-        $('.ckb-shipping-status').click(function () {
+
+        $('.ckb-shipping-status-forward').click(function () {
+
+            let tr = $(this).parents('tr');
+            if (!this.checked) {
+                tr.find('.ckb-shipping-status-arrived').prop('checked',false);
+            }
+
+            $.ajax({
+                url: '/purchase/shipping-status',
+                type: 'get',
+                data: {
+                    purchaseId: $(this).attr('data-id'),
+                    status: this.checked ? 'forward' : 'notarrived'
+                }
+            }).done(() => {
+                if (this.checked) {
+                    tr.addClass('off-middle');
+                } else {
+                    tr.removeClass('off').removeClass('off-middle');
+                }
+            });
+        });
+        
+
+        $('.ckb-shipping-status-arrived').click(function () {
+            
+            let tr = $(this).parents('tr');
+            if (this.checked) {
+                tr.find('.ckb-shipping-status-forward').prop('checked',true);
+            } else {
+                tr.find('.ckb-shipping-status-forward').prop('checked',false);
+            }
+            
             $.ajax({
                 url: '/purchase/shipping-status',
                 type: 'get',
@@ -32,12 +65,11 @@ module.exports = {
                     purchaseId: $(this).attr('data-id'),
                     status: this.checked ? 'arrived' : 'notarrived'
                 }
-            }).done(data => {
-                let tr = $(this).parents('tr');
+            }).done(() => {
                 if (this.checked) {
-                    tr.addClass('off')
+                    tr.addClass('off');
                 } else {
-                    tr.removeClass('off')
+                    tr.removeClass('off').removeClass('off-middle');
                 }
             });
         });

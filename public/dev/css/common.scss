@@ -86,7 +86,7 @@ label.normal {
     margin-bottom: 0;
 }
 
-span.split {
+span.split,span.sp {
     padding: 0 3px;
     &:after {
         content: "|";
@@ -256,6 +256,9 @@ p.normal {
         }
         td {
             vertical-align: middle;
+        }
+        tr.off-middle {
+            background: #edfff0;
         }
         tr.off {
             background:#feffed;

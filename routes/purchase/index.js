@@ -67,7 +67,7 @@ router.get('/', function (req, res, next) {
             }
             
             if(notArrived) {
-                query.equalTo('shippingStatus','notarrived');
+                query.notEqualTo('shippingStatus','arrived');
             }
             
             query.count({
@@ -110,7 +110,7 @@ router.get('/', function (req, res, next) {
             }
 
             if(notArrived) {
-                query.equalTo('shippingStatus','notarrived');
+                query.notEqualTo('shippingStatus','arrived');
             }
 
             query.find({
