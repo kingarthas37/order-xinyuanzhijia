@@ -68,9 +68,20 @@
 
             <!-- orderLink start -->
             <div id="content-order-link" class="am-form-group">
-                <label>网站查看订单链接：(格式:链接必须以http://或https://开头,每一条换行)</label>
+                <label>网站订单链接描述：(格式:链接必须以http://或https://开头,每一条换行,后面数量必须使用"*"表示)</label>
                 <textarea id="purchase-order-link" name="purchase-order-link"  placeholder="输入网站查看订单链接" rows="5"><%= purchase.get('orderLink') %></textarea>
-                <div class="purchase-order-link-view"></div>
+               
+                <table class="purchase-order-link-view am-table">
+                    <thead>
+                        <tr>
+                            <th class="t-c" width="40">图片</th>
+                            <th class="t-c" width="30">数量</th>
+                            <th>产品链接</th>
+                            <th class="t-c">标题</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
             </div>
             <!-- orderLink end -->
 
