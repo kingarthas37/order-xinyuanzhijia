@@ -148,12 +148,20 @@ module.exports = {
     purchaseProductTableList() {
 
         let table = $('.purchase-order-link-view');
-        let value = $('#purchase-order-link').val();
+        let value = $.trim($('#purchase-order-link').val());
         let html = '';
+        
+        if(!value) {
+            return false;
+        }
 
         var linkArr = value.split('\n');
+        linkArr = linkArr.filter(function(n) {
+            return $.trim(n) !== '';
+        });
+        
         $.each(linkArr, function (i, n) {
-
+            
             let img = '';
             let title = '-';
             
@@ -191,6 +199,11 @@ module.exports = {
             html += template;
         });
         table.find('tbody').append(html);
+
+        table.find('a').click(function() {
+            table.find('.on').removeClass('on');
+            $(this).parents('tr').addClass('on');
+        });
         
     }
 };
