@@ -11,6 +11,13 @@ module.exports = {
             }
         }
         return url + '?' + search.substring(0,search.length-1);
+    },
+    
+    //获取远程产品图片标题资源
+    getRemoteProductInfo(url,callback) {
+        
+        
+        
     }
     
 };

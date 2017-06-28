@@ -4,6 +4,8 @@
 require('jquery-validate');
 var Bloodhound = require('bloodhound');
 
+let utils = require('../common/utils');
+
 module.exports = {
 
     indexFun: function () {
@@ -185,7 +187,11 @@ module.exports = {
             if(/\.(jpg|jpeg|png|gif)/.test(link)) {
                 img = `<a href="${link}" target="_blank"><img src="${link}" /></a>`;
             } else {
-                img = ''; //获取图片
+                utils.getRemoteProductInfo(url,function(title,img) {
+
+                    console.info('ok');
+                    
+                });
             }
             
             let template = `
