@@ -28,6 +28,36 @@ module.exports = {
                 location.href = '/product-book';
             }
         });
+        
+        $('.set-product-state').click(function() {
+            
+            let productStateArr = [];
+            $(this).parents('tr').find('.set-product-state').each(function() {
+                if(this.checked) {
+                    productStateArr.push('on');
+                } else {
+                    productStateArr.push('');
+                }
+            });
+            
+            $.ajax({
+                type: 'post',
+                url: '/product-book/set-product-state',
+                data: {
+                    'product-book-id':$(this).data('product-book-id'),
+                    'product-state': JSON.stringify(productStateArr)
+                }
+            }).done(data => {
+                if (data.success) {
+                    if(this.checked) {
+                        $(this).parent().find('i').addClass('strong');
+                    } else {
+                        $(this).parent().find('i').removeClass('strong');
+                    }
+                }
+            });
+            
+        });
 
     },
     addFun: function () {

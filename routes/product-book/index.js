@@ -213,4 +213,27 @@ router.get('/get-customer-name',(req,res)=> {
     
 });
 
+router.post('/set-product-state', function (req, res, next) {
+
+    if(!req.currentUser) {
+        return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));
+    }
+    let productBookId = parseInt(req.body['product-book-id']);
+    let productState = JSON.parse(req.body['product-state']);
+    
+    var query = new AV.Query(ProductBook);
+
+    query.equalTo('productBookId',productBookId);
+    query.first().then(function(result) {
+        return result.save({
+            productState
+        });
+    }).then(function() {
+        res.send({
+            success:1
+        });
+    });
+
+});
+
 module.exports = router;

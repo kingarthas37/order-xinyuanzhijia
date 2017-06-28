@@ -58,7 +58,9 @@
                     <td>
                         <% for(var j=0;j < productBook[i].get('productName').length;j++) { %>
                         <div>
-
+                            
+                            <input class="set-product-state" data-product-book-id="<%= productBook[i].get('productBookId') %>" type="checkbox" <% if(productBook[i].get('productState')[j] =='on') { %>checked="checked"<% } %> >
+                            
                             <% if(productBook[i].get('productImage')[j]) { %>
                             <span class="image loading-elem">
                                 <a href="<%= productBook[i].get('productImage')[j] %>" target="_blank"><img src="<%= productBook[i].get('productImage')[j] %>?imageMogr2/thumbnail/32" alt=""></a>
@@ -67,10 +69,9 @@
                             <span class="image loading-elem" data-id=""><img width="24" src="http://ac-JoaBcRTt.clouddn.com/b7f0d580ef9a4ae8e19b.png?imageMogr2/thumbnail/24"></span>
                             <%}%>
                             
-                            <a href="#"></a>
                             <a href="/product-book/edit/<%= productBook[i].get('productBookId') %>">
                                 <% if(productBook[i].get('productState')[j] =='on') { %>
-                                <strong><%= productBook[i].get('productCount')[j] %>*<%= productBook[i].get('productName')[j] %></strong>
+                                <i class="strong"><%= productBook[i].get('productCount')[j] %>*<%= productBook[i].get('productName')[j] %></i>
                                 <% } else { %>
                                 <%= productBook[i].get('productCount')[j] %>*<%= productBook[i].get('productName')[j] %>
                                 <% } %>
