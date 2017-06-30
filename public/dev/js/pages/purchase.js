@@ -82,10 +82,10 @@ module.exports = {
             }
             location.href = '/purchase';
         });
-
-        $('.ckb-notarrived').click(function () {
+        
+        $('.ckb-shipping-status').click(function () {
             if (this.checked) {
-                location.href = '/purchase?notarrived=true';
+                location.href = `/purchase?shipping-status=${this.name}`;
             } else {
                 location.href = '/purchase';
             }

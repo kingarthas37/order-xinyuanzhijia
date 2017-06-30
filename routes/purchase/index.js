@@ -36,14 +36,14 @@ router.get('/', function (req, res, next) {
     var siteType = req.query['site-type'];
     var search = req.query['purchase-search'] ? req.query['purchase-search'].trim() : '';
     let shippingType = req.query['shipping'];
-    let notArrived = req.query['notarrived'];
+    let shippingStatus = req.query['shipping-status'];
     
     data = extend(data,{
         flash: {success:req.flash('success'),error:req.flash('error')},
         user:req.currentUser,
         search,
         siteType,
-        notArrived,
+        shippingStatus,
         shippingType
     });
 
@@ -66,8 +66,8 @@ router.get('/', function (req, res, next) {
                 query.equalTo('shippingType',shippingType);
             }
             
-            if(notArrived) {
-                query.notEqualTo('shippingStatus','arrived');
+            if(shippingStatus) {
+                query.equalTo('shippingStatus',shippingStatus);
             }
             
             query.count({
@@ -109,8 +109,8 @@ router.get('/', function (req, res, next) {
                 query.contains('name',search);
             }
 
-            if(notArrived) {
-                query.notEqualTo('shippingStatus','arrived');
+            if(shippingStatus) {
+                query.equalTo('shippingStatus',shippingStatus);
             }
 
             query.find({
