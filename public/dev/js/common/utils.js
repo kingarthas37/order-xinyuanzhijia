@@ -14,9 +14,17 @@ module.exports = {
     },
     
     //获取远程产品图片标题资源
-    getRemoteProductInfo(url,callback) {
-        
-        
+    getRemoteProductInfo(link,callback) {
+
+        $.ajax({
+            url: '/purchase/get-spider-info',
+            type: 'get',
+            data: {
+                url: link
+            }
+        }).done(result => {
+            callback(result.image || '',result.title || '');
+        });
         
     }
     
