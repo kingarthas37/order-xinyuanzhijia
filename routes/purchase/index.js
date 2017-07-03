@@ -13,8 +13,12 @@ var config = require('../../lib/config');
 //class
 var PurchaseTrack = AV.Object.extend('PurchaseTrack');
 
+var https = require('https');
+
 //lib
 var pager = require('../../lib/component/pager-str');
+
+var spider = require('../../lib/spider');
 
 var data =  extend(config.data,{
     title: '订单跟踪编辑-首页',
@@ -183,6 +187,36 @@ router.get('/shipping-status',(req,res)=> {
         res.send({success:1});
     });
      
+});
+
+router.get('/get-spider-info',(req,res)=> {
+
+    let url = req.query.url;
+    var result = {title: '', image: ''};
+    var response = res;
+    https.get(url, function(res) {
+        var html='';
+        res.on('data', function(data) {
+            html += data;
+        });
+        res.on('end',function() {
+            var domain = url.match(spider.domain);
+            var spiderConfig = spider.spider;
+            var patten = spiderConfig[domain]['title'];
+            var title = html.match(patten);
+            if(title) {
+                result.title = title[0].replace(/<(?:.|\s)*?>/g,"");
+            }
+            patten = spiderConfig[domain]['image'];
+            var image = html.match(patten);
+            if(image) {
+                result.image = spiderConfig[domain]['path'] + image[0].match(spiderConfig[domain]['imageUrl'])[0].replace(/"/gi, "");
+            }
+            response.send(result);
+        });
+    }).on('error', function() {
+        console.log('error');
+    });
 });
 
 

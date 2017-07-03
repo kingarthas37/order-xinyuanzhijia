@@ -187,11 +187,21 @@ module.exports = {
             if(/\.(jpg|jpeg|png|gif)/.test(link)) {
                 img = `<a href="${link}" target="_blank"><img src="${link}" /></a>`;
             } else {
-                utils.getRemoteProductInfo(url,function(title,img) {
+                $.ajax({
+                    url: '/purchase/get-spider-info',
+                    type: 'get',
+                    data: {
+                        url: link
+                    }
+                }).done(result => {
+                    img = result.image;
+                    title = result.title;
+                });
+                /*utils.getRemoteProductInfo(link,function(title,img) {
 
                     console.info('ok');
-                    
-                });
+
+                });*/
             }
             
             let template = `
