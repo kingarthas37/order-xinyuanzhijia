@@ -149,66 +149,185 @@ module.exports = {
 
     purchaseProductTableList() {
 
+        let textarea = $('#purchase-order-link');
         let table = $('.purchase-order-link-view');
         let value = $.trim($('#purchase-order-link').val());
-        let html = '';
+        let newTextareaValue = '';
+        let newHtml = '';
         
         if(!value) {
             return false;
         }
 
-        var linkArr = value.split('\n');
+        value = value.replace(/\*\s/g,'*');
+        value = value.replace(/(\S)\*/,'$1 *');
+        textarea.val(value);
+
+        let linkArr = value.split('\n');
         linkArr = linkArr.filter(function(n) {
             return $.trim(n) !== '';
         });
         
         $.each(linkArr, function (i, n) {
             
-            let img = '';
+            let img = '<span class="loading-elem image on"></span>';
             let title = '-';
             
             let link = (()=> {
-                if (/http[^\*|\s]+/i.test(n)) {
-                    return /(http[^\*|\s]+)/i.exec(n)[1];
+                if (/http[^\s]+/i.test(n)) {
+                    return /(http[^\s]+)/i.exec(n)[1];
                 } else {
                     return '';
                 }
             })();
 
             let count = (()=> {
-                if (/\*\s*\d+/.test(n)) {
-                    return /\*\s*(\d+)/.exec(n)[1];
+                if (/\*\d+/.test(n)) {
+                    return /\*(\d+)/.exec(n)[1];
                 } else {
                     return 1;
                 }
             })();
             
-            //判断链接是否图片,则直接显示图片
-            if(/\.(jpg|jpeg|png|gif)/.test(link)) {
-                img = `<a href="${link}" target="_blank"><img src="${link}" /></a>`;
-            } else {
-                
-                utils.getRemoteProductInfo(link,function(image,title) {
-                    $(`.link-product-${i}`).find('.img').html(`<a href="${image}" target="_blank"><img src="${image}" /></a>`);
-                    $(`.link-product-${i}`).find('.title').text(`${title}`);
-                });
+            let countResult = (()=> {
+                if (/\|\d+/.test(n)) {
+                    return '-' + /\|(\d+)/.exec(n)[1];
+                } else {
+                    return '';
+                }
+            })();
+            
+            //处理textarea value
+            {
+                if(!/\*\d+/.test(n)) {
+                     n += ' *1';
+                }
+                newTextareaValue += n + '\n';
             }
             
-            let template = `
+            //处理table html
+            {
+                //判断链接是否图片,则直接显示图片
+                if(/\.(jpg|jpeg|png|gif)/.test(link)) {
+                    img = `-`;
+                } else {
+                    utils.getRemoteProductInfo(link,function(image,title) {
+                        $(`.link-product-${i}`).find('.img').html(`<a href="${image}" target="_blank"><img src="${image}" /></a>`);
+                        $(`.link-product-${i}`).find('.title').text(`${title}`);
+                    });
+                }
+
+                let template = `
                 <tr class="link-product-${i}">
                     <td class="img t-c">${img}</td>     
-                    <td class="count t-c">${count}</a></td>      
-                    <td class="link"><a href="${link}" target="_blank">${link}</a></td>    
+                    <td class="count t-c">${count} <span class="count-result">${countResult}</span></a></td>      
+                    <td class="count t-c">
+                        <a href="javascript:;" class="count-minus">预定+1</a>
+                        <span class="sp"></span>
+                        <a href="javascript:;" class="count-plus">取消-1</a>
+                    </td>      
+                    <td class="link"><a title="${link}" href="${link}" target="_blank">${link}</a></td>    
                     <td class="title">${title}</td>      
                 </tr>
             `;
-            html += template;
+                newHtml += template;
+            }
+            
         });
-        table.find('tbody').append(html);
+        
+        textarea.val($.trim(newTextareaValue));
+        table.find('tbody').append(newHtml);
 
-        table.find('a').click(function() {
+        table.find('.link a').click(function() {
             table.find('.on').removeClass('on');
-            $(this).parents('tr').addClass('on');
+            $(this).parents('td').addClass('on');
+        });
+
+        //预定+1
+        table.find('.count-minus').click(function() {
+            
+            let value = textarea.val();
+            let newValue = '';
+            let parent = $(this).parents('tr');
+            let url = parent.find('.link a').attr('title');
+            let countResult = parent.find('.count-result');
+            let linkArr = value.split('\n');
+            $.each(linkArr,function(i,n) {
+                
+                if(n.indexOf(url) > -1) {
+                    
+                    let count = parseInt(/\*(\d+)/.exec(n)[1]);
+                    let order = (()=> {
+                        if(/\|\d+/.test(n)) {
+                            return parseInt(/\|(\d+)/.exec(n)[1]);
+                        } else {
+                            return 0;
+                        }
+                    })();
+                    
+                    if(order < count) {
+                        order++;
+                        countResult.text(`-${order}`);
+                    }
+                    
+                    if(/\|\d+/.test(n)) {
+                        n = n.replace(/\|\d+/,'|'+ order);
+                    } else {
+                        n = n.replace(/(\*\d+)/,'$1 |'+ order);
+                    }
+                    
+                }
+                newValue += n + '\n';
+            });
+            
+            textarea.val($.trim(newValue));
+            
+        });
+
+        //取消-1
+        table.find('.count-plus').click(function() {
+
+            let value = textarea.val();
+            let newValue = '';
+            let parent = $(this).parents('tr');
+            let url = parent.find('.link a').attr('title');
+            let countResult = parent.find('.count-result');
+            let linkArr = value.split('\n');
+            $.each(linkArr,function(i,n) {
+
+                if(n.indexOf(url) > -1) {
+
+                    let count = parseInt(/\*(\d+)/.exec(n)[1]);
+                    let order = (()=> {
+                        if(/\|\d+/.test(n)) {
+                            return parseInt(/\|(\d+)/.exec(n)[1]);
+                        } else {
+                            return 0;
+                        }
+                    })();
+
+                    if(order > 1) {
+                        order--;
+                        countResult.text(`-${order}`);
+                    } else if(order === 1) {
+                        order--;
+                        countResult.text('');
+                    }
+
+                    if(/\|\d+/.test(n)) {
+                        n = n.replace(/\|\d+/,'|'+ order);
+                    } else {
+                        n = n.replace(/(\*\d+)/,'$1 |'+ order);
+                    }
+                    
+                    n = n.replace(/\s\|0/,'');
+
+                }
+                newValue += n + '\n';
+            });
+
+            textarea.val($.trim(newValue));
+
         });
         
     }
