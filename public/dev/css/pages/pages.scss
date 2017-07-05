@@ -357,6 +357,21 @@
     }
 }
 
+#modal-track-order {
+    ul {
+        text-align: left;
+        font-size: 13px;
+    }
+    li {
+        line-height: 24px;
+        border-bottom: 1px dashed #ddd;
+        &.success {
+            font-weight: bold;
+            color: #4aaa4a;
+        }
+    }
+}
+
 /* product category page */
 .product-category-page {
     .am-u-sm-12 {

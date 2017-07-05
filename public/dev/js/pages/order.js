@@ -380,19 +380,25 @@ module.exports = {
         //订单跟踪
         {
             let modalTrackOrder = $('#modal-track-order');
+            let title = modalTrackOrder.find('.am-modal-hd');
             let content = modalTrackOrder.find('.am-modal-bd');
+            
             $('.track-order').click(function() {
-                if(!$(this).attr('href')) {
-                    content.html(`请复制单号${$(this).data('track')}并<a href="//kuaidi100.com" target="_blank">打开此处</a>查询`);
+                title.find('span').text($(this).data('track'));
+                content.html('<ul></ul>');
+                $.ajax($(this).attr('href')).then(data => {
+                    if(data.list) {
+                        let list = '';
+                        $.each(data.list,(i,n) => {
+                            list += `<li class="${i===0 ? 'success' : ''}">${n.status} ${n.time}</li>`;
+                        });
+                        content.find('ul').append(list);
+                    } else {
+                        content.find('ul').append(`<li>暂无发货记录,请稍后查看</li>`);
+                    }
                     modalTrackOrder.modal();
-                    return false;
-                }
-                $.get($(this).attr('href')).then(data => {
-
-                    console.info(data);
-
                 });
-                content.html('');
+                return false;
             });
         }
 
