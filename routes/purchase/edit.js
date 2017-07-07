@@ -72,6 +72,7 @@ router.post('/', function (req, res, next) {
     var purchaseName = req.body['purchase-name'];
     var purchaseDescription = req.body['purchase-description'];
     var purchaseWebsite = req.body['purchase-website'];
+    var purchaseOrderUrl = req.body['purchase-order-url'];
     var purchaseOrderLink = req.body['purchase-order-link'];
     var purchaseMail = req.body['purchase-mail'];
     var purchaseAmount = req.body['purchase-amount'];
@@ -118,6 +119,7 @@ router.post('/', function (req, res, next) {
                     purchase.set('name',purchaseName);
                     purchase.set('description',purchaseDescription);
                     purchase.set('website',purchaseWebsite);
+                    purchase.set('orderUrl',purchaseOrderUrl);
                     purchase.set('orderLink',purchaseOrderLink);
                     purchase.set('mail',purchaseMail);
                     purchase.set('amount',purchaseAmount);

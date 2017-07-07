@@ -192,7 +192,7 @@ router.get('/shipping-status',(req,res)=> {
 router.get('/get-spider-info',(req,res)=> {
 
     let url = req.query.url;
-    var result = {title: '-', image: 'http://ac-JoaBcRTt.clouddn.com/b7f0d580ef9a4ae8e19b.png?imageMogr2/thumbnail/24'};
+    var result = {title: '-', image: 'http://ac-JoaBcRTt.clouddn.com/b7f0d580ef9a4ae8e19b.png?imageMogr2/thumbnail/40'};
     var response = res;
     var domain = url.match(spider.domain);
     var spiderConfig = spider.spider;
