@@ -192,17 +192,21 @@ router.get('/shipping-status',(req,res)=> {
 router.get('/get-spider-info',(req,res)=> {
 
     let url = req.query.url;
-    var result = {title: '', image: ''};
+    var result = {title: '-', image: 'http://ac-JoaBcRTt.clouddn.com/b7f0d580ef9a4ae8e19b.png?imageMogr2/thumbnail/24'};
     var response = res;
+    var domain = url.match(spider.domain);
+    var spiderConfig = spider.spider;
+    if(typeof(spiderConfig[domain]) == "undefined") {
+        response.send(result);
+        return;
+    }
+    var patten = spiderConfig[domain]['title'];
     https.get(url, function(res) {
         var html='';
         res.on('data', function(data) {
             html += data;
         });
         res.on('end',function() {
-            var domain = url.match(spider.domain);
-            var spiderConfig = spider.spider;
-            var patten = spiderConfig[domain]['title'];
             var title = html.match(patten);
             if(title) {
                 result.title = title[0].replace(/<(?:.|\s)*?>/g,"");
