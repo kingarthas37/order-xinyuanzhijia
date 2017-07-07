@@ -22,9 +22,14 @@ module.exports = {
             data: {
                 url: link
             }
-        }).done(result => {
-            callback(result.image || '',result.title || '');
-        });
+        }).then(
+            result => {
+                callback(result.image || '',result.title || '');
+            },
+            error => {
+                callback(false);
+            }
+        );
         
     }
     

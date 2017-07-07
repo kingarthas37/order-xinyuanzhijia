@@ -159,9 +159,12 @@ module.exports = {
             return false;
         }
 
-        value = value.replace(/\*\s/g,'*');
-        value = value.replace(/(\S)\*/,'$1 *');
-        textarea.val(value);
+        //过滤text
+        {
+            value = value.replace(/\*\s/g,'*');
+            value = value.replace(/(\S)\*/,'$1 *');
+            textarea.val(value);
+        }
 
         let linkArr = value.split('\n');
         linkArr = linkArr.filter(function(n) {
@@ -170,17 +173,17 @@ module.exports = {
         
         $.each(linkArr, function (i, n) {
             
-            let img = '<span class="loading-elem image on"></span>';
+            let img = '-';
             let title = '-';
             
             let link = (()=> {
                 if (/http[^\s]+/i.test(n)) {
-                    return /(http[^\s]+)/i.exec(n)[1];
+                    return /(http[^\s]+)/i.exec(n)[1]; //返回url
                 } else {
-                    return '';
+                    return $.trim(/[^(?:\*\d+)]*/.exec(n)[0]); //返回产品字符串
                 }
             })();
-
+            
             let count = (()=> {
                 if (/\*\d+/.test(n)) {
                     return /\*(\d+)/.exec(n)[1];
@@ -207,29 +210,41 @@ module.exports = {
             
             //处理table html
             {
-                //判断链接是否图片,则直接显示图片
+                //判断链接是否图片,则直接显示图片,如果不是链接,则直接显示普通字符串
                 if(/\.(jpg|jpeg|png|gif)/.test(link)) {
-                    img = `-`;
-                } else {
+                    
+                    img = `<a href="${link}" target="_blank"><img src="${link}" /></a>`;
+                    link = `<span title="${link}"><a href="${link}" target="_blank">${link}</a></span>`;
+                    
+                } else if(/^http/.test(link)) {
+                    
                     utils.getRemoteProductInfo(link,function(image,title) {
-                        $(`.link-product-${i}`).find('.img').html(`<a href="${image}" target="_blank"><img src="${image}" /></a>`);
-                        $(`.link-product-${i}`).find('.title').text(`${title}`);
+                        if(image.length) {
+                            $(`.link-product-${i}`).find('.img').html(`<a href="${image}" target="_blank"><img src="${image}" /></a>`);
+                            $(`.link-product-${i}`).find('.title').text(`${title}`);
+                        }
                     });
+                    link = `<span title="${link}"><a href="${link}" target="_blank">${link}</a></span>`;
+                    
+                } else {
+                    
+                    link = `<span title="${link}">${link}</span>`;
+                    
                 }
 
                 let template = `
-                <tr class="link-product-${i}">
-                    <td class="img t-c">${img}</td>     
-                    <td class="count t-c">${count} <span class="count-result">${countResult}</span></a></td>      
-                    <td class="count t-c">
-                        <a href="javascript:;" class="count-minus">预定+1</a>
-                        <span class="sp"></span>
-                        <a href="javascript:;" class="count-plus">取消-1</a>
-                    </td>      
-                    <td class="link"><a title="${link}" href="${link}" target="_blank">${link}</a></td>    
-                    <td class="title">${title}</td>      
-                </tr>
-            `;
+                    <tr class="link-product-${i}">
+                        <td class="img t-c">${img}</td>     
+                        <td class="count t-c">${count} <span class="count-result">${countResult}</span></a></td>      
+                        <td class="count t-c">
+                            <a href="javascript:;" class="count-minus">预定+1</a>
+                            <span class="sp"></span>
+                            <a href="javascript:;" class="count-plus">取消-1</a>
+                        </td>      
+                        <td class="link">${link}</td>    
+                        <td class="title">${title}</td>      
+                    </tr>
+                `;
                 newHtml += template;
             }
             
@@ -249,7 +264,7 @@ module.exports = {
             let value = textarea.val();
             let newValue = '';
             let parent = $(this).parents('tr');
-            let url = parent.find('.link a').attr('title');
+            let url = parent.find('.link span').attr('title');
             let countResult = parent.find('.count-result');
             let linkArr = value.split('\n');
             $.each(linkArr,function(i,n) {
@@ -290,14 +305,13 @@ module.exports = {
             let value = textarea.val();
             let newValue = '';
             let parent = $(this).parents('tr');
-            let url = parent.find('.link a').attr('title');
+            let url = parent.find('.link span').attr('title');
             let countResult = parent.find('.count-result');
             let linkArr = value.split('\n');
             $.each(linkArr,function(i,n) {
 
                 if(n.indexOf(url) > -1) {
 
-                    let count = parseInt(/\*(\d+)/.exec(n)[1]);
                     let order = (()=> {
                         if(/\|\d+/.test(n)) {
                             return parseInt(/\|(\d+)/.exec(n)[1]);
