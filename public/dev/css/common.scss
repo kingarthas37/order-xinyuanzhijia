@@ -255,6 +255,9 @@ p.normal {
     
     .am-table {
         vertical-align: middle;
+        .small-font {
+            font-size: 13px;
+        }
         th {
             min-width: 50px;
         }

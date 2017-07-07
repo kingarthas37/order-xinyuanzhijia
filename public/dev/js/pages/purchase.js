@@ -26,11 +26,13 @@ module.exports = {
             return false;
         });
 
-
         $('.ckb-shipping-status-forward').click(function () {
 
             let tr = $(this).parents('tr');
-            if (!this.checked) {
+            if (this.checked) {
+                tr.find('.ckb-shipping-status-shipped').prop('checked',true);
+            } else {
+                tr.find('.ckb-shipping-status-shipped').prop('checked',false);
                 tr.find('.ckb-shipping-status-arrived').prop('checked',false);
             }
 
@@ -39,7 +41,7 @@ module.exports = {
                 type: 'get',
                 data: {
                     purchaseId: $(this).attr('data-id'),
-                    status: this.checked ? 'forward' : 'notarrived'
+                    status: this.checked ? 'forward' : 'notshipped'
                 }
             }).done(() => {
                 if (this.checked) {
@@ -55,8 +57,10 @@ module.exports = {
             
             let tr = $(this).parents('tr');
             if (this.checked) {
+                tr.find('.ckb-shipping-status-shipped').prop('checked',true);
                 tr.find('.ckb-shipping-status-forward').prop('checked',true);
             } else {
+                tr.find('.ckb-shipping-status-shipped').prop('checked',false);
                 tr.find('.ckb-shipping-status-forward').prop('checked',false);
             }
             
@@ -65,7 +69,7 @@ module.exports = {
                 type: 'get',
                 data: {
                     purchaseId: $(this).attr('data-id'),
-                    status: this.checked ? 'arrived' : 'notarrived'
+                    status: this.checked ? 'arrived' : 'notshipped'
                 }
             }).done(() => {
                 if (this.checked) {

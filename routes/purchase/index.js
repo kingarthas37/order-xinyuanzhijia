@@ -37,40 +37,33 @@ router.get('/', function (req, res, next) {
     var limit = req.query.limit ? parseInt(req.query.limit) : config.page.LIMIT;
     var order = req.query.order || 'desc';
     
-    var siteType = req.query['site-type'];
-    var search = req.query['purchase-search'] ? req.query['purchase-search'].trim() : '';
-    let shippingType = req.query['shipping'];
+    let search = req.query['purchase-search'] ? req.query['purchase-search'].trim() : '';
     let shippingStatus = req.query['shipping-status'];
     
     data = extend(data,{
         flash: {success:req.flash('success'),error:req.flash('error')},
         user:req.currentUser,
         search,
-        siteType,
-        shippingStatus,
-        shippingType
+        shippingStatus
     });
 
-    
     async.series([
 
         function(cb) {
             
             var query = new AV.Query(PurchaseTrack);
             
-            if(siteType) {
-                query.equalTo('siteType',siteType);
-            }
-            
             if(search) {
                 query.contains('name',search);
             }
             
-            if(shippingType) {
-                query.equalTo('shippingType',shippingType);
-            }
-            
-            if(shippingStatus) {
+            if(!shippingStatus) {
+                let queryNotShipped = new AV.Query(PurchaseTrack);
+                queryNotShipped.equalTo('shippingStatus','notshipped');
+                let queryShipped = new AV.Query(PurchaseTrack);
+                queryShipped.equalTo('shippingStatus','shipped');
+                query = AV.Query.or(queryNotShipped,queryShipped);
+            } else {
                 query.equalTo('shippingStatus',shippingStatus);
             }
             
@@ -94,27 +87,25 @@ router.get('/', function (req, res, next) {
 
             query.skip((page - 1) * limit);
             query.limit(limit);
-            
-            if(order === 'asc') {
-                query.ascending("purchaseId");
-            } else {
-                query.descending('purchaseId');
-            }
-            
-            if(siteType) {
-                query.equalTo('siteType',siteType);
-            }
-
-            if(shippingType) {
-                query.equalTo('shippingType',shippingType);
-            }
 
             if(search) {
                 query.contains('name',search);
             }
 
-            if(shippingStatus) {
+            if(!shippingStatus) {
+                let queryNotShipped = new AV.Query(PurchaseTrack);
+                queryNotShipped.equalTo('shippingStatus','notshipped');
+                let queryShipped = new AV.Query(PurchaseTrack);
+                queryShipped.equalTo('shippingStatus','shipped');
+                query = AV.Query.or(queryNotShipped,queryShipped);
+            } else {
                 query.equalTo('shippingStatus',shippingStatus);
+            }
+
+            if(order === 'asc') {
+                query.ascending("purchaseId");
+            } else {
+                query.descending('purchaseId');
             }
 
             query.find({
@@ -192,7 +183,7 @@ router.get('/shipping-status',(req,res)=> {
 router.get('/get-spider-info',(req,res)=> {
 
     let url = req.query.url;
-    var result = {title: '-', image: 'http://ac-JoaBcRTt.clouddn.com/b7f0d580ef9a4ae8e19b.png?imageMogr2/thumbnail/40'};
+    var result = {title: '-', image: 'http://ac-JoaBcRTt.clouddn.com/b7f0d580ef9a4ae8e19b.png?imageMogr2/thumbnail/'};
     var response = res;
     var domain = url.match(spider.domain);
     var spiderConfig = spider.spider;
