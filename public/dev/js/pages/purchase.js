@@ -163,19 +163,23 @@ module.exports = {
             return false;
         }
 
-        //过滤text
-        {
-            value = value.replace(/\*\s/g,'*');
-            value = value.replace(/(\S)\*/,'$1 *');
-            textarea.val(value);
-        }
-
-        let linkArr = value.split('\n');
-        linkArr = linkArr.filter(function(n) {
-            return $.trim(n) !== '';
+        $.each(value.split('\n'),(i,n)=> {
+            if($.trim(n) === '') {
+                return;
+            }
+            n = n.replace(/\*\s/,'*');
+            n = n.replace(/(\S)\*/,'$1 *');
+            if(!/\*\d*/.test(n)) {
+                n += ' *1';
+            }
+             
+            newTextareaValue += n + ((i === value.split('\n').length-1) ? '' : '\n');
+            
         });
+
+        textarea.val(newTextareaValue);
         
-        $.each(linkArr, function (i, n) {
+        $.each(newTextareaValue.split('\n'), function (i, n) {
             
             let img = '-';
             let title = '-';
@@ -184,7 +188,7 @@ module.exports = {
                 if (/http[^\s]+/i.test(n)) {
                     return /(http[^\s]+)/i.exec(n)[1]; //返回url
                 } else {
-                    return $.trim(/[^(?:\*\d+)]*/.exec(n)[0]); //返回产品字符串
+                    return /(.*)\*\d+/.exec(n)[1]; //返回产品字符串
                 }
             })();
             
@@ -203,14 +207,6 @@ module.exports = {
                     return '';
                 }
             })();
-            
-            //处理textarea value
-            {
-                if(!/\*\d+/.test(n)) {
-                     n += ' *1';
-                }
-                newTextareaValue += n + '\n';
-            }
             
             //处理table html
             {
@@ -254,9 +250,8 @@ module.exports = {
             
         });
         
-        textarea.val($.trim(newTextareaValue));
         table.find('tbody').append(newHtml);
-
+        
         table.find('.link a').click(function() {
             table.find('.on').removeClass('on');
             $(this).parents('td').addClass('on');

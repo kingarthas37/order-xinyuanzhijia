@@ -52,19 +52,19 @@ router.get('/', function (req, res, next) {
         function(cb) {
             
             var query = new AV.Query(PurchaseTrack);
-            
+
             if(search) {
                 query.contains('name',search);
-            }
-            
-            if(!shippingStatus) {
-                let queryNotShipped = new AV.Query(PurchaseTrack);
-                queryNotShipped.equalTo('shippingStatus','notshipped');
-                let queryShipped = new AV.Query(PurchaseTrack);
-                queryShipped.equalTo('shippingStatus','shipped');
-                query = AV.Query.or(queryNotShipped,queryShipped);
             } else {
-                query.equalTo('shippingStatus',shippingStatus);
+                if(!shippingStatus) {
+                    let queryNotShipped = new AV.Query(PurchaseTrack);
+                    queryNotShipped.equalTo('shippingStatus','notshipped');
+                    let queryShipped = new AV.Query(PurchaseTrack);
+                    queryShipped.equalTo('shippingStatus','shipped');
+                    query = AV.Query.or(queryNotShipped,queryShipped);
+                } else {
+                    query.equalTo('shippingStatus',shippingStatus);
+                }
             }
             
             query.count({
@@ -90,16 +90,16 @@ router.get('/', function (req, res, next) {
 
             if(search) {
                 query.contains('name',search);
-            }
-
-            if(!shippingStatus) {
-                let queryNotShipped = new AV.Query(PurchaseTrack);
-                queryNotShipped.equalTo('shippingStatus','notshipped');
-                let queryShipped = new AV.Query(PurchaseTrack);
-                queryShipped.equalTo('shippingStatus','shipped');
-                query = AV.Query.or(queryNotShipped,queryShipped);
             } else {
-                query.equalTo('shippingStatus',shippingStatus);
+                if(!shippingStatus) {
+                    let queryNotShipped = new AV.Query(PurchaseTrack);
+                    queryNotShipped.equalTo('shippingStatus','notshipped');
+                    let queryShipped = new AV.Query(PurchaseTrack);
+                    queryShipped.equalTo('shippingStatus','shipped');
+                    query = AV.Query.or(queryNotShipped,queryShipped);
+                } else {
+                    query.equalTo('shippingStatus',shippingStatus);
+                }
             }
 
             if(order === 'asc') {
