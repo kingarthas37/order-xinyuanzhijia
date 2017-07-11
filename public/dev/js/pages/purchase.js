@@ -26,6 +26,25 @@ module.exports = {
             return false;
         });
 
+
+        $('.ckb-shipping-status-shipped').click(function () {
+            let tr = $(this).parents('tr');
+            $.ajax({
+                url: '/purchase/shipping-status',
+                type: 'get',
+                data: {
+                    purchaseId: $(this).attr('data-id'),
+                    status: this.checked ? 'shipped' : 'notshipped'
+                }
+            }).done(() => {
+                if (this.checked) {
+                    tr.addClass('off-middle');
+                } else {
+                    tr.removeClass('off').removeClass('off-middle');
+                }
+            });
+        });
+
         $('.ckb-shipping-status-forward').click(function () {
 
             let tr = $(this).parents('tr');
