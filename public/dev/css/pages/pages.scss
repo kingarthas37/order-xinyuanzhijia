@@ -159,6 +159,39 @@
             font-weight: normal;
         }
     }
+    .order-name-content {
+        min-height: 30px;
+        line-height: 30px;
+    }
+    .order-split {
+        @include breakpoint(small-only) {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 80px;
+        }
+    }
+    .check-customer-rename {
+        display: none;
+        font-size: 13px;
+        margin-left:5px;
+        padding: 2px 5px;
+        background: #eeffee;
+        color: #4bad4b;
+        i {
+            color: #4bad4b;
+        }
+        &.on {
+            display: inline;
+        }
+        &.error {
+            color: #dd514c;
+            background: #ffeae9;
+            i {
+                color: #dd514c;
+            }
+        }
+    }
 }
 
 .am-popover-inner {
@@ -338,22 +371,6 @@
         font-size: 14px;
         font-weight: bold;
         color: #fff;
-    }
-}
-
-/* order page */
-.order-page {
-    .order-name-content {
-        min-height: 30px;
-        line-height: 30px;
-    }
-    .order-split {
-        @include breakpoint(small-only) {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            width: 80px;
-        }
     }
 }
 

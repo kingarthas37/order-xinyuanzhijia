@@ -404,7 +404,9 @@ module.exports = {
 
     },
     addFun: function () {
+        
         $('#form-add-order').validate();
+        
         this.customerNameTypeAhead();
         this.orderTypeAheadAdd();
         this.domUpdate();
@@ -528,6 +530,7 @@ module.exports = {
     },
     orderTypeAheadAdd: function () {
 
+        let _this = this;
         var customerNameInput = $('#customer-name');
         var customerNameIdInput = $('#customer-name-id');
         var newCustomer = $('.new-customer');
@@ -535,18 +538,19 @@ module.exports = {
         var addressList = $('.address-list');
         var taobao = $('#taobao');
         var newAddress = $('.new-address');
+        let checkCustomerRename = $('.check-customer-rename');
 
         customerNameInput.on({
 
             //change表示此用户为新用户，而不是autocomplete选择出来的老用户，所以数据需要重置
-            'keyup': function () {
+            keyup: function () {
                 if (!$(this).data('typeselect')) {
                     newCustomer.prop('checked', true);
                     newAddress.prop('checked', true);
                     addressList.empty();
                 }
             },
-            'focus': function () {
+            focus: function () {
                 $(this).data('typeselect', false);
             },
             'typeahead:select': function (event, item) {
@@ -565,6 +569,13 @@ module.exports = {
                 }
                 newCustomer.prop('checked', false);
                 $(this).data('typeselect', true);
+                checkCustomerRename.removeClass('on').removeClass('error');
+                
+            },
+            change:function() {
+                if(newCustomer.prop('checked')) {
+                    _this.checkCustomerRename($.trim(this.value));
+                }
             }
         });
 
@@ -579,6 +590,7 @@ module.exports = {
                 customerNameIdInput.val('');
                 newAddress.prop('checked',false).click();
                 taobao.val('');
+                _this.checkCustomerRename($.trim(customerNameInput.val()));
             }
         });
 
@@ -596,12 +608,14 @@ module.exports = {
     },
     orderTypeAheadUpdate: function () {
 
+        let _this = this;
         var customerNameInput = $('#customer-name');
         var customerNameIdInput = $('#customer-name-id');
         var shippingAddress = $('#shipping-address');
         var addressList = $('.address-list');
         var taobao = $('#taobao');
-
+        let checkCustomerRename = $('.check-customer-rename');
+        
         customerNameInput.on({
             'typeahead:select': function (event, item) {
                 customerNameIdInput.val(item.customerId);
@@ -616,6 +630,10 @@ module.exports = {
                         addressList.append('<li><span>' + address[i] + '</span> <a href="javascript:;">使用此地址' + (i === address.length - 1 ? '(最近更新)' : '') + '</a> </li>');
                     }
                 }
+                checkCustomerRename.removeClass('on').removeClass('error');
+            },
+            change:function() {
+                _this.checkCustomerRename($.trim(this.value));
             }
         });
 
@@ -761,8 +779,19 @@ module.exports = {
             copyThumbAddress.val(text);
         }
 
+    },
+    checkCustomerRename(name) {
+        let checkCustomerRename = $('.check-customer-rename').removeClass('error');
+        checkCustomerRename.addClass('on').html('<i class="am-icon-spinner am-icon-spin"></i> 姓名检测中...');
+        $.ajax({
+            url:'/order/check-customer-rename',
+            data:{name:name}
+        }).then(data => {
+            if(data.customer) {
+                checkCustomerRename.addClass('error').html('<i class="am-icon-exclamation-circle"></i> 检测出重命名,不可使用!');
+            } else {
+                checkCustomerRename.html('<i class="am-icon-check"></i> 未检测出重命名,可使用!');
+            }
+        });
     }
-    
-    
-        
 };

@@ -215,6 +215,19 @@ router.get('/get-customer', (req, res) => {
 
 });
 
+//ajax检测重命名用户
+router.get('/check-customer-rename', (req, res) => {
+    let name = req.query['name'];
+    let query = new AV.Query(Customer);
+    query.equalTo('name', name);
+    query.first().then(customer => {
+        res.send({
+            success:1,
+            customer:customer ? true : false
+        })
+    });
+});
+
 //ajax返回产品图片
 router.get('/get-image', (req, res)=> {
 
