@@ -130,6 +130,57 @@ router.get('/', function (req, res, next) {
 
 });
 
+router.get('/copy/:purchaseId', function (req, res, next) {
+
+    if(!req.currentUser) {
+        return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));
+    }
+
+    var purchaseId = req.params.purchaseId;
+
+    async.waterfall([
+
+        function (cb) {
+            var query = new AV.Query(PurchaseTrack);
+            query.equalTo('purchaseId', parseInt(purchaseId));
+            query.first({
+                success: function (result) {
+                    cb(null, result);
+                },
+                error: function (err) {
+                    next(err);
+                }
+            });
+        },
+        function (result, cb) {
+            let purchaseTrack = new PurchaseTrack();
+            purchaseTrack.set('name','(Copy) '+result.get('name'));
+            purchaseTrack.set('description',result.get('description'));
+            purchaseTrack.set('website',result.get('website'));
+            purchaseTrack.set('orderUrl',result.get('orderUrl'));
+            purchaseTrack.set('orderLink',result.get('orderLink'));
+            purchaseTrack.set('mail',result.get('mail'));
+            purchaseTrack.set('amount',result.get('amount'));
+            purchaseTrack.set('shippingCompany',result.get('shippingCompany'));
+            purchaseTrack.set('shippingType',result.get('shippingType'));
+            purchaseTrack.set('shippingStatus',result.get('shippingStatus'));
+            purchaseTrack.set('trackingNumber','');
+            purchaseTrack.set('comment',result.get('comment'));
+            purchaseTrack.set('image',result.get('image'));
+            purchaseTrack.set('siteType',result.get('siteType'));
+            purchaseTrack.save(null, {
+                success: function () {
+                    req.flash('success', '复制订单成功!');
+                    res.redirect('/purchase');
+                },
+                error: function (err) {
+                    next(err);
+                }
+            });
+        }
+
+    ]);
+});
 
 router.get('/remove/:purchaseId', function (req, res, next) {
 

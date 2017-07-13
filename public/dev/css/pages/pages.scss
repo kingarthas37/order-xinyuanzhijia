@@ -237,7 +237,19 @@
 /* purchase page */
 .purchase-page {
     
-    table {
+    .am-table {
+        .am-dropdown .am-btn {
+            background: none;
+            color: #666;
+            border: none;
+            &:active {
+                box-shadow: none;
+            }
+            &:focus {
+                outline: none;
+                border: none;
+            }
+        }
         tr.off {
             background: #feffed;
         }

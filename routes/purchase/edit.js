@@ -81,7 +81,7 @@ router.post('/', function (req, res, next) {
     var purchasePaymentType = req.body['purchase-payment-type'];
     var purchasePaymentInfo = req.body['purchase-payment-info'];
     var purchaseShippingType = req.body['purchase-shipping-type'];
-    var purchaseShippingStatus = req.body['purchase-shipping-status'];
+    var purchaseShippingStatus = req.body['shipping-status'];
     var purchaseComment = req.body['purchase-comment'];
     var purchaseImage = req.body['purchase-image'];
     var siteType = req.body['site-type'];

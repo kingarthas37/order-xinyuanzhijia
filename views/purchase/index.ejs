@@ -51,8 +51,8 @@
                     <th class="t-c">单号</th>
                     <th class="t-c">金额</th>
                     <th class="t-c">转运</th>
-                    <th>时间</th>
-                    <th class="small-screen-hide">删除</th>
+                    <th class="t-c">时间</th>
+                    <th class="t-c">选项</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -106,7 +106,16 @@
                     </td>
                     
                     <td><%=(purchase[i].createdAt.getMonth()+1)%>/<%=purchase[i].createdAt.getDate()%></td>
-                    <td class="small-screen-hide"><a href="/purchase/remove/<%= purchase[i].get('purchaseId') %>" class="remove-purchase">删除</a> </td>
+                    <td class="small-screen-hide">
+                        <div class="am-dropdown" data-am-dropdown>
+                            <button class="am-btn am-btn-primary am-dropdown-toggle" data-am-dropdown-toggle>选项 <span class="am-icon-caret-down"></span></button>
+                            <ul class="am-dropdown-content">
+                                <li><a href="/purchase/copy/<%= purchase[i].get('purchaseId') %>">复制</a></li>
+                                <li><a href="/purchase/remove/<%= purchase[i].get('purchaseId') %>" class="remove-purchase">删除</a></li>
+                            </ul>
+                        </div>
+                        
+                    </td>
                 </tr>
                 <% } %>
                 </tbody>
