@@ -237,6 +237,12 @@
 /* purchase page */
 .purchase-page {
     
+    .am-form-inline {
+        .am-form-field {
+            width: 160px;
+        }
+    }
+    
     .am-table {
         .am-dropdown .am-btn {
             background: none;

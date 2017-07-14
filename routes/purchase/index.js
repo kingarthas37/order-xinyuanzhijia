@@ -37,13 +37,15 @@ router.get('/', function (req, res, next) {
     var limit = req.query.limit ? parseInt(req.query.limit) : config.page.LIMIT;
     var order = req.query.order || 'desc';
     
-    let search = req.query['purchase-search'] ? req.query['purchase-search'].trim() : '';
+    let searchOrder = req.query['purchase-search-order'] ? req.query['purchase-search-order'].trim() : '';
+    let searchTracking = req.query['purchase-search-tracking'] ? req.query['purchase-search-tracking'].trim() : '';
     let shippingStatus = req.query['shipping-status'];
     
     data = extend(data,{
         flash: {success:req.flash('success'),error:req.flash('error')},
         user:req.currentUser,
-        search,
+        searchOrder,
+        searchTracking,
         shippingStatus
     });
 
@@ -53,8 +55,10 @@ router.get('/', function (req, res, next) {
             
             var query = new AV.Query(PurchaseTrack);
 
-            if(search) {
-                query.contains('name',search);
+            if(searchOrder) {
+                query.contains('name',searchOrder);
+            } else if(searchTracking) {
+                query.contains('trackingNumber',searchTracking);
             } else {
                 if(!shippingStatus) {
                     let queryNotShipped = new AV.Query(PurchaseTrack);
@@ -88,8 +92,10 @@ router.get('/', function (req, res, next) {
             query.skip((page - 1) * limit);
             query.limit(limit);
 
-            if(search) {
-                query.contains('name',search);
+            if(searchOrder) {
+                query.contains('name',searchOrder);
+            } else if(searchTracking) {
+                query.contains('trackingNumber',searchTracking);
             } else {
                 if(!shippingStatus) {
                     let queryNotShipped = new AV.Query(PurchaseTrack);

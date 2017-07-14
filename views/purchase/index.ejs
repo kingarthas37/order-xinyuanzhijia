@@ -19,125 +19,126 @@
     </div>
     <% } %>
     
-        <fieldset>
+    <fieldset>
 
-            <legend><a href="/purchase">采购订单列表</a></legend>
+        <legend><a href="/purchase">采购订单列表</a></legend>
 
-            <form class="am-form-inline" role="form" action="/purchase">
-                <div class="am-form-group">
-                  搜索订单：<input type="text" name="purchase-search" class="am-form-field" placeholder="搜索">
-                </div>
-                <button type="submit" class="am-btn am-btn-primary">搜索</button>
-
-                <span></span>
-                
-                <div class="am-form-group">
-                    <label class="normal">已到达转运公司 <input <% if(shippingStatus === 'forward') { %>checked="checked"<%}%> type="checkbox" class="ckb-shipping-status" name="forward"></label>
-                    <span class="sp"></span>
-                    <label class="normal">已签收 <input <% if(shippingStatus === 'arrived') { %>checked="checked"<%}%> type="checkbox" class="ckb-shipping-status" name="arrived"></label>
-                </div>
-                
-            </form>
-
-            <hr/>
-            
-            <table class="am-table">
-                <thead>
-                <tr>
-                    <th class="t-c" width="120">状态</th>
-                    <th>订单名称</th>
-                    <th class="t-c" width="80">订单链接</th>
-                    <th class="t-c">物流</th>
-                    <th class="t-c">单号</th>
-                    <th class="t-c">金额</th>
-                    <th class="t-c">转运</th>
-                    <th class="t-c">时间</th>
-                    <th class="t-c">选项</th>
-                </tr>
-                </thead>
-                <tbody>
-                <% for(var i=0; i < purchase.length; i++) {%>
-                <tr <% if(purchase[i].get('shippingStatus') === 'arrived') { %>class="off"<%}%> <% if(purchase[i].get('shippingStatus') === 'forward') { %>class="off-middle"<%}%> >
-                    <td class="t-c">
-
-                        <input <% if(purchase[i].get('shippingStatus') === 'shipped' || purchase[i].get('shippingStatus') === 'forward' || purchase[i].get('shippingStatus') === 'arrived') { %> checked="checked" <% } %> type="checkbox" data-id="<%=purchase[i].get('purchaseId')%>" class="ckb-shipping-status-shipped" />
-                        
-                        <span class="split"></span>
-                        
-                        <% if(purchase[i].get('shippingType') !== 'direct') { %>
-                        <input <% if(purchase[i].get('shippingStatus') === 'forward' || purchase[i].get('shippingStatus') === 'arrived') { %> checked="checked" <% } %> type="checkbox" data-id="<%=purchase[i].get('purchaseId')%>" class="ckb-shipping-status-forward" />
-                        <span class="split"></span>
-                        <%}%>
-
-                        <input <% if(purchase[i].get('shippingStatus') === 'arrived') { %> checked="checked" <% } %> type="checkbox" data-id="<%=purchase[i].get('purchaseId')%>" class="ckb-shipping-status-arrived" />
-                 
-                    </td>
-                    <td>
-                        <% if (purchase[i].get('image')) { %> <a target="_blank" href="<%= purchase[i].get('image') %>"><img src="<%= purchase[i].get('image') %>?imageMogr2/thumbnail/40" width="40" /></a> <% } %>
-                        <a href="/purchase/edit/<%= purchase[i].get('purchaseId') %><%if(purchase[i].get('siteType') !== 'normal'){%>?site-type=<%= purchase[i].get('siteType') %><%}%>"><%= purchase[i].get('name') %></a> <% if(purchase[i].get('siteType')==='etsy') {%><i class="icon-etsy">E</i><%}%> <% if(purchase[i].get('siteType')==='ebay') {%><i class="icon-ebay">E</i><%}%>
-                    </td>
-                    <td class="t-c">
-                        <% if(purchase[i].get('orderUrl')){%>
-                            <a href="<%= purchase[i].get('orderUrl') %>" target="_blank">订单链接</a>
-                        <%} else {%>
-                            -
-                        <%}%>
-                    </td>
-                    <td class="t-c">
-                        <% if(purchase[i].get('shippingCompany') === 'none') { %>-<%  } else { %><%= purchase[i].get('shippingCompany') %><% } %>
-                    </td>
-                    <td class="t-c small-font">
-                        <% if(purchase[i].get('trackingNumber') === '') { %>-<% } else if(purchase[i].get('trackingNumber').indexOf('http') > -1) { %> <a
-                            href="<%= purchase[i].get('trackingNumber') %>" target="_blank">查看物流单号</a> <% } else { %> <%= purchase[i].get('trackingNumber') %> <% } %>
-                    </td>
-                    <td class="t-c"><%= purchase[i].get('amount') %></td>
-                    <td class="t-c">
-                        <a href="/purchase?shipping=<%=purchase[i].get('shippingType')%>">
-                        <% if(purchase[i].get('shippingType') === 'yuntao') { %>运淘<%  } %>
-                        <% if(purchase[i].get('shippingType') === 'direct') { %>直邮<%  } %>
-                        <% if(purchase[i].get('shippingType') === 'tianji') { %>天际<%  } %>
-                        <% if(purchase[i].get('shippingType') === 'zhuanyunsifang') { %>转运四方<%  } %>
-                        <% if(purchase[i].get('shippingType') === 'haidaibao') { %>海带宝<% } %>
-                        <% if(purchase[i].get('shippingType') === 'zhuanyunbang') { %>转运帮<%  } %>
-                        <% if(purchase[i].get('shippingType') === '8dexpress') { %>八达<%  } %>
-                        <% if(purchase[i].get('shippingType') === 'shunfeng') { %>顺丰<%  } %>
-                        <% if(purchase[i].get('shippingType') === 'other') { %>其他<%  } %>
-                        </a>
-                    </td>
-                    
-                    <td><%=(purchase[i].createdAt.getMonth()+1)%>/<%=purchase[i].createdAt.getDate()%></td>
-                    <td class="small-screen-hide">
-                        <div class="am-dropdown" data-am-dropdown>
-                            <button class="am-btn am-btn-primary am-dropdown-toggle" data-am-dropdown-toggle>选项 <span class="am-icon-caret-down"></span></button>
-                            <ul class="am-dropdown-content">
-                                <li><a href="/purchase/copy/<%= purchase[i].get('purchaseId') %>">复制</a></li>
-                                <li><a href="/purchase/remove/<%= purchase[i].get('purchaseId') %>" class="remove-purchase">删除</a></li>
-                            </ul>
-                        </div>
-                        
-                    </td>
-                </tr>
-                <% } %>
-                </tbody>
-            </table>
-            
-            <ul class="am-pagination">
-                <% if (purchasePager.prev) { %> <li>
-                    <a href="/purchase?page=<%= purchasePager.prev %><% if (search) {%>&purchase-search=<%=search%> <%}%><% if(shippingStatus){%>&shipping-status=<%=shippingStatus%><%}%>">上一页</a></li> <% } %>
-                <% if (purchasePager.next) { %> <li>
-                    <a href="/purchase?page=<%= purchasePager.next %><% if (search) {%>&purchase-search=<%=search%> <%}%><% if(shippingStatus){%>&shipping-status=<%=shippingStatus%><%}%>">下一页</a></li> <% } %>
-                <li class="count">第<%=purchasePager.page%>页 共<%=purchaseCount%>条</li>
-            </ul>
-            
-            <hr/>
-
+        <form class="am-form-inline" role="form" action="/purchase">
             <div class="am-form-group">
-                <a href="/purchase/add" class="am-btn am-btn-primary" role="button">添加订单记录</a>
-                <a href="/purchase/add?site-type=etsy" class="am-btn am-btn-primary" role="button">添加Etsy.com订单记录</a>
-                <a href="/purchase/add?site-type=ebay" class="am-btn am-btn-primary" role="button">添加Ebay.com订单记录</a>
+              <input type="text" name="purchase-search-order" class="am-form-field" placeholder="搜索订单名称">
+              <input type="text" name="purchase-search-tracking" class="am-form-field" placeholder="搜索物流单号">
             </div>
+            <button type="submit" class="am-btn am-btn-primary">搜索</button>
 
-        </fieldset>
+            <span></span>
+            
+            <div class="am-form-group">
+                <label class="normal">已到达转运公司 <input <% if(shippingStatus === 'forward') { %>checked="checked"<%}%> type="checkbox" class="ckb-shipping-status" name="forward"></label>
+                <span class="sp"></span>
+                <label class="normal">已签收 <input <% if(shippingStatus === 'arrived') { %>checked="checked"<%}%> type="checkbox" class="ckb-shipping-status" name="arrived"></label>
+            </div>
+            
+        </form>
+
+        <hr/>
+        
+        <table class="am-table">
+            <thead>
+            <tr>
+                <th class="t-c" width="120">状态</th>
+                <th>订单名称</th>
+                <th class="t-c" width="80">订单链接</th>
+                <th class="t-c">物流</th>
+                <th class="t-c">单号</th>
+                <th class="t-c">金额</th>
+                <th class="t-c">转运</th>
+                <th class="t-c">时间</th>
+                <th class="t-c">选项</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% for(var i=0; i < purchase.length; i++) {%>
+            <tr <% if(purchase[i].get('shippingStatus') === 'arrived') { %>class="off"<%}%> <% if(purchase[i].get('shippingStatus') === 'forward') { %>class="off-middle"<%}%> >
+                <td class="t-c">
+
+                    <input <% if(purchase[i].get('shippingStatus') === 'shipped' || purchase[i].get('shippingStatus') === 'forward' || purchase[i].get('shippingStatus') === 'arrived') { %> checked="checked" <% } %> type="checkbox" data-id="<%=purchase[i].get('purchaseId')%>" class="ckb-shipping-status-shipped" />
+                    
+                    <span class="split"></span>
+                    
+                    <% if(purchase[i].get('shippingType') !== 'direct') { %>
+                    <input <% if(purchase[i].get('shippingStatus') === 'forward' || purchase[i].get('shippingStatus') === 'arrived') { %> checked="checked" <% } %> type="checkbox" data-id="<%=purchase[i].get('purchaseId')%>" class="ckb-shipping-status-forward" />
+                    <span class="split"></span>
+                    <%}%>
+
+                    <input <% if(purchase[i].get('shippingStatus') === 'arrived') { %> checked="checked" <% } %> type="checkbox" data-id="<%=purchase[i].get('purchaseId')%>" class="ckb-shipping-status-arrived" />
+             
+                </td>
+                <td>
+                    <% if (purchase[i].get('image')) { %> <a target="_blank" href="<%= purchase[i].get('image') %>"><img src="<%= purchase[i].get('image') %>?imageMogr2/thumbnail/40" width="40" /></a> <% } %>
+                    <a href="/purchase/edit/<%= purchase[i].get('purchaseId') %><%if(purchase[i].get('siteType') !== 'normal'){%>?site-type=<%= purchase[i].get('siteType') %><%}%>"><%= purchase[i].get('name') %></a> <% if(purchase[i].get('siteType')==='etsy') {%><i class="icon-etsy">E</i><%}%> <% if(purchase[i].get('siteType')==='ebay') {%><i class="icon-ebay">E</i><%}%>
+                </td>
+                <td class="t-c">
+                    <% if(purchase[i].get('orderUrl')){%>
+                        <a href="<%= purchase[i].get('orderUrl') %>" target="_blank">订单链接</a>
+                    <%} else {%>
+                        -
+                    <%}%>
+                </td>
+                <td class="t-c">
+                    <% if(purchase[i].get('shippingCompany') === 'none') { %>-<%  } else { %><%= purchase[i].get('shippingCompany') %><% } %>
+                </td>
+                <td class="t-c small-font">
+                    <% if(purchase[i].get('trackingNumber') === '') { %>-<% } else if(purchase[i].get('trackingNumber').indexOf('http') > -1) { %> <a
+                        href="<%= purchase[i].get('trackingNumber') %>" target="_blank">查看物流单号</a> <% } else { %> <%= purchase[i].get('trackingNumber') %> <% } %>
+                </td>
+                <td class="t-c"><%= purchase[i].get('amount') %></td>
+                <td class="t-c">
+                    <a href="/purchase?shipping=<%=purchase[i].get('shippingType')%>">
+                    <% if(purchase[i].get('shippingType') === 'yuntao') { %>运淘<%  } %>
+                    <% if(purchase[i].get('shippingType') === 'direct') { %>直邮<%  } %>
+                    <% if(purchase[i].get('shippingType') === 'tianji') { %>天际<%  } %>
+                    <% if(purchase[i].get('shippingType') === 'zhuanyunsifang') { %>转运四方<%  } %>
+                    <% if(purchase[i].get('shippingType') === 'haidaibao') { %>海带宝<% } %>
+                    <% if(purchase[i].get('shippingType') === 'zhuanyunbang') { %>转运帮<%  } %>
+                    <% if(purchase[i].get('shippingType') === '8dexpress') { %>八达<%  } %>
+                    <% if(purchase[i].get('shippingType') === 'shunfeng') { %>顺丰<%  } %>
+                    <% if(purchase[i].get('shippingType') === 'other') { %>其他<%  } %>
+                    </a>
+                </td>
+                
+                <td><%=(purchase[i].createdAt.getMonth()+1)%>/<%=purchase[i].createdAt.getDate()%></td>
+                <td class="small-screen-hide">
+                    <div class="am-dropdown" data-am-dropdown>
+                        <button class="am-btn am-btn-primary am-dropdown-toggle" data-am-dropdown-toggle>选项 <span class="am-icon-caret-down"></span></button>
+                        <ul class="am-dropdown-content">
+                            <li><a href="/purchase/copy/<%= purchase[i].get('purchaseId') %>">复制</a></li>
+                            <li><a href="/purchase/remove/<%= purchase[i].get('purchaseId') %>" class="remove-purchase">删除</a></li>
+                        </ul>
+                    </div>
+                    
+                </td>
+            </tr>
+            <% } %>
+            </tbody>
+        </table>
+        
+        <ul class="am-pagination">
+            <% if (purchasePager.prev) { %> <li>
+                <a href="/purchase?page=<%= purchasePager.prev %><% if(searchOrder){%>&purchase-search-order=<%=searchOrder%><%}%><% if(searchTracking){%>&purchase-search-tracking=<%=searchTracking%><%}%><% if(shippingStatus){%>&shipping-status=<%=shippingStatus%><%}%>">上一页</a></li> <% } %>
+            <% if (purchasePager.next) { %> <li>
+                <a href="/purchase?page=<%= purchasePager.next %><% if(searchOrder){%>&purchase-search-order=<%=searchOrder%><%}%><% if(searchTracking){%>&purchase-search-tracking=<%=searchTracking%><%}%><% if(shippingStatus){%>&shipping-status=<%=shippingStatus%><%}%>">下一页</a></li> <% } %>
+            <li class="count">第<%=purchasePager.page%>页 共<%=purchaseCount%>条</li>
+        </ul>
+        
+        <hr/>
+
+        <div class="am-form-group">
+            <a href="/purchase/add" class="am-btn am-btn-primary" role="button">添加订单记录</a>
+            <a href="/purchase/add?site-type=etsy" class="am-btn am-btn-primary" role="button">添加Etsy.com订单记录</a>
+            <a href="/purchase/add?site-type=ebay" class="am-btn am-btn-primary" role="button">添加Ebay.com订单记录</a>
+        </div>
+
+    </fieldset>
     
 </div>
 
