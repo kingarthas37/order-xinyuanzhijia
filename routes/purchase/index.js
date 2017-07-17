@@ -89,9 +89,6 @@ router.get('/', function (req, res, next) {
 
             var query = new AV.Query(PurchaseTrack);
 
-            query.skip((page - 1) * limit);
-            query.limit(limit);
-
             if(searchOrder) {
                 query.contains('name',searchOrder);
             } else if(searchTracking) {
@@ -108,8 +105,11 @@ router.get('/', function (req, res, next) {
                 }
             }
 
+            query.skip((page - 1) * limit);
+            query.limit(limit);
+
             if(order === 'asc') {
-                query.ascending("purchaseId");
+                query.ascending('purchaseId');
             } else {
                 query.descending('purchaseId');
             }
