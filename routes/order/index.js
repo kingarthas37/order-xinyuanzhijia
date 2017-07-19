@@ -14,6 +14,7 @@ var config = require('../../lib/config');
 var OrderTrack = AV.Object.extend('OrderTrack');
 var Customer = AV.Object.extend('Customer');
 let Product = AV.Object.extend('Product');
+let pro = require('../../lib/models/product').createNew();
 
 //lib
 var pager = require('../../lib/component/pager-str');
@@ -64,7 +65,7 @@ router.get('/', function (req, res, next) {
 
             if(searchOrderName || searchCustomerName || searchAddress) {
                 if (searchOrderName) {
-                    cqlWhere = `where name like '%${searchOrderName}%'`;
+                    cqlWhere = `where name regexp '(?i)${searchOrderName}'`;
                 } else if (searchCustomerName) {
                     cqlWhere = `where customerName like '%${searchCustomerName}%' or taobaoName like '%${searchCustomerName}%'`;
                 } else if (searchAddress) {
@@ -99,7 +100,7 @@ router.get('/', function (req, res, next) {
 
             if(searchOrderName || searchCustomerName || searchAddress) {
                 if (searchOrderName) {
-                    cqlWhere = `where name like '%${searchOrderName}%'`;
+                    cqlWhere = `where name regexp '(?i)${searchOrderName}'`;
                 } else if (searchCustomerName) {
                     cqlWhere = `where customerName like '%${searchCustomerName}%' or taobaoName like '%${searchCustomerName}%'`;
                 } else if (searchAddress) {
@@ -386,13 +387,12 @@ router.post('/shipping', (req, res) => {
 //typeahead查询产品名称,用于order add/edit页面
 router.get('/product', (req, res) => {
 
-    let name = req.query['name'];
-    let query = new AV.Query(Product);
-    query.contains('name', name);
-    query.select('name', 'productId', 'mainImage');
-
-    query.find().then(results => {
-
+    let search = req.query['name'];
+    let page = 1;
+    let limit = 500;
+    let select = 'name, productId, mainImage';
+    let options = {search, page, limit, select};
+    pro.getProducts(options, false).then(results => {
         let jsonData = [];
 
         for (let i = 0; i < results.length; i++) {
@@ -403,14 +403,12 @@ router.get('/product', (req, res) => {
             let obj = {
                 'value': `${results[i].get('name')} {id:${results[i].get('productId')}}`,
                 'productId': results[i].get('productId'),
-                'image': imageArr[0] || '//ac-JoaBcRTt.clouddn.com/b7f0d580ef9a4ae8e19b.png'
+                'image': imageArr[0] || 'http://ac-JoaBcRTt.clouddn.com/b7f0d580ef9a4ae8e19b.png'
             };
             jsonData.push(obj);
         }
         return res.json(jsonData);
-
-    }, ()=> res.json({success: 0}));
-
+    },()=>res.json({success: 0}));
 });
 
 //ajax保存tracking number
