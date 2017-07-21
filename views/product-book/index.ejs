@@ -76,6 +76,11 @@
                                 <%= productBook[i].get('productCount')[j] %>*<%= productBook[i].get('productName')[j] %>
                                 <% } %>
                             </a>
+
+                            <% if(productBook[i].get('comment').indexOf('trade.taobao.com')>-1){%>
+                            <sup class="icon-taobao">Taobao</sup>
+                            <%}%>
+                            
                         </div>
                         <%}%>
                     </td>
