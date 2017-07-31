@@ -133,6 +133,7 @@ module.exports = {
         var purchaseEmail = $('#purchase-mail');
         var purchaseImage = $('#purchase-image');
         var purchaseImageView = $('.purchase-image');
+        let comment = $('#purchase-comment');
 
         var siteType = (()=> {
             if (/site-type=/.test(location.search)) {
@@ -162,10 +163,12 @@ module.exports = {
 
         purchaseDescription.on({
             'typeahead:select': function (event, item) {
+                console.info(item);
                 purchaseWebsite.val(item.website ? item.website : item.shop);
                 purchaseEmail.val(item.email);
                 purchaseImage.val(item.image);
                 purchaseImageView.find('img').attr('src', item.image);
+                comment.val(item.comment);
             }
         });
     },

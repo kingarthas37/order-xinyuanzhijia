@@ -59,6 +59,7 @@ router.post('/', function (req, res, next) {
     var purchaseImage = req.body['purchase-image'];
     var siteType = req.body['site-type'];
     var shippingStatus = req.body['shipping-status'];
+    let coupon = req.body['coupon'];
 
     var purchaseTrack = new PurchaseTrack();
 
@@ -78,6 +79,7 @@ router.post('/', function (req, res, next) {
     purchaseTrack.set('image',purchaseImage);
     purchaseTrack.set('siteType',siteType);
     purchaseTrack.set('shippingStatus',shippingStatus);
+    purchaseTrack.set('coupon',coupon);
 
     purchaseTrack.save(null, {
         success: function () {
@@ -116,7 +118,8 @@ router.get('/website-desc',function(req,res,next) {
                 "website":results[i].get('website'),
                 "shop":results[i].get('shop'),
                 "email":results[i].get('email'),
-                "image":results[i].get('imageUrl')
+                "image":results[i].get('imageUrl'),
+                "comment":results[i].get('description')
             };
             jsonData.push(obj);
         }

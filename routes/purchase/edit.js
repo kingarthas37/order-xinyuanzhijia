@@ -85,6 +85,7 @@ router.post('/', function (req, res, next) {
     var purchaseComment = req.body['purchase-comment'];
     var purchaseImage = req.body['purchase-image'];
     var siteType = req.body['site-type'];
+    let coupon = req.body['coupon'];
 
     var purchaseId = req.body['purchase-id'];
     
@@ -132,6 +133,7 @@ router.post('/', function (req, res, next) {
                     purchase.set('comment',purchaseComment);
                     purchase.set('image',purchaseImage);
                     purchase.set('siteType',siteType);
+                    purchase.set('coupon',coupon);
                     purchase.save(null, {
                         success: function (results) {
                             data = extend(data, {

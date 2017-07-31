@@ -48,8 +48,10 @@
                 <th class="t-c" width="120">状态</th>
                 <th>订单名称</th>
                 <th class="t-c" width="80">订单链接</th>
+                <th class="t-c">网店/官网</th>
                 <th class="t-c">物流</th>
                 <th class="t-c">单号</th>
+                <th class="t-c">优惠</th>
                 <th class="t-c">金额</th>
                 <th class="t-c">转运</th>
                 <th class="t-c">时间</th>
@@ -79,10 +81,14 @@
                 </td>
                 <td class="t-c">
                     <% if(purchase[i].get('orderUrl')){%>
-                        <a href="<%= purchase[i].get('orderUrl') %>" target="_blank">订单链接</a>
+                        <a href="<%= purchase[i].get('orderUrl') %>" target="_blank"><i class="am-icon-external-link"></i></a>
                     <%} else {%>
                         -
                     <%}%>
+                </td>
+                <td class="t-c">
+                    <%if(purchase[i].get('website')){ %> <a href="<%= purchase[i].get('website') %>" target="_blank"><i class="am-icon-external-link"></i></a> <%}%>
+                    <%if(purchase[i].get('shop')){ %> <a href="<%= purchase[i].get('shop') %>" target="_blank"><i class="am-icon-external-link"></i></a> <%}%>
                 </td>
                 <td class="t-c">
                     <% if(purchase[i].get('shippingCompany') === 'none') { %>-<%  } else { %><%= purchase[i].get('shippingCompany') %><% } %>
@@ -90,6 +96,13 @@
                 <td class="t-c small-font">
                     <% if(purchase[i].get('trackingNumber') === '') { %>-<% } else if(purchase[i].get('trackingNumber').indexOf('http') > -1) { %> <a
                         href="<%= purchase[i].get('trackingNumber') %>" target="_blank">查看物流单号</a> <% } else { %> <%= purchase[i].get('trackingNumber') %> <% } %>
+                </td>
+                <td class="t-c">
+                    <% if(purchase[i].get('coupon')) {%>
+                        <%= purchase[i].get('coupon') %>
+                    <%}else{%>
+                        -
+                    <%}%>
                 </td>
                 <td class="t-c"><%= purchase[i].get('amount') %></td>
                 <td class="t-c">
