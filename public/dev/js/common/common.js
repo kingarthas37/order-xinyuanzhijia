@@ -1,6 +1,7 @@
 'use strict';
 
 var AMUI = require('amazeui');
+let utils = require('./utils');
 
 $(function () {
 
@@ -65,5 +66,11 @@ $(function () {
         }
     }
 
+    //图片在线转换
+    {
+        $('.image-convert').click(function(){
+            utils.imageConvert();
+        });
+    }
 
 });

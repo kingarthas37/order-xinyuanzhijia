@@ -47,8 +47,8 @@
             <tr>
                 <th class="t-c" width="120">状态</th>
                 <th>订单名称</th>
-                <th class="t-c" width="80">订单链接</th>
-                <th class="t-c">网店/官网</th>
+                <th class="t-c" width="80">订单</th>
+                <th class="t-c">官网</th>
                 <th class="t-c">物流</th>
                 <th class="t-c">单号</th>
                 <th class="t-c">优惠</th>
@@ -60,7 +60,7 @@
             </thead>
             <tbody>
             <% for(var i=0; i < purchase.length; i++) {%>
-            <tr <% if(purchase[i].get('shippingStatus') === 'arrived') { %>class="off"<%}%> <% if(purchase[i].get('shippingStatus') === 'forward') { %>class="off-middle"<%}%> >
+            <tr <% if(purchase[i].get('shippingStatus') === 'arrived') { %>class="off"<%}%> <% if(purchase[i].get('shippingStatus') === 'shipped' || purchase[i].get('shippingStatus') === 'forward' || purchase[i].get('shippingStatus') === 'arrived') { %>class="off-middle"<%}%> >
                 <td class="t-c">
 
                     <input <% if(purchase[i].get('shippingStatus') === 'shipped' || purchase[i].get('shippingStatus') === 'forward' || purchase[i].get('shippingStatus') === 'arrived') { %> checked="checked" <% } %> type="checkbox" data-id="<%=purchase[i].get('purchaseId')%>" class="ckb-shipping-status-shipped" />
@@ -90,22 +90,22 @@
                     <%if(purchase[i].get('website')){ %> <a href="<%= purchase[i].get('website') %>" target="_blank"><i class="am-icon-external-link"></i></a> <%}%>
                     <%if(purchase[i].get('shop')){ %> <a href="<%= purchase[i].get('shop') %>" target="_blank"><i class="am-icon-external-link"></i></a> <%}%>
                 </td>
-                <td class="t-c">
+                <td class="t-c small-font">
                     <% if(purchase[i].get('shippingCompany') === 'none') { %>-<%  } else { %><%= purchase[i].get('shippingCompany') %><% } %>
                 </td>
                 <td class="t-c small-font">
                     <% if(purchase[i].get('trackingNumber') === '') { %>-<% } else if(purchase[i].get('trackingNumber').indexOf('http') > -1) { %> <a
                         href="<%= purchase[i].get('trackingNumber') %>" target="_blank">查看物流单号</a> <% } else { %> <%= purchase[i].get('trackingNumber') %> <% } %>
                 </td>
-                <td class="t-c">
+                <td class="t-c small-font">
                     <% if(purchase[i].get('coupon')) {%>
                         <%= purchase[i].get('coupon') %>
                     <%}else{%>
                         -
                     <%}%>
                 </td>
-                <td class="t-c"><%= purchase[i].get('amount') %></td>
-                <td class="t-c">
+                <td class="t-c small-font"><%= purchase[i].get('amount') %></td>
+                <td class="t-c small-font">
                     <a href="/purchase?shipping=<%=purchase[i].get('shippingType')%>">
                     <% if(purchase[i].get('shippingType') === 'yuntao') { %>运淘<%  } %>
                     <% if(purchase[i].get('shippingType') === 'direct') { %>直邮<%  } %>
@@ -119,8 +119,8 @@
                     </a>
                 </td>
                 
-                <td class="t-c"><%=(purchase[i].createdAt.getMonth()+1)%>/<%=purchase[i].createdAt.getDate()%></td>
-                <td class="small-screen-hide">
+                <td class="t-c small-font"><%=(purchase[i].createdAt.getMonth()+1)%>/<%=purchase[i].createdAt.getDate()%></td>
+                <td class="small-screen-hide small-font">
                     <div class="am-dropdown" data-am-dropdown>
                         <button class="am-btn am-btn-primary am-dropdown-toggle" data-am-dropdown-toggle>选项 <span class="am-icon-caret-down"></span></button>
                         <ul class="am-dropdown-content">
@@ -176,6 +176,7 @@
     $(function() {
         var purchase = require('purchase');
         purchase.indexFun();
+        
     });
 </script>
 </body>
