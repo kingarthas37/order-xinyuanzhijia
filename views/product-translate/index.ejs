@@ -48,7 +48,7 @@
             <% for(var i=0; i < productTranslate.length; i++) {%>
             <tr>
                 <td><a href="/product-translate/edit/<%= productTranslate[i].get('productTranslateId') %>"><%= productTranslate[i].get('title') %></a></td>
-                <td><%= productTranslate[i].get('detail') %></td>
+                <td><%= productTranslate[i].get('detail').substring(0, 20) %>...</td>
                 <td><% if (productTranslate[i].get('isFinish')) { %>是<% } else { %> 否 <% } %></td>
                 <td class="t-c small-screen-hide"><%=productTranslate[i].updatedDate%></td>
                 <td class="t-c small-screen-hide"><a href="javascript:;" data-id="<%= productTranslate[i].get('productTranslateId') %>" class="remove-product-translate">删除</a></td>

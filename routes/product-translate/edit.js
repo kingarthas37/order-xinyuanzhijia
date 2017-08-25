@@ -53,7 +53,7 @@ router.post('/:productTranslateId', (req, res) => {
     let title = req.body['title'];
     let detail = req.body['detail'];
     let isFinish = req.body['is-finish'];
-
+    isFinish = (isFinish == 'on' ? true : false);
     let productTranslateId = parseInt(req.params.productTranslateId);
 
     let query = new AV.Query(ProductTranslate);
