@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <link rel="icon" type="image/png" href="/assets/i/favicon.png">
+    <title><%= title %></title>
+    <% include ../partials/css %>
+</head>
+<body>
+
+<% include ../partials/header %>
+
+
+<div class="am-container common-page product-method-page">
+    <fieldset>
+
+        <legend><a href="/product-translate/add">添加产品翻译</a></legend>
+
+        <form id="form-add-product" class="am-form" action="/product-translate/add" method="post">
+
+            <!-- title start -->
+            <div class="am-form-group">
+                <label for="title">产品翻译名称<i>*</i>:</label>
+                <input id="title" required name="title" type="text" placeholder="输入产品翻译名称[必填]" />
+            </div>
+            <!-- title end -->
+
+            <!-- detail start -->
+            <div class="am-form-group">
+                <label for="detail">产品翻译详情(英文)<i>*</i>:</label>
+                <textarea id="detail" required name="detail"></textarea>
+            </div>
+            <!-- detail end -->
+
+            <!-- is-finish start -->
+            <div class="am-form-group">
+                <label for="is-finish">是否完成<i>*</i>:</label>
+                <input id="is-finish" name="is-finish" type="checkbox" />
+            </div>
+            <!-- isFinish end -->
+
+            <hr/>
+
+            <div class="am-form-group">
+                <button id="submit" type="submit" class="am-btn am-btn-primary">保存</button>
+                <button type="button" class="am-btn am-btn-primary" onclick="history.back(-1);">返回</button>
+            </div>
+
+        </form>
+
+    </fieldset>
+
+</div>
+
+
+<% include ../partials/footer %>
+<% include ../partials/js %>
+
+<script type="text/javascript">
+    $(function () {
+        var productTranslate = require('product-translate');
+        productTranslate.addFun();
+    });
+</script>
+</body>
+</html>
