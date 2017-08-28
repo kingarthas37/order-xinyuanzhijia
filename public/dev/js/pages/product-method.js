@@ -34,7 +34,7 @@ module.exports = {
 
                     $.ajax({
                         type:'post',
-                        url:`/admin/product-method/remove/${productMethodId}`,
+                        url:`/product-method/remove/${productMethodId}`,
                         success: function (data) {
                             
                             item.data('state', false);
