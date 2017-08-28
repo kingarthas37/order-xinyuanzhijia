@@ -97,5 +97,16 @@ router.get('/', (req, res) => {
     ).then(() => res.render('product-translate', data));
 });
 
+router.post('/remove/:productTranslateId', (req,res)=> {
+    let productTranslateId = parseInt(req.params.productTranslateId);
+    let query = new AV.Query(ProductTranslate);
+    query.equalTo('productTranslateId',productTranslateId);
+
+    query.first().then(item => {
+        return item;
+    }).then(item => {
+        return item.destroy();
+    }).then(() => res.send({success: 1}));
+});
 
 module.exports = router;
