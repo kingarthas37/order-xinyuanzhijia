@@ -60,7 +60,7 @@
             </thead>
             <tbody>
             <% for(var i=0; i < purchase.length; i++) {%>
-            <tr <% if(purchase[i].get('shippingStatus') === 'arrived') { %>class="off"<%}%> <% if(purchase[i].get('shippingStatus') === 'shipped' || purchase[i].get('shippingStatus') === 'forward' || purchase[i].get('shippingStatus') === 'arrived') { %>class="off-middle"<%}%> >
+            <tr <% if (purchase[i].get('isNewUpdate')) { %> class="update-recent" <%} %> <% if(purchase[i].get('shippingStatus') === 'arrived') { %>class="off"<%}%> <% if(purchase[i].get('shippingStatus') === 'shipped' || purchase[i].get('shippingStatus') === 'forward' || purchase[i].get('shippingStatus') === 'arrived') { %>class="off-middle"<%}%> >
                 <td class="t-c">
 
                     <input <% if(purchase[i].get('shippingStatus') === 'shipped' || purchase[i].get('shippingStatus') === 'forward' || purchase[i].get('shippingStatus') === 'arrived') { %> checked="checked" <% } %> type="checkbox" data-id="<%=purchase[i].get('purchaseId')%>" class="ckb-shipping-status-shipped" />

@@ -116,6 +116,13 @@ router.get('/', function (req, res, next) {
 
             query.find({
                 success: function (results) {
+                    results.forEach(n => {
+                        n.set('isNewUpdate', false);
+                        let updateDate = n.get('updatedAt');
+                        console.log(updateDate);
+                        updateDate.setDate(updateDate.getDate() + 3);
+                        n.set('isNewUpdate', (updateDate > new Date()));
+                    });
                     data = extend(data, {
                         purchase: results
                     });
