@@ -40,13 +40,23 @@ router.get('/', function (req, res, next) {
     let searchOrder = req.query['purchase-search-order'] ? req.query['purchase-search-order'].trim() : '';
     let searchTracking = req.query['purchase-search-tracking'] ? req.query['purchase-search-tracking'].trim() : '';
     let shippingStatus = req.query['shipping-status'];
+    let siteType = req.query['site-type'] ? req.query['site-type'] : 'normal';
+
+    if (siteType == 'etsy') {
+        data.currentPage = 'purchase-etsy';
+    } else if (siteType == 'ebay') {
+        data.currentPage = 'purchase-ebay';
+    } else {
+        data.currentPage = 'purchase';
+    }
     
     data = extend(data,{
         flash: {success:req.flash('success'),error:req.flash('error')},
         user:req.currentUser,
         searchOrder,
         searchTracking,
-        shippingStatus
+        shippingStatus,
+        siteType
     });
 
     async.series([
@@ -70,6 +80,8 @@ router.get('/', function (req, res, next) {
                     query.equalTo('shippingStatus',shippingStatus);
                 }
             }
+
+            query.equalTo('siteType', siteType);
             
             query.count({
                 success: function(count) {
@@ -105,6 +117,7 @@ router.get('/', function (req, res, next) {
                 }
             }
 
+            query.equalTo('siteType', siteType);
             query.skip((page - 1) * limit);
             query.limit(limit);
 
@@ -119,7 +132,6 @@ router.get('/', function (req, res, next) {
                     results.forEach(n => {
                         n.set('isNewUpdate', false);
                         let updateDate = n.get('updatedAt');
-                        console.log(updateDate);
                         updateDate.setDate(updateDate.getDate() + 3);
                         n.set('isNewUpdate', (updateDate > new Date()));
                     });
