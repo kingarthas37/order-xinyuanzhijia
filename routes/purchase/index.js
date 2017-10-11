@@ -68,7 +68,9 @@ router.get('/', function (req, res, next) {
             if(searchOrder) {
                 query.contains('name',searchOrder);
             } else if(searchTracking) {
-                query.contains('trackingNumber',searchTracking);
+                var regExp = new RegExp(searchTracking, 'i');
+                query.matches('trackingNumber', regExp);
+                //query.contains('trackingNumber',searchTracking);
             } else {
                 if(!shippingStatus) {
                     let queryNotShipped = new AV.Query(PurchaseTrack);
@@ -104,7 +106,9 @@ router.get('/', function (req, res, next) {
             if(searchOrder) {
                 query.contains('name',searchOrder);
             } else if(searchTracking) {
-                query.contains('trackingNumber',searchTracking);
+                var regExp = new RegExp(searchTracking, 'i');
+                query.matches('trackingNumber', regExp);
+                //query.contains('trackingNumber',searchTracking);
             } else {
                 if(!shippingStatus) {
                     let queryNotShipped = new AV.Query(PurchaseTrack);
