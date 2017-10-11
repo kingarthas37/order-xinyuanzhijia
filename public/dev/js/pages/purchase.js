@@ -108,9 +108,9 @@ module.exports = {
         
         $('.ckb-shipping-status').click(function () {
             if (this.checked) {
-                location.href = `/purchase?shipping-status=${this.name}`;
+                location.href = `/purchase?shipping-status=${this.name}&site-type=${$("#site-type").val()}`;
             } else {
-                location.href = '/purchase';
+                location.href = '/purchase?site-type='+$("#site-type").val();
             }
         });
 
