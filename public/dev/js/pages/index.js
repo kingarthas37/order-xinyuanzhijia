@@ -3,11 +3,11 @@
 module.exports = {
 
     indexFun:function(dataEarning) {
-        
+
         var chartEarning = echarts.init($('#chart-earning')[0]);
         chartEarning.setOption({
             title: {
-                text: '2016年收入明细',
+                text:  `${new Date().getFullYear()}年收入明细`,
                 textStyle:{
                     fontWeight:'normal',
                     fontSize:12
