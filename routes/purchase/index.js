@@ -81,9 +81,11 @@ router.get('/', function (req, res, next) {
                 } else {
                     query.equalTo('shippingStatus',shippingStatus);
                 }
+                
+                query.equalTo('siteType', siteType);
+
             }
 
-            query.equalTo('siteType', siteType);
             
             query.count({
                 success: function(count) {
@@ -119,9 +121,9 @@ router.get('/', function (req, res, next) {
                 } else {
                     query.equalTo('shippingStatus',shippingStatus);
                 }
+                query.equalTo('siteType', siteType);
             }
 
-            query.equalTo('siteType', siteType);
             query.skip((page - 1) * limit);
             query.limit(limit);
 
