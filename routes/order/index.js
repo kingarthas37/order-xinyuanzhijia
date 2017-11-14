@@ -307,7 +307,7 @@ router.get('/set-stock', (req, res)=> {
     let productId = parseInt(req.query['product-id']);
     let query = new AV.Query(Product);
     query.equalTo('productId', productId);
-    query.select('stock', 'sales');
+    query.select('stock', 'sales', 'updateStockDate');
     query.first().then(result=> {
         res.json({
             success: 1,
@@ -322,10 +322,20 @@ router.post('/set-stock', (req, res)=> {
     let productId = parseInt(req.body['product-id']);
     let stock = parseInt(req.body['stock']);
     let sales = parseInt(req.body['sales']);
-
+    let updateStockDate = parseInt(req.body.updateStockDate);
+    if (updateStockDate == 1) {
+        updateStockDate = (Date.parse(new Date()) / 1000);
+    } else if (updateStockDate == 0) {
+        updateStockDate = 0;
+    } else {
+        updateStockDate = 1;
+    }
     let query = new AV.Query(Product);
     query.equalTo('productId', productId);
     query.first().then(result=> {
+        if (updateStockDate != 1) {
+            result.set('updateStockDate', updateStockDate);
+        }
         return result.save({
             stock,
             sales

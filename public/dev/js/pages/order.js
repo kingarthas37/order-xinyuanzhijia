@@ -247,6 +247,43 @@ module.exports = {
                 sales.val(sales.attr('sales'));
             });
 
+            let ckbWarningStockOut = $('.ckb-warning-stock-out');
+            let ckbWarningStockIn = $('.ckb-warning-stock-in');
+            let nowStock = parseInt(stock.val());
+            console.log(nowStock);
+            ckbWarningStockOut.click(function() {
+                ckbWarningStockIn.prop('checked',false);
+            });
+
+            ckbWarningStockIn.click(function() {
+                ckbWarningStockOut.prop('checked',false);
+            });
+
+            //库存提醒 n-0 缺货设置 checkbox
+            {
+                if(nowStock > 0) {
+                    stock.change(function() {
+                        if(parseInt(stock.val()) === 0) {
+                            ckbWarningStockOut.prop('checked',true);
+                        } else {
+                            ckbWarningStockOut.prop('checked',false);
+                        }
+                    });
+                }
+            }
+
+            //库存提醒 0-n 新到货设置 checkbox
+            {
+                if(nowStock === 0) {
+                    stock.change(function() {
+                        if(parseInt(stock.val()) > 0) {
+                            ckbWarningStockIn.prop('checked',true);
+                        } else {
+                            ckbWarningStockIn.prop('checked',false);
+                        }
+                    });
+                }
+            }
         }
 
         //查询未发货

@@ -234,7 +234,14 @@
                         <input type="text" name="sales" readonly="readonly" value="">
                     </div>
                 </div>
-
+                <label>库存提醒设置(自动):</label>
+                <div class="am-form-inline">
+                    <div class="am-form-group">
+                        <label><input class="ckb-warning-stock-out" value="0" type="checkbox" name="updateStockDate"> 无库存提醒</label>
+                        <span class="sp"></span>
+                        <label><input class="ckb-warning-stock-in" value="1" type="checkbox" name="updateStockDate"> 新到货提醒</label>
+                    </div>
+                </div>
                 <div>
                     <button type="button" class="am-btn am-btn-primary stock-save">保存</button>
                     <button type="button" class="am-btn am-btn-primary stock-reset">重置</button>
