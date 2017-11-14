@@ -156,6 +156,7 @@ module.exports = {
             let reset = $('.stock-reset');
             let ckbWarningStockOut = $('.ckb-warning-stock-out');
             let ckbWarningStockIn = $('.ckb-warning-stock-in');
+            let historyStock = 0;
 
             $('.set-stock').click(function () {
                 modalSetStock.modal({
@@ -186,6 +187,7 @@ module.exports = {
                             return false;
                         }
                         stock.val(data.stock);
+                        historyStock = data.stock;
                         stock.attr('data-stock', data.stock);
                         sales.val(data.sales);
                         sales.attr('data-sales', data.sales);
@@ -221,13 +223,13 @@ module.exports = {
                    // sales.find(`option[value=${salesValue + 1}]`)[0].selected = true;
                     sales.val(salesValue + 1);
                 }
-                stock.trigger('change',true);
+                stock.trigger('change');
             });
 
             stockPlus.click(function () {
                 let stockValue = parseInt(stock.val());
                 stock.find(`option[value=${stockValue + 1}]`)[0].selected = true;
-                stock.trigger('change',true);
+                stock.trigger('change');
             });
 
             save.click(function () {
@@ -255,7 +257,7 @@ module.exports = {
             reset.click(function () {
                 stock.find(`option[value=${stock.attr('stock')}]`)[0].selected = true;
                 sales.val(sales.attr('sales'));
-                stock.trigger('change',true);
+                stock.trigger('change');
             });
 
             ckbWarningStockOut.click(function() {
@@ -269,10 +271,11 @@ module.exports = {
             //库存提醒 缺货设置 checkbox
             stock.change(function() {
                 var nowStock = parseInt(stock.val());
-                if (nowStock > 0) { //0-n 新到货设置 checkbox
+
+                if (nowStock > 0 && historyStock == 0) { //0-n 新到货设置 checkbox
                     ckbWarningStockIn.prop('checked',true);
                     ckbWarningStockOut.prop('checked',false);
-                } else {    //n-0 缺货设置 checkbox
+                } else if (nowStock == 0) {    //n-0 缺货设置 checkbox
                     ckbWarningStockOut.prop('checked',true);
                     ckbWarningStockIn.prop('checked',false);
                 }
