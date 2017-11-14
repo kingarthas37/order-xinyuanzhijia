@@ -278,6 +278,9 @@ module.exports = {
                 } else if (nowStock == 0) {    //n-0 缺货设置 checkbox
                     ckbWarningStockOut.prop('checked',true);
                     ckbWarningStockIn.prop('checked',false);
+                } else {
+                    ckbWarningStockIn.prop('checked',false);
+                    ckbWarningStockOut.prop('checked',false);
                 }
             });
         }
