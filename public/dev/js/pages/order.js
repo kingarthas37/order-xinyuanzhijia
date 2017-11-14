@@ -221,11 +221,13 @@ module.exports = {
                    // sales.find(`option[value=${salesValue + 1}]`)[0].selected = true;
                     sales.val(salesValue + 1);
                 }
+                stock.trigger('change',true);
             });
 
             stockPlus.click(function () {
                 let stockValue = parseInt(stock.val());
                 stock.find(`option[value=${stockValue + 1}]`)[0].selected = true;
+                stock.trigger('change',true);
             });
 
             save.click(function () {
@@ -253,6 +255,7 @@ module.exports = {
             reset.click(function () {
                 stock.find(`option[value=${stock.attr('stock')}]`)[0].selected = true;
                 sales.val(sales.attr('sales'));
+                stock.trigger('change',true);
             });
 
             ckbWarningStockOut.click(function() {
