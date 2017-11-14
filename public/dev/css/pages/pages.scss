@@ -214,14 +214,14 @@
             width: 100px;
         }
         input {
-            width: 100px;
+            //width: 100px;
         }
     }
     .am-form {
         text-align: left;
         label {
             font-size: 16px;
-            display: block;
+            display: inline-block;//block;
             font-weight: normal;
             em {
                 font-style: normal;
