@@ -154,6 +154,8 @@ module.exports = {
 
             let save = $('.stock-save');
             let reset = $('.stock-reset');
+            let ckbWarningStockOut = $('.ckb-warning-stock-out');
+            let ckbWarningStockIn = $('.ckb-warning-stock-in');
 
             $('.set-stock').click(function () {
                 modalSetStock.modal({
@@ -171,6 +173,8 @@ module.exports = {
                 let productId = target.attr('product-id');
                 save.attr('product-id', productId);
 
+                ckbWarningStockOut.prop('checked',false);
+                ckbWarningStockIn.prop('checked',false);
                 $.ajax({
                     type: 'get',
                     url: '/order/set-stock',
@@ -187,7 +191,11 @@ module.exports = {
                         sales.attr('data-sales', data.sales);
 
                         save.attr('product-id', productId);
-
+                        if (data.updateStockDate > 1) {
+                            ckbWarningStockIn.prop('checked',true);
+                        } else if (data.updateStockDate == 0) {
+                            ckbWarningStockOut.prop('checked',true);
+                        }
                         stockPlus.removeAttr('disabled').removeClass('am-btn-default').addClass('am-btn-primary');
                         stockMinus.removeAttr('disabled').removeClass('am-btn-default').addClass('am-btn-primary');
                     }
@@ -247,10 +255,6 @@ module.exports = {
                 sales.val(sales.attr('sales'));
             });
 
-            let ckbWarningStockOut = $('.ckb-warning-stock-out');
-            let ckbWarningStockIn = $('.ckb-warning-stock-in');
-            let nowStock = parseInt(stock.val());
-            console.log(nowStock);
             ckbWarningStockOut.click(function() {
                 ckbWarningStockIn.prop('checked',false);
             });
@@ -259,31 +263,17 @@ module.exports = {
                 ckbWarningStockOut.prop('checked',false);
             });
 
-            //库存提醒 n-0 缺货设置 checkbox
-            {
-                if(nowStock > 0) {
-                    stock.change(function() {
-                        if(parseInt(stock.val()) === 0) {
-                            ckbWarningStockOut.prop('checked',true);
-                        } else {
-                            ckbWarningStockOut.prop('checked',false);
-                        }
-                    });
+            //库存提醒 缺货设置 checkbox
+            stock.change(function() {
+                var nowStock = parseInt(stock.val());
+                if (nowStock > 0) { //0-n 新到货设置 checkbox
+                    ckbWarningStockIn.prop('checked',true);
+                    ckbWarningStockOut.prop('checked',false);
+                } else {    //n-0 缺货设置 checkbox
+                    ckbWarningStockOut.prop('checked',true);
+                    ckbWarningStockIn.prop('checked',false);
                 }
-            }
-
-            //库存提醒 0-n 新到货设置 checkbox
-            {
-                if(nowStock === 0) {
-                    stock.change(function() {
-                        if(parseInt(stock.val()) > 0) {
-                            ckbWarningStockIn.prop('checked',true);
-                        } else {
-                            ckbWarningStockIn.prop('checked',false);
-                        }
-                    });
-                }
-            }
+            });
         }
 
         //查询未发货
