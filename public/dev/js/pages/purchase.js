@@ -49,10 +49,10 @@ module.exports = {
 
             let tr = $(this).parents('tr');
             if (this.checked) {
-                tr.find('.ckb-shipping-status-shipped').prop('checked',true);
+                tr.find('.ckb-shipping-status-shipped').prop('checked', true);
             } else {
-                tr.find('.ckb-shipping-status-shipped').prop('checked',false);
-                tr.find('.ckb-shipping-status-arrived').prop('checked',false);
+                tr.find('.ckb-shipping-status-shipped').prop('checked', false);
+                tr.find('.ckb-shipping-status-arrived').prop('checked', false);
             }
 
             $.ajax({
@@ -70,19 +70,19 @@ module.exports = {
                 }
             });
         });
-        
+
 
         $('.ckb-shipping-status-arrived').click(function () {
-            
+
             let tr = $(this).parents('tr');
             if (this.checked) {
-                tr.find('.ckb-shipping-status-shipped').prop('checked',true);
-                tr.find('.ckb-shipping-status-forward').prop('checked',true);
+                tr.find('.ckb-shipping-status-shipped').prop('checked', true);
+                tr.find('.ckb-shipping-status-forward').prop('checked', true);
             } else {
-                tr.find('.ckb-shipping-status-shipped').prop('checked',false);
-                tr.find('.ckb-shipping-status-forward').prop('checked',false);
+                tr.find('.ckb-shipping-status-shipped').prop('checked', false);
+                tr.find('.ckb-shipping-status-forward').prop('checked', false);
             }
-            
+
             $.ajax({
                 url: '/purchase/shipping-status',
                 type: 'get',
@@ -105,12 +105,12 @@ module.exports = {
             }
             location.href = '/purchase';
         });
-        
+
         $('.ckb-shipping-status').click(function () {
             if (this.checked) {
                 location.href = `/purchase?shipping-status=${this.name}&site-type=${$("#site-type").val()}`;
             } else {
-                location.href = '/purchase?site-type='+$("#site-type").val();
+                location.href = '/purchase?site-type=' + $("#site-type").val();
             }
         });
 
@@ -131,11 +131,12 @@ module.exports = {
         var purchaseDescription = $('#purchase-description');
         var purchaseWebsite = $('#purchase-website');
         var purchaseEmail = $('#purchase-mail');
+        // var purchaseEmailisSolid=$('#purchase-is-solid');
         var purchaseImage = $('#purchase-image');
         var purchaseImageView = $('.purchase-image');
         let comment = $('#purchase-comment');
 
-        var siteType = (()=> {
+        var siteType = (() => {
             if (/site-type=/.test(location.search)) {
                 return /site-type=(.+)$/.exec(location.search)[1];
             }
@@ -180,78 +181,78 @@ module.exports = {
         let value = $.trim($('#purchase-order-link').val());
         let newTextareaValue = '';
         let newHtml = '';
-        
-        if(!value) {
+
+        if (!value) {
             return false;
         }
 
-        $.each(value.split('\n'),(i,n)=> {
-            if($.trim(n) === '') {
+        $.each(value.split('\n'), (i, n) => {
+            if ($.trim(n) === '') {
                 return;
             }
-            n = n.replace(/\*\s/,'*');
-            n = n.replace(/(\S)\*/,'$1 *');
-            if(!/\*\d*/.test(n)) {
+            n = n.replace(/\*\s/, '*');
+            n = n.replace(/(\S)\*/, '$1 *');
+            if (!/\*\d*/.test(n)) {
                 n += ' *1';
             }
-             
-            newTextareaValue += n + ((i === value.split('\n').length-1) ? '' : '\n');
-            
+
+            newTextareaValue += n + ((i === value.split('\n').length - 1) ? '' : '\n');
+
         });
 
         textarea.val(newTextareaValue);
-        
+
         $.each(newTextareaValue.split('\n'), function (i, n) {
-            
+
             let img = '-';
             let title = '-';
-            
-            let link = (()=> {
+
+            let link = (() => {
                 if (/http[^\s]+/i.test(n)) {
                     return /(http[^\s]+)/i.exec(n)[1]; //返回url
                 } else {
                     return /(.*)\*\d+/.exec(n)[1]; //返回产品字符串
                 }
             })();
-            
-            let count = (()=> {
+
+            let count = (() => {
                 if (/\*\d+/.test(n)) {
                     return /\*(\d+)/.exec(n)[1];
                 } else {
                     return 1;
                 }
             })();
-            
-            let countResult = (()=> {
+
+            let countResult = (() => {
                 if (/\|\d+/.test(n)) {
                     return '-' + /\|(\d+)/.exec(n)[1];
                 } else {
                     return '';
                 }
             })();
-            
+
             //处理table html
             {
                 //判断链接是否图片,则直接显示图片,如果不是链接,则直接显示普通字符串
-                if(/\.(jpg|jpeg|png|gif)/.test(link)) {
-                    
+                if (/\.(jpg|jpeg|png|gif)/.test(link)) {
+
                     img = `<a href="${link}" target="_blank"><img src="${link}" /></a>`;
                     link = `<span title="${link}"><a href="${link}" target="_blank">${link}</a></span>`;
-                    
-                } else if(/^http/.test(link)) {
-                    
-                    utils.getRemoteProductInfo(link,function(image,title) {
-                        if(image.length) {
+
+                } else if (/^http/.test(link)) {
+
+                    utils.getRemoteProductInfo(link, function (image, title) {
+                        if (image.length) {
                             $(`.link-product-${i}`).find('.img').html(`<a href="${image}" target="_blank"><img src="${image}" /></a>`);
                             $(`.link-product-${i}`).find('.title').text(`${title}`);
                         }
                     });
                     link = `<span title="${link}"><a href="${link}" target="_blank">${link}</a></span>`;
-                    
+
                 } else {
-                    
+
                     link = `<span title="${link}">${link}</span>`;
-                    
+
                 }
 
                 let template = `
@@ -269,59 +270,59 @@ module.exports = {
                 `;
                 newHtml += template;
             }
-            
+
         });
-        
+
         table.find('tbody').append(newHtml);
-        
-        table.find('.link a').click(function() {
+
+        table.find('.link a').click(function () {
             table.find('.on').removeClass('on');
             $(this).parents('td').addClass('on');
         });
 
         //预定+1
-        table.find('.count-minus').click(function() {
-            
+        table.find('.count-minus').click(function () {
+
             let value = textarea.val();
             let newValue = '';
             let parent = $(this).parents('tr');
             let url = parent.find('.link span').attr('title');
             let countResult = parent.find('.count-result');
             let linkArr = value.split('\n');
-            $.each(linkArr,function(i,n) {
-                
-                if(n.indexOf(url) > -1) {
-                    
+            $.each(linkArr, function (i, n) {
+
+                if (n.indexOf(url) > -1) {
+
                     let count = parseInt(/\*(\d+)/.exec(n)[1]);
-                    let order = (()=> {
-                        if(/\|\d+/.test(n)) {
+                    let order = (() => {
+                        if (/\|\d+/.test(n)) {
                             return parseInt(/\|(\d+)/.exec(n)[1]);
                         } else {
                             return 0;
                         }
                     })();
-                    
-                    if(order < count) {
+
+                    if (order < count) {
                         order++;
                         countResult.text(`-${order}`);
                     }
-                    
-                    if(/\|\d+/.test(n)) {
-                        n = n.replace(/\|\d+/,'|'+ order);
+
+                    if (/\|\d+/.test(n)) {
+                        n = n.replace(/\|\d+/, '|' + order);
                     } else {
-                        n = n.replace(/(\*\d+)/,'$1 |'+ order);
+                        n = n.replace(/(\*\d+)/, '$1 |' + order);
                     }
-                    
+
                 }
                 newValue += n + '\n';
             });
-            
+
             textarea.val($.trim(newValue));
-            
+
         });
 
         //取消-1
-        table.find('.count-plus').click(function() {
+        table.find('.count-plus').click(function () {
 
             let value = textarea.val();
             let newValue = '';
@@ -329,33 +330,33 @@ module.exports = {
             let url = parent.find('.link span').attr('title');
             let countResult = parent.find('.count-result');
             let linkArr = value.split('\n');
-            $.each(linkArr,function(i,n) {
+            $.each(linkArr, function (i, n) {
 
-                if(n.indexOf(url) > -1) {
+                if (n.indexOf(url) > -1) {
 
-                    let order = (()=> {
-                        if(/\|\d+/.test(n)) {
+                    let order = (() => {
+                        if (/\|\d+/.test(n)) {
                             return parseInt(/\|(\d+)/.exec(n)[1]);
                         } else {
                             return 0;
                         }
                     })();
 
-                    if(order > 1) {
+                    if (order > 1) {
                         order--;
                         countResult.text(`-${order}`);
-                    } else if(order === 1) {
+                    } else if (order === 1) {
                         order--;
                         countResult.text('');
                     }
 
-                    if(/\|\d+/.test(n)) {
-                        n = n.replace(/\|\d+/,'|'+ order);
+                    if (/\|\d+/.test(n)) {
+                        n = n.replace(/\|\d+/, '|' + order);
                     } else {
-                        n = n.replace(/(\*\d+)/,'$1 |'+ order);
+                        n = n.replace(/(\*\d+)/, '$1 |' + order);
                     }
-                    
-                    n = n.replace(/\s\|0/,'');
+
+                    n = n.replace(/\s\|0/, '');
 
                 }
                 newValue += n + '\n';
@@ -364,6 +365,6 @@ module.exports = {
             textarea.val($.trim(newValue));
 
         });
-        
+
     }
 };

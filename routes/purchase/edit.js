@@ -76,6 +76,7 @@ router.post('/', function (req, res, next) {
     var purchaseOrderLink = req.body['purchase-order-link'];
     var purchaseMail = req.body['purchase-mail'];
     var purchaseAmount = req.body['purchase-amount'];
+    var purchaseisSolid = req.body['purchase-is-solid'];
     var purchaseTrackingNumber = req.body['purchase-tracking-number'];
     var purchaseShippingCompany = req.body['purchase-shipping-company'];
     var purchasePaymentType = req.body['purchase-payment-type'];
@@ -124,6 +125,7 @@ router.post('/', function (req, res, next) {
                     purchase.set('orderLink',purchaseOrderLink);
                     purchase.set('mail',purchaseMail);
                     purchase.set('amount',purchaseAmount);
+                    purchase.set('isSolid',purchaseisSolid==='on'?true:false);
                     purchase.set('trackingNumber',purchaseTrackingNumber);
                     purchase.set('shippingCompany',purchaseShippingCompany);
                     purchase.set('paymentType',purchasePaymentType);

@@ -25,7 +25,7 @@
 
         <form class="am-form-inline" role="form" action="/purchase">
             <div class="am-form-group">
-              <input type="text" name="purchase-search-order" class="am-form-field" placeholder="搜索订单名称">
+              <input type="text" name="purchase-se  arch-order" class="am-form-field" placeholder="搜索订单名称">
               <input type="text" name="purchase-search-tracking" class="am-form-field" placeholder="搜索物流单号">
             </div>
             <input type="hidden" id="site-type" name="site-type" value="<%=siteType %>" />
@@ -78,7 +78,7 @@
                 </td>
                 <td>
                     <% if (purchase[i].get('image')) { %> <a target="_blank" href="<%= purchase[i].get('image') %>"><img src="<%= purchase[i].get('image') %>?imageMogr2/thumbnail/40" width="40" /></a> <% } %>
-                    <a href="/purchase/edit/<%= purchase[i].get('purchaseId') %><%if(purchase[i].get('siteType') !== 'normal'){%>?site-type=<%= purchase[i].get('siteType') %><%}%>"><%= purchase[i].get('name') %></a> <% if(purchase[i].get('siteType')==='etsy') {%><i class="icon-etsy">E</i><%}%> <% if(purchase[i].get('siteType')==='ebay') {%><i class="icon-ebay">E</i><%}%>
+                    <a href="/purchase/edit/<%= purchase[i].get('purchaseId') %><%if(purchase[i].get('siteType') !== 'normal'){%>?site-type=<%= purchase[i].get('siteType') %><%}%>">  <%= (purchase[i].get('isSolid')?'[加固]':'') %>   <%= purchase[i].get('name') %></a> <% if(purchase[i].get('siteType')==='etsy') {%><i class="icon-etsy">E</i><%}%> <% if(purchase[i].get('siteType')==='ebay') {%><i class="icon-ebay">E</i><%}%>
                 </td>
                 <td class="t-c">
                     <% if(purchase[i].get('orderUrl')){%>
