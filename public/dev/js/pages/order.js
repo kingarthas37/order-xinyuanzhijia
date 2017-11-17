@@ -234,13 +234,18 @@ module.exports = {
 
             save.click(function () {
                 let $this = $(this);
+                var updateStockDate;
+                $("input[name='updateStockDate']:checked").each(function() {
+                    updateStockDate = $(this).val();
+                });
                 $.ajax({
                     type: 'post',
                     url: '/order/set-stock',
                     data: {
                         'product-id': $this.attr('product-id'),
                         'stock': stock.val(),
-                        'sales': sales.val()
+                        'sales': sales.val(),
+                        'updateStockDate': updateStockDate
                     },
                     success: function (data) {
                         if (data.success) {
