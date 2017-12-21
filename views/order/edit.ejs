@@ -148,9 +148,10 @@
             <div id="content-shipping-company" class="am-form-group">
                 <label>快递公司：</label>
                 <select name="shipping-company" id="shipping-company">
-                    <option value="tiantian" <% if(order.get('shippingCompany') === 'tiantian') { %>selected="selected"<% } %> >天天</option>
+                    <option value="shentong" <% if(order.get('shippingCompany') === 'shentong') { %>selected="selected"<% } %>>申通</option>
                     <option value="shunfeng" <% if(order.get('shippingCompany') === 'shunfeng') { %>selected="selected"<% } %>>顺丰</option>
                     <option value="shunfengdaofu" <% if(order.get('shippingCompany') === 'shunfengdaofu') { %>selected="selected"<% } %>>顺丰到付</option>
+                    <option value="tiantian" <% if(order.get('shippingCompany') === 'tiantian') { %>selected="selected"<% } %> >天天</option>
                     <option value="kuaijie" <% if(order.get('shippingCompany') === 'kuaijie') { %>selected="selected"<% } %>>快捷</option>
                     <option value="other" <% if(order.get('shippingCompany') === 'other') { %>selected="selected"<% } %>>其他</option>
                 </select>
