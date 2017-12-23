@@ -137,13 +137,4 @@ $(function () {
         });
     }
 
-    {
-        window.globalVar ={
-            logger : require('tracer').console(),
-
-        }
-
-
-    }
-
 });

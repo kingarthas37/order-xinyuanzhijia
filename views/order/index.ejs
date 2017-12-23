@@ -48,6 +48,7 @@
                 <div class="am-u-lg-2 am-u-sm-4 am-u-end">
                     <select name="search-shipping" class="select-shipping">
                         <option value="">所有快递</option>
+                        <option value="shentong" <%if(searchShipping=='shentong'){%>selected="selected"<%}%> >申通</option>
                         <option value="shunfeng" <%if(searchShipping=='shunfeng'){%>selected="selected"<%}%> >顺丰</option>
                         <option value="tiantian" <%if(searchShipping=='tiantian'){%>selected="selected"<%}%> >天天</option>
                         <option value="kuaijie" <%if(searchShipping=='kuaijie'){%>selected="selected"<%}%> >快捷</option>
@@ -119,6 +120,8 @@
                             express = 'FASTEXPRESS';
                         } else if (order[i].get('shippingCompany') == 'other') {
                             shippingCompany = '其他';
+                        } else if (order[i].get('shippingCompany') == 'shentong') {
+                            shippingCompany = '申通';
                         }
                         %>
                         
