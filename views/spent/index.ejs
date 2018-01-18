@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <link rel="icon" type="image/png" href="/assets/i/favicon.png">
+    <title><%= title %></title>
+    <% include ../partials/css %>
+</head>
+<body>
+
+<% include ../partials/header %>
+
+<div class="am-container common-page earning-page">
+
+    <% if (flash.success != '') { %>
+    <div class="am-alert am-alert-success">
+        <p><%= flash.success %></p>
+    </div>
+    <% } %>
+    
+    <fieldset>
+
+        <legend><a href="/spent">采购记账统计</a></legend>
+
+        <div class="earning-info">
+            <%= currentDate.getFullYear() %>年<%= currentDate.getMonth() + 1 %>月采购总支出：<span class="am-badge am-badge-success am-text-default" id="total-spent"></span>
+        </div>
+        
+        <hr/>
+
+        <form class="am-form-inline" role="form" action="/spent">
+            <div class="am-form-group">
+                <input name="search-month" type="text" class="am-form-field" value="<%=currentDate.getFullYear()%>-<%=(currentDate.getMonth()+1)%>" data-am-datepicker="{format:'yyyy-mm',viewMode:'months',minViewMode:'months'}">
+            </div>
+            <button type="submit" class="am-btn am-btn-primary">搜索</button>
+        </form>
+
+        <hr/>
+
+        <table class="am-table">
+            <thead>
+            <tr>
+                <th>日期</th>
+                <th>Andrea</th>
+                <th>Coco</th>
+                <th>编辑</th>
+            </tr>
+            </thead>
+            <tbody>
+                <% for (var i = 0;i < currentMonthDays; i ++) { %>
+                    <tr <% if(currentDate.getDate() == i+1) { %>class="am-active"<% } %>>
+                        <td><%= currentDate.getFullYear() %>-<%= currentDate.getMonth() + 1 %>-<%= i + 1 %></td>
+                        <td class="cell-spent"><% if (spent[i]) { %> <%= spent[i].get('spentUser1') %> <% } else { %>0<% } %></td>
+                        <td class="cell-spent"><% if (spent[i]) { %> <%= spent[i].get('spentUser2') %> <% } else { %>0<% } %></td>
+                        <td><a href="/spent/edit?date=<%= currentDate.getFullYear() %>-<%= currentDate.getMonth() + 1 %>-<%= i+1 %>">编辑</a></td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+ 
+    </fieldset>
+
+    
+</div>
+
+ 
+
+
+<% include ../partials/footer %>
+<% include ../partials/js %>
+
+<script type="text/javascript">
+    $(function() {
+        var spent = require('spent');
+        spent.indexFun();
+    });
+</script>
+</body>
+</html>

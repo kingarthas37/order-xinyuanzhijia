@@ -49,6 +49,10 @@ module.exports = {
     '/earning':require('./earning'),
     '/earning/edit':require('./earning/edit'),
 
+    //spent
+    '/spent':require('./spent'),
+    '/spent/edit':require('./spent/edit'),
+
     //remark
     '/remark':require('./remark'),
     '/remark/add':require('./remark/add'),

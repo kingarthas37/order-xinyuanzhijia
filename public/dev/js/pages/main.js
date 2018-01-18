@@ -9,6 +9,7 @@ require('./purchase');
 require('./customer');
 require('./order');
 require('./earning');
+require('./spent');
 require('./remark');
 require('./product-method');
 require('./product-category');
