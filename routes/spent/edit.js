@@ -71,8 +71,8 @@ router.post('/', function (req, res, next) {
         return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));
     }
 
-    var spentUser1 = parseInt(req.body['spent-user1']);
-    var spentUser2 = parseInt(req.body['spent-user2']);
+    var spentUser1 = Number(req.body['spent-user1']);
+    var spentUser2 = Number(req.body['spent-user2']);
     var spentUser1Comment = req.body['spent-user1-comment'];
     var spentUser2Comment = req.body['spent-user2-comment'];
     
@@ -89,7 +89,6 @@ router.post('/', function (req, res, next) {
     query.equalTo('earningId',earningId);
     console.log(spentUser1,spentUser2,spentUser1Comment,spentUser2Comment);
     query.first().then(function(earning) {
-        console.log(111);
         earning.set('spentUser1',spentUser1);
         earning.set('spentUser2',spentUser2);
         earning.set('spentUser1Comment',spentUser1Comment);

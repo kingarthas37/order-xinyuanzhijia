@@ -7,29 +7,39 @@ module.exports = {
     indexFun:function() {
 
         let total = 0;
-        $('.cell-spent').each(function (i,n) {
-            total += parseInt($(n).text());
+
+        let totalUser1 = 0;
+        $('.cell-user1').each(function (i,n) {
+           totalUser1 += Number($(n).text());
         });
 
-        $('#total-spent').text(total);
+        let totalUser2 = 0;
+        $('.cell-user2').each(function (i,n) {
+            totalUser2 += Number($(n).text());
+        });
+
+        $('#total-user1').text(totalUser1.toFixed(2));
+        $('#total-user2').text(totalUser2.toFixed(2));
+        $('#total-spent').text((totalUser1 + totalUser2).toFixed(2));
     },
     editFun:function() {
 
         $('#form-edit-earning').validate();
         $('#spent-user1-comment,#spent-user2-comment').change(function() {
             
-            var amount = 0;
-            var input = $(this).parent().prev().prev().find('input[type=text]');
-            
-            var amounts = this.value.match(/(\d+)/g);
-            
+            let amount = 0;
+            let input = $(this).parent().prev().prev().find('input[type=text]');
+            var amounts = this.value.match(/\\([^\n]+)/g);
+
             if(!amounts) {
                 input.val(0);
                 return;
             }
             
             for(var i=0;i<amounts.length;i++) {
-                amount += parseInt(amounts[i]);
+                amounts[i] = amounts[i].replace('\\','');
+                amounts[i] = $.trim(amounts[i]);
+                amount += Number(amounts[i]);
             }
             input.val(amount);
         });
