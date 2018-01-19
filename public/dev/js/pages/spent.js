@@ -41,7 +41,7 @@ module.exports = {
                 amounts[i] = $.trim(amounts[i]);
                 amount += Number(amounts[i]);
             }
-            input.val(amount);
+            input.val(amount.toFixed(2));
         });
         
     }
