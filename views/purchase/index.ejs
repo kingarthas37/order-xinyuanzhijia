@@ -47,6 +47,7 @@
             <thead>
             <tr>
                 <th class="t-c" width="120">状态</th>
+                <th class="t-c" width="30">入库</th>
                 <th>订单名称</th>
                 <th class="t-c" width="80">订单</th>
                 <th class="t-c">官网</th>
@@ -75,6 +76,9 @@
 
                     <input <% if(purchase[i].get('shippingStatus') === 'arrived') { %> checked="checked" <% } %> type="checkbox" data-id="<%=purchase[i].get('purchaseId')%>" class="ckb-shipping-status-arrived" />
              
+                </td>
+                <td class="t-c">
+                    <input <% if(purchase[i].get('importOrder') === true) { %> checked="checked" <% } %> type="checkbox" data-purchase-id="<%= purchase[i].get('purchaseId') %>" class="import-order">
                 </td>
                 <td>
                     <% if (purchase[i].get('image')) { %> <a target="_blank" href="<%= purchase[i].get('image') %>"><img src="<%= purchase[i].get('image') %>?imageMogr2/thumbnail/40" width="40" /></a> <% } %>

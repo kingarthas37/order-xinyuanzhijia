@@ -114,6 +114,19 @@ module.exports = {
             }
         });
 
+        $('.import-order').click(function() {
+            $.ajax({
+                url: '/purchase/import-order',
+                type: 'post',
+                data: {
+                    purchaseId: $(this).data('purchase-id'),
+                    status: this.checked
+                }
+            }).done(() => {
+                console.log(333);
+            });
+        });
+
     },
     addFun: function () {
         $('#form-add-purchase').validate();

@@ -296,5 +296,19 @@ router.get('/get-spider-info',(req,res)=> {
     });
 });
 
+router.post('/import-order',(req,res)=> {
+    let purchaseId = parseInt(req.body.purchaseId);
+    let status = req.body.status === 'true' ? true : false;
+
+    let query = new AV.Query(PurchaseTrack);
+    query.equalTo('purchaseId',purchaseId);
+    query.first().done(item=> {
+        item.set('importOrder',status);
+        return item.save();
+    }).done(()=> {
+        res.send({success:1});
+    });
+
+});
 
 module.exports = router;
