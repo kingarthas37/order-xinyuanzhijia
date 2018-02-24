@@ -104,6 +104,24 @@
 
             <hr/>
 
+            <!-- file-upload start -->
+            <div class="am-form-group">
+                <label>上传订单截图： </label>
+                <div>
+                    <iframe class="upload-title" src="/file-manage/upload" frameborder="0"></iframe>
+                </div>
+                <input id="order-screen" name="order-screen" type="text" value="<%= purchase.get('orderScreen') %>"/>
+            </div>
+            <!-- file-upload end -->
+
+            <div>
+                <% if(purchase.get('orderScreen')) {%>
+                    <a href="<%= purchase.get('orderScreen') %>" target="_blank"><img src="<%= purchase.get('orderScreen') %>" width="600"></a>
+                <%}%>
+            </div>
+
+            <hr/>
+
             <!-- mail start -->
             <div id="content-mail" class="am-form-group">
                 <label>对方联系邮箱：</label>
@@ -233,9 +251,11 @@
     $(function() {
         var purchase = require('purchase');
         purchase.editFun();
-
-
     });
+
+    function uploadSuccess(url) {
+        $('#order-screen').val(url);
+    }
 </script>
 </body>
 </html>

@@ -89,6 +89,18 @@
 
             <hr/>
 
+            <!-- file-upload start -->
+            <div class="am-form-group">
+                <label>上传订单截图： </label>
+                <div>
+                    <iframe class="upload-title" src="/file-manage/upload" frameborder="0"></iframe>
+                </div>
+                <input id="order-screen" name="order-screen" type="text"/>
+            </div>
+            <!-- file-upload end -->
+
+            <hr/>
+
             <!-- mail start -->
             <div id="content-mail" class="am-form-group">
                 <label>对方联系邮箱：</label>
@@ -213,6 +225,10 @@
         var purchase = require('purchase');
         purchase.addFun();
     });
+
+    function uploadSuccess(url) {
+        $('#order-screen').val(url);
+    }
 </script>
 </body>
 </html>

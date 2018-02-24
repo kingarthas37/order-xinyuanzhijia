@@ -144,9 +144,9 @@
         
         <ul class="am-pagination">
             <% if (purchasePager.prev) { %> <li>
-                <a href="/purchase?page=<%= purchasePager.prev %><% if(searchOrder){%>&purchase-search-order=<%=searchOrder%><%}%><% if(searchTracking){%>&purchase-search-tracking=<%=searchTracking%><%}%><% if(shippingStatus){%>&shipping-status=<%=shippingStatus%><%}%>">上一页</a></li> <% } %>
+                <a href="/purchase?page=<%= purchasePager.prev %><% if(searchOrder){%>&purchase-search-order=<%=searchOrder%><%}%><% if(searchTracking){%>&purchase-search-tracking=<%=searchTracking%><%}%><% if(shippingStatus){%>&shipping-status=<%=shippingStatus%><%}%><% if(siteType){%>&site-type=<%=siteType%><%}%>">上一页</a></li> <% } %>
             <% if (purchasePager.next) { %> <li>
-                <a href="/purchase?page=<%= purchasePager.next %><% if(searchOrder){%>&purchase-search-order=<%=searchOrder%><%}%><% if(searchTracking){%>&purchase-search-tracking=<%=searchTracking%><%}%><% if(shippingStatus){%>&shipping-status=<%=shippingStatus%><%}%>">下一页</a></li> <% } %>
+                <a href="/purchase?page=<%= purchasePager.next %><% if(searchOrder){%>&purchase-search-order=<%=searchOrder%><%}%><% if(searchTracking){%>&purchase-search-tracking=<%=searchTracking%><%}%><% if(shippingStatus){%>&shipping-status=<%=shippingStatus%><%}%><% if(siteType){%>&site-type=<%=siteType%><%}%>">下一页</a></li> <% } %>
             <li class="count">第<%=purchasePager.page%>页 共<%=purchaseCount%>条</li>
         </ul>
         
