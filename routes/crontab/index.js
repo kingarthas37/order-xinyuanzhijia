@@ -26,36 +26,35 @@ router.get('/', function(req, res, next){
     query.limit(limit);
     var mobileArray = [];
     var mobileStr = [];
-    query.find({
-        success: function (results) {
-            if (results) {
-                results.forEach(function(item) {
-                    var mobile = item.get('address');
-                    mobile = mobile.match(/((((13[0-9])|(15[^4])|(18[0,1,2,3,5-9])|(17[0-8])|(147))\d{8}))?/g);
-                    mobile.forEach(function(m) {
-                        if (m != '') {
-                        mobileArray.push(m.trim());
+    query.find().then(function(results) {
+        console.log(results);
+        if (results) {
+            results.forEach(function(item) {
+                var mobile = item.get('address');
+                mobile.forEach(function (m) {
+                    var mob = m.match(/((((13[0-9])|(15[^4])|(18[0,1,2,3,5-9])|(17[0-8])|(147))\d{8}))?/g);
+                    mob.forEach(function(mo) {
+                        if (mo != '') {
+                            mobileArray.push(mo.trim());
                         }
                     });
-                });
-            }
-            if (mobileArray) {
-                mobileArray.sort();
-                var tempStr = '';
-                for (var i in mobileArray) {
-                    if(mobileArray[i] != tempStr) {
-                        mobileStr.push(mobileArray[i]);
-                        tempStr=mobileArray[i];
-                    } else {
-                        continue;
-                    }
+                })
+
+            });
+        }
+        if (mobileArray) {
+            mobileArray.sort();
+            var tempStr = '';
+            for (var i in mobileArray) {
+                if(mobileArray[i] != tempStr) {
+                    mobileStr.push(mobileArray[i]);
+                    tempStr=mobileArray[i];
+                } else {
+                    continue;
                 }
             }
-            res.send(mobileStr.toString());
-        },
-        error: function (err) {
-            next(err);
         }
+        res.send(mobileStr.toString());
     });
 });
 
