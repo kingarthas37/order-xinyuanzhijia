@@ -108,6 +108,9 @@ module.exports = {
     '/file-manage':require('./file-manage'),
     '/file-manage/add':require('./file-manage/add'),
     '/file-manage/edit':require('./file-manage/edit'),
-    '/file-manage/upload':require('./file-manage/upload')
+    '/file-manage/upload':require('./file-manage/upload'),
+
+    //crontab
+    '/crontab':require('./crontab')
     
 };
