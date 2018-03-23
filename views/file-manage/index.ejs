@@ -50,7 +50,7 @@
                 <td>
                     <a href="/file-manage/edit/<%= fileManage[i].get('fileManageId') %>"><%= fileManage[i].get('name') %></a>
                 </td>
-                <td><a target="_blank" href="<%= fileManage[i].get('file') %>"><%= fileManage[i].get('file') %></a></td>
+                <td><a target="_blank" href="<%= fileManage[i].get('file').replace('ac-JoaBcRTt.clouddn.com','lc-joabcrtt.cn-n1.lcfile.com') %>"><%= fileManage[i].get('file').replace('ac-JoaBcRTt.clouddn.com','lc-joabcrtt.cn-n1.lcfile.com') %></a></td>
                 <td class="t-c"><a class="remove-file-manage" href="/file-manage/remove/<%= fileManage[i].get('fileManageId') %>">删除</a></td>
             </tr>
             <% } %>

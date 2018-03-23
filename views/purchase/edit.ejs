@@ -57,10 +57,10 @@
             <!-- image start -->
             <div id="content-image" class="am-form-group">
                 <label>图片展示：</label>
-                <input type="hidden" id="purchase-image" name="purchase-image" value="<%= purchase.get('image') %>"/>
+                <input type="hidden" id="purchase-image" name="purchase-image" value="<%= purchase.get('image').replace('ac-JoaBcRTt.clouddn.com','lc-joabcrtt.cn-n1.lcfile.com') %>"/>
                 <div>
                     <div class="purchase-image">
-                        <img src="<%= purchase.get('image') %>" alt="">
+                        <img src="<%= purchase.get('image').replace('ac-JoaBcRTt.clouddn.com','lc-joabcrtt.cn-n1.lcfile.com') %>" alt="">
                     </div>
                 </div>
             </div>
