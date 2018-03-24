@@ -260,7 +260,7 @@ router.get('/get-image', (req, res)=> {
                 }
             }
             
-            data[image.get('productId')] = imgArr[0].url.replace('ac-QuiPuWpJ.clouddn.com','lc-QuiPuWpJ.cn-n1.lcfile.com');
+            data[image.get('productId')] = imgArr[0].url.replace('ac-QuiPuWpJ.clouddn.com','lc-QuiPuWpJ.cn-n1.lcfile.com').replace('ac-JoaBcRTt.clouddn.com','lc-JoaBcRTt.cn-n1.lcfile.com');
         });
         
         res.send({
