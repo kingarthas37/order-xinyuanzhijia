@@ -250,7 +250,7 @@ router.get('/get-image', (req, res)=> {
             
             if(!image.get('mainImage')) {
                 imgArr.push({
-                    url:'//ac-joabcrtt.clouddn.com/b7f0d580ef9a4ae8e19b.png'
+                    url:'//lc-QuiPuWpJ.cn-n1.lcfile.com/b7f0d580ef9a4ae8e19b.png'
                 });
             } else {
                 for (let i in image.get('mainImage')) {
@@ -260,8 +260,7 @@ router.get('/get-image', (req, res)=> {
                 }
             }
             
-            data[image.get('productId')] = imgArr[0].url;
-            
+            data[image.get('productId')] = imgArr[0].url.replace('ac-QuiPuWpJ.clouddn.com','lc-QuiPuWpJ.cn-n1.lcfile.com');
         });
         
         res.send({
