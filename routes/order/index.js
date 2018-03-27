@@ -407,12 +407,12 @@ router.get('/product', (req, res) => {
         for (let i = 0; i < results.length; i++) {
             let imageArr = [];
             for (let key in results[i].get('mainImage')) {
-                imageArr.push(results[i].get('mainImage')[key].url);
+                imageArr.push(results[i].get('mainImage')[key].url.replace('ac-QuiPuWpJ.clouddn.com','lc-QuiPuWpJ.cn-n1.lcfile.com') );
             }
             let obj = {
                 'value': `${results[i].get('name')} {id:${results[i].get('productId')}}`,
                 'productId': results[i].get('productId'),
-                'image': imageArr[0] || 'http://ac-JoaBcRTt.clouddn.com/b7f0d580ef9a4ae8e19b.png'
+                'image': imageArr[0] || 'http://lc-joabcrtt.cn-n1.lcfile.com/b7f0d580ef9a4ae8e19b.png'
             };
             jsonData.push(obj);
         }
