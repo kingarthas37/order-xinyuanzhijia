@@ -412,7 +412,8 @@ router.get('/product', (req, res) => {
             let obj = {
                 'value': `${results[i].get('name')} {id:${results[i].get('productId')}}`,
                 'productId': results[i].get('productId'),
-                'image': imageArr[0] || 'http://lc-joabcrtt.cn-n1.lcfile.com/b7f0d580ef9a4ae8e19b.png'
+                'image': imageArr[0] || 'http://lc-joabcrtt.cn-n1.lcfile.com/b7f0d580ef9a4ae8e19b.png',
+                'stock':results[i].get('stock')
             };
             jsonData.push(obj);
         }
