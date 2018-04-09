@@ -399,9 +399,10 @@ router.get('/product', (req, res) => {
     let search = req.query['name'];
     let page = 1;
     let limit = 500;
-    let select = 'name, productId, mainImage';
+    let select = 'name, productId, mainImage,stock';
     let options = {search, page, limit, select};
     pro.getProducts(options, false).then(results => {
+
         let jsonData = [];
 
         for (let i = 0; i < results.length; i++) {
