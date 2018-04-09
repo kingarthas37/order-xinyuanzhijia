@@ -451,6 +451,7 @@ module.exports = {
         this.customerNameTypeAhead();
         this.orderTypeAheadAdd();
         this.domUpdate();
+        this.orderBatchAdd();
      //   this.clientNameTypeAhead();
 
         //复制新order
@@ -485,6 +486,7 @@ module.exports = {
         this.orderTypeAheadUpdate();
         this.domUpdate();
         this.orderNameTypeAhead();
+        this.orderBatchAdd();
      //   this.clientNameTypeAhead();
         this.clipboard();
     },
@@ -717,6 +719,91 @@ module.exports = {
             this.bindOrderNameTypeAhead($(n));
         });
     },
+    //批量添加订单
+    orderBatchAdd() {
+        let modal = $('#modal-order-batch-add');
+        let batchText = $('#batch-text');
+        let batchCreate = $('#batch-create');
+        let btnAdd = $('.order-add');
+        $('.order-batch-add').click(function() {
+            modal.modal();
+            batchText[0].focus();
+        });
+
+        batchCreate.click(function () {
+
+            let text = batchText.val();
+            if(!$.trim(text) || text.indexOf('商家编码：') < 0) {
+                alert('请输入正确的淘宝订单内容!');
+                return false;
+            }
+
+            //过滤用户、发货信息
+            text = text.replace(/\n/gi,'');
+            text = text.replace(/发货[^、)]+\)/,'');
+
+            let testLength = text.match(/商家编码：/gi).length;
+            let productIdArr = text.match(/商家编码：\d+/gi);
+            let countArr = text.match(/￥\d+\.\d+/gi);
+
+            if(testLength !== productIdArr.length) {
+                alert('注意：商家编码数据不匹配，请手动检测数据');
+            }
+
+            let firstLoad = true;
+            let start = (()=> {
+                if($('.name').length === 2) {
+                    return  0;
+                }
+                firstLoad = false;
+                return $('.name').length;
+            })();
+
+            productIdArr = productIdArr.map(function (item,i) {
+                btnAdd.click();
+                return parseInt(item.replace('商家编码：',''));
+            });
+
+            countArr = countArr.map(function (item, i) {
+                if(!item) {
+                    return 1;
+                }
+                item = item.replace(/￥\d+\.\d\d/,'');
+                return parseInt(item);
+            });
+
+            console.log(countArr);
+
+            let inputs = $('.name');
+            {
+                if(!firstLoad) {
+                    btnAdd.click();
+                }
+                $('.remove').last().click();
+            }
+            let selectCounts = $('select[name=shipping-count]');
+
+            batchCreate.text('生成订单中...');
+            setTimeout(()=>{
+                $.each(productIdArr,function (i,n) {
+                    $.ajax({
+                        url:`/order/product?name=${n}`,
+                        async:false,
+                        success:(result) => {
+                            inputs.eq(start + 1).val(result[0].value);
+                            selectCounts.eq(start / 2 ).find('option').eq(countArr[i]-1).selected();
+
+                            start += 2;
+                            batchCreate.text('生成订单');
+                            modal.modal('close');
+                        }
+                    });
+                });
+            },0);
+            return false;
+        });
+    },
+
     bindOrderNameTypeAhead(element) {
 
         element.typeahead(null, {
