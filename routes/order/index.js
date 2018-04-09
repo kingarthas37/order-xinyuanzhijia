@@ -250,7 +250,7 @@ router.get('/get-image', (req, res)=> {
             
             if(!image.get('mainImage')) {
                 imgArr.push({
-                    url:'//lc-QuiPuWpJ.cn-n1.lcfile.com/b7f0d580ef9a4ae8e19b.png'
+                    url:'//lc-JoaBcRTt.cn-n1.lcfile.com/d4c225054f005a4d7d39.png'
                 });
             } else {
                 for (let i in image.get('mainImage')) {
@@ -411,9 +411,9 @@ router.get('/product', (req, res) => {
                 imageArr.push(results[i].get('mainImage')[key].url.replace('ac-QuiPuWpJ.clouddn.com','lc-QuiPuWpJ.cn-n1.lcfile.com') );
             }
             let obj = {
-                'value': `${results[i].get('name')} {id:${results[i].get('productId')}}`,
+                'value': `${results[i].get('name')} {id:${results[i].get('productId')}} {库:${results[i].get('stock')}} `,
                 'productId': results[i].get('productId'),
-                'image': imageArr[0] || 'http://lc-joabcrtt.cn-n1.lcfile.com/b7f0d580ef9a4ae8e19b.png',
+                'image': imageArr[0] || '//lc-JoaBcRTt.cn-n1.lcfile.com/d4c225054f005a4d7d39.png',
                 'stock':results[i].get('stock')
             };
             jsonData.push(obj);

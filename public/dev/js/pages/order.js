@@ -725,7 +725,7 @@ module.exports = {
             },
             templates: {
                 suggestion: function (item) {
-                    return `<div><img src="${item.image}?imageMogr2/thumbnail/32" />${item.value} (库存:${item.stock})</div>`;
+                    return `<div><img src="${item.image}?imageMogr2/thumbnail/32" />${item.value}</div>`;
                 }
             },
             highlight: true,

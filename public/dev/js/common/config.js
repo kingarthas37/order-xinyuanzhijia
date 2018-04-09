@@ -1,7 +1,7 @@
 'use strict';
 
 window.assets = {
-    'no-image-src':'http://http://lc-quipuwpj.cn-n1.lcfile.com/b7f0d580ef9a4ae8e19b.png'
+    'no-image-src':'//lc-JoaBcRTt.cn-n1.lcfile.com/d4c225054f005a4d7d39.png'
 };
 
 let name = 'order-51wish';
