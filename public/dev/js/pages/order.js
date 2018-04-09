@@ -725,8 +725,10 @@ module.exports = {
         let batchText = $('#batch-text');
         let batchCreate = $('#batch-create');
         let btnAdd = $('.order-add');
+
         $('.order-batch-add').click(function() {
             modal.modal();
+            batchText.val('');
             batchText[0].focus();
         });
 
@@ -765,9 +767,6 @@ module.exports = {
             });
 
             countArr = countArr.map(function (item, i) {
-                if(!item) {
-                    return 1;
-                }
                 item = item.replace(/￥\d+\.\d\d/,'');
                 return parseInt(item);
             });
