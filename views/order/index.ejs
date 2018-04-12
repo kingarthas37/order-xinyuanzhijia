@@ -94,7 +94,7 @@
                         <span class="image loading-elem on" data-id="<% if(/\{id\:\d+\}/.test(order[i].get('name')[j])){%><%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(.*)/,'$2') %><%}%>"></span>
                         <a href="/order/edit/<%= order[i].get('orderId') %><%if(searchNotShipped){ %>?search-notshipped=on<%}%>" <% if(/\{id\:\d+\}/.test(order[i].get('name')[j])){%>title="productId:<%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(.*)/,'$2') %>"<%}%>>
                             <% if(order[i].get('isGift')[j]){%>(赠)<%}%>
-                            <%= order[i].get('shippingCount')[j] %>*<%= order[i].get('name')[j] %>
+                            <% if(order[i].get('shippingCount')[j] > 1){ %><strong class="font-red"><%= order[i].get('shippingCount')[j] %></strong><% }else{%><%= order[i].get('shippingCount')[j] %><%}%>*<%= order[i].get('name')[j] %>
                         </a>
                         <% if(/\{id\:\d+\}/.test(order[i].get('name')[j])) {%>
                         <a class="set-stock" product-id="<%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(.*)/,'$2') %>" title="设置库存" href="javascript:;"><i class="am-icon am-icon-inbox"></i></a>
