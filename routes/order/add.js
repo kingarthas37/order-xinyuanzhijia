@@ -68,7 +68,7 @@ router.post('/', function (req, res, next) {
     var customerName = req.body['customer-name'].trim();
     var newCustomer = req.body['new-customer'];
     var shippingAddress = req.body['shipping-address'].trim();
-    var newAddress = req.body['new-address'].trim();
+    var newAddress = req.body['new-address'];
     var taobao = req.body['taobao'].trim();
     
     var customer = new Customer();
