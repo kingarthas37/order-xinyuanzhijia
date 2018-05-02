@@ -56,6 +56,13 @@ module.exports = {
                     $.each(data.customers, function (_i, _n) {
                         if (_n.customerId === customerId) {
                             $(n).find('.taobao-name').removeClass('on').text(_n.taobao);
+                            $(n).find('.clipboard-customer-address').after(`
+                                <a href="javascript:;" title="复制淘宝用户名" class="clipboard-tbname" data-clipboard-text="${_n.taobao}"><i class="am-icon am-icon-copy"></i></a>
+                            `);
+                            let clipboard = new Clipboard($(n).find('.clipboard-tbname')[0]);
+                            clipboard.on('success',() => {
+                                $(n).find('.clipboard-tbname').addClass('active');
+                            });
                         }
                     });
                     $.each(data.shippings, function (_i, _n) {
