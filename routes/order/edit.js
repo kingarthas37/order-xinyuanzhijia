@@ -76,25 +76,25 @@ router.post('/', function (req, res, next) {
     
     var orderId = parseInt(req.body['order-id']);
 
-    var name = typeof req.body['name'] === 'object' ? req.body['name'] : [req.body['name']];
+    var name = typeof req.body['name'] === 'object' ? req.body['name'].trim() : [req.body['name'].trim()];
     var shippingCount = typeof req.body['shipping-count'] === 'object' ? req.body['shipping-count'] : [req.body['shipping-count']];
     let isGift = typeof req.body['is-gift'] === 'object' ? req.body['is-gift'] : [req.body['is-gift']];
     isGift = isGift.map(item => parseInt(item) ? true : false);
     let isShipping = typeof req.body['is-shipping'] === 'object' ? req.body['is-shipping'] : [req.body['is-shipping']];
     isShipping = isShipping.map(item => parseInt(item) ? true : false);
     var customerId = parseInt(req.body['customer-name-id']);
-    var client = req.body['client'];
-    let clientAddress = req.body['client-address'];
-    var shopOrderLink = req.body['shop-order-link'];
+    var client = req.body['client'].trim();
+    let clientAddress = req.body['client-address'].trim();
+    var shopOrderLink = req.body['shop-order-link'].trim();
     shopOrderLink = utils.urlCompleting(shopOrderLink);
     var shippingDate = req.body['shipping-date'];
     var shippingCompany = req.body['shipping-company'];
-    var trackingNumber = req.body['tracking-number'];
+    var trackingNumber = req.body['tracking-number'].trim();
     var shippingStatus = req.body['shipping-status'];
-    var comment = req.body['comment'];
-    var customerName = req.body['customer-name'];
-    var shippingAddress = req.body['shipping-address'];
-    var taobao = req.body['taobao'];
+    var comment = req.body['comment'].trim();
+    var customerName = req.body['customer-name'].trim();
+    var shippingAddress = req.body['shipping-address'].trim();
+    var taobao = req.body['taobao'].trim();
     var customer = new Customer();
     
     async.waterfall([
