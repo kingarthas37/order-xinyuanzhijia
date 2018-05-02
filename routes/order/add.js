@@ -49,7 +49,7 @@ router.post('/', function (req, res, next) {
         return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));
     }
     
-    var name = typeof req.body['name'] === 'object' ? req.body['name'].trim() : [req.body['name'].trim()];
+    var name = typeof req.body['name'] === 'object' ? req.body['name'] : [req.body['name']];
     var shippingCount = typeof req.body['shipping-count'] === 'object' ? req.body['shipping-count'] : [req.body['shipping-count']];
     let isGift = typeof req.body['is-gift'] === 'object' ? req.body['is-gift'] : [req.body['is-gift']];
     isGift = isGift.map(item => parseInt(item) ? true : false);
