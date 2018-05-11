@@ -33,16 +33,9 @@
                         </div>
                         <div class="am-u-sm-1">
                             <select name="shipping-count">
-                                <option value="1" <%if(order.get('shippingCount')[i] === 1){%>selected="selected"<%}%> >1</option>
-                                <option value="2" <%if(order.get('shippingCount')[i] === 2){%>selected="selected"<%}%> >2</option>
-                                <option value="3" <%if(order.get('shippingCount')[i] === 3){%>selected="selected"<%}%> >3</option>
-                                <option value="4" <%if(order.get('shippingCount')[i] === 4){%>selected="selected"<%}%> >4</option>
-                                <option value="5" <%if(order.get('shippingCount')[i] === 5){%>selected="selected"<%}%> >5</option>
-                                <option value="6" <%if(order.get('shippingCount')[i] === 6){%>selected="selected"<%}%> >6</option>
-                                <option value="7" <%if(order.get('shippingCount')[i] === 7){%>selected="selected"<%}%> >7</option>
-                                <option value="8" <%if(order.get('shippingCount')[i] === 8){%>selected="selected"<%}%> >8</option>
-                                <option value="9" <%if(order.get('shippingCount')[i] === 9){%>selected="selected"<%}%> >9</option>
-                                <option value="10" <%if(order.get('shippingCount')[i] === 10){%>selected="selected"<%}%> >10</option>
+                                <% for(var j=1;j<=30;j++){%>
+                                    <option value="<%=j%>"  <%if(order.get('shippingCount')[i] === j){%>selected="selected"<%}%>><%=j%></option>
+                                <%}%>
                             </select>
                         </div>
                         <label class="am-u-sm-3 am-form-label">
