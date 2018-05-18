@@ -248,7 +248,7 @@ router.get('/get-image', (req, res)=> {
 
             let imgArr = [];
             
-            if(!image.get('mainImage')) {
+            if(JSON.stringify(image.get('mainImage'))=== '{}') {
                 imgArr.push({
                     url:'//lc-JoaBcRTt.cn-n1.lcfile.com/d4c225054f005a4d7d39.png'
                 });
