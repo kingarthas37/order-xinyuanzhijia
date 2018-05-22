@@ -81,7 +81,7 @@
                     <input <% if(purchase[i].get('importOrder') === true) { %> checked="checked" <% } %> type="checkbox" data-purchase-id="<%= purchase[i].get('purchaseId') %>" class="import-order">
                 </td>
                 <td>
-                    <% if (purchase[i].get('image')) { %> <a target="_blank" href="<%= purchase[i].get('image').replace('lc-quipuwpj.cn-n1.lcfile.com','lc-joabcrtt.cn-n1.lcfile.com') %>"><img src="<%= purchase[i].get('image').replace('lc-quipuwpj.cn-n1.lcfile.com','lc-joabcrtt.cn-n1.lcfile.com') %>?imageMogr2/thumbnail/40" width="40" /></a> <% } %>
+                    <% if (purchase[i].get('image')) { %> <a target="_blank" href="<%= purchase[i].get('image').replace('ac-JoaBcRTt.clouddn.com','lc-joabcrtt.cn-n1.lcfile.com') %>"><img src="<%= purchase[i].get('image').replace('ac-JoaBcRTt.clouddn.com','lc-joabcrtt.cn-n1.lcfile.com') %>?imageMogr2/thumbnail/40" width="40" /></a> <% } %>
                     <a href="/purchase/edit/<%= purchase[i].get('purchaseId') %><%if(purchase[i].get('siteType') !== 'normal'){%>?site-type=<%= purchase[i].get('siteType') %><%}%>">  <%= (purchase[i].get('isSolid')?'[加固]':'') %>   <%= purchase[i].get('name') %></a> <% if(purchase[i].get('siteType')==='etsy') {%><i class="icon-etsy">E</i><%}%> <% if(purchase[i].get('siteType')==='ebay') {%><i class="icon-ebay">E</i><%}%>
                 </td>
                 <td class="t-c">
