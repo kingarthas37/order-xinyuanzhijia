@@ -195,9 +195,9 @@
             
             <ul class="am-pagination">
                 <% if (orderPager.prev) { %> <li>
-                    <a href="/order?page=<%= orderPager.prev %><% if(searchOrderName) {%>&search-order-name=<%=searchOrderName%> <%}%><% if(searchCustomerName) {%>&search-customer-name=<%=searchCustomerName%> <%}%><% if(searchAddress) {%>&search-address=<%=searchAddress%> <%}%><% if(searchNotShipped) {%>&search-not-shipped=<%=searchNotShipped%><%}%><% if(limit) {%>&limit=<%=limit%><%}%><% if(searchShipping) {%>&search-shipping=<%=searchShipping%><%}%>">上一页</a></li> <% } %>
+                    <a href="/order?page=<%= orderPager.prev %><% if(searchOrderName) {%>&search-order-name=<%=searchOrderName%><%}%><% if(searchCustomerName) {%>&search-customer-name=<%=searchCustomerName%><%}%><% if(searchAddress) {%>&search-address=<%=searchAddress%><%}%><% if(searchNotShipped) {%>&search-not-shipped=<%=searchNotShipped%><%}%><% if(limit) {%>&limit=<%=limit%><%}%><% if(searchShipping) {%>&search-shipping=<%=searchShipping%><%}%>">上一页</a></li> <% } %>
                 <% if (orderPager.next) { %> <li>
-                    <a href="/order?page=<%= orderPager.next %><% if(searchOrderName) {%>&search-order-name=<%=searchOrderName%> <%}%><% if(searchCustomerName) {%>&search-customer-name=<%=searchCustomerName%> <%}%><% if(searchAddress) {%>&search-address=<%=searchAddress%> <%}%><% if(searchNotShipped) {%>&search-not-shipped=<%=searchNotShipped%><%}%><% if(limit) {%>&limit=<%=limit%><%}%><% if(searchShipping) {%>&search-shipping=<%=searchShipping%><%}%>">下一页</a></li> <% } %>
+                    <a href="/order?page=<%= orderPager.next %><% if(searchOrderName) {%>&search-order-name=<%=searchOrderName%><%}%><% if(searchCustomerName) {%>&search-customer-name=<%=searchCustomerName%><%}%><% if(searchAddress) {%>&search-address=<%=searchAddress%><%}%><% if(searchNotShipped) {%>&search-not-shipped=<%=searchNotShipped%><%}%><% if(limit) {%>&limit=<%=limit%><%}%><% if(searchShipping) {%>&search-shipping=<%=searchShipping%><%}%>">下一页</a></li> <% } %>
                 
                 <li class="count">
                     <em>第<%=orderPager.page%>页 共<%= orderCount %>条</em>
