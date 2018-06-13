@@ -135,7 +135,7 @@ module.exports = {
                 checkbox.prop('checked',true);
                 table.find('tbody tr').each(function (i,n) {
                     if($(n).text().indexOf('luckymojo') > -1 || $(n).text().indexOf('wisdom') > -1) {
-                        $(n).addClass('show');
+                        $(n).addClass('hide');
                     }
                 });
             }
