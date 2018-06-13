@@ -34,16 +34,18 @@
             <span></span>
             
             <div class="am-form-group">
-                <label class="normal">已到达转运公司 <input <% if(shippingStatus === 'forward') { %>checked="checked"<%}%> type="checkbox" class="ckb-shipping-status" name="forward"></label>
+                <label class="normal"><input <% if(shippingStatus === 'forward') { %>checked="checked"<%}%> type="checkbox" class="ckb-shipping-status" name="forward"> 已到达转运公司</label>
                 <span class="sp"></span>
-                <label class="normal">已签收 <input <% if(shippingStatus === 'arrived') { %>checked="checked"<%}%> type="checkbox" class="ckb-shipping-status" name="arrived"></label>
+                <label class="normal"><input <% if(shippingStatus === 'arrived') { %>checked="checked"<%}%> type="checkbox" class="ckb-shipping-status" name="arrived"> 已签收</label>
+                <span class="sp"></span>
+                <label class="normal"><input type="checkbox" class="hide-wisdom-luckymojo-list" /> 隐藏wisdom/luckymojo列表</label>
             </div>
             
         </form>
 
         <hr/>
         
-        <table class="am-table">
+        <table class="am-table" id="table">
             <thead>
             <tr>
                 <th class="t-c" width="120">状态</th>

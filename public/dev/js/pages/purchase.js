@@ -127,6 +127,38 @@ module.exports = {
             });
         });
 
+        //隐藏wisdom luckymojo列表
+        {
+            let table = $('#table');
+            let checkbox = $('.hide-wisdom-luckymojo-list');
+            if($.cookie('hide-wisdom-luckymojo-list')) {
+                checkbox.prop('checked',true);
+                table.find('tbody tr').each(function (i,n) {
+                    if($(n).text().indexOf('luckymojo') > -1 || $(n).text().indexOf('wisdom') > -1) {
+                        $(n).addClass('show');
+                    }
+                });
+            }
+
+            checkbox.click(function () {
+                if(this.checked) {
+                    $.cookie('hide-wisdom-luckymojo-list','true',{expires:new Date(new Date().getTime() + 1000*60*60*24*365),path:'/',domain:location.host});
+                    table.find('tbody tr').each(function (i,n) {
+                        if($(n).text().indexOf('luckymojo') > -1 || $(n).text().indexOf('wisdom') > -1) {
+                            $(n).addClass('hide');
+                        }
+                    });
+                } else {
+                    $.cookie('hide-wisdom-luckymojo-list','',{expires:new Date(new Date().getTime()),path:'/',domain:location.host});
+                    table.find('tbody tr').each(function (i,n) {
+                        if($(n).text().indexOf('luckymojo') > -1 || $(n).text().indexOf('wisdom') > -1) {
+                            $(n).removeClass('hide');
+                        }
+                    });
+                }
+            });
+        }
+
     },
     addFun: function () {
         $('#form-add-purchase').validate();

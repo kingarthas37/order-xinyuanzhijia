@@ -257,6 +257,9 @@
     }
     
     .am-table {
+        tr.hide {
+            display: none;
+        }
         .am-dropdown .am-btn {
             background: none;
             color: #666;
