@@ -42,6 +42,7 @@ router.get('/', function (req, res, next) {
     let searchAddress = req.query['search-address'];
     let searchNotShipped = req.query['search-not-shipped'];
     let searchShipping = req.query['search-shipping'];
+    let searchIsNewShop = req.query['search-is-new-shop'];
 
     data = extend(data, {
         flash: {
@@ -54,7 +55,8 @@ router.get('/', function (req, res, next) {
         searchCustomerName,
         searchAddress,
         searchNotShipped,
-        searchShipping
+        searchShipping,
+        searchIsNewShop
     });
 
     async.series([

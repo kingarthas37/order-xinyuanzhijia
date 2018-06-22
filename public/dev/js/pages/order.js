@@ -450,6 +450,52 @@ module.exports = {
             });
         }
 
+        //只展示主店订单数据
+        {
+            let checkboxMain = $('.ckb-show-main-shop-order');
+            let checkboxNew = $('.ckb-show-new-shop-order');
+            if($.cookie('show-main-shop-order')) {
+                checkboxMain.prop('checked',true);
+                $('.new-shop-order').addClass('hide');
+            }
+
+            checkboxMain.click(function () {
+                if(this.checked) {
+                    $.cookie('show-main-shop-order','true',{expires:new Date(new Date().getTime() + 1000*60*60*24*365),path:'/',domain:location.host});
+                    $('.new-shop-order').addClass('hide');
+                    if(checkboxNew.prop('checked')) {
+                        checkboxNew.click();
+                    }
+                } else {
+                    $.cookie('show-main-shop-order','',{expires:new Date(new Date().getTime()),path:'/',domain:location.host});
+                    $('.new-shop-order').removeClass('hide');
+                }
+            });
+        }
+
+        //只展示新店订单数据
+        {
+            let checkboxMain = $('.ckb-show-main-shop-order');
+            let checkboxNew = $('.ckb-show-new-shop-order');
+            if($.cookie('show-main-shop-order')) {
+                checkboxNew.prop('checked',true);
+                $('.main-shop-order').addClass('hide');
+            }
+
+            checkboxNew.click(function () {
+                if(this.checked) {
+                    $.cookie('show-main-shop-order','true',{expires:new Date(new Date().getTime() + 1000*60*60*24*365),path:'/',domain:location.host});
+                    $('.main-shop-order').addClass('hide');
+                    if(checkboxMain.prop('checked')) {
+                        checkboxMain.click();
+                    }
+                } else {
+                    $.cookie('show-main-shop-order','',{expires:new Date(new Date().getTime()),path:'/',domain:location.host});
+                    $('.main-shop-order').removeClass('hide');
+                }
+            });
+        }
+
     },
     addFun: function () {
         
@@ -468,6 +514,11 @@ module.exports = {
         } else {
             this.orderNameTypeAhead();
             $('input[name]').get(0).focus();
+        }
+
+        //新店订单checkbox
+        if (location.search.indexOf('is-new-shop') > -1) {
+            $('.is-new-shop').prop('checked',true);
         }
 
     },

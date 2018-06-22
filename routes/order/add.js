@@ -70,6 +70,8 @@ router.post('/', function (req, res, next) {
     var shippingAddress = req.body['shipping-address'].trim();
     var newAddress = req.body['new-address'];
     var taobao = req.body['taobao'].trim();
+    let isNewShop = req.body['is-new-shop'];
+
     
     var customer = new Customer();
     var orderTrack = new OrderTrack();
@@ -156,6 +158,7 @@ router.post('/', function (req, res, next) {
             orderTrack.set('trackingNumber',trackingNumber);
             orderTrack.set('shippingStatus',shippingStatus);
             orderTrack.set('comment',comment);
+            orderTrack.set('isNewShop',isNewShop ==='on'?true:false);
             
             orderTrack.save(null, {
                 success: function () {

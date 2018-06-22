@@ -104,6 +104,12 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
+
+        tr {
+            &.hide {
+                display: none;
+            }
+        }
     }
     .am-form-inline {
         .am-form-field {

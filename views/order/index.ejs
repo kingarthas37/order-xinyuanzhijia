@@ -66,6 +66,11 @@
 
             <div class="am-form-group">
                 <a href="/order/add<% if(searchNotShipped){%>?search-notshipped=on<%}%>" class="am-btn am-btn-primary" role="button">添加新订单</a>
+                <a href="/order/add?is-new-shop=true<% if(searchNotShipped){%>&search-notshipped=on<%}%>" class="am-btn am-btn-primary" role="button">添加新店新订单</a>
+                <span class="sp"></span>
+                <label class="normal">只显示主店订单 <input type="checkbox" class="ckb-show-main-shop-order" /></label>
+                <span class="sp"></span>
+                <label class="normal">只显示新店订单 <input type="checkbox" class="ckb-show-new-shop-order" /></label>
             </div>
 
             <hr/>
@@ -85,7 +90,7 @@
                 </thead>
                 <tbody>
                 <% for(var i=0; i < order.length; i++) {%>
-                <tr data-order-id="<%= order[i].get('orderId') %>" data-customer-id="<%= order[i].get('customerId') %>" <% if (order[i].get('shippingStatus') !== 'shipped' ) { %>class="off"<%}%>>
+                <tr data-order-id="<%= order[i].get('orderId') %>" data-customer-id="<%= order[i].get('customerId') %>" class="<% if (order[i].get('shippingStatus') !== 'shipped' ) { %>off<%}%><% if (order[i].get('isNewShop')) { %> new-shop-order<%} else {%> main-shop-order<%}%>">
                     <td class="t-c">
                         <input order-id="<%= order[i].get('orderId') %>" class="ckb-shipped" type="checkbox" <% if (order[i].get('shippingStatus') === 'shipped' ) { %>checked="checked"<%}%>/>
                     </td>

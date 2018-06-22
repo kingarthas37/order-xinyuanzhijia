@@ -96,6 +96,7 @@ router.post('/', function (req, res, next) {
     var shippingAddress = req.body['shipping-address'].trim();
     var taobao = req.body['taobao'].trim();
     var customer = new Customer();
+    let isNewShop = req.body['is-new-shop'];
     
     async.waterfall([
         //取到新的customerId,如果有customerId,则保存到order，否则保存已有的customerId
@@ -135,6 +136,7 @@ router.post('/', function (req, res, next) {
                 orderTrack.set('trackingNumber',trackingNumber);
                 orderTrack.set('shippingStatus',shippingStatus);
                 orderTrack.set('comment',comment);
+                orderTrack.set('isNewShop',isNewShop ==='on' ? true:false);
 
                 orderTrack.save(null, {
                     success: function () {
