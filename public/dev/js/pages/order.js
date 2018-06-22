@@ -477,7 +477,7 @@ module.exports = {
         {
             let checkboxMain = $('.ckb-show-main-shop-order');
             let checkboxNew = $('.ckb-show-new-shop-order');
-            if($.cookie('show-main-shop-order')) {
+            if($.cookie('show-new-shop-order')) {
                 checkboxNew.prop('checked',true);
                 $('.main-shop-order').addClass('hide');
             }
