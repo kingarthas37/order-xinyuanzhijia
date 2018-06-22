@@ -484,13 +484,13 @@ module.exports = {
 
             checkboxNew.click(function () {
                 if(this.checked) {
-                    $.cookie('show-main-shop-order','true',{expires:new Date(new Date().getTime() + 1000*60*60*24*365),path:'/',domain:location.host});
+                    $.cookie('show-new-shop-order','true',{expires:new Date(new Date().getTime() + 1000*60*60*24*365),path:'/',domain:location.host});
                     $('.main-shop-order').addClass('hide');
                     if(checkboxMain.prop('checked')) {
                         checkboxMain.click();
                     }
                 } else {
-                    $.cookie('show-main-shop-order','',{expires:new Date(new Date().getTime()),path:'/',domain:location.host});
+                    $.cookie('show-new-shop-order','',{expires:new Date(new Date().getTime()),path:'/',domain:location.host});
                     $('.main-shop-order').removeClass('hide');
                 }
             });
