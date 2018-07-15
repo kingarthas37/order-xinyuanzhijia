@@ -33,8 +33,10 @@
 
             <!-- taobaoname start -->
             <div id="content-taobao" class="am-form-group">
-                <label>淘宝用户名：</label>
-                <input id="taobao" name="taobao" type="text" placeholder="输入淘宝用户名" value="<%= customer.get('taobao') %>" />
+                <label>是否淘宝用户：</label>
+                <div>
+                    <label class="normal"> <input name="is-taobao-user" type="checkbox"  <%  if(customer.get('isTaobaoUser')){%>checked="checked"<%} %>> 是否淘宝用户</label>
+                </div>
             </div>
             <!-- taobaoname end -->
 

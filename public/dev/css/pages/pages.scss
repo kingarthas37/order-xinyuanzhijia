@@ -177,6 +177,32 @@
             width: 80px;
         }
     }
+
+    .is-taobao-user {
+        padding-top: 4px;
+        label {
+            margin:0;
+            font-weight: normal;
+            font-size: 13px;
+            color: #666;
+        }
+    }
+
+    .check-customer-id {
+        display: none;
+        font-size: 13px;
+        margin-left:5px;
+        padding: 2px 5px;
+        background: #eeffee;
+        color: #4bad4b;
+        i {
+            color: #4bad4b;
+        }
+        &.on {
+            display: inline;
+        }
+    }
+
     .check-customer-rename {
         display: none;
         font-size: 13px;

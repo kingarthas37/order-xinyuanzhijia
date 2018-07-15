@@ -53,6 +53,7 @@ module.exports = {
 
                 $.each(list, function (i, n) {
                     let customerId = parseInt($(n).data('customer-id'));
+                    /*
                     $.each(data.customers, function (_i, _n) {
                         if (_n.customerId === customerId) {
                             $(n).find('.taobao-name').removeClass('on').text(_n.taobao);
@@ -65,6 +66,7 @@ module.exports = {
                             });
                         }
                     });
+                    */
                     $.each(data.shippings, function (_i, _n) {
                         if (_n.customerId === customerId) {
                             $(n).find('.customer-name').addClass('shunfeng');
@@ -657,14 +659,16 @@ module.exports = {
         var newCustomer = $('.new-customer');
         var shippingAddress = $('#shipping-address');
         var addressList = $('.address-list');
-        var taobao = $('#taobao');
         var newAddress = $('.new-address');
         let checkCustomerRename = $('.check-customer-rename');
+        let checkCustomerId = $('.check-customer-id');
+        let ckbIsTaobaoUser = $('.ckb-is-taobao-user');
 
         customerNameInput.on({
 
             //change表示此用户为新用户，而不是autocomplete选择出来的老用户，所以数据需要重置
             keyup: function () {
+                this.value = $.trim(this.value);
                 if (!$(this).data('typeselect')) {
                     newCustomer.prop('checked', true);
                     newAddress.prop('checked', true);
@@ -676,9 +680,10 @@ module.exports = {
             },
             'typeahead:select': function (event, item) {
                 customerNameIdInput.val(item.customerId);
-                taobao.val(item.taobao);
                 var address = item.address;
                 addressList.empty();
+
+                ckbIsTaobaoUser.prop('checked',item.isTaobaoUser);
 
                 if (address.length === 1) {
                     shippingAddress.val(address[0]);
@@ -690,12 +695,16 @@ module.exports = {
                 }
                 newCustomer.prop('checked', false);
                 $(this).data('typeselect', true);
-                checkCustomerRename.removeClass('on').removeClass('error');
-                
             },
-            change:function() {
-                if(newCustomer.prop('checked')) {
-                    _this.checkCustomerRename($.trim(this.value));
+            'typeahead:asyncrequest':function () {
+                checkCustomerId.addClass('on').html('<i class="am-icon-spinner am-icon-spin"></i> 淘宝昵称检测中，请稍后...');
+            },
+            'typeahead:asyncreceive':function () {
+                if(customerNameIdInput.parent().find('.tt-menu').hasClass('tt-empty')) { //查询无结果
+                    //查询typeahead如无结果，再检测姓名是否存在数据库中
+                    checkCustomerId.html('<i class="am-icon-exclamation-circle"></i> 无查询结果，该名称为新用户');
+                } else { //查询有结果
+                    checkCustomerId.removeClass('on').text('');
                 }
             }
         });
@@ -710,8 +719,6 @@ module.exports = {
             if(this.checked) {
                 customerNameIdInput.val('');
                 newAddress.prop('checked',false).click();
-                taobao.val('');
-                _this.checkCustomerRename($.trim(customerNameInput.val()));
             }
         });
 
@@ -727,6 +734,8 @@ module.exports = {
         });
 
     },
+
+
     orderTypeAheadUpdate: function () {
 
         let _this = this;
@@ -734,15 +743,15 @@ module.exports = {
         var customerNameIdInput = $('#customer-name-id');
         var shippingAddress = $('#shipping-address');
         var addressList = $('.address-list');
-        var taobao = $('#taobao');
-        let checkCustomerRename = $('.check-customer-rename');
+        let checkCustomerId = $('.check-customer-id');
+        let ckbIsTaobaoUser = $('.ckb-is-taobao-user');
         
         customerNameInput.on({
             'typeahead:select': function (event, item) {
                 customerNameIdInput.val(item.customerId);
-                taobao.val(item.taobao);
-
                 addressList.empty();
+                ckbIsTaobaoUser.prop('checked',item.isTaobaoUser);
+
                 var address = item.address;
                 if (address.length === 1) {
                     shippingAddress.val(address[0]);
@@ -751,10 +760,18 @@ module.exports = {
                         addressList.append('<li><span>' + address[i] + '</span> <a href="javascript:;">使用此地址' + (i === address.length - 1 ? '(最近更新)' : '') + '</a> </li>');
                     }
                 }
-                checkCustomerRename.removeClass('on').removeClass('error');
+
             },
-            change:function() {
-                _this.checkCustomerRename($.trim(this.value));
+            'typeahead:asyncrequest':function () {
+                checkCustomerId.addClass('on').html('<i class="am-icon-spinner am-icon-spin"></i> 淘宝昵称检测中，请稍后...');
+            },
+            'typeahead:asyncreceive':function () {
+                if(customerNameIdInput.parent().find('.tt-menu').hasClass('tt-empty')) { //查询无结果
+                    //查询typeahead如无结果，再检测姓名是否存在数据库中
+                    checkCustomerId.html('<i class="am-icon-exclamation-circle"></i> 无查询结果，该名称为新用户');
+                } else { //查询有结果
+                    checkCustomerId.removeClass('on').text('');
+                }
             }
         });
 
@@ -773,7 +790,7 @@ module.exports = {
             },
             templates: {
                 suggestion: function (item) {
-                    return '<div><span class="tt-value">' + item.value + '</span><span class="tt-footer">' + (item.taobao ? ('(淘宝名:' + item.taobao + ') ') : '') + item.address + '</span></div>';
+                    return '<div><span class="tt-value">' + item.value + '</span><span class="tt-footer">' + (item.isTaobaoUser ?  '(淘宝用户)' : ' (非淘宝用户) ') + item.address + '</span></div>';
                 }
             },
             highlight: true,
@@ -784,7 +801,7 @@ module.exports = {
                     url: '/order/add/search-customer',
                     prepare: function (query, settings) {
                         settings.data = {
-                            name: customerNameInput.val()
+                            name: $.trim(customerNameInput.val())
                         };
                         return settings;
                     }
@@ -849,8 +866,6 @@ module.exports = {
                 return parseInt(item);
             });
 
-            console.log(countArr);
-
             let inputs = $('.name');
             {
                 if(!firstLoad) {
@@ -910,6 +925,7 @@ module.exports = {
 
     },
     clientNameTypeAhead() {
+        /*
         let clientNameInput = $('#client');
         clientNameInput.typeahead(null, {
             display: function (item) {
@@ -917,7 +933,7 @@ module.exports = {
             },
             templates: {
                 suggestion: function (item) {
-                    return '<div><span class="tt-value">' + item.value + '</span><span class="tt-footer">' + (item.taobao ? ('(淘宝名:' + item.taobao + ') ') : '') + item.address + '</span></div>';
+                    return '<div><span class="tt-value">' + item.value + '</span><span class="tt-footer">' + (!item.isTaobaoUser ? '非淘宝用户' : '') + item.address + '</span></div>';
                 }
             },
             highlight: true,
@@ -935,7 +951,7 @@ module.exports = {
                 }
             })
         });
-
+        */
 
     },
     clipboard() {
@@ -985,17 +1001,24 @@ module.exports = {
         }
 
     },
-    checkCustomerRename(name) {
+    checkCustomerRename(name,input) {
+
         let checkCustomerRename = $('.check-customer-rename').removeClass('error');
-        checkCustomerRename.addClass('on').html('<i class="am-icon-spinner am-icon-spin"></i> 姓名检测中...');
+
+        if(!$.trim(input.value)) {
+            checkCustomerRename.removeClass('on');
+            return false;
+        }
+
+        checkCustomerRename.addClass('on').html('<i class="am-icon-spinner am-icon-spin"></i> 非淘宝用户名检测中...');
         $.ajax({
             url:'/order/check-customer-rename',
             data:{name:name}
         }).then(data => {
             if(data.customer) {
-                checkCustomerRename.addClass('error').html('<i class="am-icon-exclamation-circle"></i> 检测出重命名,不可使用!');
+                checkCustomerRename.addClass('error').html('<i class="am-icon-exclamation-circle"></i> 检测出重命名!');
             } else {
-                checkCustomerRename.html('<i class="am-icon-check"></i> 未检测出重命名,可使用!');
+                checkCustomerRename.html('<i class="am-icon-check"></i> 未检测出重命名');
             }
         });
     }

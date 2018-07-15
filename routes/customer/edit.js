@@ -78,7 +78,7 @@ router.post('/', function (req, res, next) {
     }
 
     var name = req.body['name'];
-    var taobao = req.body['taobao'];
+    let isTaobaoUser = req.body['is-taobao-user'];
     var weixin = req.body['weixin'];
     var address = typeof(req.body['address']) === 'object' ? req.body['address'] : [req.body['address']];
     
@@ -113,7 +113,7 @@ router.post('/', function (req, res, next) {
             query.get(objectId, {
                 success: function (customer) {
                     customer.set('name',name);
-                    customer.set('taobao',taobao);
+                    customer.set('isTaobaoUser',isTaobaoUser === 'on' ? true:false);
                     customer.set('weixin',weixin);
                     customer.set('address',address);
                     customer.save(null, {

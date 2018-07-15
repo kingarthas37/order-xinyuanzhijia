@@ -67,11 +67,16 @@
             
             <!-- customer name start -->
             <div id="content-customer-name" class="am-form-group typeahead-content">
-                <label>收货人/客户姓名(自动填充)：<i>*</i> <span class="check-customer-rename"></span></label>
+                <label>
+                    淘宝昵称/收货人/客户姓名：<i>*</i> <em>(自动填充)</em>
+                    <span class="check-customer-id"></span>
+                    <span class="check-customer-rename"></span>
+                </label>
                 <input type="hidden" id="customer-name-id" name="customer-name-id" value="<%= order.get('customerId') %>"/>
                 <div class="am-form-horizontal">
                     <div class="am-form-group">
                         <input id="customer-name" required name="customer-name" type="text" placeholder="输入收货人/客户姓名" autocomplete="off" value="<%= order.get('customerName') %>" />
+                        <div class="is-taobao-user"><label> <input disabled="disabled" class="ckb-is-taobao-user" name="is-taobao-user" <% if(order.get('isTaobaoUser')){%>checked="checked"<%}%> type="checkbox"> 淘宝用户</label></div>
                     </div>
                 </div>
                 <div class="large-screen-hide">
@@ -86,7 +91,7 @@
 
             <!-- shipping address start -->
             <div id="content-shipping-address" class="am-form-group">
-                <label>收货地址：<i>*</i> </label>
+                <label>收货人联系地址(如地址需要调整，直接修改即可)：<i>*</i> </label>
                 <div class="am-form-horizontal">
                     <div class="am-form-group">
                         <textarea rows="3" id="shipping-address" required name="shipping-address" placeholder="输入收货人/客户地址"><%= order.get('shippingAddress')%></textarea>
@@ -95,13 +100,9 @@
             </div>
             <!-- shipping address end -->
 
-            <hr/>
 
             <!-- taobaoname start -->
-            <div id="content-taobao" class="am-form-group">
-                <label>淘宝用户名：</label>
-                <input id="taobao" name="taobao" type="text" placeholder="输入淘宝用户名" value="<%= order.get('taobaoName') %>" />
-            </div>
+                <input id="taobao" name="taobao" type="hidden" placeholder="输入淘宝用户名" value="<%= order.get('taobaoName') %>" />
             <!-- taobaoname end -->
 
             <hr/>

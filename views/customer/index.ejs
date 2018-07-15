@@ -35,9 +35,8 @@
             <table class="am-table">
                 <thead>
                 <tr>
-                    <th width="240">用户名</th>
-                    <th width="240">淘宝用户名</th>
-                    <th width="240">微信号</th>
+                    <th width="240">用户名/姓名</th>
+                    <th width="200" class="t-c">淘宝用户</th>
                     <th width="240" class="t-c small-screen-hide">更新时间</th>
                     <th width="50">删除</th>
                 </tr>
@@ -46,8 +45,7 @@
                 <% for(var i=0; i < customer.length; i++) {%>
                 <tr>
                     <td><a href="/customer/edit/<%= customer[i].get('customerId') %>"><%= customer[i].get('name') %></a> </td>
-                    <td><%= customer[i].get('taobao') %></td>
-                    <td><%= customer[i].get('weixin') %></td>
+                    <td class="t-c"><%= customer[i].get('isTaobaoUser') ? '是' : '否' %></td>
                     <td class="small-screen-hide t-c"><%=customer[i].updatedAt.getFullYear()%>-<%=(customer[i].updatedAt.getMonth()+1)%>-<%=customer[i].updatedAt.getDate()%></td>
                     <td><a href="javascript:;" class="remove-customer" data-id="<%= customer[i].get('customerId') %>">删除</a></td>
                 </tr>

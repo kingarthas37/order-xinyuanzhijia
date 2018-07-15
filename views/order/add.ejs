@@ -58,17 +58,28 @@
             </div>
             <!-- order shop order link end -->
 
+
+
+            <!-- taobaoname start -->
+                <input id="taobao" name="taobao" type="hidden" placeholder="输入淘宝用户名"/>
+            <!-- taobaoname end -->
+
             <hr/>
 
             <!-- customer name start -->
             <div id="content-customer-name" class="am-form-group typeahead-content">
-                <label>收货人/客户姓名：<i>*</i> <em>(自动填充)</em> <span class="check-customer-rename"></span></label>
+                <label>
+                    淘宝昵称/收货人/客户姓名：<i>*</i> <em>(自动填充)</em>
+                    <span class="check-customer-id"></span>
+                    <span class="check-customer-rename"></span>
+                </label>
                 <input type="hidden" id="customer-name-id" name="customer-name-id"/>
                 <div class="am-form-horizontal">
                     <div class="am-form-group">
                         <div class="am-u-sm-10">
-                            <input id="customer-name" required name="customer-name" type="text" placeholder="输入收货人/客户姓名"
+                            <input id="customer-name" required name="customer-name" type="text" placeholder="输入淘宝昵称/收货人/客户姓名"
                                    autocomplete="off"/>
+                            <div class="is-taobao-user"><label> <input class="ckb-is-taobao-user" name="is-taobao-user" checked="checked" type="checkbox"> 淘宝用户</label></div>
                         </div>
                         <label class="am-u-sm-2 am-form-label">
                             <input type="checkbox" checked="checked" class="new-customer" name="new-customer"/> 新增收货人
@@ -84,12 +95,12 @@
 
             <!-- shipping address start -->
             <div id="content-shipping-address" class="am-form-group">
-                <label>收货地址：<i>*</i> </label>
+                <label>收货人联系地址：<i>*</i> </label>
                 <div class="am-form-horizontal">
                     <div class="am-form-group">
                         <div class="am-u-sm-10">
                             <input id="shipping-address" required name="shipping-address" type="text"
-                                   placeholder="输入收货人/客户地址"/>
+                                   placeholder="输入收货人/客户地址" autocomplete="off"/>
                         </div>
                         <label class="am-u-sm-2 am-form-label">
                             <input type="checkbox" checked="checked" class="new-address" name="new-address"/> 新增收货地址
@@ -99,15 +110,6 @@
                 <ul class="address-list"></ul>
             </div>
             <!-- shipping address end -->
-
-            <hr/>
-
-            <!-- taobaoname start -->
-            <div id="content-taobao" class="am-form-group">
-                <label>淘宝用户名：</label>
-                <input id="taobao" name="taobao" type="text" placeholder="输入淘宝用户名"/>
-            </div>
-            <!-- taobaoname end -->
 
             <hr/>
 

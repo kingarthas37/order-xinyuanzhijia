@@ -34,11 +34,11 @@
                 </div>
                 
                 <div class="am-u-lg-2 am-u-sm-4">
-                    <input type="text" name="search-customer-name" class="am-form-field" placeholder="搜索用户名">
+                    <input type="text" name="search-customer-name" class="am-form-field" placeholder="搜索淘宝/用户名">
                 </div>
                 
                 <div class="am-u-lg-2 small-screen-hide">
-                    <input type="text" name="search-address" class="am-form-field" placeholder="搜索地址">
+                    <input type="text" name="search-address" class="am-form-field" placeholder="搜索姓名/地址">
                 </div>
                 
                 <div class="am-u-lg-1 am-u-sm-4">
@@ -80,10 +80,9 @@
                 <tr>
                     <th width="20"></th>
                     <th class="t-c">订单名称</th>
-                    <th class="t-c" width="150">收件人</th>
-                    <th class="t-c" width="150">快递</th>
+                    <th class="t-c" width="150">用户名</th>
                     <th class="t-c small-screen-hide" width="60">链接</th>
-                    <th class="t-c small-screen-hide" width="150">淘宝名</th>
+                    <th class="t-c" width="150">快递</th>
                     <th class="t-c small-screen-hide">时间</th>
                     <th class="t-c small-screen-hide">选项</th>
                 </tr>
@@ -111,10 +110,22 @@
                     <%}%>
                 </td>
                     <td class="t-c">
-                        <a class="customer-name" title="<%= order[i].get('shippingAddress') %>" href="/customer/edit/<%= order[i].get('customerId') %>"><%= order[i].get('customerName') %><% if(order[i].get('client')){%>(代:<%= order[i].get('client') %>)<%}%></a>
+                        <a class="customer-name" title="<%= order[i].get('shippingAddress') %>" href="/customer/edit/<%= order[i].get('customerId') %>">
+                            <%= order[i].get('customerName') %>
+                            <% if(order[i].get('client')){%>(代:<%= order[i].get('client') %>)<%}%>
+                            <% if(!order[i].get('isTaobaoUser')){%>(非淘宝)<%}%>
+                        </a>
                         <span class="split"></span>
                         <a href="javascript:;" title="复制姓名" class="clipboard-customer-name" data-clipboard-text="<% if(order[i].get('client')){%><%=order[i].get('client')%><%}else{%><%=order[i].get('customerName')%><%}%>"><i class="am-icon am-icon-copy"></i></a>
                         <a href="javascript:;" title="复制地址" class="clipboard-customer-address" data-clipboard-text="<% if(order[i].get('clientAddress')){%><%=order[i].get('clientAddress')%><%}else{%><%=order[i].get('shippingAddress')%><%}%>"><i class="am-icon am-icon-copy"></i></a>
+                    </td>
+                    <td class="t-c small-screen-hide">
+                        <%if (order[i].get('shopOrderLink')) { %>
+                        <% var shopLinks = order[i].get('shopOrderLink').split('\n'); %>
+                        <% for(var j=0;j<shopLinks.length;j++) {%>
+                        <a target="_blank" href="<%=shopLinks[j]%>"><i class="am-icon-external-link"></i></a>
+                        <%}%>
+                        <%}else {%>-<%}%>
                     </td>
                     <td class="t-c">
 
@@ -171,18 +182,10 @@
                         <a href="javascript:;" title="复制单号" class="clipboard-tracking-number" data-clipboard-text="<%=order[i].get('trackingNumber')%>"><i class="am-icon am-icon-copy"></i></a>
                         
                     </td>
-                
-                    <td class="t-c small-screen-hide">
-                        <%if (order[i].get('shopOrderLink')) { %>
-                            <% var shopLinks = order[i].get('shopOrderLink').split('\n'); %>
-                            <% for(var j=0;j<shopLinks.length;j++) {%>
-                                <a target="_blank" href="<%=shopLinks[j]%>"><i class="am-icon-external-link"></i></a>
-                            <%}%>
-                        <%}else {%>-<%}%>
-                    </td>
-                    
+
+                    <!--
                     <td class="t-c small-screen-hide"> <span class="taobao-name loading-elem on"></span> </td>
-                    
+                    -->
                     <td class="t-c small-screen-hide"><%=(order[i].get('shippingDate').getMonth()+1)%>/<%=order[i].get('shippingDate').getDate()%></td>
                     <td class="t-c small-screen-hide">
                         
@@ -222,6 +225,7 @@
 
             <div class="am-form-group">
                 <a href="/order/add<% if(searchNotShipped){%>?search-notshipped=on<%}%>" class="am-btn am-btn-primary" role="button">添加新订单</a>
+                <a href="/order/add?is-new-shop=true<% if(searchNotShipped){%>&search-notshipped=on<%}%>" class="am-btn am-btn-primary" role="button">添加新店新订单</a>
             </div>
 
         </fieldset>

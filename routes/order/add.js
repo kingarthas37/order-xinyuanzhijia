@@ -71,6 +71,7 @@ router.post('/', function (req, res, next) {
     var newAddress = req.body['new-address'];
     var taobao = req.body['taobao'].trim();
     let isNewShop = req.body['is-new-shop'];
+    let isTaobaoUser = req.body['is-taobao-user'];
 
     
     var customer = new Customer();
@@ -82,10 +83,11 @@ router.post('/', function (req, res, next) {
             
             //如果是新用户，注册customer
             if(newCustomer && !customerId) {
-                
+
                 customer.set('name',customerName);
                 customer.set('taobao',taobao);
                 customer.set('address',[shippingAddress]);
+                customer.set('isTaobaoUser',isTaobaoUser === 'on' ? true:false);
                 
                 customer.save().then(function(customer) {
                     
@@ -159,6 +161,7 @@ router.post('/', function (req, res, next) {
             orderTrack.set('shippingStatus',shippingStatus);
             orderTrack.set('comment',comment);
             orderTrack.set('isNewShop',isNewShop ==='on'?true:false);
+            orderTrack.set('isTaobaoUser',isTaobaoUser === 'on' ? true:false);
             
             orderTrack.save(null, {
                 success: function () {
@@ -208,10 +211,11 @@ router.get('/search-customer', function (req, res, next) {
         success:function(results) {
             for(var i=0;i<results.length;i++) {
                 var obj = {
-                    "value":results[i].get('name'),
+                    "value":results[i].get('taobao') || results[i].get('name'),
                     "customerId":results[i].get('customerId'),
                     "address":results[i].get('address'),
-                    "taobao":results[i].get('taobao')
+                    "taobao":results[i].get('taobao'),
+                    'isTaobaoUser':results[i].get('isTaobaoUser')
                 };
                 jsonData.push(obj);
             }
