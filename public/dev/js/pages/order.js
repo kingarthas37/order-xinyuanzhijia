@@ -498,6 +498,31 @@ module.exports = {
             });
         }
 
+        //复制收货地址中的姓名
+        {
+            $('.customer-name').each(function (i,n) {
+                let addressName = $(n).parents('tr').find('.address-name');
+                if(/([^，]+)，\d+/.test($(n).attr('title'))) {
+                    let name = /([^，]+)，\d+/.exec($(n).attr('title'))[1];
+                    addressName.html(name + ' <a href="javascript:;" title="复制姓名" class="clipboard-address-name" data-clipboard-text="'+ name +'"><i class="am-icon am-icon-copy"></i></a>');
+
+                    let copy = addressName.find('.clipboard-address-name');
+                    let clipboard = new Clipboard(copy[0], {
+                        text: function() {
+                            return name;
+                        }
+                    });
+                    clipboard.on('success',() => {
+                        copy.addClass('active' );
+                    });
+
+                } else {
+                    addressName.text('-');
+                }
+
+            })
+        }
+
     },
     addFun: function () {
         
