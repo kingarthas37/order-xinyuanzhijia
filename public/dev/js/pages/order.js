@@ -675,6 +675,39 @@ module.exports = {
             });
         }
 
+        //删除地址
+        {
+            let addressList = $('.address-list');
+            let shippingAddress = $('#shipping-address');
+            addressList.on('click','.remove-address',function() {
+
+                let index = $(this).data('index');
+                if(addressList.find('.remove-address').length === 1) {
+                    window.customerAddress = [];
+                } else {
+                    window.customerAddress.splice(index,1);
+                }
+
+               $.ajax({
+                   url:'/order/remove-customer-address',
+                   data:{
+                       customerId:$('#customer-name-id').val(),
+                       address:window.customerAddress
+                   },
+                   success:(data)=> {
+                       $(this).parents('li').detach();
+                       shippingAddress.val('').get(0).focus();
+                       window.customerAddress = [];
+                       addressList.find('li').each(function(i,n){
+                           window.customerAddress.push($(n).find('.customer-address-list').text());
+                           $(n).find('.remove-address').attr('data-index',i);
+                       });
+                   }
+               });
+               return false;
+            });
+        }
+
     },
     orderTypeAheadAdd: function () {
 
@@ -706,6 +739,7 @@ module.exports = {
             'typeahead:select': function (event, item) {
                 customerNameIdInput.val(item.customerId);
                 var address = item.address;
+                window.customerAddress = item.address;
                 addressList.empty();
 
                 ckbIsTaobaoUser.prop('checked',item.isTaobaoUser);
@@ -713,11 +747,12 @@ module.exports = {
                 if (address.length === 1) {
                     shippingAddress.val(address[0]);
                     newAddress.prop('checked', false);
-                } else {
-                    for (var i = address.length - 1; i >= 0; i--) {
-                        addressList.append('<li><span>' + address[i] + '</span> <a href="javascript:;">使用此地址' + (i === address.length - 1 ? '(最近更新)' : '') + '</a> </li>');
-                    }
                 }
+
+                for (var i = 0; i <= address.length - 1 ; i++) {
+                    addressList.append('<li><span class="customer-address-list">' + address[i] + '</span> <a class="use-address" href="javascript:;">[使用此地址' + (i === address.length - 1 ? '-<strong>最新</strong>' : '') + ']</a> <span class="sp"></span> <a data-index="'+ i +'" class="remove-address" href="javascript:;">[删除]</a></li>');
+                }
+
                 newCustomer.prop('checked', false);
                 $(this).data('typeselect', true);
             },
@@ -734,7 +769,7 @@ module.exports = {
             }
         });
 
-        addressList.on('click', 'a', function () {
+        addressList.on('click', '.use-address', function () {
             shippingAddress.val($(this).parents('li').find('span').text());
             addressList.empty();
             newAddress.prop('checked', false);

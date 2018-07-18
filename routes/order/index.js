@@ -444,4 +444,26 @@ router.get('/action-tracking-number',(req,res)=> {
     
 });
 
+
+//ajax删除地址
+router.get('/remove-customer-address',(req,res)=> {
+
+    let customerId = parseInt(req.query['customerId']);
+    let address = req.query['address'];
+    let query = new AV.Query(Customer);
+
+    query.equalTo('customerId', customerId);
+    query.first().then(result => {
+        console.log(result);
+        result.set('address',address || []);
+        return result.save();
+    }).then(()=> {
+        res.send({
+            success: 1
+        });
+    });
+
+});
+
+
 module.exports = router;
