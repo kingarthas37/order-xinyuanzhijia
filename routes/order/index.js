@@ -444,8 +444,6 @@ router.get('/action-tracking-number',(req,res)=> {
     
 });
 
-<<<<<<< Updated upstream
-
 //ajax删除地址
 router.get('/remove-customer-address',(req,res)=> {
 
@@ -462,7 +460,7 @@ router.get('/remove-customer-address',(req,res)=> {
         res.send({
             success: 1
         });
-=======
+
 router.get('/get-shipping-status-count', (req,res) => {
     let preDate = req.query['preDate'];
     let query = new AV.Query(OrderTrack);
@@ -470,13 +468,11 @@ router.get('/get-shipping-status-count', (req,res) => {
     query.greaterThanOrEqualTo('updatedAt', new Date(preDate));
     query.count().then(count => {
         res.send({count})
->>>>>>> Stashed changes
+
     });
 
 });
 
-<<<<<<< Updated upstream
-=======
 router.get('/get-is-shipping-count', (req,res) => {
     let preDate = req.query['preDate'];
     console.log(preDate);
@@ -487,6 +483,5 @@ router.get('/get-is-shipping-count', (req,res) => {
         res.send({count})
     });
 });
->>>>>>> Stashed changes
 
 module.exports = router;
