@@ -64,13 +64,23 @@
 
             <hr/>
 
-            <div class="am-form-group">
-                <a href="/order/add<% if(searchNotShipped){%>?search-notshipped=on<%}%>" class="am-btn am-btn-primary" role="button">添加新订单</a>
-                <a href="/order/add?is-new-shop=true<% if(searchNotShipped){%>&search-notshipped=on<%}%>" class="am-btn am-btn-primary" role="button">添加新店新订单</a>
-                <span class="sp"></span>
-                <label class="normal">只显示主店订单 <input type="checkbox" class="ckb-show-main-shop-order" /></label>
-                <span class="sp"></span>
-                <label class="normal">只显示新店订单 <input type="checkbox" class="ckb-show-new-shop-order" /></label>
+            <div class="order-page-info am-form-group clearfix">
+                <div class="l">
+                    <a href="/order/add<% if(searchNotShipped){%>?search-notshipped=on<%}%>" class="am-btn am-btn-primary" role="button">添加新订单</a>
+                    <a href="/order/add?is-new-shop=true<% if(searchNotShipped){%>&search-notshipped=on<%}%>" class="am-btn am-btn-primary" role="button">添加新店新订单</a>
+                    <span class="sp"></span>
+
+                    <span class="show-not-ship-count">
+                        近1天主店<i class="main-shop-day-1"></i>条,新店<i class="sub-shop-day-1"></i>条;
+                        近3天主店<i class="main-shop-day-3"></i>条,新店<i class="sub-shop-day-3"></i>条未发货记录
+                    </span>
+                </div>
+                <div class="r">
+                    <label class="normal">只显示主店订单 <input type="checkbox" class="ckb-show-main-shop-order" /></label>
+                    <span class="sp"></span>
+                    <label class="normal">只显示新店订单 <input type="checkbox" class="ckb-show-new-shop-order" /></label>
+                </div>
+
             </div>
 
             <hr/>

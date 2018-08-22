@@ -523,6 +523,32 @@ module.exports = {
             })
         }
 
+        //显示未发货记录数
+        {
+            let span = $('.show-not-ship-count');
+            let nowTime = new Date().getTime();
+            let preThreeDayTime = new Date(nowTime - 1000 * 60 * 60 * 24 * 3);
+            let preOneDayTime = new Date(nowTime - 1000 * 60 * 60 * 24);
+            let date1 = preOneDayTime.getFullYear() + '-' + (preOneDayTime.getMonth() + 1) + '-' + preOneDayTime.getDate();
+            let date3 = preThreeDayTime.getFullYear() + '-' + (preThreeDayTime.getMonth() + 1) + '-' + preThreeDayTime.getDate();
+
+            $.ajax({
+                url:'/order/get-shipping-status-count?preDate=' + date1,
+                success(data){
+                    span.find('.main-shop-day-1').text(data.mainShopCount);
+                    span.find('.sub-shop-day-1').text(data.subShopCount);
+                }
+            });
+
+            $.ajax({
+                url:'/order/get-shipping-status-count?preDate=' + date3,
+                success(data){
+                    span.find('.main-shop-day-3').text(data.mainShopCount);
+                    span.find('.sub-shop-day-3').text(data.subShopCount);
+                }
+            })
+        }
+
     },
     addFun: function () {
         

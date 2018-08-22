@@ -466,10 +466,27 @@ router.get('/remove-customer-address',(req,res)=> {
 router.get('/get-shipping-status-count', (req,res) => {
     let preDate = req.query['preDate'];
     let query = new AV.Query(OrderTrack);
-    query.equalTo('shippingStatus', 'false');
+    query.equalTo('shippingStatus', 'notshipped');
     query.greaterThanOrEqualTo('updatedAt', new Date(preDate));
-    query.count().then(count => {
-        res.send({count});
+    query.select('isNewShop');
+    query.find().then(data => {
+
+        let len = data.length;
+        let mainShopCount = 0;
+        let subShopCount = 0;
+        for(let i=0;i<data.length;i++) {
+            if(data[i].get('isNewShop')) {
+                subShopCount ++;
+            } else {
+                mainShopCount ++;
+            }
+        }
+
+        res.send({
+            len,
+            mainShopCount,
+            subShopCount
+        });
     });
 
 });

@@ -230,6 +230,18 @@
     #batch-text {
         width: 100%;
     }
+
+    .order-page-info {
+        font-size: 14px;
+    }
+
+    .show-not-ship-count {
+        i {
+            font-weight: bold;
+            color: red;
+        }
+    }
+
 }
 
 .am-popover-inner {
