@@ -535,6 +535,12 @@ module.exports = {
             $.ajax({
                 url:'/order/get-shipping-status-count?preDate=' + date1,
                 success(data){
+                    if(data.mainShopCount ===0) {
+                        span.find('.main-shop-day-1').addClass('on');
+                    }
+                    if(data.subShopCount ===0) {
+                        span.find('.sub-shop-day-1').addClass('on');
+                    }
                     span.find('.main-shop-day-1').text(data.mainShopCount);
                     span.find('.sub-shop-day-1').text(data.subShopCount);
                 }
@@ -543,6 +549,12 @@ module.exports = {
             $.ajax({
                 url:'/order/get-shipping-status-count?preDate=' + date3,
                 success(data){
+                    if(data.mainShopCount ===0) {
+                        span.find('.main-shop-day-3').addClass('on');
+                    }
+                    if(data.subShopCount ===0) {
+                        span.find('.sub-shop-day-3').addClass('on');
+                    }
                     span.find('.main-shop-day-3').text(data.mainShopCount);
                     span.find('.sub-shop-day-3').text(data.subShopCount);
                 }

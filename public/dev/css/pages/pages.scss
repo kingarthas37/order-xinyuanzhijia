@@ -239,6 +239,9 @@
         i {
             font-weight: bold;
             color: red;
+            &.on {
+                color: #4bad4b;
+            }
         }
     }
 
