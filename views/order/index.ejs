@@ -121,6 +121,7 @@
                     <%}%>
                 </td>
                     <td class="t-c">
+                        <% if(order[i].get('isNewCustomer')){%><span class="font-red">[新]</span><%}%>
                         <a class="customer-name" title="<%= order[i].get('shippingAddress') %>" href="/customer/edit/<%= order[i].get('customerId') %>">
                             <%= order[i].get('customerName') %>
                             <% if(order[i].get('client')){%>(代:<%= order[i].get('client') %>)<%}%>

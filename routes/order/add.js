@@ -73,7 +73,6 @@ router.post('/', function (req, res, next) {
     let isNewShop = req.body['is-new-shop'];
     let isTaobaoUser = req.body['is-taobao-user'];
 
-    
     var customer = new Customer();
     var orderTrack = new OrderTrack();
     
@@ -161,6 +160,7 @@ router.post('/', function (req, res, next) {
             orderTrack.set('shippingStatus',shippingStatus);
             orderTrack.set('comment',comment);
             orderTrack.set('isNewShop',isNewShop ==='on'?true:false);
+            orderTrack.set('isNewCustomer',newCustomer === 'on' ? true : false);
             orderTrack.set('isTaobaoUser',isTaobaoUser === 'on' ? true:false);
             
             orderTrack.save(null, {
