@@ -113,6 +113,12 @@
                             <% if(order[i].get('shippingCount')[j] > 1){ %><strong class="font-red"><%= order[i].get('shippingCount')[j] %></strong><% }else{%><%= order[i].get('shippingCount')[j] %><%}%>*<%= order[i].get('name')[j] %>
                             <% if (order[i].get('isNewShop')) { %><strong>新店</strong><%}%>
                         </a>
+
+
+                        <% if( (order[i].get('name')[j].indexOf('{库:0}') > -1) && ( order[i].get('name')[j].indexOf('魔法油') > -1 ) ){%>
+                        <a target="_blank" href="//51wish.cn/admin/product?parent-product-id=<%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(.*)/,'$2').replace('{','') %>"><i class="am-icon-external-link indio-oil-child"></i></a>
+                        <%}%>
+
                         <% if(/\{id\:\d+\}/.test(order[i].get('name')[j])) {%>
                         <a class="set-stock" product-id="<%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(.*)/,'$2').replace('{','') %>" title="设置库存" href="javascript:;"><i class="am-icon am-icon-inbox"></i></a>
                         <a class="update-stock" order-id="<%= order[i].get('orderId') %>" product-id="<%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(.*)/,'$2').replace('{','') %>" title="是否已设置库存" href="javascript:;"><i class="am-icon am-icon-check-circle <%if(order[i].get('isShipping')[j]){%>on<%}else{%>off<%}%>"></i></a>
