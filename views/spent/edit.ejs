@@ -50,6 +50,22 @@
 
             <hr/>
 
+
+            <legend><strong>王璘:</strong></legend>
+            <div id="content-spent-user3" class="am-form-group">
+                <label>支出金额(RMB)：<i>*</i> </label>
+                <input id="spent-user3" required name="spent-user3" type="text" placeholder="输入支出金额" autocomplete="off" value="<%= earning.get('spentUser3') %>" />
+            </div>
+
+            <hr/>
+
+            <div id="content-expenses-comment" class="am-form-group">
+                <label>支出说明：(每笔支出请换行,可用逗号隔开个比金额)</label>
+                <textarea id="spent-user3-comment" name="spent-user3-comment" rows="8" placeholder="输入支出说明"><%= earning.get('spentUser3Comment') %></textarea>
+            </div>
+
+            <hr/>
+
             <div class="am-form-group">
                 <button type="submit" class="am-btn am-btn-primary">保存</button>
             </div>

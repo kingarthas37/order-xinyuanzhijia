@@ -73,9 +73,11 @@ router.post('/', function (req, res, next) {
 
     var spentUser1 = Number(req.body['spent-user1']);
     var spentUser2 = Number(req.body['spent-user2']);
+    var spentUser3 = Number(req.body['spent-user3']);
     var spentUser1Comment = req.body['spent-user1-comment'];
     var spentUser2Comment = req.body['spent-user2-comment'];
-    
+    var spentUser3Comment = req.body['spent-user3-comment'];
+
     var earningId = parseInt(req.body['earning-id']);
 
     data = extend(data,{
@@ -91,9 +93,11 @@ router.post('/', function (req, res, next) {
     query.first().then(function(earning) {
         earning.set('spentUser1',spentUser1);
         earning.set('spentUser2',spentUser2);
+        earning.set('spentUser3',spentUser3);
         earning.set('spentUser1Comment',spentUser1Comment);
         earning.set('spentUser2Comment',spentUser2Comment);
-        
+        earning.set('spentUser3Comment',spentUser3Comment);
+
         return earning.save();
         
     }).then(function(result) {
