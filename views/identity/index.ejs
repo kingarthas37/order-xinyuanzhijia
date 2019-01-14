@@ -47,6 +47,7 @@
             <thead>
             <tr>
                 <th>姓名</th>
+                <th class="t-c">身份证号</th>
                 <th class="t-c">正面</th>
                 <th class="t-c">反面</th>
                 <th class="t-c">双面</th>
@@ -57,6 +58,7 @@
             <% for(var i=0; i < identity.length; i++) {%>
             <tr>
                 <td><a href="/identity/edit/<%= identity[i].get('identityId') %>"><%= identity[i].get('name') %></a> </td>
+                <td class="t-c"><%= identity[i].get('cardNo') %></td>
                 <td class="t-c"><a href="<%= identity[i].get('cardImageFront').replace('ac-JoaBcRTt.clouddn.com','lc-joabcrtt.cn-n1.lcfile.com') %>" target="_blank">查看</a><span class="split"></span><a href="<%= identity[i].get('cardImageFront').replace('ac-JoaBcRTt.clouddn.com','lc-joabcrtt.cn-n1.lcfile.com') %>" download>下载</a></td>
                 <td class="t-c"><a href="<%= identity[i].get('cardImageBack').replace('ac-JoaBcRTt.clouddn.com','lc-joabcrtt.cn-n1.lcfile.com') %>" target="_blank">查看</a><span class="split"></span><a href="<%= identity[i].get('cardImageBack').replace('ac-JoaBcRTt.clouddn.com','lc-joabcrtt.cn-n1.lcfile.com')%>" download>下载</a></td>
                 <td class="t-c"><a href="<%= identity[i].get('cardImageAll').replace('ac-JoaBcRTt.clouddn.com','lc-joabcrtt.cn-n1.lcfile.com') %>" target="_blank">查看</a><span class="split"></span><a href="<%= identity[i].get('cardImageAll').replace('ac-JoaBcRTt.clouddn.com','lc-joabcrtt.cn-n1.lcfile.com') %>" download>下载</a></td>
