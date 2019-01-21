@@ -32,7 +32,7 @@ router.get('/', function(req, res, next){
             results.forEach(function(item) {
                 var mobile = item.get('address');
                 mobile.forEach(function (m) {
-                    var mob = m.match(/((((13[0-9])|(15[^4])|(18[0,1,2,3,5-9])|(17[0-8])|(147))\d{8}))?/g);
+                    var mob = m.match(/((((13[0-9])|(15[^4])|(18[0,1,2,3,5-9])|(17[0-8])|(147)|(199))\d{8}))?/g);
                     mob.forEach(function(mo) {
                         if (mo != '') {
                             mobileArray.push(mo.trim());
