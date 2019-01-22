@@ -112,5 +112,10 @@ module.exports = {
 
     //crontab
     '/crontab':require('./crontab')
-    
+
+
+    //ship-order
+    '/ship-order':require('./ship-order'),
+    '/ship-order/add':require('./ship-order/add'),
+    '/ship-order/edit':require('./ship-order/edit'),
 };
