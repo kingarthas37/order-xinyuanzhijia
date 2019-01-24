@@ -20,3 +20,4 @@ require('./record');
 require('./record-category');
 require('./identity');
 require('./file-manage');
+require('./ship-order');

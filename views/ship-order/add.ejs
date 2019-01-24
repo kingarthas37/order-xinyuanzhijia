@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <link rel="icon" type="image/png" href="/assets/i/favicon.png">
+    <title><%= title %></title>
+    <% include ../partials/css %>
+</head>
+<body>
+
+<% include ../partials/header %>
+
+<div class="am-container common-page ship-order-page">
+
+    <form id="form-add-identity" class="am-form" action="/ship-order/add" method="post">
+
+        <fieldset>
+
+            <legend><a href="/identity/add">添加转运订单</a></legend>
+
+            <!-- name start -->
+            <div class="am-form-group">
+                <label>转运单号：<i>*</i> </label>
+                <input id="name" required name="name" type="text" placeholder="输入转运单号" />
+            </div>
+            <!-- name end -->
+
+            <!-- card no start -->
+            <div class="am-form-group">
+                <label>国内快递单号：</label>
+                <input id="tracking" name="tracking" type="text" placeholder="输入国内快递单号" />
+            </div>
+            <!-- card no end -->
+
+
+            <!-- card address start -->
+            <div class="am-form-group">
+                <label>备注信息：</label>
+                <textarea name="comment" id="comment" cols="30" rows="5"></textarea>
+            </div>
+            <!-- card address end -->
+
+
+            <hr/>
+
+            <div class="am-form-group">
+                <button type="submit" class="am-btn am-btn-primary">保存</button>
+                <button type="button" class="am-btn am-btn-primary" onclick="history.back(-1);">返回</button>
+            </div>
+
+        </fieldset>
+
+    </form>
+
+</div>
+
+<% include ../partials/footer %>
+<% include ../partials/js %>
+
+<script type="text/javascript">
+
+    $(function() {
+
+    });
+
+
+
+</script>
+</body>
+</html>
