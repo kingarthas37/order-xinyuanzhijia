@@ -25,9 +25,9 @@
 
         <form class="am-form-inline" role="form" action="/ship-order">
             <div class="am-form-group">
-                搜索国内快递单号：<input type="text" name="search-tracking-no" class="am-form-field" placeholder="搜索">
+                搜索国内快递单号：<input type="text" name="search-transfer-order-number" class="am-form-field" placeholder="搜索">
                 <span></span>
-                搜索转运单号：<input type="text" name="search-tracking-no" class="am-form-field" placeholder="搜索">
+                搜索转运单号：<input type="text" name="search-tracking-number" class="am-form-field" placeholder="搜索">
             </div>
             <button type="submit" class="am-btn am-btn-primary">搜索</button>
         </form>
@@ -49,28 +49,26 @@
             </tr>
             </thead>
             <tbody>
+            <% if(items) { %>
+            <% for(var i=0; i < items.length; i++) {%>
                 <tr>
                     <td class="t-c">
-                        <input type="checkbox">
+                        <input data-id="<%= items[i].get('shipOrderId') %>" type="checkbox" <%= items[i].get('customsLiquidation') ? checked : ''%>>
                     </td>
                     <td class="t-c">
-                        <input type="checkbox">
+                        <input data-id="<%= items[i].get('shipOrderId') %>" type="checkbox" <%= items[i].get('isAog') ? checked : ''%>>
                     </td>
-                    <td class="t-c"><a href="/ship-order/edit">66181109850305</a></td>
-                    <td class="t-c">EK437744904HK</td>
-                    <td class="t-c">备注信息</td>
-                    <td class="t-c">2019/1/1</td>
-                    <td class="t-c">2019/1/1</td>
-                    <td class="t-c"><a href="javascript:;">复制</a></td>
-                    <td class="t-c"><a href="javascript:;">删除</a></td>
+                    <td class="t-c"><a href="/ship-order/edit/<%=items[i].get('shipOrderId')%>"><%=items[i].get('transferOrderNumber')%></a></td>
+                    <td class="t-c"><%=items[i].get('trackingNumber')%></td>
+                    <td class="t-c"><%=items[i].get('remark')%></td>
+                    <td class="t-c"><%=items[i].createdAt%></td>
+                    <td class="t-c"><%=items[i].updatedAt%></td>
+                    <td class="copy-ship-order" data-id="<%= items[i].get('shipOrderId') %>"><a href="javascript:;">复制</a></td>
+                    <td data-id="<%= items[i].get('shipOrderId') %>" class="remove-ship-order"><a href="javascript:;">删除</a></td>
                 </tr>
-
+            <% } } %>
             </tbody>
         </table>
-
-        <ul class="am-pagination">
-
-        </ul>
 
         <hr/>
 
@@ -95,6 +93,17 @@
     </div>
 </div>
 
+<!-- modal alert -->
+<div class="am-modal am-modal-confirm" tabindex="-1" id="modal-alert">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">提示</div>
+        <div class="am-modal-bd"></div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn" data-am-modal-confirm>确认</span>
+        </div>
+    </div>
+</div>
+<!-- modal alert -->
 
 <% include ../partials/footer %>
 <% include ../partials/js %>

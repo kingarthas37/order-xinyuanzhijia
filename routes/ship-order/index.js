@@ -11,10 +11,7 @@ var extend = require("xtend");
 var config = require('../../lib/config');
 
 //class
-var OrderTrack = AV.Object.extend('OrderTrack');
-var Customer = AV.Object.extend('Customer');
-let Product = AV.Object.extend('Product');
-let pro = require('../../lib/models/product').createNew();
+var ShipOrder = AV.Object.extend('ShipOrder');
 
 //lib
 var pager = require('../../lib/component/pager-str');
@@ -37,30 +34,110 @@ router.get('/', function (req, res, next) {
     let skip = (page - 1) * limit;
     var order = req.query.order || 'desc';
 
-    var searchOrderName = req.query['search-order-name'];
-    var searchCustomerName = req.query['search-customer-name'];
-    let searchAddress = req.query['search-address'];
-    let searchNotShipped = req.query['search-not-shipped'];
-    let searchShipping = req.query['search-shipping'];
-    let searchIsNewShop = req.query['search-is-new-shop'];
+    var searchTransferOrderNumber = req.query['search-transfer-order-number'];
+    var searchTrackingNumber = req.query['search-tracking-number'];
 
     data = extend(data, {
         flash: {
             success: req.flash('success'),
-            error: req.flash('error')
+            // error: req.flash('error')
         },
         user: req.currentUser,
         limit,
-        searchOrderName,
-        searchCustomerName,
-        searchAddress,
-        searchNotShipped,
-        searchShipping,
-        searchIsNewShop
+        searchTransferOrderNumber,
+        searchTrackingNumber,
     });
-
-    res.render('ship-order', data);
-
+    let shipOrder = new AV.Query(ShipOrder);
+    shipOrder.contains('transferOrderNumber', searchTransferOrderNumber);
+    shipOrder.contains('trackingNumber', searchTrackingNumber);
+    shipOrder.limit(limit);
+    shipOrder.count().then(count=> {
+        if (count > 0) {
+            shipOrder.find().then(items=> {
+                items.forEach( n => {
+                    n.createdAt = `${n.updatedAt.getFullYear().toString().substring(2)}/${n.createdAt.getMonth() + 1}/${n.createdAt.getDate()}`;
+                    n.updatedAt = `${n.updatedAt.getFullYear().toString().substring(2)}/${n.updatedAt.getMonth() + 1}/${n.updatedAt.getDate()}`;
+                });
+                data = extend(data, {
+                    // pager: pager.init(page, limit, count),
+                    // pagerHtml: pager.initHtml({
+                    //     page, limit, count,
+                    //     url: '/ship-order/index',
+                    //     serialize: {
+                    //         page,
+                    //         searchTransferOrderNumber,
+                    //         searchTrackingNumber,
+                    //     }
+                    // }),
+                    'items': items});
+                res.render('ship-order/index', data);
+            });
+        } else {
+            data = extend(data, {'items': []});
+            res.render('ship-order/index', data);
+        }
+    });
 });
+
+router.post('/updateOrderStatus/:id/:type/:value', function(req, res) {
+    if (!req.currentUser) {
+        return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));
+    }
+    let shipOrderId = parseInt(req.params.id);
+    let shipOrder = new AV.Query(ShipOrder);
+    let type = req.params.type;
+    let value = req.params.value == 'true' ? true : false;
+    shipOrder.equalTo('shipOrderId', shipOrderId);
+    shipOrder.first().then(item=>{
+        if (item) {
+            if (type == 'isAog') {
+                item.set('isAog', value);
+            } else if (type == 'customsLiquidation') {
+                item.set('customsLiquidation', value);
+            }
+            item.save();
+            res.send({success:1});
+        }
+    });
+});
+
+router.post('/copy/:id/', function(req, res) {
+    if (!req.currentUser) {
+        return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));
+    }
+    let shipOrderId = parseInt(req.params.id);
+    let shipOrder = new AV.Query(ShipOrder);
+    shipOrder.equalTo('shipOrderId', shipOrderId);
+    shipOrder.first().then(item=>{
+        if (item) {
+            let newShipOrder = new ShipOrder();
+            newShipOrder.set('transferOrderNumber', item.get('transferOrderNumber'));
+            newShipOrder.set('trackingNumber', item.get('trackingNumber'));
+            newShipOrder.set('remark', item.get('remark'));
+            newShipOrder.save(null, {
+                success: function () {
+                    req.flash('success', '复制订单成功!');
+                    res.redirect('/ship-order');
+                },
+                error: function (err) {
+                    req.flash('error', '复制订单失败!');
+                }
+            });
+        }
+    });
+});
+
+router.post('/remove/:id/', function(req, res) {
+    if (!req.currentUser) {
+        return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));
+    }
+    let shipOrderId = parseInt(req.params.id);
+    let query = new AV.Query(ShipOrder);
+    query.equalTo('shipOrderId',shipOrderId);
+    query.first().then(item => {
+        item.destroy();
+    }).then(() => { res.send({success: 1}); });
+});
+
 
 module.exports = router;

@@ -8,6 +8,7 @@ var async = require('async');
 var config = require('../../lib/config');
 var utils = require('../../lib/utils');
 var format = require('date-format');
+var ShipOrder = AV.Object.extend('ShipOrder');
 
 var flash = require('connect-flash');
 
@@ -38,6 +39,28 @@ router.get('/', function (req, res, next) {
 
     res.render('ship-order/add', data);
 
+});
+
+router.post('/', function (req, res, next) {
+    if (!req.currentUser) {
+        return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));
+    }
+    let transferOrderNumber = req.body['transferOrderNumber'];
+    var trackingNumber = req.body['trackingNumber'];
+    let remark = req.body['remark'];
+    let shipOrder = new ShipOrder();
+    shipOrder.set('transferOrderNumber', transferOrderNumber);
+    shipOrder.set('trackingNumber', trackingNumber);
+    shipOrder.set('remark', remark);
+    shipOrder.save(null, {
+        success: function () {
+            req.flash('success', '添加订单成功!');
+            res.redirect('/ship-order');
+        },
+        error: function (err) {
+            req.flash('error', '添加订单失败!');
+        }
+    });
 });
 
 module.exports = router;
