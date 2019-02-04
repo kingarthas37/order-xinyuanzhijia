@@ -19,14 +19,16 @@ module.exports = {
         });
 
         $('.remove-ship-order').click(function () {
-           let id = $(this).data('id');
-           $.ajax({
-               url:'/ship-order/remove/' + id,
-               method:'post',
-               success:function(data) {
-                   location.reload();
-               }
-           });
+            if(confirm('确认删除？')) {
+                let id = $(this).data('id');
+                $.ajax({
+                    url:'/ship-order/remove/' + id,
+                    method:'post',
+                    success:function(data) {
+                        location.reload();
+                    }
+                });
+            }
         });
 
         $('.ckb-is-haiguan').click(function () {
