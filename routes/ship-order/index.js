@@ -30,7 +30,8 @@ router.get('/', function (req, res, next) {
     }
 
     var page = req.query.page ? parseInt(req.query.page) : 1;
-    var limit = req.query.limit ? parseInt(req.query.limit) : config.page.LIMIT;
+   // var limit = req.query.limit ? parseInt(req.query.limit) : config.page.LIMIT;
+    let limit = 1000;
     let skip = (page - 1) * limit;
     var order = req.query.order || 'desc';
 
