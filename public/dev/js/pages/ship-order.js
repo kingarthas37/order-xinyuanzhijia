@@ -56,20 +56,31 @@ module.exports = {
         });
 
 
-        $('.hide-arrived-order').click(function () {
+        {
             let table = $('.am-table');
-            if(this.checked) {
-                $.cookie('hide-arrived-order','true',{expires:new Date(new Date().getTime() + 1000*60*60*24*365),path:'/',domain:location.host});
+
+            if($.cookie('hide-arrived-order')) {
                 table.find('tbody tr').each(function (i,n) {
-                   if($(n).find('.ckb-is-arrived')[0].checked) {
-                       $(n).addClass('hide');
-                   }
+                    if($(n).find('.ckb-is-arrived')[0].checked) {
+                        $(n).addClass('hide');
+                    }
                 });
-            } else {
-                $.cookie('hide-arrived-order','',{expires:new Date(new Date().getTime()),path:'/',domain:location.host});
-                table.find('tr.hide').removeClass('hide');
             }
-        });
+            $('.hide-arrived-order').click(function () {
+                if(this.checked) {
+                    $.cookie('hide-arrived-order','true',{expires:new Date(new Date().getTime() + 1000*60*60*24*365),path:'/',domain:location.host});
+                    table.find('tbody tr').each(function (i,n) {
+                        if($(n).find('.ckb-is-arrived')[0].checked) {
+                            $(n).addClass('hide');
+                        }
+                    });
+                } else {
+                    $.cookie('hide-arrived-order','',{expires:new Date(new Date().getTime()),path:'/',domain:location.host});
+                    table.find('tr.hide').removeClass('hide');
+                }
+            });
+        }
+
 
     }
 };
