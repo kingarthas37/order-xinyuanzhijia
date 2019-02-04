@@ -53,7 +53,7 @@ router.post('/:orderId', function (req, res, next) {
             item.set('remark', remark);
             item.save(null, {
                 success: function () {
-                    res.redirect('/ship-order/edit/'+shipOrderId);
+                    res.redirect('/ship-order/');
                 },
                 error: function (err) {
                     req.flash('error', '修改订单失败!');

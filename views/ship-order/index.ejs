@@ -30,6 +30,8 @@
                 搜索转运单号：<input type="text" name="search-tracking-number" class="am-form-field" placeholder="搜索">
             </div>
             <button type="submit" class="am-btn am-btn-primary">搜索</button>
+            <span class="sp"></span>
+            <label>隐藏到货订单 <input type="checkbox" class="hide-arrived-order"> </label>
         </form>
 
         <hr/>
@@ -53,18 +55,18 @@
             <% for(var i=0; i < items.length; i++) {%>
                 <tr>
                     <td class="t-c">
-                        <input data-id="<%= items[i].get('shipOrderId') %>" type="checkbox" <%= items[i].get('customsLiquidation') ? checked : ''%>>
+                        <input class="ckb-is-haiguan" data-id="<%= items[i].get('shipOrderId') %>" type="checkbox" <%= items[i].get('isHaiguan') ? 'checked' : ''%>>
                     </td>
                     <td class="t-c">
-                        <input data-id="<%= items[i].get('shipOrderId') %>" type="checkbox" <%= items[i].get('isAog') ? checked : ''%>>
+                        <input class="ckb-is-arrived" data-id="<%= items[i].get('shipOrderId') %>" type="checkbox" <%= items[i].get('isArrived') ? 'checked' : ''%>>
                     </td>
                     <td class="t-c"><a href="/ship-order/edit/<%=items[i].get('shipOrderId')%>"><%=items[i].get('transferOrderNumber')%></a></td>
                     <td class="t-c"><%=items[i].get('trackingNumber')%></td>
                     <td class="t-c"><%=items[i].get('remark')%></td>
                     <td class="t-c"><%=items[i].createdAt%></td>
                     <td class="t-c"><%=items[i].updatedAt%></td>
-                    <td class="copy-ship-order" data-id="<%= items[i].get('shipOrderId') %>"><a href="javascript:;">复制</a></td>
-                    <td data-id="<%= items[i].get('shipOrderId') %>" class="remove-ship-order"><a href="javascript:;">删除</a></td>
+                    <td class="t-c copy-ship-order" data-id="<%= items[i].get('shipOrderId') %>"><a href="javascript:;">复制</a></td>
+                    <td data-id="<%= items[i].get('shipOrderId') %>" class="t-c remove-ship-order"><a href="javascript:;">删除</a></td>
                 </tr>
             <% } } %>
             </tbody>

@@ -48,8 +48,8 @@ router.get('/', function (req, res, next) {
         searchTrackingNumber,
     });
     let shipOrder = new AV.Query(ShipOrder);
-    shipOrder.contains('transferOrderNumber', searchTransferOrderNumber);
-    shipOrder.contains('trackingNumber', searchTrackingNumber);
+    //shipOrder.contains('transferOrderNumber', searchTransferOrderNumber);
+   // shipOrder.contains('trackingNumber', searchTrackingNumber);
     shipOrder.limit(limit);
     shipOrder.count().then(count=> {
         if (count > 0) {
@@ -87,16 +87,18 @@ router.post('/updateOrderStatus/:id/:type/:value', function(req, res) {
     let shipOrder = new AV.Query(ShipOrder);
     let type = req.params.type;
     let value = req.params.value == 'true' ? true : false;
+    console.log(type,value);
     shipOrder.equalTo('shipOrderId', shipOrderId);
     shipOrder.first().then(item=>{
         if (item) {
-            if (type == 'isAog') {
-                item.set('isAog', value);
-            } else if (type == 'customsLiquidation') {
-                item.set('customsLiquidation', value);
+            if (type == 'isHaiguan') {
+                item.set('isHaiguan', value);
+            } else if (type == 'isArrived') {
+                item.set('isArrived', value);
             }
-            item.save();
-            res.send({success:1});
+            item.save().then(()=> {
+                res.send({success:1});
+            });
         }
     });
 });
@@ -112,7 +114,6 @@ router.post('/copy/:id/', function(req, res) {
         if (item) {
             let newShipOrder = new ShipOrder();
             newShipOrder.set('transferOrderNumber', item.get('transferOrderNumber'));
-            newShipOrder.set('trackingNumber', item.get('trackingNumber'));
             newShipOrder.set('remark', item.get('remark'));
             newShipOrder.save(null, {
                 success: function () {
@@ -135,8 +136,10 @@ router.post('/remove/:id/', function(req, res) {
     let query = new AV.Query(ShipOrder);
     query.equalTo('shipOrderId',shipOrderId);
     query.first().then(item => {
-        item.destroy();
-    }).then(() => { res.send({success: 1}); });
+        item.destroy().then(()=> {
+            res.send({success: 1});
+        });
+    });
 });
 
 
