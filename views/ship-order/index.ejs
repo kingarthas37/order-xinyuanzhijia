@@ -65,8 +65,8 @@
                     <td class="t-c"><%=items[i].get('remark')%></td>
                     <td class="t-c"><%=items[i].createdAt%></td>
                     <td class="t-c"><%=items[i].updatedAt%></td>
-                    <td class="t-c copy-ship-order" data-id="<%= items[i].get('shipOrderId') %>"><a href="javascript:;">复制</a></td>
-                    <td data-id="<%= items[i].get('shipOrderId') %>" class="t-c remove-ship-order"><a href="javascript:;">删除</a></td>
+                    <td class="t-c" ><a class="copy-ship-order" data-id="<%= items[i].get('shipOrderId') %>" href="javascript:;">复制</a></td>
+                    <td class="t-c"><a data-id="<%= items[i].get('shipOrderId') %>" class="remove-ship-order" href="javascript:;">删除</a></td>
                 </tr>
             <% } } %>
             </tbody>
