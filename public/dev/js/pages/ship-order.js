@@ -60,6 +60,7 @@ module.exports = {
             let table = $('.am-table');
 
             if($.cookie('hide-arrived-order')) {
+                $('.hide-arrived-order').prop('checked',true);
                 table.find('tbody tr').each(function (i,n) {
                     if($(n).find('.ckb-is-arrived')[0].checked) {
                         $(n).addClass('hide');
