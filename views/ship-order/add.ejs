@@ -22,14 +22,14 @@
             <!-- name start -->
             <div class="am-form-group">
                 <label>转运单号：<i>*</i> </label>
-                <input id="transferOrderNumber" required name="transferOrderNumber" type="text" placeholder="输入转运单号" />
+                <input id="transferOrderNumber" required name="transferOrderNumber" type="text" placeholder="输入转运单号" autocomplete="off" />
             </div>
             <!-- name end -->
 
             <!-- card no start -->
             <div class="am-form-group">
                 <label>国内快递单号：</label>
-                <input id="trackingNumber" name="trackingNumber" type="text" placeholder="输入国内快递单号" />
+                <input id="trackingNumber" name="trackingNumber" type="text" placeholder="输入国内快递单号" autocomplete="off" />
             </div>
             <!-- card no end -->
 
@@ -37,7 +37,7 @@
             <!-- card address start -->
             <div class="am-form-group">
                 <label>备注信息：</label>
-                <textarea name="remark" id="remark" cols="30" rows="5"></textarea>
+                <textarea name="remark" id="remark" cols="30" rows="5" autocomplete="off"></textarea>
             </div>
             <!-- card address end -->
 
@@ -61,11 +61,9 @@
 <script type="text/javascript">
 
     $(function() {
-
+        var shipOrder = require('ship-order');
+        shipOrder.addFun();
     });
-
-
-
 </script>
 </body>
 </html>

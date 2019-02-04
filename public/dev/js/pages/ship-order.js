@@ -85,5 +85,8 @@ module.exports = {
         }
 
 
+    },
+    addFun:function () {
+        $('#transferOrderNumber')[0].focus();
     }
 };
