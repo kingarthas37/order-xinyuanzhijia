@@ -35,9 +35,8 @@ router.get('/', function (req, res, next) {
     let skip = (page - 1) * limit;
     var order = req.query.order || 'desc';
 
-    var searchTransferOrderNumber = req.query['search-transfer-order-number'];
-    var searchTrackingNumber = req.query['search-tracking-number'];
-
+    var searchTransferOrderNumber = req.query['search-transfer-order-number'] || '';
+    var searchTrackingNumber = req.query['search-tracking-number'] || '';
     data = extend(data, {
         flash: {
             success: req.flash('success'),
@@ -49,9 +48,14 @@ router.get('/', function (req, res, next) {
         searchTrackingNumber,
     });
     let shipOrder = new AV.Query(ShipOrder);
-    //shipOrder.contains('transferOrderNumber', searchTransferOrderNumber);
-   // shipOrder.contains('trackingNumber', searchTrackingNumber);
+    if (searchTransferOrderNumber) {
+        shipOrder.contains('transferOrderNumber', searchTransferOrderNumber);
+    }
+    if (searchTrackingNumber) {
+        shipOrder.contains('trackingNumber', searchTrackingNumber);
+    }
     shipOrder.limit(limit);
+    shipOrder.addDescending('updatedAt');
     shipOrder.count().then(count=> {
         if (count > 0) {
             shipOrder.find().then(items=> {
