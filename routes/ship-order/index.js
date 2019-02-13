@@ -55,7 +55,7 @@ router.get('/', function (req, res, next) {
         shipOrder.contains('trackingNumber', searchTrackingNumber);
     }
     shipOrder.limit(limit);
-    shipOrder.addDescending('updatedAt');
+    shipOrder.addDescending('createdAt');
     shipOrder.count().then(count=> {
         if (count > 0) {
             shipOrder.find().then(items=> {
