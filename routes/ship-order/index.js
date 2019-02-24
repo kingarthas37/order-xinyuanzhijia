@@ -12,6 +12,7 @@ var config = require('../../lib/config');
 
 //class
 var ShipOrder = AV.Object.extend('ShipOrder');
+let aliExpress = require('../../../lib/models/ali-express').createNew();
 
 //lib
 var pager = require('../../lib/component/pager-str');
@@ -148,5 +149,16 @@ router.post('/remove/:id/', function(req, res) {
     });
 });
 
+router.get('/query/:number/:type', (req, res) => {
+    let number = req.params.number;
+    let com = req.params.type;
+    if (!number || !com) {
+        res.send({'list':null, 'msg':'系统繁忙请稍后重新进行查询'});
+    } else {
+        aliExpress.getExpressInfo(number, com).then(result => {
+            res.send(result);
+        });
+    }
+});
 
 module.exports = router;
