@@ -30,9 +30,8 @@ router.get('/', function (req, res, next) {
     }
 
     var page = req.query.page ? parseInt(req.query.page) : 1;
-   // var limit = req.query.limit ? parseInt(req.query.limit) : config.page.LIMIT;
-    let limit = 1000;
-    let skip = (page - 1) * limit;
+    var limit = req.query.limit ? parseInt(req.query.limit) : config.page.LIMIT;
+    //let limit = 50;
     var order = req.query.order || 'desc';
 
     var searchTransferOrderNumber = req.query['search-transfer-order-number'] || '';
@@ -64,6 +63,8 @@ router.get('/', function (req, res, next) {
                     n.updatedAt = `${n.updatedAt.getFullYear().toString().substring(2)}/${n.updatedAt.getMonth() + 1}/${n.updatedAt.getDate()}`;
                 });
                 data = extend(data, {
+                    orderPager:pager(page,limit, count),
+                    orderCount:count,
                     // pager: pager.init(page, limit, count),
                     // pagerHtml: pager.initHtml({
                     //     page, limit, count,

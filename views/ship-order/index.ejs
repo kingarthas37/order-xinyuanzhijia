@@ -76,6 +76,25 @@
             </tbody>
         </table>
 
+        <ul class="am-pagination">
+            <% if (orderPager.prev) { %> <li>
+            <a href="/ship-order?page=<%= orderPager.prev %>&search-tracking-number=<%=searchTrackingNumber%>&search-transfer-order-number=<%=searchTransferOrderNumber%>">上一页</a></li> <% } %>
+            <% if (orderPager.next) { %> <li>
+            <a href="/ship-order?page=<%= orderPager.next %>&search-tracking-number=<%=searchTrackingNumber%>&search-transfer-order-number=<%=searchTransferOrderNumber%>">下一页</a></li> <% } %>
+
+            <li class="count">
+                <em>第<%=orderPager.page%>页 共<%= orderCount %>条</em>
+                <select class="select-limit">
+                    <option value="">20</option>
+                    <option value="40" <%if(limit==40){%>selected="selected"<%}%> >40</option>
+                    <option value="60" <%if(limit==60){%>selected="selected"<%}%> >60</option>
+                    <option value="80" <%if(limit==80){%>selected="selected"<%}%> >80</option>
+                    <option value="100" <%if(limit==100){%>selected="selected"<%}%> >100</option>
+                </select>
+            </li>
+
+        </ul>
+
         <hr/>
 
         <div class="am-form-group">
