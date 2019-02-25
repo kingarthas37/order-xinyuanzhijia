@@ -53,7 +53,16 @@ module.exports = {
             let value = this.checked ? 'true' : 'false';
             $.ajax({
                 url:`/ship-order/updateOrderStatus/${id}/${type}/${value}`,
-                method:'post'
+                method:'post',
+                success:function (data) {
+                    if(data.success) {
+                        if(value === 'true') {
+                            alert('已确认签收!');
+                        } else {
+                            alert('取消签收');
+                        }
+                    }
+                }
             });
         });
 
