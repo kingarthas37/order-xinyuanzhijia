@@ -12,7 +12,7 @@ var config = require('../../lib/config');
 
 //class
 var ShipOrder = AV.Object.extend('ShipOrder');
-let aliExpress = require('../../../lib/models/ali-express').createNew();
+let aliExpress = require('../../lib/models/ali-express').createNew();
 
 //lib
 var pager = require('../../lib/component/pager-str');
