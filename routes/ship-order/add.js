@@ -46,12 +46,16 @@ router.post('/', function (req, res, next) {
         return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));
     }
     let transferOrderNumber = req.body['transferOrderNumber'];
-    var trackingNumber = req.body['trackingNumber'];
+    var trackingNumber = req.body['trackingNumber'] || 0;
     let remark = req.body['remark'];
     let shipOrder = new ShipOrder();
+    let count = req.body['count'];
+    let realCount = req.body['realCount'] || 0;
     shipOrder.set('transferOrderNumber', transferOrderNumber);
     shipOrder.set('trackingNumber', trackingNumber);
     shipOrder.set('remark', remark);
+    shipOrder.set('count', count);
+    shipOrder.set('realCount', realCount);
     shipOrder.save(null, {
         success: function () {
             req.flash('success', '添加订单成功!');

@@ -47,6 +47,8 @@
                 <th class="t-c" width="80">已到货</th>
                 <th class="t-c">转运订单号</th>
                 <th class="t-c">国内快递单号</th>
+                <th class="t-c">数量</th>
+                <th class="t-c">实到数量</th>
                 <th class="t-c">备注</th>
                 <th class="t-c">创建日期</th>
                 <th class="t-c">更新日期</th>
@@ -66,6 +68,8 @@
                     </td>
                     <td class="t-c"><a href="/ship-order/edit/<%=items[i].get('shipOrderId')%>"><%=items[i].get('transferOrderNumber')%></a></td>
                     <td class="t-c"><%=items[i].get('trackingNumber')%></td>
+                    <td class="t-c"><%=items[i].get('count')%></td>
+                    <td class="t-c"><%=items[i].get('realCount')%></td>
                     <td class="t-c"><%=items[i].get('remark')%></td>
                     <td class="t-c"><%=items[i].createdAt%></td>
                     <td class="t-c"><%=items[i].updatedAt%></td>
