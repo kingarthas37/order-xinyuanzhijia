@@ -44,6 +44,8 @@ router.post('/:orderId', function (req, res, next) {
     let transferOrderNumber = req.body['transferOrderNumber'];
     let trackingNumber = req.body['trackingNumber'];
     let remark = req.body['remark'];
+    let count = req.body['count'];
+    let realCount = req.body['realCount'] || 0;
     let shipOrder = new AV.Query(ShipOrder);
     shipOrder.equalTo('shipOrderId', shipOrderId);
     shipOrder.first().then(item=>{
@@ -51,6 +53,8 @@ router.post('/:orderId', function (req, res, next) {
             item.set('transferOrderNumber', transferOrderNumber);
             item.set('trackingNumber', trackingNumber);
             item.set('remark', remark);
+            shipOrder.set('count', count);
+            shipOrder.set('realCount', realCount);
             item.save(null, {
                 success: function () {
                     res.redirect('/ship-order?limit=500');
