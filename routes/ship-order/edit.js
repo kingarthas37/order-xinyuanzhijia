@@ -53,7 +53,7 @@ router.post('/:orderId', function (req, res, next) {
             item.set('remark', remark);
             item.save(null, {
                 success: function () {
-                    res.redirect('/ship-order/');
+                    res.redirect('/ship-order?limit=500');
                 },
                 error: function (err) {
                     req.flash('error', '修改订单失败!');

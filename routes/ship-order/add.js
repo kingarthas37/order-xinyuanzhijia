@@ -55,7 +55,7 @@ router.post('/', function (req, res, next) {
     shipOrder.save(null, {
         success: function () {
             req.flash('success', '添加订单成功!');
-            res.redirect('/ship-order');
+            res.redirect('/ship-order?limit=500');
         },
         error: function (err) {
             req.flash('error', '添加订单失败!');
