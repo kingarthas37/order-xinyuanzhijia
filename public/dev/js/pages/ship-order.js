@@ -94,6 +94,82 @@ module.exports = {
         }
 
 
+
+
+        $('.clipboard-order').each(function (i,n) {
+            let clipboard = new Clipboard(this);
+            clipboard.on('success',() => {
+                $(this).addClass('active');
+            });
+        });
+
+
+        {
+            let modal = $('#modal-edit-tracking');
+            let input = $('#input-edit-tracking');
+            $('.edit-tracking').each(function (i, n) {
+
+                $(this).click(function () {
+                    setTimeout(function() {
+                        input.val('');
+                        input[0].focus();
+                    },100);
+                    modal.modal({
+                        relatedTarget: this,
+                        onConfirm: function(e) {
+                            let id = $(this.relatedTarget).data('id');
+                            let tr = $(this.relatedTarget).parents('tr');
+                            let searchTracking = tr.find('.search-tracking');
+                            $.ajax({
+                                url:`/ship-order/edit-tracking/${id}`,
+                                type:'post',
+                                data:{
+                                    value:$.trim(input.val())
+                                },
+                                success:function(data) {
+                                    searchTracking.attr('data-tracking',$.trim(input.val()));
+                                    searchTracking.text($.trim(input.val()));
+                                }
+                            })
+                        }
+                    });
+
+                });
+
+            });
+        }
+
+
+        {
+            let modal = $('#modal-edit-remark');
+            let input = $('#input-edit-remark');
+            $('.edit-remark').click(function () {
+
+                setTimeout(function() {
+                    input[0].focus();
+                },100);
+                modal.modal({
+                    relatedTarget: this,
+                    onConfirm: function(e) {
+                        let tr = $(this.relatedTarget).parents('tr');
+                        let id = $(this.relatedTarget).attr('data-id');
+                        let remark = tr.find('.remark');
+                        $.ajax({
+                            url:`/ship-order/edit-remark/${id}`,
+                            type:'post',
+                            data:{
+                                value:$.trim(input.val())
+                            },
+                            success:function(data) {
+                                remark.attr('data-remark',$.trim(input.val()));
+                                remark.text($.trim(input.val()));
+                            }
+                        })
+                    }
+                });
+            });
+        }
+
     },
     addFun:function () {
         $('#transferOrderNumber')[0].focus();

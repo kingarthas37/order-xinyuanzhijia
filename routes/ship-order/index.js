@@ -120,7 +120,7 @@ router.post('/copy/:id/', function(req, res) {
     shipOrder.first().then(item=>{
         if (item) {
             let newShipOrder = new ShipOrder();
-            newShipOrder.set('transferOrderNumber', item.get('transferOrderNumber'));
+            newShipOrder.set('transferOrderNumber', item.get('transferOrderNumber') + '(复制)');
             newShipOrder.set('remark', item.get('remark'));
             newShipOrder.save(null, {
                 success: function () {
@@ -145,6 +145,52 @@ router.post('/remove/:id/', function(req, res) {
     query.first().then(item => {
         item.destroy().then(()=> {
             res.send({success: 1});
+        });
+    });
+});
+
+router.post('/edit-tracking/:id', function(req, res) {
+    if (!req.currentUser) {
+        return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));
+    }
+    let shipOrderId = parseInt(req.params.id);
+    let value = req.body.value || '';
+    let query = new AV.Query(ShipOrder);
+    query.equalTo('shipOrderId',shipOrderId);
+    query.first().then(item => {
+        item.set('trackingNumber', value);
+        item.save(null, {
+            success: function () {
+                res.send({
+                    success:1
+                });
+            },
+            error: function (err) {
+
+            }
+        });
+    });
+});
+
+router.post('/edit-remark/:id', function(req, res) {
+    if (!req.currentUser) {
+        return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));
+    }
+    let shipOrderId = parseInt(req.params.id);
+    let value = req.body.value || '';
+    let query = new AV.Query(ShipOrder);
+    query.equalTo('shipOrderId',shipOrderId);
+    query.first().then(item => {
+        item.set('remark', value);
+        item.save(null, {
+            success: function () {
+                res.send({
+                    success:1
+                });
+            },
+            error: function (err) {
+
+            }
         });
     });
 });

@@ -592,3 +592,12 @@
         }
     }
 }
+
+/* order ship page */
+.order-ship-page {
+    .clipboard-order {
+        &.active {
+            color: #5eb95e;
+        }
+    }
+}

@@ -7,7 +7,7 @@
     <title><%= title %></title>
     <% include ../partials/css %>
 </head>
-<body>
+<body class="order-ship-page">
 
 <% include ../partials/header %>
 
@@ -47,8 +47,6 @@
                 <th class="t-c" width="80">已到货</th>
                 <th class="t-c">转运订单号</th>
                 <th class="t-c">国内快递单号</th>
-                <th class="t-c">数量</th>
-                <th class="t-c">实到数量</th>
                 <th class="t-c">备注</th>
                 <th class="t-c">创建日期</th>
                 <th class="t-c">更新日期</th>
@@ -66,11 +64,30 @@
                     <td class="t-c">
                         <input class="ckb-is-arrived" data-id="<%= items[i].get('shipOrderId') %>" type="checkbox" <%= items[i].get('isArrived') ? 'checked' : ''%>>
                     </td>
-                    <td class="t-c"><a href="/ship-order/edit/<%=items[i].get('shipOrderId')%>"><%=items[i].get('transferOrderNumber')%></a></td>
-                    <td class="t-c"><%=items[i].get('trackingNumber')%></td>
+                    <td class="t-c">
+                        <a href="/ship-order/edit/<%=items[i].get('shipOrderId')%>"><%=items[i].get('transferOrderNumber')%></a>
+                        <a href="javascript:;" title="复制单号" class="clipboard-order" data-clipboard-text="<%=items[i].get('transferOrderNumber')%>"><i class="am-icon am-icon-copy"></i></a>
+                    </td>
+                    <td class="t-c">
+                        <% if(items[i].get('trackingNumber')) {%>
+                            <a href="javascript:;" title="查询快递" class="search-tracking" data-tracking="<%=items[i].get('trackingNumber')%>"><%=items[i].get('trackingNumber')%></a>
+                        <%}else{%>
+                            <a href="javascript:;" title="查询快递" class="search-tracking" data-tracking=""></a>
+                        <%}%>
+                        <a href="javascript:;" class="edit-tracking" data-id="<%=items[i].get('shipOrderId')%>"><i class="am-icon am-icon-edit"></i></a>
+                    </td>
+                    <!--
                     <td class="t-c"><%=items[i].get('count')%></td>
                     <td class="t-c"><%=items[i].get('realCount')%></td>
-                    <td class="t-c"><%=items[i].get('remark')%></td>
+                    -->
+                    <td class="t-c">
+                        <span class="remark" data-remark="<% if(items[i].get('remark')) {%><%=items[i].get('remark')%><%}%>">
+                        <% if(items[i].get('remark')) {%>
+                        <%=items[i].get('remark')%>
+                        <%}%>
+                        </span>
+                        <a href="javascript:;" class="edit-remark" data-id="<%=items[i].get('shipOrderId')%>"><i class="am-icon am-icon-edit"></i></a>
+                    </td>
                     <td class="t-c"><%=items[i].createdAt%></td>
                     <td class="t-c"><%=items[i].updatedAt%></td>
                     <td class="t-c" ><a class="copy-ship-order" data-id="<%= items[i].get('shipOrderId') %>" href="javascript:;">复制</a></td>
@@ -114,6 +131,32 @@
     <div class="am-modal-dialog">
         <div class="am-modal-bd">
             确定要删除这条记录吗？
+        </div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+            <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+        </div>
+    </div>
+</div>
+
+<div class="am-modal am-modal-confirm" tabindex="-1" id="modal-edit-tracking">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">输入快递单号：</div>
+        <div class="am-modal-bd">
+             <input type="text" id="input-edit-tracking" class="am-modal-prompt-input">
+        </div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+            <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+        </div>
+    </div>
+</div>
+
+<div class="am-modal am-modal-confirm" tabindex="-1" id="modal-edit-remark">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">输入备注信息：</div>
+        <div class="am-modal-bd">
+            <input type="text" id="input-edit-remark" class="am-modal-prompt-input">
         </div>
         <div class="am-modal-footer">
             <span class="am-modal-btn" data-am-modal-confirm>确定</span>
