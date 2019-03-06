@@ -170,6 +170,10 @@ module.exports = {
             });
         }
 
+        $('.am-table').on('click','.search-tracking',function () {
+           alert($(this).text());
+        });
+
     },
     addFun:function () {
         $('#transferOrderNumber')[0].focus();
