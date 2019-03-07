@@ -172,6 +172,14 @@ module.exports = {
 
         $('.am-table').on('click','.search-tracking',function () {
            alert($(this).text());
+           let id = $(this).text();
+            $.ajax({
+                url:`/ship-order/express/${id}`,
+                type:'get',
+                success:function(data) {
+                    alert(data);
+                }
+            })
         });
 
     },

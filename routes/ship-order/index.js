@@ -195,9 +195,10 @@ router.post('/edit-remark/:id', function(req, res) {
     });
 });
 
-router.get('/query/:number/:type', (req, res) => {
+router.get('/express/:number/:type', (req, res) => {
     let number = req.params.number;
-    let com = req.params.type;
+    let com = req.params.type || '';
+    console.log(number);
     if (!number || !com) {
         res.send({'list':null, 'msg':'系统繁忙请稍后重新进行查询'});
     } else {
