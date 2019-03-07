@@ -53,8 +53,8 @@ router.post('/:orderId', function (req, res, next) {
             item.set('transferOrderNumber', transferOrderNumber);
             item.set('trackingNumber', trackingNumber);
             item.set('remark', remark);
-            shipOrder.set('count', count);
-            shipOrder.set('realCount', realCount);
+            item.set('count', count);
+            item.set('realCount', realCount);
             item.save(null, {
                 success: function () {
                     res.redirect('/ship-order?limit=500');
