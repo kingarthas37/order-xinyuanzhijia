@@ -46,10 +46,10 @@ router.post('/', function (req, res, next) {
         return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));
     }
     let transferOrderNumber = req.body['transferOrderNumber'];
-    var trackingNumber = req.body['trackingNumber'] || 0;
-    let remark = req.body['remark'];
+    var trackingNumber = req.body['trackingNumber'] || '';
+    let remark = req.body['remark'] || '';
     let shipOrder = new ShipOrder();
-    let count = req.body['count'];
+    let count = req.body['count'] || 0;
     let realCount = req.body['realCount'] || 0;
     shipOrder.set('transferOrderNumber', transferOrderNumber);
     shipOrder.set('trackingNumber', trackingNumber);
