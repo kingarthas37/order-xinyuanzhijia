@@ -103,6 +103,13 @@ module.exports = {
             });
         });
 
+        $('.clipboard-tracking').each(function (i,n) {
+            let clipboard = new Clipboard(this);
+            clipboard.on('success',() => {
+                $(this).addClass('active');
+            });
+        });
+
 
         {
             let modal = $('#modal-edit-tracking');
@@ -144,8 +151,9 @@ module.exports = {
             let modal = $('#modal-edit-remark');
             let input = $('#input-edit-remark');
             $('.edit-remark').click(function () {
-
+                let tr = $(this).parents('tr');
                 setTimeout(function() {
+                    input.val($.trim(tr.find('.remark').text()));
                     input[0].focus();
                 },100);
                 modal.modal({

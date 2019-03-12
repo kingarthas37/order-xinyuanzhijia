@@ -71,6 +71,7 @@
                     <td class="t-c">
                         <% if(items[i].get('trackingNumber')) {%>
                             <a href="javascript:;" title="查询快递" class="search-tracking" data-tracking="<%=items[i].get('trackingNumber')%>"><%=items[i].get('trackingNumber')%></a>
+                        <a href="javascript:;" title="复制快递单号" class="clipboard-tracking" data-clipboard-text="<%=items[i].get('trackingNumber')%>"><i class="am-icon am-icon-copy"></i></a>
                         <%}else{%>
                             <a href="javascript:;" title="查询快递" class="search-tracking" data-tracking=""></a>
                         <%}%>
