@@ -44,27 +44,32 @@ router.post('/:orderId', function (req, res, next) {
     let transferOrderNumber = req.body['transferOrderNumber'];
     let trackingNumber = req.body['trackingNumber'] || '';
     let remark = req.body['remark'] || '';
-    let count = req.body['count'] || 0;
-    let realCount = req.body['realCount'] || 0;
-    let shipOrder = new AV.Query(ShipOrder);
-    shipOrder.equalTo('shipOrderId', shipOrderId);
-    shipOrder.first().then(item=>{
-        if (item) {
-            item.set('transferOrderNumber', transferOrderNumber);
-            item.set('trackingNumber', trackingNumber);
-            item.set('remark', remark);
-            item.set('count', count);
-            item.set('realCount', realCount);
-            item.save(null, {
-                success: function () {
-                    res.redirect('/ship-order?limit=500');
-                },
-                error: function (err) {
-                    req.flash('error', '修改订单失败!');
+    let count = parseInt(req.body['count']) || 0;
+    let realCount = parseInt(req.body['realCount']) || 0;
+    async.waterfall([
+        function() {
+            let shipOrder = new AV.Query(ShipOrder);
+            shipOrder.equalTo('shipOrderId', shipOrderId);
+            shipOrder.first().then(item => {
+                if (item) {
+                    item.set('transferOrderNumber', transferOrderNumber);
+                    item.set('trackingNumber', trackingNumber);
+                    item.set('remark', remark);
+                    item.set('count', count);
+                    item.set('realCount', realCount);
+                    item.save(null, {
+                        success: function () {
+                            req.flash('success', '编辑订单成功!');
+                            res.redirect('/ship-order');
+                        },
+                        error: function (err) {
+                            next(err);
+                        }
+                    });
                 }
             });
         }
-    });
+    ]);
 });
 
 module.exports = router;
