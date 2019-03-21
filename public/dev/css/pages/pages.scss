@@ -170,6 +170,7 @@
         line-height: 30px;
     }
     .order-split {
+        margin-bottom:2px;
         @include breakpoint(small-only) {
             overflow: hidden;
             text-overflow: ellipsis;

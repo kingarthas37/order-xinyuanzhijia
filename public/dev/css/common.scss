@@ -60,19 +60,18 @@ em,i {
     
     vertical-align: middle;
     display: inline-block;
-    height: 24px;
+    height: 48px;
      
     &.image {
         text-align: center;
         img {
-            max-width: 24px;
-            max-height:24px;
+            max-width: 48px;
+            max-height:48px;
             display: inline-block;
-            margin-top:-4px;
         }
     }
     &.on {
-        width: 24px;
+        width: 48px;
         position: relative;
         &:after {
             position: absolute;

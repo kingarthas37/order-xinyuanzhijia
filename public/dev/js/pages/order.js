@@ -104,13 +104,13 @@ module.exports = {
                     if (!$.isEmptyObject(data.images)) {
                         for (let i in data.images) {
                             if (parseInt(i) === id) {
-                                $(n).removeClass('on').html(`<a href="${data.images[i]}" target="_blank"><img width="24" src="${data.images[i]}?imageMogr2/thumbnail/24"/></a>`);
+                                $(n).removeClass('on').html(`<a href="${data.images[i]}" target="_blank"><img width="48" src="${data.images[i]}?imageMogr2/thumbnail/48"/></a>`);
                             } else if (!id) {
-                                $(n).removeClass('on').html(`<img width="24" src="${window.assets['no-image-src']}?imageMogr2/thumbnail/24"/>`);
+                                $(n).removeClass('on').html(`<img width="48" src="${window.assets['no-image-src']}?imageMogr2/thumbnail/48"/>`);
                             }
                         }
                     } else {
-                        $(n).removeClass('on').html(`<img width="24" src="${window.assets['no-image-src']}?imageMogr2/thumbnail/24"/>`);
+                        $(n).removeClass('on').html(`<img width="48" src="${window.assets['no-image-src']}?imageMogr2/thumbnail/48"/>`);
                     }
 
                 });
