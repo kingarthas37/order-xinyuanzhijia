@@ -197,12 +197,11 @@ router.post('/edit-remark/:id', function(req, res) {
 
 router.get('/express/:number/:type', (req, res) => {
     let number = req.params.number;
-    let com = req.params.type || '';
-    console.log(number);
-    if (!number || !com) {
+    let type = req.params.type || '';
+    if (!number || !type) {
         res.send({'list':null, 'msg':'系统繁忙请稍后重新进行查询'});
     } else {
-        aliExpress.getExpressInfo(number, com).then(result => {
+        aliExpress.getExpressInfo(number, type).then(result => {
             res.send(result);
         });
     }
