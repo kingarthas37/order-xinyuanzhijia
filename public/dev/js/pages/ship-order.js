@@ -178,17 +178,38 @@ module.exports = {
             });
         }
 
-        $('.am-table').on('click','.search-tracking',function () {
-           alert($(this).text());
-           let id = $(this).text();
-            $.ajax({
-                url:`/ship-order/express/${id}`,
-                type:'get',
-                success:function(data) {
-                    alert(data);
-                }
-            })
-        });
+        //查询快递
+        {
+            let modalLoading = $('#modal-loading');
+            let modalTrackingInfo = $('#modal-tracking-info');
+            $('.am-table').on('click','.search-tracking',function () {
+                let id = $(this).text();
+                modalLoading.modal();
+                $.ajax({
+                    url:`/ship-order/express/${id}/ems`,
+                    type:'get',
+                    success:function(data) {
+
+                        modalLoading.modal('close');
+
+                        if(!data.list) {
+                            modalTrackingInfo.find('.am-modal-bd').html(`<p>${data.msg}</p>`);
+                            modalTrackingInfo.modal();
+                            return false;
+                        }
+
+                        let text = '';
+                        $.each(data.list,function (i, n) {
+                            text += `<p><strong>${n.time}</strong> ${n.status}</p>`;
+                        });
+                        modalTrackingInfo.find('.am-modal-bd').html(text);
+                        modalTrackingInfo.modal();
+
+                    }
+                })
+            });
+        }
+
 
     },
     addFun:function () {

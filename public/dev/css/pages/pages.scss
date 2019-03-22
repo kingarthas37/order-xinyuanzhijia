@@ -607,4 +607,16 @@
             color: #5eb95e;
         }
     }
+    #modal-tracking-info {
+        .am-modal-bd {
+            text-align: left;
+            font-size: 13px;
+            strong {
+                color: #5eb95e;
+            }
+            p {
+                margin:0 0 2px 0;
+            }
+        }
+    }
 }
