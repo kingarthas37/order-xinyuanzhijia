@@ -106,6 +106,12 @@
         }
 
         tr {
+            &.off {
+                background: #fff !important;
+            }
+            &:nth-child(even){
+                background: #f3ffff !important;
+            }
             &.hide {
                 display: none;
             }
