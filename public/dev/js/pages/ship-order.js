@@ -184,6 +184,7 @@ module.exports = {
             let modalTrackingInfo = $('#modal-tracking-info');
             $('.am-table').on('click','.search-tracking',function () {
                 let id = $(this).text();
+                $(this).addClass('active');
                 modalLoading.modal();
                 $.ajax({
                     url:`/ship-order/express/${id}/ems`,

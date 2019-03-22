@@ -602,7 +602,7 @@
 
 /* order ship page */
 .order-ship-page {
-    .clipboard-order,.clipboard-tracking {
+    .clipboard-order,.clipboard-tracking,.search-tracking{
         &.active {
             color: #5eb95e;
         }
