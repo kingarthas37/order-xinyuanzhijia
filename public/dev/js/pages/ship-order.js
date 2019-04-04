@@ -136,6 +136,9 @@ module.exports = {
                                 success:function(data) {
                                     searchTracking.attr('data-tracking',$.trim(input.val()));
                                     searchTracking.text($.trim(input.val()));
+                                    if(!tr.find('.ckb-is-haiguan')[0].checked) {
+                                        tr.find('.ckb-is-haiguan').click();
+                                    }
                                 }
                             })
                         }
@@ -171,6 +174,36 @@ module.exports = {
                             success:function(data) {
                                 remark.attr('data-remark',$.trim(input.val()));
                                 remark.text($.trim(input.val()));
+                            }
+                        })
+                    }
+                });
+            });
+        }
+
+        {
+            let modal = $('#modal-edit-ship-order');
+            let input = $('#input-edit-ship-order');
+            $('.edit-ship-order').click(function () {
+                let tr = $(this).parents('tr');
+                setTimeout(function() {
+                    input.val($.trim(tr.find('.ship-order-number').text()));
+                    input[0].focus();
+                },100);
+                modal.modal({
+                    relatedTarget: this,
+                    onConfirm: function(e) {
+                        let tr = $(this.relatedTarget).parents('tr');
+                        let id = $(this.relatedTarget).attr('data-id');
+                        let shipOrderNumber = tr.find('.ship-order-number');
+                        $.ajax({
+                            url:`/ship-order/edit-ship-order-number/${id}`,
+                            type:'post',
+                            data:{
+                                value:$.trim(input.val())
+                            },
+                            success:function(data) {
+                                shipOrderNumber.text($.trim(input.val()));
                             }
                         })
                     }

@@ -65,8 +65,9 @@
                         <input class="ckb-is-arrived" data-id="<%= items[i].get('shipOrderId') %>" type="checkbox" <%= items[i].get('isArrived') ? 'checked' : ''%>>
                     </td>
                     <td class="t-c">
-                        <a href="/ship-order/edit/<%=items[i].get('shipOrderId')%>"><%=items[i].get('transferOrderNumber')%></a>
+                        <a class="ship-order-number" href="/ship-order/edit/<%=items[i].get('shipOrderId')%>"><%=items[i].get('transferOrderNumber')%></a>
                         <a href="javascript:;" title="复制单号" class="clipboard-order" data-clipboard-text="<%=items[i].get('transferOrderNumber')%>"><i class="am-icon am-icon-copy"></i></a>
+                        <a href="javascript:;" class="edit-ship-order" data-id="<%=items[i].get('shipOrderId')%>"><i class="am-icon am-icon-edit"></i></a>
                     </td>
                     <td class="t-c">
                         <% if(items[i].get('trackingNumber')) {%>
@@ -165,6 +166,21 @@
         </div>
     </div>
 </div>
+
+
+<div class="am-modal am-modal-confirm" tabindex="-1" id="modal-edit-ship-order">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">输入转运订单号：</div>
+        <div class="am-modal-bd">
+            <input type="text" id="input-edit-ship-order" class="am-modal-prompt-input">
+        </div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+            <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+        </div>
+    </div>
+</div>
+
 
 <!-- modal alert -->
 <div class="am-modal am-modal-confirm" tabindex="-1" id="modal-alert">

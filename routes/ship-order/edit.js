@@ -60,7 +60,7 @@ router.post('/:orderId', function (req, res, next) {
                     item.save(null, {
                         success: function () {
                             req.flash('success', '编辑订单成功!');
-                            res.redirect('/ship-order');
+                            res.redirect('/ship-order?limit=300');
                         },
                         error: function (err) {
                             next(err);

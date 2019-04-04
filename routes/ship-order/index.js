@@ -195,6 +195,31 @@ router.post('/edit-remark/:id', function(req, res) {
     });
 });
 
+
+router.post('/edit-ship-order-number/:id', function(req, res) {
+    if (!req.currentUser) {
+        return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));
+    }
+    let shipOrderId = parseInt(req.params.id);
+    let value = req.body.value || '';
+    let query = new AV.Query(ShipOrder);
+    query.equalTo('shipOrderId',shipOrderId);
+    query.first().then(item => {
+        item.set('transferOrderNumber', value);
+        item.save(null, {
+            success: function () {
+                res.send({
+                    success:1
+                });
+            },
+            error: function (err) {
+
+            }
+        });
+    });
+});
+
+
 router.get('/express/:number/:type', (req, res) => {
     let number = req.params.number;
     let type = req.params.type || '';
