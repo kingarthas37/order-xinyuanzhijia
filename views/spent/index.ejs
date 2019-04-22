@@ -25,10 +25,10 @@
 
         <div class="earning-info">
             <strong><%= currentDate.getFullYear() %>年<%= currentDate.getMonth() + 1 %>月</strong> <span class="sp"></span>
-            Andrea: <span class="am-badge am-badge-success am-text-default" id="total-user1"></span> <span class="sp"></span>
-            Coco: <span class="am-badge am-badge-success am-text-default" id="total-user2"></span> <span class="sp"></span>
-            王璘: <span class="am-badge am-badge-success am-text-default" id="total-user3"></span> <span class="sp"></span>
-            采购总支出：<span class="am-badge am-badge-success am-text-default" id="total-spent"></span>
+            支出: <span class="am-badge am-text-default" id="total-user3"></span> <span class="sp"></span>
+            网店收入: <span class="am-badge am-text-default" id="total-user1"></span> <span class="sp"></span>
+            净利润：<span class="am-badge am-badge-success am-text-default" id="total-spent"></span> <span class="sp"></span>
+            其他收入: <span class="am-badge am-badge-default am-text-default" id="total-user2"></span>
         </div>
         
         <hr/>
@@ -46,9 +46,9 @@
             <thead>
             <tr>
                 <th>日期</th>
-                <th>Andrea</th>
-                <th>Coco</th>
-                <th>王璘</th>
+                <th>支出</th>
+                <th>网店收入</th>
+                <th>其他收入</th>
                 <th>编辑</th>
             </tr>
             </thead>
@@ -56,9 +56,9 @@
                 <% for (var i = 0;i < currentMonthDays; i ++) { %>
                     <tr <% if(currentDate.getDate() == i+1) { %>class="am-active"<% } %>>
                         <td><%= currentDate.getFullYear() %>-<%= currentDate.getMonth() + 1 %>-<%= i + 1 %></td>
+                        <td class="cell-user3 cell-spent"><% if (spent[i]) { %> <%= spent[i].get('spentUser3') %> <% } else { %>0<% } %></td>
                         <td class="cell-user1 cell-spent"><% if (spent[i]) { %> <%= spent[i].get('spentUser1') %> <% } else { %>0<% } %></td>
                         <td class="cell-user2 cell-spent"><% if (spent[i]) { %> <%= spent[i].get('spentUser2') %> <% } else { %>0<% } %></td>
-                        <td class="cell-user3 cell-spent"><% if (spent[i]) { %> <%= spent[i].get('spentUser3') %> <% } else { %>0<% } %></td>
                         <td><a href="/spent/edit?date=<%= currentDate.getFullYear() %>-<%= currentDate.getMonth() + 1 %>-<%= i+1 %>">编辑</a></td>
                     </tr>
                 <% } %>

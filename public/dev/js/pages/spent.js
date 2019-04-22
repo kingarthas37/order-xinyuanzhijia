@@ -26,7 +26,7 @@ module.exports = {
         $('#total-user1').text(totalUser1.toFixed(2));
         $('#total-user2').text(totalUser2.toFixed(2));
         $('#total-user3').text(totalUser3.toFixed(2));
-        $('#total-spent').text((totalUser1 + totalUser2 + totalUser3).toFixed(2));
+        $('#total-spent').text((totalUser1 + totalUser2 - totalUser3).toFixed(2));
     },
     editFun:function() {
 
