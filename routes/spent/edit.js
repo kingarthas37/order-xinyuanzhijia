@@ -28,6 +28,7 @@ router.get('/', function (req, res, next) {
     }
 
     var date = new Date(req.query.date + ' 00:00:00');
+    var lastday = req.query['lastday'] ? true : false;
     
     data = extend(data,{
         flash: {
@@ -47,6 +48,7 @@ router.get('/', function (req, res, next) {
             if(result) {
                 
                 data = extend(data,{
+                    lastday:lastday,
                     earning:result
                 });
                 return res.render('spent/edit',data);

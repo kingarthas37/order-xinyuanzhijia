@@ -59,7 +59,7 @@
                         <td class="cell-user3 cell-spent"><% if (spent[i]) { %> <%= spent[i].get('spentUser3') %> <% } else { %>0<% } %></td>
                         <td class="cell-user1 cell-spent"><% if (spent[i]) { %> <%= spent[i].get('spentUser1') %> <% } else { %>0<% } %></td>
                         <td class="cell-user2 cell-spent"><% if (spent[i]) { %> <%= spent[i].get('spentUser2') %> <% } else { %>0<% } %></td>
-                        <td><a href="/spent/edit?date=<%= currentDate.getFullYear() %>-<%= currentDate.getMonth() + 1 %>-<%= i+1 %>">编辑</a></td>
+                        <td><a href="/spent/edit?date=<%= currentDate.getFullYear() %>-<%= currentDate.getMonth() + 1 %>-<%= i+1 %><%if(i=== (currentMonthDays-1)) {%>&lastday=true<%}%>">编辑</a></td>
                     </tr>
                 <% } %>
             </tbody>

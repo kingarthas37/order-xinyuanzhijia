@@ -20,7 +20,6 @@
 
         <fieldset>
 
-
             <legend><strong>支出明细:</strong></legend>
             <div id="content-spent-user3" class="am-form-group">
                 <label>支出金额(RMB)：<i>*</i> </label>
@@ -31,12 +30,19 @@
 
             <div id="content-expenses-comment" class="am-form-group">
                 <label>支出说明：(每笔支出请换行,可用逗号隔开个比金额)</label>
-                <textarea id="spent-user3-comment" name="spent-user3-comment" rows="8" placeholder="输入支出说明"><%= earning.get('spentUser3Comment') %></textarea>
+                <textarea id="spent-user3-comment" name="spent-user3-comment" rows="8" placeholder="输入支出说明"><%if(lastday){%><%if (!earning.get('spentUser3Comment')){ %>工资 \0
+中国银行信用卡账单 \0
+农商银行信用卡账单 \0
+中通快递费 \0
+直通车 \0
+拍照 \0
+信用卡，花呗服务费 \0
+房租 \6800
+服务器 \1000
+其他 \500<%}else{%><%= earning.get('spentUser3Comment') %><%}%><%}%></textarea>
             </div>
 
             <hr/>
-
-
 
             <legend><strong>网店收入:</strong></legend>
             <div id="content-spent-user1" class="am-form-group">
@@ -48,7 +54,9 @@
 
             <div id="content-expenses-comment" class="am-form-group">
                 <label>收入说明：(每笔收入请换行,可用逗号隔开个比金额)</label>
-                <textarea id="spent-user1-comment" name="spent-user1-comment" rows="8" placeholder="输入收入说明"><%= earning.get('spentUser1Comment') %></textarea>
+                <textarea id="spent-user1-comment" name="spent-user1-comment" rows="8" placeholder="输入收入说明"><%if(lastday){%><%if (!earning.get('spentUser1Comment')){ %>主店收入 \0
+新店收入 \0
+微店收入 \0<%}else{%><%= earning.get('spentUser1Comment') %><%}%><%}%></textarea>
             </div>
 
             <hr/>
