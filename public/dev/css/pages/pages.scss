@@ -602,6 +602,14 @@
 
 /* order ship page */
 .order-ship-page {
+    .search-tracking {
+        &.no-tracking {
+            color: #ff0000;
+        }
+        &.has-tracking {
+            color: #5eb95e;
+        }
+    }
     .clipboard-order,.clipboard-tracking,.search-tracking{
         &.active {
             color: #5eb95e;

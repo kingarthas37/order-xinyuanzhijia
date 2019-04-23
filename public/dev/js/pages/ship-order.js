@@ -245,6 +245,36 @@ module.exports = {
         }
 
 
+        {
+            $('.search-all-tracking').click(function () {
+
+               $('.search-tracking').each(function (i, n) {
+                   let tr = $(n).parents('tr');
+                   if(tr.hasClass('hide')) {
+                      return false;
+                   }
+
+                  if($(n).attr('data-tracking')) {
+
+                      let id = $(n).attr('data-tracking');
+                      $.ajax({
+                          url:`/ship-order/express/${id}/ems`,
+                          type:'get',
+                          success:function(data) {
+
+                              if(!data.list) {
+                                  $(n).addClass('no-tracking');
+                                  return false;
+                              }
+                              $(n).addClass('has-tracking');
+                          }
+                      });
+
+                  }
+               });
+            });
+        }
+
     },
     addFun:function () {
         $('#transferOrderNumber')[0].focus();
