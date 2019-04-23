@@ -251,9 +251,8 @@ module.exports = {
                $('.search-tracking').each(function (i, n) {
                    let tr = $(n).parents('tr');
                    if(tr.hasClass('hide')) {
-                      return false;
+                      return;
                    }
-
                   if($(n).attr('data-tracking')) {
 
                       let id = $(n).attr('data-tracking');
