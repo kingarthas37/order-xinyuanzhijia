@@ -58,14 +58,14 @@
             <tbody>
             <% if(items) { %>
             <% for(var i=0; i < items.length; i++) {%>
-                <tr>
+                <tr <% if(items[i].get('isChildOrder') == 'true'){%>class="child"<%}%>>
                     <td class="t-c">
                         <input class="ckb-is-haiguan" data-id="<%= items[i].get('shipOrderId') %>" type="checkbox" <%= items[i].get('isHaiguan') ? 'checked' : ''%>>
                     </td>
                     <td class="t-c">
                         <input class="ckb-is-arrived" data-id="<%= items[i].get('shipOrderId') %>" type="checkbox" <%= items[i].get('isArrived') ? 'checked' : ''%>>
                     </td>
-                    <td class="t-c">
+                    <td>
                         <a class="ship-order-number" href="/ship-order/edit/<%=items[i].get('shipOrderId')%>"><%=items[i].get('transferOrderNumber')%></a>
                         <a href="javascript:;" title="复制单号" class="clipboard-order" data-clipboard-text="<%=items[i].get('transferOrderNumber')%>"><i class="am-icon am-icon-copy"></i></a>
                         <a href="javascript:;" class="edit-ship-order" data-id="<%=items[i].get('shipOrderId')%>"><i class="am-icon am-icon-edit"></i></a>
@@ -198,7 +198,7 @@
 <!-- modal loading-->
 <div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="modal-loading">
     <div class="am-modal-dialog">
-        <div class="am-modal-hd">正在查询...</div>
+        <div class="am-modal-hd">正在操作...</div>
         <div class="am-modal-bd">
             <span class="am-icon-spinner am-icon-spin"></span>
         </div>
@@ -220,6 +220,31 @@
 </div>
 <!-- modal tracking-->
 
+
+<!-- modal copy -->
+
+<div class="am-modal am-modal-confirm" tabindex="-1" id="modal-copy">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">复制转运订单号</div>
+        <div class="am-modal-bd">
+            <strong>复制数量：</strong><select class="select-order-copy-count">
+                <% for(var i=1;i<=9;i++){%>
+                <option value="<%=i%>">0<%=i%></option>
+                <%}%>
+                <% for(var i=10;i<=50;i++){%>
+                <option value="<%=i%>"><%=i%></option>
+                <%}%>
+            </select>
+            <span class="sp"></span>
+            <label>是否子订单：<input type="checkbox" class="ckb-order-child" checked="checked"></label>
+        </div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+            <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+        </div>
+    </div>
+</div>
+<!-- modal copy-->
 
 
 <% include ../partials/footer %>

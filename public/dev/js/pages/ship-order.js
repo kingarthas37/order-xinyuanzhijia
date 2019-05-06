@@ -3,20 +3,64 @@
 
 require('jquery-validate');
 require('jquery-form');
+var async = require('async');
 
 module.exports = {
     indexFun: function () {
 
-        $('.copy-ship-order').click(function () {
-            let id = $(this).data('id');
-            $.ajax({
-                url:'/ship-order/copy/' + id,
-                method:'post',
-                success:function(data) {
-                    location.reload();
-                }
+
+        //modal copy
+        {
+
+            let modal = $('#modal-copy');
+            let modalLoading = $('#modal-loading');
+            let count = $('.select-order-copy-count');
+            let isChildOrder = $('.ckb-order-child');
+            $('.copy-ship-order').click(function () {
+                let id = $(this).data('id');
+
+                modal.modal({
+                    relatedTarget: this,
+                    onConfirm: function(options) {
+
+                        let initCount = 0;
+                        let maxCount = parseInt(count.val());
+                        modalLoading.modal();
+
+                        copyCount();
+
+                        function copyCount() {
+                            if(initCount === maxCount) {
+                                modalLoading.modal('close');
+                                location.reload();
+                                return false;
+                            }
+                            initCount ++;
+                            let params = {
+                                countName:initCount < 10 ? ('0'+ initCount) : initCount,
+                                isChildOrder:isChildOrder.prop('checked')
+                            };
+
+                            $.ajax({
+                                url:'/ship-order/copy/' + id,
+                                data:params,
+                                method:'post',
+                                success:function(data) {
+                                    copyCount();
+                                }
+                            });
+
+                        }
+
+
+
+
+                    },
+                });
+
             });
-        });
+        }
+
 
         $('.remove-ship-order').click(function () {
             if(confirm('确认删除？')) {

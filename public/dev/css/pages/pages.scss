@@ -610,6 +610,13 @@
             color: #5eb95e;
         }
     }
+    table {
+      font-size: 15px;
+      tr.child {
+        background: #f7fcff;
+      }
+    }
+
     .clipboard-order,.clipboard-tracking,.search-tracking{
         &.active {
             color: #5eb95e;

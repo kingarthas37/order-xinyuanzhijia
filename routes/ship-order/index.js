@@ -116,12 +116,27 @@ router.post('/copy/:id/', function(req, res) {
     }
     let shipOrderId = parseInt(req.params.id);
     let shipOrder = new AV.Query(ShipOrder);
+    let countName = req.body['countName'];
+    let isChildOrder = req.body['isChildOrder'];
+
+    console.log(countName,isChildOrder);
     shipOrder.equalTo('shipOrderId', shipOrderId);
     shipOrder.first().then(item=>{
         if (item) {
             let newShipOrder = new ShipOrder();
-            newShipOrder.set('transferOrderNumber', item.get('transferOrderNumber') + '(复制)');
+
+            let nameTagCount = '';
+            let nameTagTitle = '';
+            if(isChildOrder === 'true') {
+                nameTagTitle = ' --';
+                nameTagCount = countName;
+            } else {
+                nameTagTitle = '[复制]';
+            }
+
+            newShipOrder.set('transferOrderNumber', nameTagTitle + item.get('transferOrderNumber') + nameTagCount);
             newShipOrder.set('remark', item.get('remark'));
+            newShipOrder.set('isChildOrder',isChildOrder);
             newShipOrder.save(null, {
                 success: function () {
                     req.flash('success', '复制订单成功!');
