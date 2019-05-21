@@ -33,18 +33,12 @@
             </div>
             <!-- card no end -->
 
-
+            <!-- name  start -->
             <div class="am-form-group">
-                <label>数量：</label>
-                <input id="count" name="count" value="<%=item.get('count')%>" type="text" placeholder="输入数量" autocomplete="off" />
+                <label>收货人姓名：</label>
+                <input id="name" name="name" type="text" value="<%=item.get('name')%>" placeholder="输入收货人姓名" autocomplete="off" />
             </div>
-
-            <div class="am-form-group">
-                <label>实到数量：</label>
-                <input id="realCount" name="realCount" value="<%=item.get('realCount')%>" type="text" placeholder="输入实到数量" autocomplete="off" />
-            </div>
-
-
+            <!-- name end -->
 
             <!-- card address start -->
             <div class="am-form-group">
@@ -53,6 +47,14 @@
             </div>
             <!-- card address end -->
 
+
+            <!-- isParentOrder  start -->
+            <div class="am-form-group">
+                <label>是否父订单：
+                    <input type="checkbox" name="is-parent-order" <%if(item.get('isParentOrder')){%>checked="checked"<%}%> >
+                </label>
+            </div>
+            <!-- isParentOrder end -->
 
             <hr/>
 

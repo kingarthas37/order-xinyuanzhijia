@@ -44,8 +44,10 @@ router.post('/:orderId', function (req, res, next) {
     let transferOrderNumber = req.body['transferOrderNumber'];
     let trackingNumber = req.body['trackingNumber'] || '';
     let remark = req.body['remark'] || '';
+    let name = req.body['name'];
     let count = parseInt(req.body['count']) || 0;
     let realCount = parseInt(req.body['realCount']) || 0;
+    let isParentOrder = req.body['is-parent-order'] === 'on' ? true : false;
     async.waterfall([
         function() {
             let shipOrder = new AV.Query(ShipOrder);
@@ -55,12 +57,14 @@ router.post('/:orderId', function (req, res, next) {
                     item.set('transferOrderNumber', transferOrderNumber);
                     item.set('trackingNumber', trackingNumber);
                     item.set('remark', remark);
+                    item.set('isParentOrder',isParentOrder);
+                    item.set('name',name);
                     item.set('count', count);
                     item.set('realCount', realCount);
                     item.save(null, {
                         success: function () {
                             req.flash('success', '编辑订单成功!');
-                            res.redirect('/ship-order?limit=300');
+                            res.redirect('/ship-order?limit=500');
                         },
                         error: function (err) {
                             next(err);

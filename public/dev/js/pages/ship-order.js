@@ -350,9 +350,7 @@ module.exports = {
                  //收起
                  else {
                     $(this).find('i').removeClass('am-icon-minus-square-o').addClass('am-icon-plus-square-o');
-
-                   table.find('.child.on').removeClass('on');
-
+                    table.find(`tr[parent-data-id=${dataId}]`).removeClass('on');
                 }
 
             });

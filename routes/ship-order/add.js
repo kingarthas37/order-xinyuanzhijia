@@ -51,15 +51,19 @@ router.post('/', function (req, res, next) {
     let shipOrder = new ShipOrder();
     let count = req.body['count'] || 0;
     let realCount = req.body['realCount'] || 0;
+    let name = req.body['name'];
+    let isParentOrder = req.body['is-parent-order'] === 'on' ? true : false;
     shipOrder.set('transferOrderNumber', transferOrderNumber);
     shipOrder.set('trackingNumber', trackingNumber);
+    shipOrder.set('isParentOrder',isParentOrder);
     shipOrder.set('remark', remark);
     shipOrder.set('count', count);
+    shipOrder.set('name',name);
     shipOrder.set('realCount', realCount);
     shipOrder.save(null, {
         success: function () {
             req.flash('success', '添加订单成功!');
-            res.redirect('/ship-order?limit=300');
+            res.redirect('/ship-order?limit=500');
         },
         error: function (err) {
             req.flash('error', '添加订单失败!');
