@@ -118,6 +118,7 @@ router.post('/copy/:id/', function(req, res) {
     let shipOrder = new AV.Query(ShipOrder);
     let countName = req.body['countName'];
     let isChildOrder = req.body['isChildOrder'];
+    let parentDataId = req.body['parentDataId'];
 
     console.log(countName,isChildOrder);
     shipOrder.equalTo('shipOrderId', shipOrderId);
@@ -128,12 +129,13 @@ router.post('/copy/:id/', function(req, res) {
             let nameTagCount = '';
             let nameTagTitle = '';
             if(isChildOrder === 'true') {
-                nameTagTitle = ' --';
+                nameTagTitle = '';
                 nameTagCount = countName;
             } else {
                 nameTagTitle = '[复制]';
             }
 
+            newShipOrder.set('parentDataId',parentDataId);
             newShipOrder.set('transferOrderNumber', nameTagTitle + item.get('transferOrderNumber') + nameTagCount);
             newShipOrder.set('remark', item.get('remark'));
             newShipOrder.set('isChildOrder',isChildOrder);

@@ -58,14 +58,16 @@
             <tbody>
             <% if(items) { %>
             <% for(var i=0; i < items.length; i++) {%>
-                <tr <% if(items[i].get('isChildOrder') == 'true'){%>class="child"<%}%>>
+                <tr <% if(items[i].get('isChildOrder') == 'true'){%>class="child"<%}%> data-id="<%=items[i].get('transferOrderNumber')%>" parent-data-id="<%=items[i].get('parentDataId')%>">
                     <td class="t-c">
                         <input class="ckb-is-haiguan" data-id="<%= items[i].get('shipOrderId') %>" type="checkbox" <%= items[i].get('isHaiguan') ? 'checked' : ''%>>
                     </td>
                     <td class="t-c">
-                        <input class="ckb-is-arrived" data-id="<%= items[i].get('shipOrderId') %>" type="checkbox" <%= items[i].get('isArrived') ? 'checked' : ''%>>
+                        <input class="ckb-is-arrived" data-id="<%= items[i].get('shipOrderId') %>"  type="checkbox" <%= items[i].get('isArrived') ? 'checked' : ''%>>
                     </td>
-                    <td>
+                    <td class="ship-order-name">
+                        <% if(!items[i].get('isChildOrder')){%><a class="open-child-order" href="javascript:;"><i class="am-icon-plus-square-o"></i></a> <%}%>
+
                         <a class="ship-order-number" href="/ship-order/edit/<%=items[i].get('shipOrderId')%>"><%=items[i].get('transferOrderNumber')%></a>
                         <a href="javascript:;" title="复制单号" class="clipboard-order" data-clipboard-text="<%=items[i].get('transferOrderNumber')%>"><i class="am-icon am-icon-copy"></i></a>
                         <a href="javascript:;" class="edit-ship-order" data-id="<%=items[i].get('shipOrderId')%>"><i class="am-icon am-icon-edit"></i></a>

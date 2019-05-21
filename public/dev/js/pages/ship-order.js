@@ -16,8 +16,11 @@ module.exports = {
             let modalLoading = $('#modal-loading');
             let count = $('.select-order-copy-count');
             let isChildOrder = $('.ckb-order-child');
+
+
             $('.copy-ship-order').click(function () {
                 let id = $(this).data('id');
+                let parentDataId = $(this).parents('tr').attr('data-id');
 
                 modal.modal({
                     relatedTarget: this,
@@ -38,7 +41,8 @@ module.exports = {
                             initCount ++;
                             let params = {
                                 countName:initCount < 10 ? ('0'+ initCount) : initCount,
-                                isChildOrder:isChildOrder.prop('checked')
+                                isChildOrder:isChildOrder.prop('checked'),
+                                parentDataId:parentDataId
                             };
 
                             $.ajax({
@@ -316,6 +320,43 @@ module.exports = {
                   }
                });
             });
+        }
+
+
+        //展开
+        {
+
+            $('.open-child-order').click(function () {
+
+                let tr = $(this).parents('tr');
+                let dataId = tr.data('id');
+                let table = $('.am-table');
+
+                //展开
+                if($(this).find('i').hasClass('am-icon-plus-square-o')) {
+                    $(this).find('i').removeClass('am-icon-plus-square-o').addClass('am-icon-minus-square-o');
+
+                    if(tr.data('is-expand')) {
+                        table.find(`tr[parent-data-id=${dataId}]`).addClass('on');
+                    } else {
+                        table.find(`tr[parent-data-id=${dataId}]`).each(function (i, n) {
+                            $(this).addClass('on');
+                            tr.after(n);
+                        });
+                        tr.data('is-expand',true);
+                    }
+
+                 }
+                 //收起
+                 else {
+                    $(this).find('i').removeClass('am-icon-minus-square-o').addClass('am-icon-plus-square-o');
+
+                   table.find('.child.on').removeClass('on');
+
+                }
+
+            });
+
         }
 
     },

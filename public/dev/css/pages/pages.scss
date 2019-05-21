@@ -613,7 +613,15 @@
     table {
       font-size: 15px;
       tr.child {
+          font-size: 13px;
         background: #f7fcff;
+          display: none;
+          &.on {
+              display: table-row;
+          }
+          .ship-order-name {
+              padding-left: 25px;
+          }
       }
     }
 
