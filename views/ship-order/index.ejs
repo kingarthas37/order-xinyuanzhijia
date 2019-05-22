@@ -90,6 +90,11 @@
                             <a href="javascript:;" class="edit-tracking" data-id="<%=items[i].get('shipOrderId')%>"><i class="am-icon am-icon-edit"></i></a>
                         <%}%>
 
+                        <% if(items[i].get('isParentOrder')){%>
+                        <%}else{%>
+                        <a href="javascript:;" class="check-yuntao-code"><i class="am-icon-code"></i></a>
+                        <%}%>
+
                     </td>
 
                     <td class="t-c">

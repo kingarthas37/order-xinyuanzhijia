@@ -406,8 +406,8 @@ module.exports = {
                         arr.push($.trim($('.text-left').eq(0).text()));
                         arr.push(location.href);
                         arr.push($.trim($('.col-sm-9.text-left').eq(7).text()));
-                        arr.push(/单号为(.+)/.exec($('.table').eq(3).find('tr:last').text())[1]);
-                        arr.join()
+                        arr.push(/单号为([a-zA-Z0-9]+)/.exec($('.table').eq(3).find('tr:last').text())[1]);
+                        arr.join();
                     `;
                 }
             });
@@ -427,6 +427,7 @@ module.exports = {
 
             $('.check-yuntao-code').click(function () {
                 modal.modal();
+                input.val('');
                 setTimeout(function () {
                     input[0].focus();
                 },1);
@@ -487,12 +488,14 @@ module.exports = {
                             <a href="javascript:;" title="查询快递" class="search-tracking" data-tracking="${arr[4]}">${arr[4]}</a>
                             <a href="javascript:;" title="复制快递单号" class="clipboard-tracking" data-clipboard-text="${arr[4]}"><i class="am-icon am-icon-copy"></i></a>
                             <a href="javascript:;" class="edit-tracking" data-id="${arr[0]}"><i class="am-icon am-icon-edit"></i></a>
+                            <a href="javascript:;" class="check-yuntao-code"><i class="am-icon-code"></i></a>
                         `);
                         if(!tr.find('.ckb-is-haiguan').prop('checked')) {
                             tr.find('.ckb-is-haiguan').click();
                         }
                         if(data.success) {
                             alert('执行成功!');
+                            modal.modal('close');
                         } else {
                             alert('执行失败!');
                         }
