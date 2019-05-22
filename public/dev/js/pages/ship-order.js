@@ -292,6 +292,43 @@ module.exports = {
             });
         }
 
+        //一键查询子快递
+        {
+            let table = $('.am-table');
+            $('.search-child-tracking').click(function() {
+
+                let tr = $(this).parents('tr');
+                let parentId = tr.attr('data-id');
+
+                if(tr.find('.open-child-order i').hasClass('am-icon-plus-square-o')) {
+                    tr.find('.open-child-order').click();
+                }
+
+                table.find(`tr[parent-data-id=${parentId}]`).each(function(i,n){
+                    if($(n).find('.search-tracking').text().length) {
+                        let trackingNumber = $(n).find('.search-tracking').text();
+                        let td = $(n).find('.show-name');
+                        $.ajax({
+                            url:`/ship-order/express/${trackingNumber}/ems`,
+                            type:'get',
+                            success:function(data) {
+                                if(!data.list) {
+                                    td.popover({
+                                        content:'无查询信息'
+                                    });
+                                    td.click();
+                                } else {
+                                    td.popover({
+                                        content:`<p><strong>${data.list[0].time}</strong> ${data.list[0].status}</p>`
+                                    });
+                                    td.click();
+                                }
+                            }
+                        })
+                    }
+                });
+            });
+        }
 
         {
             $('.search-all-tracking').click(function () {
@@ -352,6 +389,115 @@ module.exports = {
                     $(this).find('i').removeClass('am-icon-minus-square-o').addClass('am-icon-plus-square-o');
                     table.find(`tr[parent-data-id=${dataId}]`).removeClass('on');
                 }
+
+            });
+
+        }
+
+        //复制运淘代码
+        {
+
+            let btn = $('.copy-yuntao-code');
+            let clipboard = new Clipboard( btn[0], {
+                text: function() {
+                    //订单号，运淘链接，
+                    return `
+                        var arr = [];
+                        arr.push($.trim($('.text-left').eq(0).text()));
+                        arr.push(location.href);
+                        arr.push($.trim($('.col-sm-9.text-left').eq(7).text()));
+                        arr.push(/单号为(.+)/.exec($('.table').eq(3).find('tr:last').text())[1]);
+                        arr.join()
+                    `;
+                }
+            });
+            clipboard.on('success',() => {
+                btn.addClass('active' );
+            });
+
+        }
+
+        //校验运淘代码
+        {
+            let table = $('.am-table');
+            let modal = $('#modal-check-yuntao-code');
+            let input = $('.input-check-yuntao-code');
+            let btnCheck = $('.btn-check-yuntao-code');
+            let btnGo = $('.btn-go-yuntao-code');
+
+            $('.check-yuntao-code').click(function () {
+                modal.modal();
+                setTimeout(function () {
+                    input[0].focus();
+                },1);
+            });
+
+            input.change(function () {
+                let value = $.trim(input.val());
+                input.val( value.replace('"','').replace('"',''));
+            });
+
+            btnCheck.click(function() {
+
+                let arr = input[0].value.split(',');
+                let yuntaoId = arr[0];
+                let shipOrderNumber = $('.ship-order-number');
+                shipOrderNumber.each(function (i, n) {
+
+                    if(i=== shipOrderNumber.length -1 ) {
+                        alert('匹配失败，无运淘订单记录!');
+                        return false;
+                    }
+
+                    if($(this).text() == yuntaoId) {
+                        let tr = $(this).parents('tr');
+                        let parentId = tr.attr('parent-data-id');
+                        tr.addClass('bold');
+
+                        let inputValue = input.val();
+                        input.val(tr.attr('data-ship-order-id') + ',' + inputValue);
+
+                        table.find(`tr[data-id=${parentId}]`).find('.open-child-order').find('.am-icon-plus-square-o').parent().click();
+                        $('html,body').animate({'scrollTop':tr.offset().top - 50});
+                        return false;
+                    }
+
+                });
+
+            });
+
+            btnGo.click(function () {
+
+                let arr = input.val().split(',');
+                let tr = table.find(`tr[data-ship-order-id=${arr[0]}]`);
+                $.ajax({
+                    url:`/ship-order/go-yuntao-code`,
+                    type:'post',
+                    data:{
+                        shipOrderId:arr[0],
+                        link:arr[2],
+                        name:arr[3],
+                        trackingNumber:arr[4]
+                    },
+                    success(data) {
+                        tr.removeClass('bold');
+                        tr.find('.td-name').html(`<span clas="show-name">${arr[3]}</span>`);
+                        tr.find('.td-link').html(`<a href="${arr[2]}" target="_blank">链接</a>`);
+                        tr.find('.td-tracking-number').html(`
+                            <a href="javascript:;" title="查询快递" class="search-tracking" data-tracking="${arr[4]}">${arr[4]}</a>
+                            <a href="javascript:;" title="复制快递单号" class="clipboard-tracking" data-clipboard-text="${arr[4]}"><i class="am-icon am-icon-copy"></i></a>
+                            <a href="javascript:;" class="edit-tracking" data-id="${arr[0]}"><i class="am-icon am-icon-edit"></i></a>
+                        `);
+                        if(!tr.find('.ckb-is-haiguan').prop('checked')) {
+                            tr.find('.ckb-is-haiguan').click();
+                        }
+                        if(data.success) {
+                            alert('执行成功!');
+                        } else {
+                            alert('执行失败!');
+                        }
+                    }
+                });
 
             });
 

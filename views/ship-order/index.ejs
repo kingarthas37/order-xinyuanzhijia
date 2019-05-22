@@ -39,6 +39,8 @@
         <div class="am-form-group">
             <a href="/ship-order/add" class="am-btn am-btn-primary" role="button">添加转运订单</a>
             <a href="javascript:;" class="search-all-tracking am-btn am-btn-primary" role="button">一件查询物流信息</a>
+            <a href="javascript:;" class="copy-yuntao-code am-btn am-btn-primary" role="button">复制运淘代码</a>
+            <a href="javascript:;" class="check-yuntao-code am-btn am-btn-primary" role="button">匹配运淘代码</a>
         </div>
 
         <table class="am-table">
@@ -50,6 +52,7 @@
                 <th class="t-c">国内快递单号</th>
                 <th class="t-c">备注</th>
                 <th class="t-c">收货人</th>
+                <th class="t-c">链接</th>
                 <th class="t-c">创建日期</th>
                 <th class="t-c">更新日期</th>
                 <th class="t-c">复制</th>
@@ -59,7 +62,7 @@
             <tbody>
             <% if(items) { %>
             <% for(var i=0; i < items.length; i++) {%>
-                <tr <% if(items[i].get('isChildOrder') == 'true'){%>class="child"<%}%> data-id="<%=items[i].get('transferOrderNumber')%>" parent-data-id="<%=items[i].get('parentDataId')%>">
+                <tr <% if(items[i].get('isChildOrder') == 'true'){%>class="child"<%}%> data-id="<%=items[i].get('transferOrderNumber')%>" parent-data-id="<%=items[i].get('parentDataId')%>" data-ship-order-id="<%=items[i].get('shipOrderId')%>">
                     <td class="t-c">
                         <input class="ckb-is-haiguan" data-id="<%= items[i].get('shipOrderId') %>" type="checkbox" <%= items[i].get('isHaiguan') ? 'checked' : ''%>>
                     </td>
@@ -73,19 +76,22 @@
                         <a href="javascript:;" title="复制单号" class="clipboard-order" data-clipboard-text="<%=items[i].get('transferOrderNumber')%>"><i class="am-icon am-icon-copy"></i></a>
                         <a href="javascript:;" class="edit-ship-order" data-id="<%=items[i].get('shipOrderId')%>"><i class="am-icon am-icon-edit"></i></a>
                     </td>
-                    <td class="t-c">
+                    <td class="td-tracking-number t-c">
                         <% if(items[i].get('trackingNumber')) {%>
                             <a href="javascript:;" title="查询快递" class="search-tracking" data-tracking="<%=items[i].get('trackingNumber')%>"><%=items[i].get('trackingNumber')%></a>
                         <a href="javascript:;" title="复制快递单号" class="clipboard-tracking" data-clipboard-text="<%=items[i].get('trackingNumber')%>"><i class="am-icon am-icon-copy"></i></a>
                         <%}else{%>
                             <a href="javascript:;" title="查询快递" class="search-tracking" data-tracking=""></a>
                         <%}%>
-                        <a href="javascript:;" class="edit-tracking" data-id="<%=items[i].get('shipOrderId')%>"><i class="am-icon am-icon-edit"></i></a>
+
+                        <% if(items[i].get('isParentOrder')){%>
+                            <a href="javascript:;" class="search-child-tracking">查询子单号</a>
+                        <%}else{%>
+                            <a href="javascript:;" class="edit-tracking" data-id="<%=items[i].get('shipOrderId')%>"><i class="am-icon am-icon-edit"></i></a>
+                        <%}%>
+
                     </td>
-                    <!--
-                    <td class="t-c"><%=items[i].get('count')%></td>
-                    <td class="t-c"><%=items[i].get('realCount')%></td>
-                    -->
+
                     <td class="t-c">
                         <span class="remark" data-remark="<% if(items[i].get('remark')) {%><%=items[i].get('remark')%><%}%>">
                         <% if(items[i].get('remark')) {%>
@@ -94,8 +100,11 @@
                         </span>
                         <a href="javascript:;" class="edit-remark" data-id="<%=items[i].get('shipOrderId')%>"><i class="am-icon am-icon-edit"></i></a>
                     </td>
-                    <td class="t-c">
-                        <%=items[i].get('name')%>
+                    <td class="td-name t-c">
+                        <span class="show-name"><%=items[i].get('name')%></span>
+                    </td>
+                    <td class="td-link t-c">
+                        <a href="<%=items[i].get('link')%>" target="_blank">链接</a>
                     </td>
                     <td class="t-c"><%=items[i].createdAt%></td>
                     <td class="t-c"><%=items[i].updatedAt%></td>
@@ -225,6 +234,22 @@
     </div>
 </div>
 <!-- modal tracking-->
+
+<!-- modal check-yuntao-code -->
+<div class="am-modal am-modal-confirm" tabindex="-1" id="modal-check-yuntao-code">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">匹配运淘代码：</div>
+        <div class="am-modal-bd">
+            <textarea class="input-check-yuntao-code" rows="3"></textarea>
+            <a href="javascript:;" class="btn-check-yuntao-code am-btn am-btn-primary" role="button">匹配运淘代码</a>
+            <a href="javascript:;" class="btn-go-yuntao-code am-btn am-btn-primary" role="button">执行匹配</a>
+        </div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn" data-am-modal-cancel>关闭</span>
+        </div>
+    </div>
+</div>
+<!-- modal check-yuntao-code -->
 
 
 <!-- modal copy -->

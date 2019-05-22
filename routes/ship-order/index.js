@@ -86,6 +86,31 @@ router.get('/', function (req, res, next) {
     });
 });
 
+router.post('/go-yuntao-code',function (req,res) {
+    if (!req.currentUser) {
+        return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));
+    }
+
+    let shipOrderId = parseInt(req.body['shipOrderId']);
+    let link = req.body['link'];
+    let name = req.body['name'];
+    let trackingNumber = req.body['trackingNumber'];
+
+    let shipOrder = new AV.Query(ShipOrder);
+    shipOrder.equalTo('shipOrderId', shipOrderId);
+    shipOrder.first().then(item=>{
+        if (item) {
+            item.set('link', link);
+            item.set('name', name);
+            item.set('trackingNumber', trackingNumber);
+            item.save().then(()=> {
+                res.send({success:1});
+            });
+        }
+    });
+
+});
+
 router.post('/updateOrderStatus/:id/:type/:value', function(req, res) {
     if (!req.currentUser) {
         return res.redirect('/?return=' + encodeURIComponent(req.originalUrl));

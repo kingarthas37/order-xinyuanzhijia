@@ -602,6 +602,20 @@
 
 /* order ship page */
 .order-ship-page {
+
+    .am-popover {
+        font-size: 12px;
+        margin-top:10px;
+        opacity: 0.8;
+        padding: 2px;
+        .am-popover-inner {
+            padding: 0;
+        }
+        p {
+            margin:0;
+        }
+    }
+
     .search-tracking {
         &.no-tracking {
             color: #ff0000;
@@ -613,7 +627,6 @@
     table {
       font-size: 15px;
       tr.child {
-          font-size: 13px;
           background: #f7fcff;
          display: none;
           &.on {
@@ -621,6 +634,9 @@
           }
           .ship-order-name {
               padding-left: 25px;
+          }
+          &.bold {
+              font-weight: bold;
           }
       }
     }
@@ -641,5 +657,9 @@
                 margin:0 0 2px 0;
             }
         }
+    }
+    .input-check-yuntao-code {
+        width: 98%;
+        margin:10px 0;
     }
 }
