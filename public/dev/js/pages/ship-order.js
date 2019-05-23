@@ -305,6 +305,12 @@ module.exports = {
                 }
 
                 table.find(`tr[parent-data-id=${parentId}]`).each(function(i,n){
+
+                    if($(n).find('.show-name.on').length) {
+                        $(this).find('.show-name').click().removeClass('on');
+                        return;
+                    }
+
                     if($(n).find('.search-tracking').text().length) {
                         let trackingNumber = $(n).find('.search-tracking').text();
                         let td = $(n).find('.show-name');
