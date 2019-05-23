@@ -62,7 +62,10 @@
             <tbody>
             <% if(items) { %>
             <% for(var i=0; i < items.length; i++) {%>
-                <tr <% if(items[i].get('isChildOrder') == 'true'){%>class="child"<%}%> data-id="<%=items[i].get('transferOrderNumber')%>" parent-data-id="<%=items[i].get('parentDataId')%>" data-ship-order-id="<%=items[i].get('shipOrderId')%>">
+                <tr class="<% if(items[i].get('isChildOrder') == 'true'){%>child<%}%> <%if(items[i].get('isHaiguan')) {%>is-qingguan<%}%>" data-id="<%=items[i].get('transferOrderNumber')%>" parent-data-id="<%=items[i].get('parentDataId')%>" data-ship-order-id="<%=items[i].get('shipOrderId')%>"
+
+
+                >
                     <td class="t-c">
                         <input class="ckb-is-haiguan" data-id="<%= items[i].get('shipOrderId') %>" type="checkbox" <%= items[i].get('isHaiguan') ? 'checked' : ''%>>
                     </td>
