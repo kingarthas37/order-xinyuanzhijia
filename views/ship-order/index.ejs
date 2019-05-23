@@ -36,7 +36,7 @@
 
         <hr/>
 
-        <div class="am-form-group">
+        <div class="am-form-group tab-btn">
             <a href="/ship-order/add" class="am-btn am-btn-primary" role="button">添加转运订单</a>
             <a href="javascript:;" class="search-all-tracking am-btn am-btn-primary" role="button">一件查询物流信息</a>
             <a href="javascript:;" class="copy-yuntao-code am-btn am-btn-primary" role="button">复制运淘代码</a>
@@ -70,7 +70,6 @@
                         <input class="ckb-is-arrived" data-id="<%= items[i].get('shipOrderId') %>"  type="checkbox" <%= items[i].get('isArrived') ? 'checked' : ''%>>
                     </td>
                     <td class="ship-order-name">
-                        <% if(items[i].get('isParentOrder')){%><a class="open-child-order" href="javascript:;"><i class="am-icon-plus-square-o"></i></a> <%}%>
 
                         <a class="ship-order-number" href="/ship-order/edit/<%=items[i].get('shipOrderId')%>"><%=items[i].get('transferOrderNumber')%></a>
                         <a href="javascript:;" title="复制单号" class="clipboard-order" data-clipboard-text="<%=items[i].get('transferOrderNumber')%>"><i class="am-icon am-icon-copy"></i></a>
@@ -85,14 +84,10 @@
                         <%}%>
 
                         <% if(items[i].get('isParentOrder')){%>
+                            <a class="open-child-order" href="javascript:;"><i class="am-icon-plus-square-o"></i></a>
                             <a href="javascript:;" class="search-child-tracking">查询子单号</a>
                         <%}else{%>
                             <a href="javascript:;" class="edit-tracking" data-id="<%=items[i].get('shipOrderId')%>"><i class="am-icon am-icon-edit"></i></a>
-                        <%}%>
-
-                        <% if(items[i].get('isParentOrder')){%>
-                        <%}else{%>
-                        <a href="javascript:;" class="check-yuntao-code"><i class="am-icon-code"></i></a>
                         <%}%>
 
                     </td>

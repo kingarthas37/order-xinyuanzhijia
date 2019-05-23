@@ -316,13 +316,12 @@ module.exports = {
                                     td.popover({
                                         content:'无查询信息'
                                     });
-                                    td.click();
                                 } else {
                                     td.popover({
                                         content:`<p><strong>${data.list[0].time}</strong> ${data.list[0].status}</p>`
                                     });
-                                    td.click();
                                 }
+                                td.addClass('on').click();
                             }
                         })
                     }
@@ -388,6 +387,7 @@ module.exports = {
                  else {
                     $(this).find('i').removeClass('am-icon-minus-square-o').addClass('am-icon-plus-square-o');
                     table.find(`tr[parent-data-id=${dataId}]`).removeClass('on');
+                    table.find(`tr[parent-data-id=${dataId}]`).find('.show-name.on').click();
                 }
 
             });
