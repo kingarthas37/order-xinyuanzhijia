@@ -934,6 +934,13 @@ module.exports = {
             }
 
             //过滤用户、发货信息
+
+            //先过滤掉用户名
+            if(/￥\d+\.\d+\n\n\d+\n\n(.+)/.test(text)) {
+                let username = /￥\d+\.\d+\n\n\d+\n\n(.+)/.exec(text)[1];
+                text = text.replace(username,'');
+            }
+
             text = text.replace(/\n/gi,'');
             text = text.replace(/发货[^、)]+\)/,'');
 

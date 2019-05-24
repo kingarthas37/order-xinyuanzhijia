@@ -8,7 +8,6 @@ var async = require('async');
 module.exports = {
     indexFun: function () {
 
-
         //modal copy
         {
 
@@ -150,6 +149,8 @@ module.exports = {
                 $(this).addClass('active');
             });
         });
+
+
 
         $('.clipboard-tracking').each(function (i,n) {
             let clipboard = new Clipboard(this);
@@ -492,9 +493,7 @@ module.exports = {
                         tr.find('.td-link').html(`<a href="${arr[2]}" target="_blank">链接</a>`);
                         tr.find('.td-tracking-number').html(`
                             <a href="javascript:;" title="查询快递" class="search-tracking" data-tracking="${arr[4]}">${arr[4]}</a>
-                            <a href="javascript:;" title="复制快递单号" class="clipboard-tracking" data-clipboard-text="${arr[4]}"><i class="am-icon am-icon-copy"></i></a>
-                            <a href="javascript:;" class="edit-tracking" data-id="${arr[0]}"><i class="am-icon am-icon-edit"></i></a>
-                            <a href="javascript:;" class="check-yuntao-code"><i class="am-icon-code"></i></a>
+                         
                         `);
                         if(!tr.find('.ckb-is-haiguan').prop('checked')) {
                             tr.find('.ckb-is-haiguan').click();

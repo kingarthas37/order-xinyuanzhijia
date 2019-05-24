@@ -107,7 +107,7 @@
                         <span class="show-name"><%=items[i].get('name')%></span>
                     </td>
                     <td class="td-link t-c">
-                        <a href="<%=items[i].get('link')%>" target="_blank">链接</a>
+                        <% if(items[i].get('link')){%><a href="<%=items[i].get('link')%>" target="_blank">链接</a><%}%>
                     </td>
                     <td class="t-c"><%=items[i].createdAt%></td>
                     <td class="t-c"><%=items[i].updatedAt%></td>
