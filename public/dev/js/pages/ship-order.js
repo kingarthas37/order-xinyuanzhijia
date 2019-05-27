@@ -301,7 +301,8 @@ module.exports = {
                 let tr = $(this).parents('tr');
                 let parentId = tr.attr('data-id');
 
-                if(tr.find('.open-child-order i').hasClass('am-icon-plus-square-o')) {
+
+                if(tr.find('.open-child-order i').hasClass('am-icon-plus-square-o') && !tr.find('.ckb-is-arrived').prop('checked')) {
                     tr.find('.open-child-order').click();
                 }
 
@@ -312,7 +313,12 @@ module.exports = {
                         return;
                     }
 
+                    if($(n).find('.ckb-is-arrived').prop('checked')) {
+                        return;
+                    }
+
                     if($(n).find('.search-tracking').text().length) {
+
                         let trackingNumber = $(n).find('.search-tracking').text();
                         let td = $(n).find('.show-name');
                         $.ajax({
