@@ -268,8 +268,11 @@ module.exports = {
                 let id = $(this).text();
                 $(this).addClass('active');
                 modalLoading.modal();
+
+                let shipCode = getShipCode(id);
+
                 $.ajax({
-                    url:`/ship-order/express/${id}/ems`,
+                    url:`/ship-order/express/${id}/${shipCode}`,
                     type:'get',
                     success:function(data) {
 
@@ -321,8 +324,9 @@ module.exports = {
 
                         let trackingNumber = $(n).find('.search-tracking').text();
                         let td = $(n).find('.show-name');
+                        let shipCode = getShipCode(trackingNumber);
                         $.ajax({
-                            url:`/ship-order/express/${trackingNumber}/ems`,
+                            url:`/ship-order/express/${trackingNumber}/${shipCode}`,
                             type:'get',
                             success:function(data) {
                                 if(!data.list) {
@@ -353,8 +357,9 @@ module.exports = {
                   if($(n).attr('data-tracking')) {
 
                       let id = $(n).attr('data-tracking');
+                      let shipCode = getShipCode(id);
                       $.ajax({
-                          url:`/ship-order/express/${id}/ems`,
+                          url:`/ship-order/express/${id}/${shipCode}`,
                           type:'get',
                           success:function(data) {
 
@@ -515,6 +520,13 @@ module.exports = {
 
             });
 
+        }
+
+        function getShipCode(code) {
+            if(code.indexOf('YT') > -1) {
+                return 'YTO';
+            }
+            return 'ems';
         }
 
     },
