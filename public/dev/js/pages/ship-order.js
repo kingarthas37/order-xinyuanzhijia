@@ -525,8 +525,12 @@ module.exports = {
         function getShipCode(code) {
             if(code.indexOf('YT') > -1) {
                 return 'YTO';
-            } else if (code.indexOf('8235') > -1){
+            }
+            else if (code.indexOf('8235') > -1){
                 return 'YTO';
+            }
+            else if (code.indexOf('2216') > -1){
+                return 'STO';
             }
             return 'ems';
         }
