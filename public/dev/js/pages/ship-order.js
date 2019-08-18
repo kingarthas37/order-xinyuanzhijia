@@ -523,13 +523,10 @@ module.exports = {
         }
 
         function getShipCode(code) {
-            if(code.indexOf('YT') > -1) {
+            if(/^8235/.test(code) || /^YT/.test(code)) {
                 return 'YTO';
             }
-            else if (code.indexOf('8235') > -1){
-                return 'YTO';
-            }
-            else if (code.indexOf('2216') > -1){
+            else if (/^221/.test(code)){
                 return 'STO';
             }
             return 'ems';
