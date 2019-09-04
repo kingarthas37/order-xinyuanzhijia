@@ -79,12 +79,20 @@ module.exports = {
         });
 
         $('.ckb-is-haiguan').click(function () {
+            let tr = $(this).parents('tr');
             let id = $(this).data('id');
             let type = 'isHaiguan';
             let value = this.checked ? 'true' : 'false';
             $.ajax({
                 url:`/ship-order/updateOrderStatus/${id}/${type}/${value}`,
                 method:'post'
+            }).done(function () {
+                if(value === 'true' && tr.hasClass('child')) {
+                    let parentTr = $('.am-table').find(`tr[data-id=${tr.attr('parent-data-id')}]`);
+                    if(!parentTr.find('.ckb-is-haiguan').prop('checked')) {
+                        parentTr.find('.ckb-is-haiguan').click();
+                    }
+                }
             });
         });
 
@@ -525,6 +533,9 @@ module.exports = {
         function getShipCode(code) {
             if(/^8235/.test(code) || /^YT/.test(code)) {
                 return 'YTO';
+            }
+            else if (/^5600/.test(code)){
+                return 'HTKY';
             }
             else if (/^221/.test(code)){
                 return 'STO';
