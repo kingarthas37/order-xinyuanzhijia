@@ -564,7 +564,17 @@ module.exports = {
     },
     addFun: function () {
         
-        $('#form-add-order').validate();
+        $('#form-add-order').validate({
+            submitHandler:function(form){
+                if($('#shipping-address').val().indexOf('新疆') > 0) {
+                    alert('收货地址含有新疆省！');
+                }
+                if($('#shipping-address').val().indexOf('西藏') > 0) {
+                    alert('收货地址含有西藏省！');
+                }
+                form.submit();
+            }
+        });
         
         this.customerNameTypeAhead();
         this.orderTypeAheadAdd();
@@ -586,6 +596,9 @@ module.exports = {
             $('.is-new-shop').prop('checked',true);
         }
 
+
+
+
     },
 
     copyNewOrder() {
@@ -604,7 +617,17 @@ module.exports = {
     },
     
     editFun: function () {
-        $('#form-edit-order').validate();
+        $('#form-edit-order').validate({
+            submitHandler:function(form){
+                if($('#shipping-address').val().indexOf('新疆') > 0) {
+                    alert('收货地址含有新疆省！');
+                }
+                if($('#shipping-address').val().indexOf('西藏') > 0) {
+                    alert('收货地址含有西藏省！');
+                }
+                form.submit();
+            }
+        });
         this.customerNameTypeAhead();
         this.orderTypeAheadUpdate();
         this.domUpdate();
