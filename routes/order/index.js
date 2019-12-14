@@ -465,29 +465,66 @@ router.get('/remove-customer-address',(req,res)=> {
 
 router.get('/get-shipping-status-count', (req,res) => {
     let preDate = req.query['preDate'];
-    let query = new AV.Query(OrderTrack);
-    query.equalTo('shippingStatus', 'notshipped');
-    query.greaterThanOrEqualTo('updatedAt', new Date(preDate));
-    query.select('isNewShop');
-    query.find().then(data => {
-
-        let len = data.length;
-        let mainShopCount = 0;
-        let subShopCount = 0;
-        for(let i=0;i<data.length;i++) {
-            if(data[i].get('isNewShop')) {
-                subShopCount ++;
-            } else {
-                mainShopCount ++;
-            }
+    let dataCount = {};
+    async.series([
+        function(cb) {
+            let query = new AV.Query(OrderTrack);
+            query.equalTo('shippingStatus', 'notshipped');
+            query.greaterThanOrEqualTo('updatedAt', new Date(preDate));
+            query.equalTo('isNewShop', true);
+            query.count({
+                success:function(count) {
+                    dataCount = extend(dataCount, {subShopCount:count});
+                    cb();
+                },
+                error: function(error) {
+                    next(error);
+                }
+            });
+        },
+        function(cb) {
+            let query = new AV.Query(OrderTrack);
+            query.equalTo('shippingStatus', 'notshipped');
+            query.greaterThanOrEqualTo('updatedAt', new Date(preDate));
+            query.equalTo('isNewShop', false);
+            query.count({
+                success:function(count) {
+                    dataCount = extend(dataCount, {mainShopCount:count});
+                    cb();
+                },
+                error: function(error) {
+                    next(error);
+                }
+            });
+        },
+        function () {
+            res.send(dataCount);
         }
 
-        res.send({
-            len,
-            mainShopCount,
-            subShopCount
-        });
-    });
+    ]);
+    // let query = new AV.Query(OrderTrack);
+    // query.equalTo('shippingStatus', 'notshipped');
+    // query.greaterThanOrEqualTo('updatedAt', new Date(preDate));
+    // query.select('isNewShop');
+    // query.find().then(data => {
+    //
+    //     let len = data.length;
+    //     let mainShopCount = 0;
+    //     let subShopCount = 0;
+    //     for(let i=0;i<data.length;i++) {
+    //         if(data[i].get('isNewShop')) {
+    //             subShopCount ++;
+    //         } else {
+    //             mainShopCount ++;
+    //         }
+    //     }
+    //
+    //     res.send({
+    //         len,
+    //         mainShopCount,
+    //         subShopCount
+    //     });
+    // });
 
 });
 
