@@ -540,6 +540,9 @@ module.exports = {
             else if (/^221/.test(code)){
                 return 'STO';
             }
+            else if (/^SF/.test(code)){
+                return 'SFEXPRESS';
+            }
             return 'ems';
         }
 
