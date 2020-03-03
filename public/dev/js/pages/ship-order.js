@@ -531,14 +531,15 @@ module.exports = {
         }
 
         //打开阿里云，搜索 全国快递物流查询-快递查询接口
+        //https://market.aliyun.com/products/56928004/cmapi021863.html
         function getShipCode(code) {
             if(/^8235/.test(code) || /^YT/.test(code)) {
                 return 'YTO';
             }
-            else if (/^5600/.test(code)){
+            else if (/^56/.test(code)){
                 return 'HTKY';
             }
-            else if (/^5223/.test(code)){
+            else if (/^52/.test(code)){
                 return 'HTKY';
             }
             else if (/^221/.test(code)){
