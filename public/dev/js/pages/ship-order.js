@@ -537,7 +537,7 @@ module.exports = {
                 return 'YTO';
             }
             else if (/^73/.test(code)){
-                return 'HTKY';
+                return 'ZTO';
             }
             else if (/^56/.test(code)){
                 return 'HTKY';
