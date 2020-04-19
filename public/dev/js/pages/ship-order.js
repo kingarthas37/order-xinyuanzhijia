@@ -536,6 +536,9 @@ module.exports = {
             if(/^8235/.test(code) || /^YT/.test(code)) {
                 return 'YTO';
             }
+            else if (/^73/.test(code)){
+                return 'HTKY';
+            }
             else if (/^56/.test(code)){
                 return 'HTKY';
             }
