@@ -88,9 +88,9 @@
             <table class="am-table">
                 <thead>
                 <tr>
-                    <th width="20"></th>
+                    <th class="td-small-ckb"></th>
                     <th class="t-c">订单名称</th>
-                    <th class="t-c" width="150">用户名</th>
+                    <th class="t-c small-screen-hide">用户名</th>
                     <th class="t-c small-screen-hide" width="100">姓名</th>
                     <th class="t-c small-screen-hide" width="60">链接</th>
                    <!-- <th class="t-c" width="150">快递</th>-->
@@ -101,10 +101,11 @@
                 <tbody>
                 <% for(var i=0; i < order.length; i++) {%>
                 <tr data-order-id="<%= order[i].get('orderId') %>" data-customer-id="<%= order[i].get('customerId') %>" class="<% if (order[i].get('shippingStatus') !== 'shipped' ) { %>off<%}%><% if (order[i].get('isNewShop')) { %> new-shop-order<%} else {%> main-shop-order<%}%>">
-                    <td class="t-c">
+                    <td class="t-c td-small-ckb">
                         <input order-id="<%= order[i].get('orderId') %>" class="ckb-shipped" type="checkbox" <% if (order[i].get('shippingStatus') === 'shipped' ) { %>checked="checked"<%}%>/>
                     </td>
                 <td>
+                    <div class="user-name large-screen-hide">用户名：<%= order[i].get('customerName') %> <span class="sp"></span> 日期：<%=(order[i].get('shippingDate').getMonth()+1)%>/<%=order[i].get('shippingDate').getDate()%></div>
                     <%for(var j=0; j<order[i].get('name').length;j++) {%>
                     <div class="order-split">
                         <span class="image loading-elem on" data-id="<% if(/\{id\:\d+\}/.test(order[i].get('name')[j])){%><%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(.*)/,'$2').replace('{','') %><%}%>"></span>
@@ -138,15 +139,15 @@
                     </div>
                     <%}%>
                 </td>
-                    <td class="t-c">
+                    <td class="t-c small-screen-hide">
                        <a class="customer-name" title="<%= order[i].get('shippingAddress') %>" href="/customer/edit/<%= order[i].get('customerId') %>"><%= order[i].get('customerName') %>
                             <% if(order[i].get('client')){%>(代:<%= order[i].get('client') %>)<%}%>
                             <% if(!order[i].get('isTaobaoUser')){%>(非淘宝)<%}%>
                         </a>
                         <br>
-                        <% if(order[i].get('isNewCustomer')){%><span class="font-red">[新]</span><%}%>
-                        <a href="javascript:;" title="复制姓名" class="clipboard-customer-name" data-clipboard-text="<% if(order[i].get('client')){%><%=order[i].get('client')%><%}else{%><%=order[i].get('customerName')%><%}%>"><i class="am-icon am-icon-copy"></i></a>
-                        <a href="javascript:;" title="复制地址" class="clipboard-customer-address" data-clipboard-text="<% if(order[i].get('clientAddress')){%><%=order[i].get('clientAddress')%><%}else{%><%=order[i].get('shippingAddress')%><%}%>"><i class="am-icon am-icon-copy"></i></a>
+                        <% if(order[i].get('isNewCustomer')){%><span class="font-red small-screen-hide">[新]</span><%}%>
+                        <a href="javascript:;" title="复制姓名" class="clipboard-customer-name small-screen-hide" data-clipboard-text="<% if(order[i].get('client')){%><%=order[i].get('client')%><%}else{%><%=order[i].get('customerName')%><%}%>"><i class="am-icon am-icon-copy"></i></a>
+                        <a href="javascript:;" title="复制地址" class="clipboard-customer-address small-screen-hide" data-clipboard-text="<% if(order[i].get('clientAddress')){%><%=order[i].get('clientAddress')%><%}else{%><%=order[i].get('shippingAddress')%><%}%>"><i class="am-icon am-icon-copy"></i></a>
                     </td>
                     <td class="t-c small-screen-hide">
                         <span class="address-name"></span>
