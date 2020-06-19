@@ -8,6 +8,74 @@ module.exports = {
 
     indexFun: function () {
 
+
+        var autoStock = false;
+
+        //一键更新库纯
+        {
+            let btnStock = $('.btn-one-update-stock');
+            let modalConfirm = $('#modal-update-stock-confirm');
+            let modalAlert = $('#modal-alert');
+
+            btnStock.click(function () {
+                let tr = $(this).parents('tr');
+                let item = tr.find('.set-stock');
+                let $this = $(this);
+                let success = true;
+                let title = '';
+                let html = '';
+
+                //查询库存数是否为1
+                tr.find('.order-split').each(function(i,n) {
+
+                    let count = $(n).data('count');
+                    let stock = $(n).data('stock');
+                    if(count >= stock) {
+
+                        title = '<strong>发现存在发货数大于库存数的记录，无法批量执行，请手从操作</strong>';
+                        html += '$(n).text()\n';
+                        success = false;
+                    }
+                });
+
+
+                //执行批量操作
+                if(success) {
+                    $this.attr('disabled',true);
+                    $this.find('span').text('更新中，请勿操作');
+                    autoStock = true;
+                    setTimeout(function() {
+                        item.eq(0).click();
+                    },1500);
+                } else {
+                    modalAlert.modal();
+                    modalAlert.find('.am-modal-hd').html(title);
+                    modalAlert.find('.am-modal-bd').html(html);
+                }
+                /*
+                modalConfirm.find('.am-modal-bd').text(' 发现有存在库存仅为1的数据，仍要执行？');
+                modalConfirm.modal({
+                    relatedTarget: this,
+                    onConfirm: function(options) {
+
+                    }
+                });
+                */
+            });
+        }
+
+        //一键更新库存操作
+        function updateAutoStockMinus(item) {
+
+            let modalSetStock = $('#modal-set-stock');
+            let count = parseInt(item.attr('product-count'));
+            for(let i=0;i<count;i++){
+                modalSetStock.find('.stock-minus').click();
+            }
+
+            modalSetStock.find('.stock-save').click();
+        }
+
         //删除订单
         {
             $('.remove-order').click(function () {
@@ -178,6 +246,7 @@ module.exports = {
             });
 
             modalSetStock.on('open.modal.amui', function (event) {
+
                 let target = $(event.relatedTarget);
                 target.addClass('current');
                 let productId = target.attr('product-id');
@@ -191,7 +260,7 @@ module.exports = {
                     data: {
                         'product-id': productId
                     },
-                    success: function (data) {``
+                    success: function (data) {
                         if (!data.success) {
                             return false;
                         }
@@ -209,12 +278,17 @@ module.exports = {
                         }
                         stockPlus.removeAttr('disabled').removeClass('am-btn-default').addClass('am-btn-primary');
                         stockMinus.removeAttr('disabled').removeClass('am-btn-default').addClass('am-btn-primary');
+
+                        if(autoStock) {
+                            updateAutoStockMinus(target);
+                        }
                     }
                 });
+
             });
 
             modalSetStock.on('close.modal.amui', function () {
-                $('.set-stock.current').removeClass('current');
+
                 stock.val(0);
                 stock.attr('data-stock', 0);
                 sales.val(0);
@@ -222,6 +296,30 @@ module.exports = {
                 save.removeAttr('product-id');
                 stockPlus.attr('disabled', 'disabled').addClass('am-btn-default').removeClass('am-btn-primary');
                 stockMinus.attr('disabled', 'disabled').addClass('am-btn-default').removeClass('am-btn-primary');
+
+                if(autoStock) {
+
+                    let currentStock = $('.set-stock.current');
+                    let nextStock = currentStock.parents('.order-split').next().find('.set-stock');
+                    if(nextStock[0]) {
+                        setTimeout(function() {
+                            nextStock.click();
+                        },2000);
+                    }else {
+                        autoStock = false;
+                        $('.btn-one-update-stock').attr('disabled',false);
+                        $('.btn-one-update-stock').find('span').text('一键更新库存');
+                        setTimeout(function() {
+                            let ckb = currentStock.parents('td').find('.ckb-shipped');
+                            if(!ckb.prop('checked')) {
+                                ckb.click();
+                            }
+                        },2000);
+                    }
+
+                }
+                $('.set-stock.current').removeClass('current');
+
             });
 
             stockMinus.click(function () {
@@ -229,7 +327,6 @@ module.exports = {
                 let salesValue = parseInt(sales.val());
                 if (stockValue > 0) {
                     stock.find(`option[value=${stockValue - 1}]`)[0].selected = true;
-                   // sales.find(`option[value=${salesValue + 1}]`)[0].selected = true;
                     sales.val(salesValue + 1);
                 }
                 stock.trigger('change');
@@ -500,6 +597,7 @@ module.exports = {
 
         //复制收货地址中的姓名
         {
+            /*
             $('.customer-name').each(function (i,n) {
                 let addressName = $(n).parents('tr').find('.address-name');
                 if(/([^，]+)，\d+/.test($(n).attr('title'))) {
@@ -521,6 +619,7 @@ module.exports = {
                 }
 
             })
+            */
         }
 
         //显示未发货记录数
@@ -641,9 +740,6 @@ module.exports = {
         let _this = this;
         var shippingCompany = $('#shipping-company');
         var trackingNumber = $('#tracking-number');
-        shippingCompany.change(function () {
-            trackingNumber.val('').get(0).focus();
-        });
 
         //添加删除订单名
         {

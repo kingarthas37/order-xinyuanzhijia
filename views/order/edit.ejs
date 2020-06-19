@@ -56,14 +56,6 @@
 
             <hr/>
 
-            <!-- order shop order link start -->
-            <div class="am-form-group">
-                <label>店铺订单详情链接： <em>(多个使用回车隔开)</em></label>
-                <textarea name="shop-order-link" id="shop-order-link" rows="3" placeholder="店铺订单详情链接"><%= order.get('shopOrderLink') %></textarea>
-            </div>
-            <!-- order shop order link end -->
-
-            <hr/>
             
             <!-- customer name start -->
             <div id="content-customer-name" class="am-form-group typeahead-content">
@@ -100,10 +92,32 @@
             </div>
             <!-- shipping address end -->
 
+            <hr>
+
+            <!-- shipping shipping company -->
+            <div id="content-shipping-company" class="am-form-group">
+                <label>快递公司：</label>
+                <select name="shipping-company" id="shipping-company">
+                    <option value="zhongtong" <% if(order.get('shippingCompany') === 'zhongtong') { %>selected="selected"<% } %>>中通</option>
+                    <option value="shunfeng" <% if(order.get('shippingCompany') === 'shunfeng') { %>selected="selected"<% } %>>顺丰</option>
+                    <option value="shunfengkongyun" <% if(order.get('shippingCompany') === 'shunfengkongyun') { %>selected="selected"<% } %>>顺丰空运</option>
+                    <option value="shunfengdaofu" <% if(order.get('shippingCompany') === 'shunfengdaofu') { %>selected="selected"<% } %>>顺丰到付</option>
+                </select>
+            </div>
+            <!-- shipping shipping company -->
 
             <!-- taobaoname start -->
                 <input id="taobao" name="taobao" type="hidden" placeholder="输入淘宝用户名" value="<%= order.get('taobaoName') %>" />
             <!-- taobaoname end -->
+
+            <hr/>
+
+            <!-- order shop order link start -->
+            <div class="am-form-group">
+                <label>店铺订单详情链接： <em>(多个使用回车隔开)</em></label>
+                <textarea name="shop-order-link" id="shop-order-link" rows="3" placeholder="店铺订单详情链接"><%= order.get('shopOrderLink') %></textarea>
+            </div>
+            <!-- order shop order link end -->
 
             <hr/>
 
@@ -135,24 +149,6 @@
                 <input type="text" name="shipping-date" id="shipping-date" placeholder="发货日期" value="<%= order.get('shippingDate').getFullYear() %>-<%= order.get('shippingDate').getMonth() + 1 %>-<%= order.get('shippingDate').getDate() %>" data-am-datepicker="{format:'yyyy-mm-dd'}" readonly required />
             </div>
             <!-- shipping date end -->
-
-            <hr/>
-
-            <!-- shipping shipping company -->
-            <div id="content-shipping-company" class="am-form-group">
-                <label>快递公司：</label>
-                <select name="shipping-company" id="shipping-company">
-                    <option value="zhongtong" <% if(order.get('shippingCompany') === 'zhongtong') { %>selected="selected"<% } %>>中通</option>
-                    <option value="shentong" <% if(order.get('shippingCompany') === 'shentong') { %>selected="selected"<% } %>>申通</option>
-                    <option value="shunfeng" <% if(order.get('shippingCompany') === 'shunfeng') { %>selected="selected"<% } %>>顺丰</option>
-                    <option value="shunfengkongyun" <% if(order.get('shippingCompany') === 'shunfengkongyun') { %>selected="selected"<% } %>>顺丰空运</option>
-                    <option value="shunfengdaofu" <% if(order.get('shippingCompany') === 'shunfengdaofu') { %>selected="selected"<% } %>>顺丰到付</option>
-                    <option value="tiantian" <% if(order.get('shippingCompany') === 'tiantian') { %>selected="selected"<% } %> >天天</option>
-                    <option value="kuaijie" <% if(order.get('shippingCompany') === 'kuaijie') { %>selected="selected"<% } %>>快捷</option>
-                    <option value="other" <% if(order.get('shippingCompany') === 'other') { %>selected="selected"<% } %>>其他</option>
-                </select>
-            </div>
-            <!-- shipping shipping company -->
 
             <hr/>
 

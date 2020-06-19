@@ -49,17 +49,6 @@
             </div>
             <!-- order name end -->
 
-            <hr/>
-
-            <!-- order shop order link start -->
-            <div class="am-form-group">
-                <label>店铺订单详情链接：<em>(多个使用回车隔开)</em></label>
-                <textarea name="shop-order-link" id="shop-order-link" rows="3" placeholder="店铺订单详情链接"></textarea>
-            </div>
-            <!-- order shop order link end -->
-
-
-
             <!-- taobaoname start -->
                 <input id="taobao" name="taobao" type="hidden" placeholder="输入淘宝用户名"/>
             <!-- taobaoname end -->
@@ -113,6 +102,29 @@
 
             <hr/>
 
+            <!-- shipping shipping company -->
+            <div id="content-shipping-company" class="am-form-group">
+                <label>快递公司：</label>
+                <select name="shipping-company" id="shipping-company">
+                    <option value="zhongtong">中通</option>
+                    <option value="shunfeng">顺丰</option>
+                    <option value="shunfengkongyun">顺丰空运</option>
+                    <option value="shunfengdaofu">顺丰到付</option>
+                </select>
+            </div>
+            <!-- shipping shipping company -->
+
+            <hr>
+
+            <!-- order shop order link start -->
+            <div class="am-form-group">
+                <label>店铺订单详情链接：<em>(多个使用回车隔开)</em></label>
+                <textarea name="shop-order-link" id="shop-order-link" rows="3" placeholder="店铺订单详情链接"></textarea>
+            </div>
+            <!-- order shop order link end -->
+
+            <hr>
+
             <!-- client name start -->
             <div class="am-form-group">
                 <label>代发人姓名：</label>
@@ -142,22 +154,7 @@
                        data-am-datepicker="{format:'yyyy-mm-dd'}" readonly required/>
             </div>
             <!-- shipping date end -->
-            
-            <!-- shipping shipping company -->
-            <div id="content-shipping-company" class="am-form-group">
-                <label>快递公司：</label>
-                <select name="shipping-company" id="shipping-company">
-                    <option value="zhongtong">中通</option>
-                    <option value="shentong">申通</option>
-                    <option value="shunfeng">顺丰</option>
-                    <option value="shunfengkongyun">顺丰空运</option>
-                    <option value="shunfengdaofu">顺丰到付</option>
-                    <option value="tiantian">天天</option>
-                    <option value="kuaijie">快捷</option>
-                    <option value="other">其他</option>
-                </select>
-            </div>
-            <!-- shipping shipping company -->
+
 
             <hr/>
 

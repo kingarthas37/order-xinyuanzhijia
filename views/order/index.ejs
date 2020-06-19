@@ -45,6 +45,7 @@
                     <button type="submit" class="am-btn am-btn-primary">搜索</button>
                 </div>
 
+                <!--
                 <div class="am-u-lg-2 am-u-sm-4 am-u-end">
                     <select name="search-shipping" class="select-shipping">
                         <option value="">所有快递</option>
@@ -56,6 +57,7 @@
                         <option value="other" <%if(searchShipping=='other'){%>selected="selected"<%}%> >其他</option>
                     </select>
                 </div>
+                -->
 
                 <div class="am-u-lg-2 am-u-sm-4 am-u-end">
                     <label class="normal">未发货：<input type="checkbox" class="ckb-not-shipped" <%if(searchNotShipped){%>checked="checked"<%}%> /></label>
@@ -71,8 +73,8 @@
                     <span class="sp"></span>
 
                     <span class="show-not-ship-count">
-                        近1天主店<i class="main-shop-day-1"></i>条,新店<i class="sub-shop-day-1"></i>条;
-                        近3天主店<i class="main-shop-day-3"></i>条,新店<i class="sub-shop-day-3"></i>条未发货记录
+                        近1天主店（<i class="main-shop-day-1"></i>）条,新店（<i class="sub-shop-day-1"></i>）条;
+                        近3天主店（<i class="main-shop-day-3"></i>）条,新店（<i class="sub-shop-day-3"></i>）条未发货记录
                     </span>
                 </div>
                 <div class="r">
@@ -83,38 +85,83 @@
 
             </div>
 
-            <hr/>
             
             <table class="am-table">
-                <thead>
-                <tr>
-                    <th class="td-small-ckb"></th>
-                    <th class="t-c">订单名称</th>
-                    <th class="t-c small-screen-hide">用户名</th>
-                    <th class="t-c small-screen-hide" width="100">姓名</th>
-                    <th class="t-c small-screen-hide" width="60">链接</th>
-                   <!-- <th class="t-c" width="150">快递</th>-->
-                    <th class="t-c small-screen-hide">时间</th>
-                    <th class="t-c small-screen-hide">选项</th>
-                </tr>
-                </thead>
+
                 <tbody>
                 <% for(var i=0; i < order.length; i++) {%>
+
                 <tr data-order-id="<%= order[i].get('orderId') %>" data-customer-id="<%= order[i].get('customerId') %>" class="<% if (order[i].get('shippingStatus') !== 'shipped' ) { %>off<%}%><% if (order[i].get('isNewShop')) { %> new-shop-order<%} else {%> main-shop-order<%}%>">
-                    <td class="t-c td-small-ckb">
-                        <input order-id="<%= order[i].get('orderId') %>" class="ckb-shipped" type="checkbox" <% if (order[i].get('shippingStatus') === 'shipped' ) { %>checked="checked"<%}%>/>
-                    </td>
+
                 <td>
-                    <div class="user-name large-screen-hide">用户名：<%= order[i].get('customerName') %> <span class="sp"></span> 日期：<%=(order[i].get('shippingDate').getMonth()+1)%>/<%=order[i].get('shippingDate').getDate()%></div>
+
+                    <!-- pc -->
+                    <div class="small-screen-hide order-list-title">
+
+                        <input order-id="<%= order[i].get('orderId') %>" class="ckb-shipped" type="checkbox" <% if (order[i].get('shippingStatus') === 'shipped' ) { %>checked="checked"<%}%>/>
+
+
+                        <% var shippingCompany = '';
+                            if (order[i].get('shippingCompany') == 'shunfeng') {
+                                shippingCompany = '顺丰';
+                            }
+                            else if (order[i].get('shippingCompany') == 'shunfengkongyun') {
+                                shippingCompany = '顺丰空运';
+                            }
+                            else if (order[i].get('shippingCompany') == 'shunfengdaofu') {
+                                shippingCompany = '顺丰到付';
+                            }
+                        %>
+                        <%if(shippingCompany) {%>
+                            <strong class="font-red">(<%= shippingCompany %>)</strong>
+                        <%}%>
+
+                        <%= order[i].get('customerName') %>
+
+                        <a href="javascript:;" title="复制姓名" class="clipboard-customer-name small-screen-hide" data-clipboard-text="<% if(order[i].get('client')){%><%=order[i].get('client')%><%}else{%><%=order[i].get('customerName')%><%}%>"><strong><i class="am-icon am-icon-copy"></i> 复制淘宝名</strong></a>
+
+                        <% if(order[i].get('isNewCustomer')){%><span class="font-red small-screen-hide">(新用户)</span><%}%>
+
+                        <span class="sp"></span>
+
+                        <a href="javascript:;" title="<%=order[i].get('shippingAddress')%>" class="clipboard-customer-address small-screen-hide" data-clipboard-text="<% if(order[i].get('clientAddress')){%><%=order[i].get('clientAddress')%><%}else{%><%=order[i].get('shippingAddress')%><%}%>"><i class="am-icon am-icon-copy"></i> 复制地址</a>
+
+                        <span class="sp"></span>
+                        <span>日期：<%=(order[i].get('shippingDate').getMonth()+1)%>/<%=order[i].get('shippingDate').getDate()%></span>
+
+                        <span class="sp"></span>
+                        <div class="am-dropdown" data-am-dropdown>
+                            <button class="am-btn am-btn-primary am-dropdown-toggle" data-am-dropdown-toggle>选项 <span class="am-icon-caret-down"></span></button>
+                            <ul class="am-dropdown-content">
+                                <li><a href="/order/remove/<%= order[i].get('orderId') %>" class="remove-order">删除</a></li>
+                                <li><a href="/order/add?name=<%= encodeURIComponent(order[i].get('name')[0]) %>&tracking-number=<%= order[i].get('trackingNumber')%>">复制</a></li>
+                            </ul>
+                        </div>
+
+                        <span class="sp"></span>
+
+                        <button class="am-btn am-btn-primary am-btn-xs btn-one-update-stock"><i class="am-icon-retweet"></i> <span>一键更新库存</span></button>
+
+                    </div>
+                    <!-- pc -->
+
+                    <!-- phone -->
+
+                    <div class="user-name large-screen-hide">
+                        <input order-id="<%= order[i].get('orderId') %>" class="ckb-shipped" type="checkbox" <% if (order[i].get('shippingStatus') === 'shipped' ) { %>checked="checked"<%}%>/>
+                        用户名：<%= order[i].get('customerName') %> <span class="sp"></span> 日期：<%=(order[i].get('shippingDate').getMonth()+1)%>/<%=order[i].get('shippingDate').getDate()%></div>
+                    <!-- phone -->
+
                     <%for(var j=0; j<order[i].get('name').length;j++) {%>
-                    <div class="order-split">
+                    <div class="order-split" data-id="<% if(/\{id\:\d+\}/.test(order[i].get('name')[j])){%><%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(.*)/,'$2').replace('{','') %><%}%>" data-stock="<%= order[i].get('name')[j].replace(/(.+\{库\:)(\d+)(.*)/,'$2') %>" data-count="<%= order[i].get('shippingCount')[j] %>">
                         <span class="image loading-elem on" data-id="<% if(/\{id\:\d+\}/.test(order[i].get('name')[j])){%><%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(.*)/,'$2').replace('{','') %><%}%>"></span>
+
                         <a href="/order/edit/<%= order[i].get('orderId') %><%if(searchNotShipped){ %>?search-notshipped=on<%}%>" <% if(/\{id\:\d+\}/.test(order[i].get('name')[j])){%>title="productId:<%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(.*)/,'$2').replace('{','') %>"<%}%>>
+
                             <% if(order[i].get('isGift')[j]){%>(赠)<%}%>
                             <% if(order[i].get('shippingCount')[j] > 1){ %><strong class="font-red"><%= order[i].get('shippingCount')[j] %></strong><% }else{%><%= order[i].get('shippingCount')[j] %><%}%>*<%= order[i].get('name')[j] %>
                             <% if (order[i].get('isNewShop')) { %><strong>新店</strong><%}%>
                         </a>
-
 
                         <% if( (order[i].get('name')[j].indexOf('{库:0}') > -1) && ( order[i].get('name')[j].indexOf('魔法油') > -1 ) ){%>
                         <a target="_blank" href="//51wish.cn/admin/product?parent-product-id=<%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(.*)/,'$2').replace('{','') %>"><i class="am-icon-external-link indio-oil-child"></i></a>
@@ -133,106 +180,15 @@
                         <%}%>
 
                         <% if(/\{id\:\d+\}/.test(order[i].get('name')[j])) {%>
-                        <a class="set-stock" product-id="<%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(.*)/,'$2').replace('{','') %>" title="设置库存" href="javascript:;"><i class="am-icon am-icon-inbox"></i></a>
+                        <a class="set-stock" product-count="<%= order[i].get('shippingCount')[j] %>" product-id="<%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(.*)/,'$2').replace('{','') %>" title="设置库存" href="javascript:;"><i class="am-icon am-icon-inbox"></i></a>
                         <a class="update-stock" order-id="<%= order[i].get('orderId') %>" product-id="<%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(.*)/,'$2').replace('{','') %>" title="是否已设置库存" href="javascript:;"><i class="am-icon am-icon-check-circle <%if(order[i].get('isShipping')[j]){%>on<%}else{%>off<%}%>"></i></a>
                         <%}%>
                     </div>
                     <%}%>
                 </td>
-                    <td class="t-c small-screen-hide">
-                       <a class="customer-name" title="<%= order[i].get('shippingAddress') %>" href="/customer/edit/<%= order[i].get('customerId') %>"><%= order[i].get('customerName') %>
-                            <% if(order[i].get('client')){%>(代:<%= order[i].get('client') %>)<%}%>
-                            <% if(!order[i].get('isTaobaoUser')){%>(非淘宝)<%}%>
-                        </a>
-                        <br>
-                        <% if(order[i].get('isNewCustomer')){%><span class="font-red small-screen-hide">[新]</span><%}%>
-                        <a href="javascript:;" title="复制姓名" class="clipboard-customer-name small-screen-hide" data-clipboard-text="<% if(order[i].get('client')){%><%=order[i].get('client')%><%}else{%><%=order[i].get('customerName')%><%}%>"><i class="am-icon am-icon-copy"></i></a>
-                        <a href="javascript:;" title="复制地址" class="clipboard-customer-address small-screen-hide" data-clipboard-text="<% if(order[i].get('clientAddress')){%><%=order[i].get('clientAddress')%><%}else{%><%=order[i].get('shippingAddress')%><%}%>"><i class="am-icon am-icon-copy"></i></a>
-                    </td>
-                    <td class="t-c small-screen-hide">
-                        <span class="address-name"></span>
-                    </td>
-                    <td class="t-c small-screen-hide">
-                        <%if (order[i].get('shopOrderLink')) { %>
-                        <% var shopLinks = order[i].get('shopOrderLink').split('\n'); %>
-                        <% for(var j=0;j<shopLinks.length;j++) {%>
-                        <a target="_blank" href="<%=shopLinks[j]%>"><i class="am-icon-external-link"></i></a>
-                        <%}%>
-                        <%}else {%>-<%}%>
-                    </td>
-
-
-
 
                         <!-- https://market.aliyun.com/products/56928004/cmapi021863.html?spm=5176.10695662.1996646101.searchclickresult.3a3b61c2izYN0F#sku=yuncode1586300000 -->
-                        <!-- 全国快递物流查询 -->
-                    <!--
-                    <td class="t-c">
-                        <% var shippingCompany = ''; var express = '';
-                        if(order[i].get('shippingCompany') == 'tiantian') {
-                            shippingCompany = '天天';
-                            express = 'TTKDEX';
-                        }
 
-                        else if (order[i].get('shippingCompany') == 'shunfeng') {
-                            shippingCompany = '顺丰';
-                            express = 'SFEXPRESS';
-                        }
-
-                        else if (order[i].get('shippingCompany') == 'shunfengkongyun') {
-                            shippingCompany = '顺丰空运';
-                            express = 'SFEXPRESS';
-                        }
-
-                        else if (order[i].get('shippingCompany') == 'shunfengdaofu') {
-                            shippingCompany = '顺丰到付';
-                            express = 'SFEXPRESS';
-                        }
-
-                        else if (order[i].get('shippingCompany') == 'kuaijie') {
-                            shippingCompany = '快捷';
-                            express = 'FASTEXPRESS';
-                        }
-
-                        else if (order[i].get('shippingCompany') == 'other') {
-                            shippingCompany = '其他';
-                        }
-
-                        else if (order[i].get('shippingCompany') == 'shentong') {
-                            shippingCompany = '申通';
-                            express = 'STO';
-                        }
-                        else if (order[i].get('shippingCompany') == 'zhongtong') {
-                            shippingCompany = '中通';
-                            express = 'ZTO';
-                        }
-                        %>
-                        
-                        <% if(order[i].get('trackingNumber')){ %> 
-                        <a class="track-order" data-track="<%=order[i].get('trackingNumber')%>" href="<%if(express) { %>//51wish.leanapp.cn/order/express/query/<%=order[i].get('trackingNumber')%>/<%=express%><%}%>" target="_blank"><%= shippingCompany %></a>
-                        <%} else {%>
-                        <a target="_blank" class="action-shipping-company am-btn am-btn-link disabled" data-order-id="<%= order[i].get('orderId') %>"><%=shippingCompany%></a>
-                        <%}%>
-                        
-                        <span class="split"></span>
-                        <a href="javascript:;" title="复制单号" class="clipboard-tracking-number" data-clipboard-text="<%=order[i].get('trackingNumber')%>"><i class="am-icon am-icon-copy"></i></a>
-                        
-                    </td>
-                    -->
-                    <!--
-                    <td class="t-c small-screen-hide"> <span class="taobao-name loading-elem on"></span> </td>
-                    -->
-                    <td class="t-c small-screen-hide"><%=(order[i].get('shippingDate').getMonth()+1)%>/<%=order[i].get('shippingDate').getDate()%></td>
-                    <td class="t-c small-screen-hide">
-                        
-                        <div class="am-dropdown" data-am-dropdown>
-                            <button class="am-btn am-btn-primary am-dropdown-toggle" data-am-dropdown-toggle>选项 <span class="am-icon-caret-down"></span></button>
-                            <ul class="am-dropdown-content">
-                                <li><a href="/order/add?name=<%= encodeURIComponent(order[i].get('name')[0]) %>&tracking-number=<%= order[i].get('trackingNumber')%>">复制</a></li>
-                                <li><a href="/order/remove/<%= order[i].get('orderId') %>" class="remove-order">删除</a></li>
-                            </ul>
-                        </div>
-                    </td>
                 </tr>
                 <% } %>
                 </tbody>
@@ -283,6 +239,20 @@
     </div>
 </div>
 
+<!-- modal 一键库存警告 -->
+<div class="am-modal am-modal-confirm" tabindex="-1" id="modal-update-stock-confirm">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">警告</div>
+        <div class="am-modal-bd">
+
+        </div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+            <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+        </div>
+    </div>
+</div>
+<!-- modal 一键库存警告 -->
 
 <!-- modal 库存 -->
 <div class="am-modal am-modal-prompt" tabindex="-1" id="modal-set-stock">
@@ -344,6 +314,17 @@
     </div>
 </div>
 
+
+<!-- alert modal -->
+<div class="am-modal am-modal-no-btn" tabindex="-1" id="modal-alert">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">
+        </div>
+        <div class="am-modal-bd">
+
+        </div>
+    </div>
+</div>
 
 <% include ../partials/footer %>
 <% include ../partials/js %>
