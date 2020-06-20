@@ -153,10 +153,10 @@
                     <!-- phone -->
 
                     <%for(var j=0; j<order[i].get('name').length;j++) {%>
-                    <div class="order-split" data-id="<% if(/\{id\:\d+\}/.test(order[i].get('name')[j])){%><%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(.*)/,'$2').replace('{','') %><%}%>" data-stock="<%= order[i].get('name')[j].replace(/(.+\{库\:)(\d+)(.*)/,'$2') %>" data-count="<%= order[i].get('shippingCount')[j] %>">
+                    <div class="order-split" data-id="<% if(/\{id\:\d+\}/.test(order[i].get('name')[j])){%><%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(.*)/,'$2').replace('{','') %><%}%>"  data-stock="" data-count="<%= order[i].get('shippingCount')[j]%>">
                         <span class="image loading-elem on" data-id="<% if(/\{id\:\d+\}/.test(order[i].get('name')[j])){%><%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(.*)/,'$2').replace('{','') %><%}%>"></span>
 
-                        <a href="/order/edit/<%= order[i].get('orderId') %><%if(searchNotShipped){ %>?search-notshipped=on<%}%>" <% if(/\{id\:\d+\}/.test(order[i].get('name')[j])){%>title="productId:<%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(.*)/,'$2').replace('{','') %>"<%}%>>
+                        <a class="product-title" href="/order/edit/<%= order[i].get('orderId') %><%if(searchNotShipped){ %>?search-notshipped=on<%}%>" <% if(/\{id\:\d+\}/.test(order[i].get('name')[j])){%>title="productId:<%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(.*)/,'$2').replace('{','') %>"<%}%>>
 
                             <% if(order[i].get('isGift')[j]){%>(赠)<%}%>
                             <% if(order[i].get('shippingCount')[j] > 1){ %><strong class="font-red"><%= order[i].get('shippingCount')[j] %></strong><% }else{%><%= order[i].get('shippingCount')[j] %><%}%>*<%= order[i].get('name')[j] %>
@@ -242,13 +242,13 @@
 <!-- modal 一键库存警告 -->
 <div class="am-modal am-modal-confirm" tabindex="-1" id="modal-update-stock-confirm">
     <div class="am-modal-dialog">
-        <div class="am-modal-hd">警告</div>
+        <div class="am-modal-hd"></div>
         <div class="am-modal-bd">
 
         </div>
         <div class="am-modal-footer">
-            <span class="am-modal-btn" data-am-modal-confirm>确定</span>
-            <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+            <span class="am-modal-btn" data-am-modal-confirm>仍旧执行</span>
+            <span class="am-modal-btn" data-am-modal-cancel>取消执行</span>
         </div>
     </div>
 </div>
@@ -315,16 +315,6 @@
 </div>
 
 
-<!-- alert modal -->
-<div class="am-modal am-modal-no-btn" tabindex="-1" id="modal-alert">
-    <div class="am-modal-dialog">
-        <div class="am-modal-hd">
-        </div>
-        <div class="am-modal-bd">
-
-        </div>
-    </div>
-</div>
 
 <% include ../partials/footer %>
 <% include ../partials/js %>

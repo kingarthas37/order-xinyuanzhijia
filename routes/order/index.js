@@ -303,6 +303,19 @@ router.get('/update-stock', (req, res)=> {
 
 });
 
+
+router.get('/get-stock', (req, res)=> {
+
+    let productId = parseInt(req.query['product-id']);
+    let query = new AV.Query(Product);
+    query.equalTo('productId', productId);
+    query.select('stock');
+    query.first().then(result => {
+        res.json({stock: result.get('stock')});
+    });
+
+});
+
 //ajax设置库存
 router.get('/set-stock', (req, res)=> {
     let productId = parseInt(req.query['product-id']);
@@ -413,7 +426,8 @@ router.get('/product', (req, res) => {
                 imageArr.push(results[i].get('mainImage')[key].url.replace('ac-QuiPuWpJ.clouddn.com','lc-QuiPuWpJ.cn-n1.lcfile.com') );
             }
             let obj = {
-                'value': `${results[i].get('name')} {id:${results[i].get('productId')}} {库:${results[i].get('stock')}} `,
+              //  'value': `${results[i].get('name')} {id:${results[i].get('productId')}} {库:${results[i].get('stock')}} `,
+                'value': `${results[i].get('name')} {id:${results[i].get('productId')}}`,
                 'productId': results[i].get('productId'),
                 'image': imageArr[0] || '//lc-JoaBcRTt.cn-n1.lcfile.com/d4c225054f005a4d7d39.png',
                 'stock':results[i].get('stock')

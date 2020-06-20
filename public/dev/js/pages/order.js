@@ -15,7 +15,6 @@ module.exports = {
         {
             let btnStock = $('.btn-one-update-stock');
             let modalConfirm = $('#modal-update-stock-confirm');
-            let modalAlert = $('#modal-alert');
 
             btnStock.click(function () {
                 let tr = $(this).parents('tr');
@@ -30,10 +29,10 @@ module.exports = {
 
                     let count = $(n).data('count');
                     let stock = $(n).data('stock');
-                    if(count >= stock) {
 
-                        title = '<strong>发现存在发货数大于库存数的记录，无法批量执行，请手从操作</strong>';
-                        html += '$(n).text()\n';
+                    if(count >= stock) {
+                        title = '<strong>发现存在库存数少于1的记录：</strong>';
+                        html += `<div class="stock-list">${$(n).find('.image').html() + $(n).find('.product-title').html()}</div>`;
                         success = false;
                     }
                 });
@@ -48,19 +47,21 @@ module.exports = {
                         item.eq(0).click();
                     },1500);
                 } else {
-                    modalAlert.modal();
-                    modalAlert.find('.am-modal-hd').html(title);
-                    modalAlert.find('.am-modal-bd').html(html);
+                    modalConfirm.modal({
+                        relatedTarget: this,
+                        onConfirm: function(options) {
+                            $this.attr('disabled',true);
+                            $this.find('span').text('更新中，请勿操作');
+                            autoStock = true;
+                            setTimeout(function() {
+                                item.eq(0).click();
+                            },1500);
+                        }
+                    });
+                    modalConfirm.find('.am-modal-hd').html(title);
+                    modalConfirm.find('.am-modal-bd').html(html);
                 }
-                /*
-                modalConfirm.find('.am-modal-bd').text(' 发现有存在库存仅为1的数据，仍要执行？');
-                modalConfirm.modal({
-                    relatedTarget: this,
-                    onConfirm: function(options) {
 
-                    }
-                });
-                */
             });
         }
 
@@ -658,6 +659,27 @@ module.exports = {
                     span.find('.sub-shop-day-3').text(data.subShopCount);
                 }
             })
+        }
+
+        //ajax库存
+        {
+            $('.order-split').each(function(i,n) {
+                let productId = $(n).data('id');
+                $.ajax({
+                    type:'get',
+                    url:'/order/get-stock',
+                    data: {
+                        'product-id': productId
+                    },
+                    success:function(data) {
+                        $(n).attr('data-stock',data.stock);
+                        let title = $(n).find('.product-title');
+                        let text = title.text();
+                        text +=` {库:${ data.stock}}`;
+                        title.text(text);
+                    }
+                })
+            });
         }
 
     },
