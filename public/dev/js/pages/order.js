@@ -712,6 +712,10 @@ module.exports = {
                     text += ' , ' + /([\u4E00-\u9FA5]+省)/.exec(address)[1];
                 }
 
+                if( /[\u4E00-\u9FA5]+自治区/.test(address) ) {
+                    text += ' , ' + /([\u4E00-\u9FA5]+自治区)/.exec(address)[1];
+                }
+
                 if( /[\u4E00-\u9FA5]+市/.test(address) ) {
                     text += ' ' + /([\u4E00-\u9FA5]+市)/.exec(address)[1];
                 }
