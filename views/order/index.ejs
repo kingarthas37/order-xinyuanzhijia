@@ -93,7 +93,7 @@
 
                 <tr data-order-id="<%= order[i].get('orderId') %>" data-customer-id="<%= order[i].get('customerId') %>" class="<% if (order[i].get('shippingStatus') !== 'shipped' ) { %>off<%}%><% if (order[i].get('isNewShop')) { %> new-shop-order<%} else {%> main-shop-order<%}%>">
 
-                    <td class="t-c">
+                    <td class="t-c small-screen-hide">
                         <input order-id="<%= order[i].get('orderId') %>" class="ckb-shipped" type="checkbox" <% if (order[i].get('shippingStatus') === 'shipped' ) { %>checked="checked"<%}%>/>
                     </td>
 
@@ -147,9 +147,7 @@
                     <!-- pc -->
 
                     <!-- phone -->
-
                     <div class="user-name large-screen-hide">
-                        <input order-id="<%= order[i].get('orderId') %>" class="ckb-shipped" type="checkbox" <% if (order[i].get('shippingStatus') === 'shipped' ) { %>checked="checked"<%}%>/>
                         用户名：<%= order[i].get('customerName') %> <span class="sp"></span> 日期：<%=(order[i].get('shippingDate').getMonth()+1)%>/<%=order[i].get('shippingDate').getDate()%></div>
                     <!-- phone -->
 
@@ -188,7 +186,7 @@
                     <%}%>
                 </td>
 
-                      <td class="t-c" width="300">
+                      <td class="t-c small-screen-hide" width="300">
                           <%= order[i].get('customerName') %>
                           <br>
 
