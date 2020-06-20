@@ -70,11 +70,15 @@ module.exports = {
 
             let modalSetStock = $('#modal-set-stock');
             let count = parseInt(item.attr('product-count'));
-            for(let i=0;i<count;i++){
-                modalSetStock.find('.stock-minus').click();
-            }
+            setTimeout(function() {
+                for(let i=0;i<count;i++){
+                    modalSetStock.find('.stock-minus').click();
+                }
+            },1000);
 
-            modalSetStock.find('.stock-save').click();
+            setTimeout(function() {
+                modalSetStock.find('.stock-save').click();
+            },1500);
         }
 
         //删除订单
@@ -684,6 +688,12 @@ module.exports = {
                         let text = title.html();
                         text +=` {库:${ data.stock}}`;
                         title.html(text);
+
+                        let btnStock = $(n).parents('td').find('.btn-one-update-stock');
+                        if(btnStock.attr('disabled')) {
+                            btnStock.removeAttr('disabled');
+                        }
+
                     }
                 })
             });
@@ -811,7 +821,6 @@ module.exports = {
                                 <option value="28">28</option>
                                 <option value="29">29</option>
                                 <option value="30">30</option>
-                                
                                 <option value="31">31</option>
                                 <option value="32">32</option>
                                 <option value="33">33</option>
