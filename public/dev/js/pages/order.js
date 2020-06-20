@@ -699,6 +699,27 @@ module.exports = {
             });
         }
 
+        //从地址中复制出姓名
+        {
+            $('.clipboard-customer-address').each(function(i,n) {
+                let address = $(n).attr('title');
+                let text = '';
+                if( /(.+)\，\d+/.test(address) ) {
+                    text += ' , '+ /(.+)\，\d+/.exec(address)[1];
+                }
+
+                if( /[\u4E00-\u9FA5]+省/.test(address) ) {
+                    text += ' , ' + /([\u4E00-\u9FA5]+省)/.exec(address)[1];
+                }
+
+                if( /[\u4E00-\u9FA5]+市/.test(address) ) {
+                    text += ' ' + /([\u4E00-\u9FA5]+市)/.exec(address)[1];
+                }
+
+                $(n).prev().html(text);
+            });
+        }
+
     },
     addFun: function () {
         
