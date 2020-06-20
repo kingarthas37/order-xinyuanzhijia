@@ -681,9 +681,9 @@ module.exports = {
                     success:function(data) {
                         $(n).attr('data-stock',data.stock);
                         let title = $(n).find('.product-title');
-                        let text = title.text();
+                        let text = title.html();
                         text +=` {库:${ data.stock}}`;
-                        title.text(text);
+                        title.html(text);
                     }
                 })
             });
