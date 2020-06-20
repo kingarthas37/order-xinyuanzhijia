@@ -311,7 +311,7 @@ module.exports = {
                         $('.btn-one-update-stock').attr('disabled',false);
                         $('.btn-one-update-stock').find('span').text('一键更新库存');
                         setTimeout(function() {
-                            let ckb = currentStock.parents('td').find('.ckb-shipped');
+                            let ckb = currentStock.parents('tr').find('.ckb-shipped');
                             if(!ckb.prop('checked')) {
                                 ckb.click();
                             }
