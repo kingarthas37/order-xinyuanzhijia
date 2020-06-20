@@ -516,7 +516,14 @@ module.exports = {
                 }
             });
 
-            $('.clipboard-customer-name,.clipboard-customer-address').each(function() {
+            $('.clipboard-customer-name').each(function() {
+                let clipboard = new Clipboard(this);
+                clipboard.on('success',() => {
+                    $(this).addClass('am-btn-success');
+                });
+            });
+
+            $('.clipboard-customer-address').each(function() {
                 let clipboard = new Clipboard(this);
                 clipboard.on('success',() => {
                     $(this).addClass('active');

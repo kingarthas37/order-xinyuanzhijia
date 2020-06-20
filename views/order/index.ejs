@@ -93,12 +93,15 @@
 
                 <tr data-order-id="<%= order[i].get('orderId') %>" data-customer-id="<%= order[i].get('customerId') %>" class="<% if (order[i].get('shippingStatus') !== 'shipped' ) { %>off<%}%><% if (order[i].get('isNewShop')) { %> new-shop-order<%} else {%> main-shop-order<%}%>">
 
+                    <td class="t-c">
+                        <input order-id="<%= order[i].get('orderId') %>" class="ckb-shipped" type="checkbox" <% if (order[i].get('shippingStatus') === 'shipped' ) { %>checked="checked"<%}%>/>
+                    </td>
+
                 <td>
 
                     <!-- pc -->
                     <div class="small-screen-hide order-list-title">
 
-                        <input order-id="<%= order[i].get('orderId') %>" class="ckb-shipped" type="checkbox" <% if (order[i].get('shippingStatus') === 'shipped' ) { %>checked="checked"<%}%>/>
 
 
                         <% var shippingCompany = '';
@@ -117,8 +120,6 @@
                         <%}%>
 
                         <%= order[i].get('customerName') %>
-
-                        <a href="javascript:;" title="复制姓名" class="clipboard-customer-name small-screen-hide" data-clipboard-text="<% if(order[i].get('client')){%><%=order[i].get('client')%><%}else{%><%=order[i].get('customerName')%><%}%>"><strong><i class="am-icon am-icon-copy"></i> 复制淘宝名</strong></a>
 
                         <% if(order[i].get('isNewCustomer')){%><span class="font-red small-screen-hide">(新用户)</span><%}%>
 
@@ -187,7 +188,14 @@
                     <%}%>
                 </td>
 
-                        <!-- https://market.aliyun.com/products/56928004/cmapi021863.html?spm=5176.10695662.1996646101.searchclickresult.3a3b61c2izYN0F#sku=yuncode1586300000 -->
+                      <td class="t-c" width="300">
+                          <%= order[i].get('customerName') %>
+                          <br>
+
+                          <button class="am-btn am-btn-primary am-btn-sm clipboard-customer-name small-screen-hide" data-clipboard-text="<% if(order[i].get('client')){%><%=order[i].get('client')%><%}else{%><%=order[i].get('customerName')%><%}%>"><i class="am-icon am-icon-copy"></i> <span>复制淘宝名</span></button>
+
+
+                      </td>
 
                 </tr>
                 <% } %>
@@ -244,7 +252,6 @@
     <div class="am-modal-dialog">
         <div class="am-modal-hd"></div>
         <div class="am-modal-bd">
-
         </div>
         <div class="am-modal-footer">
             <span class="am-modal-btn" data-am-modal-confirm>仍旧执行</span>
