@@ -159,7 +159,7 @@
                         <a class="product-title" href="/order/edit/<%= order[i].get('orderId') %><%if(searchNotShipped){ %>?search-notshipped=on<%}%>" <% if(/\{id\:\d+\}/.test(order[i].get('name')[j])){%>title="productId:<%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(.*)/,'$2').replace('{','') %>"<%}%>>
 
                             <% if(order[i].get('isGift')[j]){%>(赠)<%}%>
-                            <% if(order[i].get('shippingCount')[j] > 1){ %><strong class="font-red"><%= order[i].get('shippingCount')[j] %></strong><% }else{%><%= order[i].get('shippingCount')[j] %><%}%>*<%= order[i].get('name')[j] %>
+                            <% if(order[i].get('shippingCount')[j] > 1){ %><strong class="font-red product-count"><%= order[i].get('shippingCount')[j] %></strong><% }else{%><span class="product-count"><%= order[i].get('shippingCount')[j] %></span><%}%>*<%= order[i].get('name')[j] %>
                             <% if (order[i].get('isNewShop')) { %><strong>新店</strong><%}%>
                         </a>
 

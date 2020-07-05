@@ -30,7 +30,7 @@ module.exports = {
                     let count = $(n).data('count');
                     let stock = $(n).data('stock');
 
-                    if(count >= stock) {
+                    if(count >= stock && stock) {
                         title = '<strong>发现存在库存数少于1的记录：</strong>';
                         html += `<div class="stock-list">${$(n).find('.image').html() + $(n).find('.product-title').html()}</div>`;
                         success = false;
@@ -692,6 +692,11 @@ module.exports = {
                         let btnStock = $(n).parents('td').find('.btn-one-update-stock');
                         if(btnStock.attr('disabled')) {
                             btnStock.removeAttr('disabled');
+                        }
+
+                       let count = parseInt($(n).find('.product-count').text());
+                        if(count > data.stock) {
+                            $(n).find('.product-title').addClass('out-stock');
                         }
 
                     }
