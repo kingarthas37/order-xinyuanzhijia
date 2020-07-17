@@ -198,6 +198,18 @@
             font-size: 15px;
             margin-bottom:4px;
         }
+        &.child {
+            color:#666;
+            padding-left: 24px;
+            background:url('//lc-QuiPuWpJ.cn-n1.lcfile.com/53ca61b1771baa7abd30.png') no-repeat 10px 0;
+        }
+    }
+
+    .order-comment {
+        height: 30px;
+        line-height: 30px;
+        font-weight: bold;
+        color:red;
     }
 
     .is-taobao-user {
@@ -304,6 +316,14 @@
     }
 }
 
+#modal-update-alert {
+    .stock-list {
+        text-align: left;
+        font-size: 14px;
+        margin-bottom: 4px;
+    }
+}
+
 //order
 #modal-set-stock {
     .am-modal-dialog {
@@ -338,6 +358,15 @@
                 color: #999;
             }
         }
+    }
+    .product-info {
+        font-size: 13px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        margin-bottom:4px;
+        border-bottom: 1px dashed #eee;
+        padding-bottom: 4px;
     }
 }
 

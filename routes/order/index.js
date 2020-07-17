@@ -310,11 +310,37 @@ router.get('/get-stock', (req, res)=> {
     let query = new AV.Query(Product);
     query.equalTo('productId', productId);
     query.select('stock');
+    query.select('bindingId');
+    query.select('bindingNumber');
     query.first().then(result => {
-        res.json({stock: result.get('stock')});
+        res.json({
+            stock: result.get('stock'),
+            bindingId:result.get('bindingId'),
+            bindingNumber:result.get('bindingNumber')
+        });
     });
 
 });
+
+
+router.get('/get-binding-product', (req, res)=> {
+
+    let productId = parseInt(req.query['product-id']);
+    let query = new AV.Query(Product);
+    query.equalTo('productId', productId);
+    query.select('stock');
+    query.select('name');
+    query.select('mainImage');
+    query.first().then(result => {
+        res.json({
+            stock: result.get('stock'),
+            name:result.get('name'),
+            mainImage:result.get('mainImage')
+        });
+    });
+
+});
+
 
 //ajax设置库存
 router.get('/set-stock', (req, res)=> {

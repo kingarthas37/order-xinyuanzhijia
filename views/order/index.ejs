@@ -91,7 +91,7 @@
                 <tbody>
                 <% for(var i=0; i < order.length; i++) {%>
 
-                <tr data-order-id="<%= order[i].get('orderId') %>" data-customer-id="<%= order[i].get('customerId') %>" class="<% if (order[i].get('shippingStatus') !== 'shipped' ) { %>off<%}%><% if (order[i].get('isNewShop')) { %> new-shop-order<%} else {%> main-shop-order<%}%>">
+                <tr data-order-id="<%= order[i].get('orderId') %>" data-customer-id="<%= order[i].get('customerId') %>" class="product-order-list <% if (order[i].get('shippingStatus') !== 'shipped' ) { %>off<%}%><% if (order[i].get('isNewShop')) { %> new-shop-order<%} else {%> main-shop-order<%}%>">
 
                     <td class="t-c small-screen-hide">
                         <input order-id="<%= order[i].get('orderId') %>" class="ckb-shipped" type="checkbox" <% if (order[i].get('shippingStatus') === 'shipped' ) { %>checked="checked"<%}%>/>
@@ -101,8 +101,6 @@
 
                     <!-- pc -->
                     <div class="small-screen-hide order-list-title">
-
-
 
                         <% var shippingCompany = '';
                             if (order[i].get('shippingCompany') == 'shunfeng') {
@@ -121,10 +119,7 @@
 
                         <% if(order[i].get('isNewCustomer')){%><span class="font-red small-screen-hide">(新用户)</span><%}%>
 
-                        <%= order[i].get('customerName') %>
-
                         <span class="tb-user-name"></span>
-
 
                         <a href="javascript:;" title="<%=order[i].get('shippingAddress')%>" class="clipboard-customer-address small-screen-hide" data-clipboard-text="<% if(order[i].get('clientAddress')){%><%=order[i].get('clientAddress')%><%}else{%><%=order[i].get('shippingAddress')%><%}%>"><i class="am-icon am-icon-copy"></i> 复制地址</a>
 
@@ -163,28 +158,19 @@
                             <% if (order[i].get('isNewShop')) { %><strong>新店</strong><%}%>
                         </a>
 
-                        <% if( (order[i].get('name')[j].indexOf('{库:0}') > -1) && ( order[i].get('name')[j].indexOf('魔法油') > -1 ) ){%>
-                        <a target="_blank" href="//51wish.cn/admin/product?parent-product-id=<%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(.*)/,'$2').replace('{','') %>"><i class="am-icon-external-link indio-oil-child"></i></a>
-                        <%}%>
-
-                        <% if ( order[i].get('name')[j].indexOf('杜普香') > -1  ){%>
-                        <a target="_blank" href="//51wish.cn/admin/product?parent-product-id=<%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(.*)/,'$2').replace('{','') %>"><i class="am-icon-external-link indio-oil-child"></i></a>
-                        <%}%>
-
-                        <% if ( order[i].get('name')[j].indexOf('RAJ') > -1  ){%>
-                        <a target="_blank" href="//51wish.cn/admin/product?parent-product-id=<%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(.*)/,'$2').replace('{','') %>"><i class="am-icon-external-link indio-oil-child"></i></a>
-                        <%}%>
-
-                        <% if ( order[i].get('name')[j].indexOf('HEM') > -1  ){%>
-                        <a target="_blank" href="//51wish.cn/admin/product?parent-product-id=<%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(.*)/,'$2').replace('{','') %>"><i class="am-icon-external-link indio-oil-child"></i></a>
-                        <%}%>
-
                         <% if(/\{id\:\d+\}/.test(order[i].get('name')[j])) {%>
                         <a class="set-stock" product-count="<%= order[i].get('shippingCount')[j] %>" product-id="<%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(.*)/,'$2').replace('{','') %>" title="设置库存" href="javascript:;"><i class="am-icon am-icon-inbox"></i></a>
                         <a class="update-stock" order-id="<%= order[i].get('orderId') %>" product-id="<%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(.*)/,'$2').replace('{','') %>" title="是否已设置库存" href="javascript:;"><i class="am-icon am-icon-check-circle <%if(order[i].get('isShipping')[j]){%>on<%}else{%>off<%}%>"></i></a>
                         <%}%>
                     </div>
                     <%}%>
+
+                    <%if (order[i].get('comment')) {%>
+                    <div class="order-comment">
+                        备注：<%= order[i].get('comment')%>
+                    </div>
+                    <%}%>
+
                 </td>
 
                       <td class="t-c small-screen-hide" width="300">
@@ -260,6 +246,20 @@
 </div>
 <!-- modal 一键库存警告 -->
 
+
+<!-- modal 一键库存警告关闭-->
+<div class="am-modal am-modal-alert" tabindex="-1" id="modal-update-alert">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">无法执行，请手动操作！</div>
+        <div class="am-modal-bd">
+        </div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn">关闭</span>
+        </div>
+    </div>
+</div>
+
+
 <!-- modal 库存 -->
 <div class="am-modal am-modal-prompt" tabindex="-1" id="modal-set-stock">
     <div class="am-modal-dialog">
@@ -268,6 +268,7 @@
 
             <div class="am-form">
 
+                <div class="product-info"></div>
                 <label>库存:</label>
                 <div class="am-form-inline">
                     <div class="am-form-group">

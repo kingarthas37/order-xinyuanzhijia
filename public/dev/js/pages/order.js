@@ -8,65 +8,89 @@ module.exports = {
 
     indexFun: function () {
 
-
         var autoStock = false;
 
         //一键更新库纯
         {
             let btnStock = $('.btn-one-update-stock');
             let modalConfirm = $('#modal-update-stock-confirm');
+            let modalAlert = $('#modal-update-alert');
 
-            btnStock.click(function () {
-                let tr = $(this).parents('tr');
-                let item = tr.find('.set-stock');
-                let $this = $(this);
-                let success = true;
-                let title = '';
-                let html = '';
+            btnStock.each(function(i,n) {
 
-                //查询库存数是否为1
-                tr.find('.order-split').each(function(i,n) {
+                $(n).click(function() {
 
-                    let count = $(n).data('count');
-                    let stock = $(n).data('stock');
+                    let tr = $(this).parents('tr');
+                    let item = tr.find('.set-stock');
+                    let $this = $(this);
+                    let success = 1;
+                    let title = '';
+                    let html = '';
 
-                    if(count >= stock && stock) {
-                        title = '<strong>发现存在库存数少于1的记录：</strong>';
-                        html += `<div class="stock-list">${$(n).find('.image').html() + $(n).find('.product-title').html()}</div>`;
-                        success = false;
+                    //查询库存数是否为1
+                    tr.find('.order-split').filter(function() {
+                        return !$(this).hasClass('is-parent-product');
+                    }).filter(function() {
+                        if($(this).find('.set-stock')[0]) {
+                            return true;
+                        }
+                        return false;
+                    }).each(function(i,n) {
+
+                        let count = $(n).data('count');
+                        let stock = $(n).data('stock');
+
+                        if(count == stock) {
+                            title = '<strong>发现存在库存数即将无库存的产品：</strong>';
+                            html += `<div class="stock-list">${$(n).find('.image').html() + ' ' + $(n).find('.product-title').html()}</div>`;
+                            success = 2;
+                        } else if (count > stock) {
+                            title = '<strong>无法执行，请手动操作！<br/>发现发货数小于库存数的产品：</strong>';
+                            html = `<div class="stock-list">${$(n).find('.image').html() + ' ' + $(n).find('.product-title').html()}</div>`;
+                            success = 3;
+                            return false;
+                        }
+
+                    });
+
+
+                    //执行批量操作
+                    if(success === 1) {
+                        $this.attr('disabled',true);
+                        $this.find('span').text('更新中，请勿操作');
+                        autoStock = true;
+                        setTimeout(function() {
+                            item.eq(0).click();
+                        },1500);
+                    } else if (success === 2) {
+                        modalConfirm.modal({
+                            relatedTarget: this,
+                            onConfirm: function(options) {
+                                $this.attr('disabled',true);
+                                $this.find('span').text('更新中，请勿操作');
+                                autoStock = true;
+                                setTimeout(function() {
+                                    item.eq(0).click();
+                                },1500);
+                            }
+                        });
+                        modalConfirm.find('.am-modal-hd').html(title);
+                        modalConfirm.find('.am-modal-bd').html(html);
+                    } else if (success === 3) {
+                        modalAlert.modal();
+                        modalAlert.find('.am-modal-hd').html(title);
+                        modalAlert.find('.am-modal-bd').html(html);
                     }
+
                 });
 
-
-                //执行批量操作
-                if(success) {
-                    $this.attr('disabled',true);
-                    $this.find('span').text('更新中，请勿操作');
-                    autoStock = true;
-                    setTimeout(function() {
-                        item.eq(0).click();
-                    },1500);
-                } else {
-                    modalConfirm.modal({
-                        relatedTarget: this,
-                        onConfirm: function(options) {
-                            $this.attr('disabled',true);
-                            $this.find('span').text('更新中，请勿操作');
-                            autoStock = true;
-                            setTimeout(function() {
-                                item.eq(0).click();
-                            },1500);
-                        }
-                    });
-                    modalConfirm.find('.am-modal-hd').html(title);
-                    modalConfirm.find('.am-modal-bd').html(html);
-                }
-
             });
+
         }
 
         //一键更新库存操作
         function updateAutoStockMinus(item) {
+
 
             let modalSetStock = $('#modal-set-stock');
             let count = parseInt(item.attr('product-count'));
@@ -192,7 +216,8 @@ module.exports = {
 
         //设置库存状态
         {
-            $('.update-stock').click(function () {
+
+            $('.product-order-list').on('click','.update-stock',function() {
                 let $this = $(this);
                 if ($this.data('state')) {
                     return false;
@@ -220,8 +245,8 @@ module.exports = {
                         }
                     }
                 });
-
             });
+
         }
 
 
@@ -240,7 +265,9 @@ module.exports = {
             let ckbWarningStockIn = $('.ckb-warning-stock-in');
             let historyStock = 0;
 
-            $('.set-stock').click(function () {
+            let productInfo = modalSetStock.find('.product-info');
+
+            $('.product-order-list').on('click','.set-stock',function() {
                 modalSetStock.modal({
                     relatedTarget: this,
                     onCancel: function () {
@@ -249,6 +276,7 @@ module.exports = {
                 });
                 return false;
             });
+
 
             modalSetStock.on('open.modal.amui', function (event) {
 
@@ -259,6 +287,9 @@ module.exports = {
 
                 ckbWarningStockOut.prop('checked',false);
                 ckbWarningStockIn.prop('checked',false);
+
+                productInfo.html(target.parent().find('.image').html() + ' ' + target.parent().find('.product-title').text());
+
                 $.ajax({
                     type: 'get',
                     url: '/order/set-stock',
@@ -302,24 +333,40 @@ module.exports = {
                 stockPlus.attr('disabled', 'disabled').addClass('am-btn-default').removeClass('am-btn-primary');
                 stockMinus.attr('disabled', 'disabled').addClass('am-btn-default').removeClass('am-btn-primary');
 
+                productInfo.html('');
+
                 if(autoStock) {
 
                     let currentStock = $('.set-stock.current');
-                    let nextStock = currentStock.parents('.order-split').next().find('.set-stock');
-                    if(nextStock[0]) {
+                    let nextList = currentStock.parents('.order-split').next();
+                    let cont = currentStock.parents('.product-order-list');
+                    let btnOne = cont.find('.btn-one-update-stock');
+
+                    if(nextList[0]) {
+
+                        let nextStock;
+                        if(nextList.hasClass('is-parent-product')) {
+                            nextStock = nextList.next().find('.set-stock');
+                        } else {
+                            nextStock = nextList.find('.set-stock');
+                        }
                         setTimeout(function() {
                             nextStock.click();
                         },2000);
-                    }else {
+
+                    } else {
+
                         autoStock = false;
-                        $('.btn-one-update-stock').attr('disabled',false);
-                        $('.btn-one-update-stock').find('span').text('一键更新库存');
+                        btnOne.attr('disabled',false);
+                        btnOne.find('span').text('一键更新库存');
                         setTimeout(function() {
                             let ckb = currentStock.parents('tr').find('.ckb-shipped');
                             if(!ckb.prop('checked')) {
                                 ckb.click();
+                                btnOne.attr('disabled',true);
                             }
                         },2000);
+
                     }
 
                 }
@@ -674,43 +721,112 @@ module.exports = {
 
         //ajax库存
         {
-            $('.order-split').each(function(i,n) {
-                let productId = $(n).data('id');
-                $.ajax({
-                    type:'get',
-                    url:'/order/get-stock',
-                    data: {
-                        'product-id': productId
-                    },
-                    success:function(data) {
-                        $(n).attr('data-stock',data.stock);
-                        let title = $(n).find('.product-title');
-                        let text = title.html();
-                        text +=` {库:${ data.stock}}`;
-                        title.html(text);
 
-                        let btnStock = $(n).parents('td').find('.btn-one-update-stock');
-                        if(btnStock.attr('disabled')) {
-                            btnStock.removeAttr('disabled');
+            $('.product-order-list').each(function() {
+
+                let cont = $(this);
+                let btnStock = cont.find('.btn-one-update-stock');
+                let hasBinding = false;
+
+                $(this).find('.order-split').each(function(i,n){
+
+                    let productId = $(n).data('id');
+                    let parentProductCount = parseInt($(n).find('.product-count').text());
+
+                    $.ajax({
+                        type:'get',
+                        url:'/order/get-stock',
+                        data: {
+                            'product-id': productId
+                        },
+                        success:function(data) {
+
+                            $(n).attr('data-stock',data.stock);
+                            let title = $(n).find('.product-title');
+                            let text = title.html();
+                            text +=` {库:${ data.stock}}`;
+                            title.html(text);
+
+                            let count = parseInt($(n).find('.product-count').text());
+                            if(count > data.stock) {
+                                $(n).find('.product-title').addClass('out-stock');
+                            }
+
+                            if(data.bindingId) {
+
+                                hasBinding = true;
+
+                                $(n).addClass('is-parent-product');
+                                $(n).find('.update-stock').detach();
+                                $(n).find('.set-stock').detach();
+                                $.ajax({
+                                    type:'get',
+                                    url:'/order/get-binding-product',
+                                    data: {
+                                        'product-id': data.bindingId
+                                    },
+                                    success:function(_data) {
+
+                                        let imageArr = [];
+                                        for(let i in _data.mainImage) {
+                                            imageArr.push(_data.mainImage[i].url);
+                                        }
+
+                                        let outClassName = '';
+                                        if(data.bindingNumber * parentProductCount > _data.stock) {
+                                            outClassName = 'out-stock';
+                                        }
+
+                                        let isShipped = 'off';
+                                        if(cont.find('.ckb-shipped').prop('checked')) {
+                                            isShipped = 'on';
+                                        }
+
+                                        $(n).after(`
+                                    
+                                    <div class="order-split child" data-id="${data.bindingId}" data-stock="${_data.stock}" data-count="${data.bindingNumber * parentProductCount}">
+                                    
+                                        <span class="image loading-elem" data-id="${data.bindingId}"><a href="${imageArr[0]}" target="_blank"><img width="48" src="${imageArr[0]}"></a></span>
+
+                                        <a class="product-title ${outClassName}" href="/order/edit/${$(n).parents('tr').data('order-id')}"><span class="product-count"><strong class="font-red product-count">${data.bindingNumber * parentProductCount}</strong></span>*${_data.name} {id:${data.bindingId}} {库:${_data.stock}}</a>
+ 
+                                        <a class="set-stock" product-count="${data.bindingNumber * parentProductCount}" product-id="${data.bindingId}" title="设置库存" href="javascript:;"><i class="am-icon am-icon-inbox"></i></a>
+                                        <a class="update-stock" order-id="${$(n).parents('tr').data('order-id')}" product-id="${data.bindingId}" title="是否已设置库存" href="javascript:;"><i class="am-icon am-icon-check-circle ${isShipped}"></i></a>
+                        
+                    </div>
+                                    
+                                    `);
+
+                                        if(btnStock.prop('disabled') && !cont.find('.ckb-shipped').prop('checked')) {
+                                            btnStock.removeAttr('disabled');
+                                        }
+
+                                    }
+                                });
+                            }
+
+                            if(btnStock.prop('disabled') && !cont.find('.ckb-shipped').prop('checked') && hasBinding === false) {
+                                btnStock.removeAttr('disabled');
+                            }
+
                         }
+                    });
 
-                       let count = parseInt($(n).find('.product-count').text());
-                        if(count > data.stock) {
-                            $(n).find('.product-title').addClass('out-stock');
-                        }
+                });
 
-                    }
-                })
             });
+
+
         }
 
         //从地址中复制出姓名
         {
             $('.clipboard-customer-address').each(function(i,n) {
                 let address = $(n).attr('title');
+
                 let text = '';
-                if( /(.+)\，\d+/.test(address) ) {
-                    text += ' , '+ /(.+)\，\d+/.exec(address)[1];
+                if( /[^\，]+/.test(address) ) {
+                    text += /([^\，]+)/.exec(address)[1];
                 }
 
                 if( /[\u4E00-\u9FA5]+省/.test(address) ) {
@@ -1138,14 +1254,31 @@ module.exports = {
 
             //过滤用户、发货信息
 
-            //先过滤掉用户名
+            //先过滤掉用户名点击发货等信息
+
+            /*
+             let nameArr = [];
             if(/￥\d+\.\d+\n\n\d+\n\n(.+)/.test(text)) {
-                let username = /￥\d+\.\d+\n\n\d+\n\n(.+)/.exec(text)[1];
-                text = text.replace(username,'');
+                nameArr = text.match(/￥\d+\.\d+\n\n\d+\n\n(.+)/gi);
+                for(let i=0;i<nameArr.length;i++) {
+                    let username = /￥\d+\.\d+\n\n\d+\n\n(.+)/.exec(text)[1];
+                    text = text.replace(username,'');
+                }
+            }
+            */
+
+            //再过滤订单号创建时间等文字
+            let orderTimeArr = text.match(/订单号.+[^\n]/gi);
+            for(let i=0;i<orderTimeArr.length;i++) {
+                text = text.replace(/订单号.+[^\n]/gi,'');
             }
 
             text = text.replace(/\n/gi,'');
-            text = text.replace(/发货[^、)]+\)/,'');
+
+            //如果多订单合并一单，再进行一次过滤
+            text = text.replace(/买家已付款[^、)]+\)/gi,'');
+
+            console.log(6,text);
 
             let testLength = text.match(/商家编码：/gi).length;
             let productIdArr = text.match(/商家编码：\d+/gi);
