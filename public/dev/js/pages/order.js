@@ -1275,6 +1275,7 @@ module.exports = {
 
             //如果多订单合并一单，再进行一次过滤
             text = text.replace(/买家已付款[^、)]+\)/gi,'');
+            text = text.replace(/卖家已发货[^、)]+\)/gi,'');
 
             let testLength = text.match(/商家编码：/gi).length;
             let productIdArr = text.match(/商家编码：\d+/gi);
