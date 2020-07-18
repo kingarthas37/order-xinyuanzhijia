@@ -879,10 +879,6 @@ module.exports = {
         if (location.search.indexOf('is-new-shop') > -1) {
             $('.is-new-shop').prop('checked',true);
         }
-
-
-
-
     },
 
     copyNewOrder() {
@@ -1267,18 +1263,18 @@ module.exports = {
             }
             */
 
-            //再过滤订单号创建时间等文字
-            let orderTimeArr = text.match(/订单号.+[^\n]/gi);
-            for(let i=0;i<orderTimeArr.length;i++) {
-                text = text.replace(/订单号.+[^\n]/gi,'');
+            //过滤订单号创建时间等文字
+            if(/订单号/.test(text)) {
+                let orderTimeArr = text.match(/订单号.+[^\n]/gi);
+                for(let i=0;i<orderTimeArr.length;i++) {
+                    text = text.replace(/订单号.+[^\n]/gi,'');
+                }
             }
 
             text = text.replace(/\n/gi,'');
 
             //如果多订单合并一单，再进行一次过滤
             text = text.replace(/买家已付款[^、)]+\)/gi,'');
-
-            console.log(6,text);
 
             let testLength = text.match(/商家编码：/gi).length;
             let productIdArr = text.match(/商家编码：\d+/gi);
