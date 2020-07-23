@@ -342,7 +342,7 @@ module.exports = {
                     let cont = currentStock.parents('.product-order-list');
                     let btnOne = cont.find('.btn-one-update-stock');
 
-                    if(nextList[0]) {
+                    if(nextList.hasClass('order-split')) {
 
                         let nextStock;
                         if(nextList.hasClass('is-parent-product')) {
