@@ -272,11 +272,7 @@
                 <label>库存:</label>
                 <div class="am-form-inline">
                     <div class="am-form-group">
-                        <select name="stock" stock>
-                            <% for(var i=0;i<=400;i++) { %>
-                            <option value="<%=i%>"><%=i%></option>
-                            <% }%>
-                        </select>
+                        <input type="text" name="stock" autocomplete="off">
                     </div>
                     <div class="am-form-group">
                         <span><button disabled="disabled" type="button" class="am-btn am-btn-default stock-plus">+1库存</button></span>

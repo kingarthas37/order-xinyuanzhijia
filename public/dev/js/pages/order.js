@@ -253,7 +253,7 @@ module.exports = {
         //设置库存
         {
             let modalSetStock = $('#modal-set-stock');
-            let stock = modalSetStock.find('select[name=stock]');
+            let stock = modalSetStock.find('input[name=stock]');
             let sales = modalSetStock.find('[name=sales]');
 
             let stockMinus = modalSetStock.find('.stock-minus');
@@ -314,6 +314,11 @@ module.exports = {
                         }
                         stockPlus.removeAttr('disabled').removeClass('am-btn-default').addClass('am-btn-primary');
                         stockMinus.removeAttr('disabled').removeClass('am-btn-default').addClass('am-btn-primary');
+
+                        setTimeout(function() {
+                            stock[0].focus();
+                            stock[0].select();
+                        },100);
 
                         if(autoStock) {
                             updateAutoStockMinus(target);
@@ -378,7 +383,7 @@ module.exports = {
                 let stockValue = parseInt(stock.val());
                 let salesValue = parseInt(sales.val());
                 if (stockValue > 0) {
-                    stock.find(`option[value=${stockValue - 1}]`)[0].selected = true;
+                    stock.val(stockValue-1);
                     sales.val(salesValue + 1);
                 }
                 stock.trigger('change');
@@ -386,7 +391,7 @@ module.exports = {
 
             stockPlus.click(function () {
                 let stockValue = parseInt(stock.val());
-                stock.find(`option[value=${stockValue + 1}]`)[0].selected = true;
+                stock.val(stockValue+1);
                 stock.trigger('change');
             });
 
