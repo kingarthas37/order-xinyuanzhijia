@@ -488,7 +488,6 @@ module.exports = {
         //发货状态
         {
             $('.ckb-shipped').click(function () {
-
                 let $this = $(this);
                 let orderId = $(this).attr('order-id');
                 let shipping = this.checked;
@@ -504,6 +503,9 @@ module.exports = {
                         if (data.success) {
                             if ($this[0].checked) {
                                 $this.parents('tr').removeClass('off');
+                                setTimeout(function() {
+                                    location.reload();
+                                },500);
                             } else {
                                 $this.parents('tr').addClass('off');
                             }
