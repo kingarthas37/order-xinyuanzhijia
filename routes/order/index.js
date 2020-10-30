@@ -312,11 +312,13 @@ router.get('/get-stock', (req, res)=> {
     query.select('stock');
     query.select('bindingId');
     query.select('bindingNumber');
+    query.select('comment');
     query.first().then(result => {
         res.json({
             stock: result.get('stock'),
             bindingId:result.get('bindingId'),
-            bindingNumber:result.get('bindingNumber')
+            bindingNumber:result.get('bindingNumber'),
+            comment:result.get('comment')
         });
     });
 

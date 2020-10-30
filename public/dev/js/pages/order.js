@@ -751,7 +751,13 @@ module.exports = {
                             $(n).attr('data-stock',data.stock);
                             let title = $(n).find('.product-title');
                             let text = title.html();
-                            text +=` {库:${ data.stock}}`;
+
+                            let comment = '';
+                            if(data.comment) {
+                                comment = ` <span style="color:#333">[注:${data.comment.trim()}]</span>`;
+                            }
+
+                            text +=` {库:${ data.stock}}${comment}`;
                             title.html(text);
 
                             let count = parseInt($(n).find('.product-count').text());
