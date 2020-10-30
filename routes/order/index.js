@@ -40,6 +40,7 @@ router.get('/', function (req, res, next) {
     var searchOrderName = req.query['search-order-name'];
     var searchCustomerName = req.query['search-customer-name'];
     let searchAddress = req.query['search-address'];
+    let searchComment = req.query['search-comment'];
     let searchNotShipped = req.query['search-not-shipped'];
     let searchShipping = req.query['search-shipping'];
     let searchIsNewShop = req.query['search-is-new-shop'];
@@ -56,7 +57,8 @@ router.get('/', function (req, res, next) {
         searchAddress,
         searchNotShipped,
         searchShipping,
-        searchIsNewShop
+        searchIsNewShop,
+        searchComment
     });
 
     async.series([
@@ -65,13 +67,15 @@ router.get('/', function (req, res, next) {
 
             let cqlWhere = '';
 
-            if(searchOrderName || searchCustomerName || searchAddress) {
+            if(searchOrderName || searchCustomerName || searchAddress || searchComment) {
                 if (searchOrderName) {
                     cqlWhere = `where name regexp '(?i)${searchOrderName}'`;
                 } else if (searchCustomerName) {
                     cqlWhere = `where customerName like '%${searchCustomerName}%' or taobaoName like '%${searchCustomerName}%'`;
                 } else if (searchAddress) {
                     cqlWhere = `where shippingAddress like '%${searchAddress}%'`;
+                } else if (searchComment) {
+                    cqlWhere = `where comment like '%${searchComment}%'`;
                 }
             } else {
                 if(searchNotShipped && searchShipping) {
@@ -100,13 +104,15 @@ router.get('/', function (req, res, next) {
 
             let cqlWhere = '';
 
-            if(searchOrderName || searchCustomerName || searchAddress) {
+            if(searchOrderName || searchCustomerName || searchAddress || searchComment) {
                 if (searchOrderName) {
                     cqlWhere = `where name regexp '(?i)${searchOrderName}'`;
                 } else if (searchCustomerName) {
                     cqlWhere = `where customerName like '%${searchCustomerName}%' or taobaoName like '%${searchCustomerName}%'`;
                 } else if (searchAddress) {
                     cqlWhere = `where shippingAddress like '%${searchAddress}%'`;
+                }  else if (searchComment) {
+                    cqlWhere = `where comment like '%${searchComment}%'`;
                 }
 
                 data = extend(data, {
