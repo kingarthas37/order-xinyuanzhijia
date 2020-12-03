@@ -203,10 +203,19 @@
             padding-left: 24px;
             background:url('//lc-QuiPuWpJ.cn-n1.lcfile.com/53ca61b1771baa7abd30.png') no-repeat 10px 0;
         }
+        .image {
+            display:inline-block;
+            height: 60px;
+            width: 60px;
+            a {
+                display:inline-block;
+                height: 60px;
+                width: 60px;
+            }
+        }
     }
 
     .order-comment {
-        height: 30px;
         line-height: 30px;
         font-weight: bold;
         color:red;

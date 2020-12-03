@@ -122,8 +122,9 @@
                         <%}%>
 
                         <span><strong>[ID:<%=order[i].get('orderId')%>]</strong> </span>
-
-                        <% if(order[i].get('isNewCustomer')){%><span class="font-red small-screen-hide">(新用户)</span><%}%>
+                        <span class="product-number"></span>
+                        <% if(order[i].get('isNewShop')) { %><span class="font-red">[新店]</span><%}%>
+                        <% if(order[i].get('isNewCustomer')){%><span class="font-red small-screen-hide">[新用户]</span><%}%>
 
                         <span class="tb-user-name"></span>
 
@@ -150,20 +151,23 @@
 
                     <!-- phone -->
                     <div class="user-name large-screen-hide">
-                        ID:<%= order[i].get('orderId') %><span class="sp"></span>
-                        用户名:<%= order[i].get('customerName') %><span class="sp"></span>
-                        <%=(order[i].get('shippingDate').getMonth()+1)%>/<%=order[i].get('shippingDate').getDate()%></div>
+                        [ID:<%= order[i].get('orderId') %>]
+
+                        <span class="product-number"></span>
+
+                        <%= order[i].get('customerName') %>
+
+                        <%=(order[i].get('shippingDate').getMonth()+1)%>-<%=order[i].get('shippingDate').getDate()%></div>
                     <!-- phone -->
 
                     <%for(var j=0; j<order[i].get('name').length;j++) {%>
                     <div class="order-split" data-id="<% if(/\{id\:\d+\}/.test(order[i].get('name')[j])){%><%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(.*)/,'$2').replace('{','') %><%}%>"  data-stock="" data-count="<%= order[i].get('shippingCount')[j]%>">
-                        <span class="image loading-elem on" data-id="<% if(/\{id\:\d+\}/.test(order[i].get('name')[j])){%><%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(.*)/,'$2').replace('{','') %><%}%>"></span>
+                        <span class="image" data-id="<% if(/\{id\:\d+\}/.test(order[i].get('name')[j])){%><%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(.*)/,'$2').replace('{','') %><%}%>"></span>
 
                         <a class="product-title" href="/order/edit/<%= order[i].get('orderId') %><%if(searchNotShipped){ %>?search-notshipped=on<%}%>" <% if(/\{id\:\d+\}/.test(order[i].get('name')[j])){%>title="productId:<%= order[i].get('name')[j].replace(/([^\{]+\{id\:)(\d+)(.*)/,'$2').replace('{','') %>"<%}%>>
 
                             <% if(order[i].get('isGift')[j]){%>(赠)<%}%>
                             <% if(order[i].get('shippingCount')[j] > 1){ %><strong class="font-red product-count"><%= order[i].get('shippingCount')[j] %></strong><% }else{%><span class="product-count"><%= order[i].get('shippingCount')[j] %></span><%}%>*<%= order[i].get('name')[j] %>
-                            <% if (order[i].get('isNewShop')) { %><strong>新店</strong><%}%>
                         </a>
 
                         <% if(/\{id\:\d+\}/.test(order[i].get('name')[j])) {%>

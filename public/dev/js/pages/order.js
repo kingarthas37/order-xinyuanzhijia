@@ -201,13 +201,13 @@ module.exports = {
                     if (!$.isEmptyObject(data.images)) {
                         for (let i in data.images) {
                             if (parseInt(i) === id) {
-                                $(n).removeClass('on').html(`<a href="${data.images[i]}" target="_blank"><img width="48" src="${data.images[i]}?imageMogr2/thumbnail/48"/></a>`);
+                                $(n).removeClass('on').html(`<a href="${data.images[i]}" target="_blank"><img width="60" src="${data.images[i]}?imageMogr2/thumbnail/60"/></a>`);
                             } else if (!id) {
-                                $(n).removeClass('on').html(`<img width="48" src="${window.assets['no-image-src']}?imageMogr2/thumbnail/48"/>`);
+                                $(n).removeClass('on').html(`<img width="60" src="${window.assets['no-image-src']}?imageMogr2/thumbnail/60"/>`);
                             }
                         }
                     } else {
-                        $(n).removeClass('on').html(`<img width="48" src="${window.assets['no-image-src']}?imageMogr2/thumbnail/48"/>`);
+                        $(n).removeClass('on').html(`<img width="60" src="${window.assets['no-image-src']}?imageMogr2/thumbnail/60"/>`);
                     }
 
                 });
@@ -734,11 +734,22 @@ module.exports = {
                 let cont = $(this);
                 let btnStock = cont.find('.btn-one-update-stock');
                 let hasBinding = false;
+                let $this = $(this);
+                let productNumber = $this.find('.product-number');
 
-                $(this).find('.order-split').each(function(i,n){
+                let allProductNumber = 0;
+                $this.find('.product-count').each(function(i1,n1) {
+                    allProductNumber+= parseInt($(n1).text());
+                });
+
+                $this.find('.order-split').each(function(i,n){
 
                     let productId = $(n).data('id');
                     let parentProductCount = parseInt($(n).find('.product-count').text());
+
+                    if(allProductNumber > 1) {
+                        productNumber.html('<strong class="font-red">[共'+ allProductNumber +'件]</strong>');
+                    }
 
                     $.ajax({
                         type:'get',
